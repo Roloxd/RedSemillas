@@ -106,6 +106,9 @@
     "psr/log": {
         "version": "2.0.0"
     },
+    "swiftmailer/swiftmailer": {
+        "version": "v6.2.7"
+    },
     "symfony/cache": {
         "version": "v5.3.8"
     },
@@ -308,6 +311,20 @@
     },
     "symfony/string": {
         "version": "v5.3.7"
+    },
+    "symfony/swiftmailer-bundle": {
+        "version": "2.5",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "2.5",
+            "ref": "f0b2fccdca2dfd97dc2fd5ad216d5e27c4f895ac"
+        },
+        "files": [
+            "./config/packages/dev/swiftmailer.yaml",
+            "./config/packages/swiftmailer.yaml",
+            "./config/packages/test/swiftmailer.yaml"
+        ]
     },
     "symfony/translation-contracts": {
         "version": "v2.4.0"
