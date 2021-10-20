@@ -1,0 +1,88 @@
+
+
+/* ------------------------------------- Chapter LIGHTBOX ------------------- */
+
+#lightbox
+{
+z-index:10000;
+position:absolute;
+top:0%;
+left:0%;
+width:100%;
+height:100%;
+display:none;
+}
+
+
+#lightbox.show #lightbox-bg-free
+{
+position:absolute;
+top:0%;
+left:0%;
+width:100%;
+height:100%;
+min-height:100vh;
+}
+
+
+#lightbox-bg
+{
+position:absolute;
+left:5%;
+width:90%;
+}
+
+#lightbox.slim #lightbox-bg
+{
+left:20%;
+max-width:50%;
+}
+
+#lightbox-content
+{
+padding:0.5em 1em;
+min-height:10em;
+}
+
+#lightbox-content img.img-lightbox-fullsize
+{
+width:100%;
+}
+
+#lightbox-sym-close
+{
+position:absolute;
+top:-1em;
+right:-1em;
+cursor:pointer;
+}
+
+#lightbox.lightbox-noclcose #lightbox-sym-close
+{
+display:none;
+}
+
+
+/* ----------------------------------------------- lightbox DESIGN ------------------------- */
+
+
+#lightbox-bg-free
+{
+background: rgba(255,255,255,0.2);
+}
+
+#lightbox-content
+{
+background: rgba(255,255,255,0.85);
+border-radius:0.66em;
+box-shadow:0.2em 0.2em 1em #666;
+}
+
+#lightbox-sym-close img
+{
+z-index:9999;
+width:3em;
+background:rgba(255,255,255,1);
+border-radius:1.45em;
+opacity:0.8;
+}

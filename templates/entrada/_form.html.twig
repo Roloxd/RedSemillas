@@ -1,0 +1,85 @@
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Nueva entrada</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Administración</a></li>
+              <li class="breadcrumb-item active">Nueva Entrada</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- left column -->
+          <div class="col-md-6">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Entrada</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              {{ form_start(form) }}
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="codigo_entrada">Codigo de entrada</label>
+                    {{ form_widget(form.codigo_entrada, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="num_pasaporte">Número de Pasaporte</label>
+                    {{ form_widget(form.num_pasaporte, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="cantidad">Cantidad en gramos</label>
+                    {{ form_widget(form.cantidad, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="superficie_cultivo">Superficie de cultivo</label>
+                    {{ form_widget(form.superficie_cultivo, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="fecha_entrada">Fecha de entrada</label>
+                    {{ form_widget(form.fecha_entrada, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="tipo_entrada">Tipo de entrada</label>
+                    {{ form_widget(form.tipo_entrada, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="observaciones">Observaciones</label>
+                    {{ form_widget(form.observaciones, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="id_terreno">Terrenos</label>
+                    {{ form_widget(form.id_terreno, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                </div>
+                
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                  <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
+                </div>
+              {{ form_end(form) }}
+            </div>
+            <!-- /.card -->
+          </div>
+          <!--/.col (left) -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->

@@ -1,0 +1,402 @@
+
+/*
+ *  Some words about the z-index...  (Can be positive and negative 32 bit, lets use max. +-million )
+ *
+ *
+ *  top-line 100
+ *  menu-hamburger 300000
+ *  lightbox  10000
+ *  popup  100000
+ *
+ *  div-loading  99
+ *  div-msg-outer 200000
+ *  iframe-login  99999   right below popup
+ *  bubble from jquery-nodetpad 9999     right below lightbox
+ *  .jstree-contextmenu 10001  right above lightbox
+ *  .div-loading 99999 only topped by popup
+ */
+
+body
+{
+background:transparent;
+font-weight:normal;
+font-variant:normal;
+font-stretch:normal;
+word-spacing:0em;
+letter-spacing:0em;
+text-decoration:none;
+text-transform:none;
+text-shadow:0;
+width:100%;
+height:100%;
+min-height:100vh;
+display: flex;
+flex-direction: column;
+}
+
+body,header,nav,main,section,footer,div,p,picture,img,ul,li
+{
+position:relative;
+margin:0;
+padding:0;
+border:0;
+outline:0;
+box-sizing:border-box;
+overflow:visible;
+vertical-align:top;
+text-align:left;
+}
+
+html, body 
+{
+overscroll-behavior-x: none; 
+-ms-overflow-style:none;
+scrollbar-width:none;
+overflow: -moz-scrollbars-none;
+}
+
+
+
+main
+{
+overflow:hidden;
+flex: 1 0 auto;
+}
+
+
+
+
+footer
+{
+flex-shrink: 0;  
+}
+
+input, textarea, select, button
+{
+font-size:1em;   /* otherwise browsers display it pixel-based in some cases */
+padding: 5px 5px 5px 10px;
+border-radius: 5px;
+border: 1px solid #ccc;
+height: 30px;
+width: 300px;
+}
+
+
+
+
+input[type=checkbox],
+input[type=radio]
+{
+height: 20px;
+width: 20px;
+margin:0.25em 0 0.25em 0;
+padding:0;
+vertical-align: middle;
+}
+
+
+li,
+nav ul li,
+ul.list-icon-none li
+{
+  background-image: none;
+  padding: 0 0 0 0;
+}
+
+
+/* ------------------------------------------ chapter list in content------------------------------ */
+
+div.con.text li
+{
+padding: 0 0 0 1.5em;
+list-style: none;
+background-image: url("../../img/sys_css_li_default.png");
+background-repeat: no-repeat;
+background-position: 0.41em 0.45em;
+background-size: 0.6em;
+}
+
+
+div.con.text ul.list-icon-round li
+{
+  background-image: url("../../img/sys_css_li_round.png");
+}
+
+div.con.text ul.list-icon-arrow li
+{
+  background-image: url("../../img/sys_css_li_arrow.png");
+  background-size: 1.1em;
+  background-position: 0.1em 0.45em;
+}
+
+
+
+/* ------------------------------------- Chapter FIXED Things ------------------- */
+
+
+#topimage.fixed
+{
+position:fixed;
+top:0;
+left:0%;
+width:100%;
+margin:0 auto;
+}
+
+
+
+#div-1em
+{
+display:block;
+position:absolute;
+left:0em;
+bottom:0em;
+height:1em;
+width:1em;
+z-index:-1001;
+background:transparent;
+}
+
+
+div.bg-free-fullsize
+{
+position:fixed;
+top:0em;
+left:0em;
+width:100%;
+height:100%;
+}
+
+
+
+#div-loading
+{
+position:absolute;
+position:fixed;
+left:45vw;
+top:33vh;
+width:10vw;
+height:10vw;
+z-index:99999;
+}
+
+#div-loading img
+{
+width:100%;
+height:100%;
+}
+
+
+/* ------------------------------------- Chapter MESSAGE ------------------- */
+
+
+#div-msg-outer
+{
+position:fixed;
+top:0em;
+left:0em;
+width:100%;
+z-index:2000000;  /* higher than lightbox and popup! */
+margin:auto;
+}
+
+
+
+/* ---------------------------------- chapter MISC ---------------------------- */
+
+
+.a-img-bigger
+{
+z-index:9;
+}
+
+
+.clear-both,
+section,
+#footer
+{
+clear:both;
+}
+
+
+.hide
+{
+display:none !important;
+}
+
+.show
+{
+display:block !important;
+}
+
+.hide-nojs
+{
+display:none !important;
+}
+
+.show-nojs
+{
+display:block !important;
+}
+
+body.no-js #main section
+{
+display:none;
+}
+
+body.screen-small #menu-topline
+{
+display:none;
+}
+
+body.screen-small #menu-dialog
+{
+display:block;
+}
+
+button
+{
+cursor:pointer;
+z-index:1;
+}
+
+.invisible
+{
+opacity:0.0 !important;
+cursor:auto;
+pointer-events: none;
+}
+
+
+#iframe-login
+{
+position:fixed;
+top:20vh;
+left:25%;
+width:50%;
+height:60vh;
+z-index:99999;
+overflow:visible;
+resize: both;
+}
+
+.cursor-pointer
+{
+cursor:pointer;
+}
+
+input.readonly,
+input:disabled,
+label
+{
+cursor:inherit !important;  /* in some browsers label have no inherit by default, tODO: others as well? */  
+}
+
+
+
+.dum
+{
+position: absolute;
+top:-200em;
+visibility: hidden;
+height: auto;
+width: auto;
+white-space: nowrap;
+}
+
+.app-loading-area:after
+{
+content:" ";
+position:absolute;
+height:100%;
+width:100%;
+top:0em;
+left:0em;
+background:rgba(140,140,140,0.05);
+z-index:98;
+}
+
+.app-loading-area-img
+{
+position:fixed;
+width:4em;
+height:4em;
+left:42%;
+top:25vh;
+z-index:99;
+}
+
+/* ----------------------- */
+
+.init-transparent
+{
+opacity:0.01;
+}
+
+div.qr-out > canvas
+{
+width:9cm;
+height:9cm;
+}
+
+#lightbox .qr-in-video
+{
+width:100%;
+height:auto;
+border-radius:0.5em;
+}
+
+/* ------------------------- */
+
+
+body.screen-small.portrait .hide-for-mobile
+{
+display:none;  
+}
+
+
+.no-scrollbar
+{
+-ms-overflow-style:none;
+scrollbar-width:none;
+}
+
+::-webkit-scrollbar
+{
+width: 0px;
+height:0px;
+background: transparent;
+}
+
+
+/* ------------------------- easy classes ------------- */
+
+.flex
+{
+display: flex;
+}
+
+.fit 
+{
+width: fit-content;
+}
+
+
+/* ------------------------- FORM  ------------- */
+
+.rgcs__form-cont {margin: 0 auto; width: 400px;}
+.rgcs__form {margin: 0 auto; width: 400px;}
+
+.rgcs__form-row { margin-bottom: 10px;}
+
+.rgcs__form-row.col-2 { width: 50%; float: left;}
+
+.form-col-2 { display: flex;}
+textarea.form-control{ height: 100px !important;}
+.rgcs__form-check { margin:20px 0;}
+.rgcs__form-input {}
+
+.rgcs__form-check-title{ font-size:15px; margin:10px 0;}
+
+
+

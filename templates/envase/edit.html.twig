@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Envase{% endblock %}
+
+{% block body %}
+    <h1>Edit Envase</h1>
+
+    {{ include('envase/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('envase_index') }}">back to list</a>
+
+    {{ include('envase/_delete_form.html.twig') }}
+{% endblock %}

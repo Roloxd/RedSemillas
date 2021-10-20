@@ -1,0 +1,890 @@
+/*
+Total.HTM offers a few tools that are used by just setting the class="" attribute for HTML elements
+
+* .height-screen Sets the CSS-height of the element to 100vh
+* .height-ratio needs to come with data-ratio, any positive number
+
+
+*/
+/* -------------------------------------- Chapter Content Layout ------------ */
+div.div-p {
+  margin: 1.3em 0 0.7em 0;
+}
+
+.img-inline {
+  max-height: 1.4em;
+  max-width: 1.8em;
+  display: inline;
+  padding-right: 0.3em;
+  vertical-align: bottom;
+}
+
+.height-screen {
+  height: 100vh;
+}
+
+.width-fullscreen,
+.width-screen {
+  width: 100vw;
+  max-width: 100%;
+}
+
+.width-full,
+.width-100 {
+  width: 100%;
+  max-width: 100%;
+}
+
+.width-50 {
+  width: 50%;
+}
+
+.width-half {
+  width: 49%;
+}
+
+.width-third {
+  width: 32%;
+}
+
+.width-quarter {
+  width: 24%;
+}
+
+.float-left {
+  float: left;
+  z-index: 9;
+}
+
+.float-right {
+  float: right;
+  z-index: 9;
+}
+
+.float-center {
+  text-align: center;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  z-index: 9;
+}
+
+.align-center,
+.align-center>span {
+  text-align: center;
+}
+
+.con.image {
+  margin: 0 1em 1em 0;
+}
+
+.text-big {
+  font-size: 1.2em;
+}
+
+.text-small {
+  font-size: 0.8em;
+}
+
+/* -------------------------------------- Chapter HEADER ------------ */
+#topline {
+  position: fixed;
+  top: 0;
+  height: 4.5em;
+  z-index: 1001;
+  margin: 0 auto;
+  transition: height 0.5s ease;
+  padding-bottom: 0.2em;
+}
+
+header.small #topline {
+  height: 2.5em;
+}
+
+#topline-left {
+  height: 100%;
+}
+
+#topline-right {
+  height: 100%;
+  position: absolute;
+  top: 0em;
+  right: 0em;
+}
+
+#header-logo-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  transition: transform 0.5s ease;
+  transform-origin: top left;
+}
+
+header.small #header-logo-title {
+  /* transform:scale(0.45); */
+}
+
+#header-logo {
+  position: relative;
+  margin: 0 0 0 0;
+  overflow: visible;
+}
+
+#header-title {
+  margin: 0 0 0 0;
+  margin: 0 0 0 0.33em;
+}
+
+#menu-hamburger {
+  cursor: pointer;
+}
+
+/* -------------------------------------- Chapter MENU ------------ */
+#header #menu-topline {
+  position: absolute;
+  bottom: 0.6em;
+  right: 6em;
+}
+
+nav ul {
+  list-style-type: none;
+}
+
+nav.horizontal>ul {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+}
+
+nav.horizontal>ul>li {
+  /* border-left:0.08em solid; */
+  display: inline;
+  padding: 0 0.7em;
+  white-space: nowrap;
+}
+
+nav.horizontal>ul>li:first-child {
+  border-left: none;
+}
+
+#menu-dialog-list {}
+
+.hide-cell {
+  display: none;
+}
+
+.top_login {
+  padding: 25px 0;
+}
+
+.top_login ul li a,
+.top_login a {
+  color: #353535 !important;
+}
+
+.top_login ul li {
+  list-style: none;
+}
+
+tr.list_col-head th {
+  padding: 5px;
+  border: 1px solid #eee;
+  font-size: 10px !important;
+  background: #eee;
+}
+
+tr.list_col td {
+  padding: 5px;
+  border: 1px solid #eee;
+  font-size: 10px !important;
+  background: #eee;
+}
+
+/* -------------------------------------- Chapter language ------------ */
+/* CSS Set of langage, now done in JS */
+/* lang:not([lang='de'])
+{
+display:none;
+} */
+lang {
+  display: none;
+}
+
+body.lang-de lang[lang="de"],
+body.lang-es lang[lang="es"],
+body.lang-en lang[lang="en"],
+body.lang-hu lang[lang="hu"] {
+  display: inline;
+}
+
+div.language-choice div.language-flag img {
+  display: none;
+}
+
+div.language-choice.is-open div.language-flag img,
+body.lang-de div.language-flag img.img-lang-de,
+body.lang-en div.language-flag img.img-lang-en,
+body.lang-es div.language-flag img.img-lang-es,
+body.lang-hu div.language-flag img.img-lang-hu {
+  display: inline;
+}
+
+div.language-choice.is-open div.language-triangle img {
+  transform: rotate(60deg);
+  transition: transform 0.3s linear;
+}
+
+#language {
+  margin: 0.1em 0.5em 0 0.3em;
+}
+
+div.language-choice * {
+  display: inline;
+}
+
+div.language-choice div.language-flag {
+  display: inline-block;
+  width: 2em;
+  overflow: visible;
+}
+
+body.no-js #language-footer div.language-flag {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: 7em;
+  justify-content: space-between;
+}
+
+div.language-flag img {
+  width: 2em;
+  margin-bottom: 0.4em;
+}
+
+div.language-triangle {
+  top: 0.3em;
+}
+
+div.language-triangle img {
+  height: 0.8em;
+}
+
+/* ---------------------------------------------------------------------- */
+.section-body {
+  padding: 0.4em 0.9em 1em 2em;
+}
+
+.section-body:empty {
+  padding: 0 !important;
+}
+
+img.sym {
+  height: 1.4em;
+  width: 1.4em;
+}
+
+img.sym.inline {
+  height: 1.15em;
+  width: 1.15em;
+}
+
+/* ---------------------------------------- MOD-HEADER (like tabs) ------------------------- */
+div.mod-header-outer {
+  overflow-x: auto;
+  overflow-y: visible;
+  padding-bottom: 0.4em;
+}
+
+div.mod-header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: flex-end;
+  border-bottom: 0.07em solid;
+  position: relative;
+  padding: 0 0 0 0.12em;
+  width: fit-content;
+  min-width: 100%;
+}
+
+div.like-mod-header-item,
+div.mod-header div.mod-header-item {
+  border-top: 0.06em solid;
+  border-left: 0.06em solid;
+  border-right: 0.06em solid;
+  border-top-left-radius: 0.4em;
+  border-top-right-radius: 0.4em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-content: center;
+  align-items: flex-end;
+  flex-wrap: nowrap;
+  padding: 0 0.5em 0 0.4em;
+  height: 1.4em;
+  position: relative;
+  margin-left: -0.1em;
+  white-space: nowrap;
+}
+
+div.mod-header div.mod-header-item img.sym {
+  height: 1.2em;
+  width: auto;
+  margin-right: 0.1em;
+}
+
+div.mod-header div.mod-header-item.active {
+  font-size: 1.1em;
+}
+
+/*
+.do-sizing-explicit
+{
+width:80vw;
+left:10vw;
+}
+*/
+.section-body {
+  padding: 0 0 0 0;
+}
+
+#topline-right {
+  display: flex;
+}
+
+#menu-dialog {}
+
+#menu-dialog-list {}
+
+#header-title h1 {
+  position: relative;
+  top: 0.2em;
+  left: 0.15em;
+}
+
+#menu-mod-ul li {
+  padding: 0em -0.8em 0em 0.1em;
+  white-space: nowrap;
+  z-index: 3;
+}
+
+#menu-dialog-ul li,
+#menu-dialog-ul-admin li {
+  overflow: visible;
+  border-radius: 0.1em;
+  min-width: 7em;
+  padding: 0.1em 0 0em 0.8em;
+  z-index: 2;
+  /*display:none; overwritten by JS */
+}
+
+#menu-dialog-ul-bottom li {
+  z-index: 2;
+}
+
+#menu-dialog-ul {
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.1em;
+  max-width: 13em;
+  margin-left: auto;
+}
+
+#menu-dialog-ul-bottom {
+  display: inline-flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+#menu-dialog-ul-admin {
+  display: inline-flex;
+  flex-direction: row;
+  padding: 0.15em 0.5em 0.15em 0.65em;
+}
+
+body.admin #menu-dialog-ul-bottom {
+  padding-top: 0.25em;
+}
+
+#menu-dialog-ul-admin li {
+  margin-left: 0.15em;
+}
+
+#menu-dialog-ul-bottom li img.sym,
+#menu-dialog-ul li img.sym,
+#menu-dialog-ul-admin li img.sym,
+#menu-dialog-ul-admin span.fa,
+.menu-mod li img.sym {
+  height: auto;
+  width: 2em;
+  display: inline;
+  position: relative;
+}
+
+#menu-mod-ul li span {
+  padding-right: 0.5em;
+}
+
+#menu-mod-ul li img.sym {
+  height: 2.2em;
+  width: auto;
+}
+
+#menu-dialog-ul li img.sym {
+  height: 2.1em;
+  width: auto;
+  top: 0.09em;
+}
+
+#menu-dialog-ul-bottom li {
+  padding: 0.3em;
+}
+
+#menu-dialog-ul-bottom li img.sym {
+  height: 2.1em;
+  width: auto;
+}
+
+#menu-dialog-ul-bottom li span {
+  display: none;
+}
+
+#cont-menu-mod {}
+
+#menu-mod {}
+
+#menu-mod ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row-reverse;
+  flex-wrap: nowrap;
+}
+
+#menu-mod li {}
+
+#menu-mod ul>li>a {
+  display: block;
+  width: 94%;
+  height: 100%;
+}
+
+#main {
+  /* margin-left: 22vw; /* will be overwritten by js at init */
+}
+
+.main__content {
+  width: 100%;
+}
+
+.main__sidebar {
+  width: 20%
+}
+
+.main__sidebar-menu ul li {
+  padding: 5px 5px;
+  list-style: none;
+}
+
+/*
+
+#cont-menu-mod.mode-mobile
+{
+left:auto;
+right:0.2em;
+top:2.7em;
+padding:0em 0em 0.3em 0.2em;
+border-left:0.1em solid;
+display:none;
+}
+
+
+#cont-menu-mod.mode-mobile span
+{
+display:none;
+}
+
+body:not(.login-ok) #cont-menu-mod
+{
+opacity:0.1;
+}
+
+*/
+nav.vertical li {
+  text-align: left;
+  white-space: nowrap;
+}
+
+div.language-flag img {
+  margin-right: 0.7em;
+}
+
+body.screen-small.portrait #header-title {
+  display: none;
+  /* will be set true after first resize */
+}
+
+/*
+* Some words about the z-index... (Can be positive and negative 32 bit, lets use max. +-million )
+*
+*
+* top-line 100
+* menu-hamburger 300000
+* lightbox 10000
+* popup 100000
+*
+* div-loading 99
+* div-msg-outer 200000
+* iframe-login 99999 right below popup
+* bubble from jquery-nodetpad 9999 right below lightbox
+* .jstree-contextmenu 10001 right above lightbox
+* .div-loading 99999 only topped by popup
+*/
+body {
+  background: transparent;
+  font-weight: normal;
+  font-variant: normal;
+  font-stretch: normal;
+  word-spacing: 0em;
+  letter-spacing: 0em;
+  text-decoration: none;
+  text-transform: none;
+  text-shadow: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+body,
+header,
+nav,
+main,
+section,
+footer,
+div,
+p,
+picture,
+img,
+ul,
+li {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  box-sizing: border-box;
+  overflow: visible;
+  vertical-align: top;
+  text-align: left;
+}
+
+html,
+body {
+  overscroll-behavior-x: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  overflow: -moz-scrollbars-none;
+}
+
+main {
+  overflow: hidden;
+  flex: 1 0 auto;
+}
+
+footer {
+  flex-shrink: 0;
+}
+
+input,
+textarea,
+select,
+button {
+  font-size: 1em;
+  /* otherwise browsers display it pixel-based in some cases */
+  padding: 5px 5px 5px 10px;
+  border-radius: 0px;
+  border: 1px solid #dcdcdc;
+  height: 30px;
+  /*width: 300px;*/
+}
+
+input[type=checkbox],
+input[type=radio] {
+  height: 20px;
+  width: 20px;
+  margin: 0.25em 0 0.25em 0;
+  padding: 0;
+  vertical-align: middle;
+}
+
+li,
+nav ul li,
+ul.list-icon-none li {
+  background-image: none;
+  padding: 0 0 0 0;
+  list-style: none;
+}
+
+/* ------------------------------------------ chapter list in content------------------------------ */
+div.con.text li {
+  padding: 0 0 0 1.5em;
+  list-style: none;
+  background-image: url("../../img/sys_css_li_default.png");
+  background-repeat: no-repeat;
+  background-position: 0.41em 0.45em;
+  background-size: 0.6em;
+}
+
+div.con.text ul.list-icon-round li {
+  background-image: url("../../img/sys_css_li_round.png");
+}
+
+div.con.text ul.list-icon-arrow li {
+  background-image: url("../../img/sys_css_li_arrow.png");
+  background-size: 1.1em;
+  background-position: 0.1em 0.45em;
+}
+
+/* ------------------------------------- Chapter FIXED Things ------------------- */
+#topimage.fixed {
+  position: fixed;
+  top: 0;
+  left: 0%;
+  width: 100%;
+  margin: 0 auto;
+}
+
+#div-1em {
+  display: block;
+  position: absolute;
+  left: 0em;
+  bottom: 0em;
+  height: 1em;
+  width: 1em;
+  z-index: -1001;
+  background: transparent;
+}
+
+div.bg-free-fullsize {
+  position: fixed;
+  top: 0em;
+  left: 0em;
+  width: 100%;
+  height: 100%;
+}
+
+#div-loading {
+  position: absolute;
+  position: fixed;
+  left: 45vw;
+  top: 33vh;
+  width: 10vw;
+  height: 10vw;
+  z-index: 99999;
+}
+
+#div-loading img {
+  width: 100%;
+  height: 100%;
+}
+
+/* ------------------------------------- Chapter MESSAGE ------------------- */
+#div-msg-outer {
+  position: fixed;
+  top: 0em;
+  left: 0em;
+  width: 100%;
+  z-index: 2000000;
+  /* higher than lightbox and popup! */
+  margin: auto;
+}
+
+/* ---------------------------------- chapter MISC ---------------------------- */
+.a-img-bigger {
+  z-index: 9;
+}
+
+.clear-both,
+section,
+#footer {
+  clear: both;
+}
+
+.hide {
+  display: none !important;
+}
+
+.show {
+  display: block !important;
+}
+
+.hide-nojs {
+  display: none !important;
+}
+
+.show-nojs {
+  display: block !important;
+}
+
+body.no-js #main section {
+  display: block;
+}
+
+body.screen-small #menu-topline {
+  display: none;
+}
+
+body.screen-small #menu-dialog {
+  display: block;
+}
+
+button {
+  cursor: pointer;
+  z-index: 1;
+}
+
+.invisible {
+  opacity: 0.0 !important;
+  cursor: auto;
+  pointer-events: none;
+}
+
+#iframe-login {
+  position: fixed;
+  top: 20vh;
+  left: 25%;
+  width: 50%;
+  height: 60vh;
+  z-index: 99999;
+  overflow: visible;
+  resize: both;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+input.readonly,
+input:disabled,
+label {
+  cursor: inherit !important;
+  /* in some browsers label have no inherit by default, tODO: others as well? */
+}
+
+.dum {
+  position: absolute;
+  top: -200em;
+  visibility: hidden;
+  height: auto;
+  width: auto;
+  white-space: nowrap;
+}
+
+.app-loading-area:after {
+  content: " ";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0em;
+  left: 0em;
+  background: rgba(140, 140, 140, 0.05);
+  z-index: 98;
+}
+
+.app-loading-area-img {
+  position: fixed;
+  width: 4em;
+  height: 4em;
+  left: 42%;
+  top: 25vh;
+  z-index: 99;
+}
+
+/* ----------------------- */
+.init-transparent { opacity: 0.01; }
+
+div.qr-out>canvas {
+  width: 9cm;
+  height: 9cm;
+}
+
+#lightbox .qr-in-video {
+  width: 100%;
+  height: auto;
+  border-radius: 0.5em;
+}
+
+/* ------------------------- */
+body.screen-small.portrait .hide-for-mobile {
+  display: none;
+}
+
+/* ------------------------- easy classes ------------- */
+.flex { display: flex; }
+.fit { width: fit-content; }
+
+/* BODY-class LAYOUT-main-setting
+----------------------
+
+* layout-mode-fullscreen in fact this means the display of the page in full-width of the viewport
+
+* layout-mode-ratio Set data-ratio="0.66" or is 0.75 (4:3) per default. limits: (0.1 ... 3.0)
+if ratio is smaller 1 (as usually), portrait-screens display full-width
+
+----------------------
+
+IMPORTANT: All top-elements like main-slideshow, topline, message-overly and all CSS-fixed elements need the class "do-sizing-explicit"
+
+* do-sizing-explicit // used typically at #topline,#topimage", thats usually fixed elements
+
+Note: By setting a CSS-width to .do-sizing-explicit you can realize a 'layout-mode-width', place it in layout_custom.css
+*/
+body.layout-mode-fullscreen,
+body.layout-mode-fullscreen .do-sizing-explicit {
+  width: 100vw;
+  /* don't know why at 100vw comes out too wide at Chrome */
+  max-width: 100%;
+  /* this line fixes it */
+}
+
+.con.image { z-index: 9; }
+.con.image img { width: 100%; }
+
+/* ------------------------------------------------- MEDIUM SCREENS (not very big nor very small) ---------------------------- */
+/* ------------------------------------------------- VERY SMALL SCREENS ---------------------------- */
+@media only screen and (max-width:490px) {
+  div.box-container div.box-sub {
+    width: 100%;
+    margin: 1em 0 1em 0 !important;
+  }
+
+  div.box-container-quarter div.box-sub {
+    width: 49%;
+    margin: 0 0 1em 1% !important;
+  }
+
+  .con.image {
+    width: 100% !important;
+    margin: 1em 0;
+    z-index: 9;
+  }
+
+  #lightbox.show {
+    left: -5%;
+    width: 140%;
+  }
+}
+
+/* ------------------------------------------------- Quite SMALL SCREENS (AND very small screens) ---------------------------- */
+@media only screen and (max-width:690px) {
+  #menu-topline {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------- BIG SCREENS ---------------------------- */
+@media only screen and (min-width: 1200px) {}
+
+/* ------------------------------------------------- VERY BIG SCREENS ---------------------------- */
+@media only screen and (min-width: 1600px) {}

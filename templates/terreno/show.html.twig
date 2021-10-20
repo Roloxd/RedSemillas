@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Terreno{% endblock %}
+
+{% block body %}
+    <h1>Terreno</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ terreno.id }}</td>
+            </tr>
+            <tr>
+                <th>Direccion</th>
+                <td>{{ terreno.direccion }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ terreno.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Datos_sigpac</th>
+                <td>{{ terreno.datosSigpac }}</td>
+            </tr>
+            <tr>
+                <th>Localizacion_mapa</th>
+                <td>{{ terreno.localizacionMapa }}</td>
+            </tr>
+            <tr>
+                <th>Superficie_finca</th>
+                <td>{{ terreno.superficieFinca }}</td>
+            </tr>
+            <tr>
+                <th>Superficie_cultivo</th>
+                <td>{{ terreno.superficieCultivo }}</td>
+            </tr>
+            <tr>
+                <th>Manejo_cultivo</th>
+                <td>{{ terreno.manejoCultivo }}</td>
+            </tr>
+            <tr>
+                <th>Tipo_cultivos</th>
+                <td>{{ terreno.tipoCultivos }}</td>
+            </tr>
+            <tr>
+                <th>Observaciones</th>
+                <td>{{ terreno.observaciones }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('terreno_index') }}">back to list</a>
+
+    <a href="{{ path('terreno_edit', {'id': terreno.id}) }}">edit</a>
+
+    {{ include('terreno/_delete_form.html.twig') }}
+{% endblock %}

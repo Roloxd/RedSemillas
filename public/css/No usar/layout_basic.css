@@ -1,0 +1,394 @@
+
+/*
+Total.HTM offers a few tools that are used by just setting the class="" attribute for HTML elements
+
+*   .height-screen     Sets the CSS-height of the element to 100vh
+*   .height-ratio      needs to come with data-ratio, any positive number
+
+
+*/
+
+/* -------------------------------------- Chapter Content Layout ------------ */
+
+div.div-p
+{
+margin:1.3em 0 0.7em 0;
+}
+
+.img-inline
+{
+max-height:1.4em;
+max-width:1.8em;
+display:inline;
+padding-right:0.3em;
+vertical-align:bottom;
+}
+
+.height-screen
+{
+height:100vh;
+}
+
+.width-fullscreen,
+.width-screen
+{
+width:100vw;
+max-width:100%;
+}
+
+.width-full,
+.width-100
+{
+width:100%;
+max-width:100%;
+}
+
+.width-50
+{
+width:50%;
+}
+
+.width-half
+{
+width:49%;
+}
+
+.width-third
+{
+width:32%;
+}
+
+.width-quarter
+{
+width:24%;
+}
+
+
+.float-left
+{
+float:left;
+z-index:9;
+}
+
+.float-right
+{
+float:right;
+z-index:9;
+}
+
+.float-center
+{
+text-align:center;
+margin-left:auto !important;
+margin-right:auto !important;
+z-index:9;
+}
+
+
+.align-center,
+.align-center>span
+{
+text-align:center;
+}
+
+.con.image
+{
+margin:0 1em 1em 0;
+}
+
+.text-big
+{
+font-size:1.2em;
+}
+
+.text-small
+{
+font-size:0.8em;
+}
+
+
+/* -------------------------------------- Chapter HEADER ------------ */
+
+#topline
+{
+position:fixed;
+top:0;
+height:4.5em;
+z-index:1001;
+margin:0 auto;
+transition:height 0.5s ease;
+padding-bottom:0.2em;
+}
+
+
+header.small #topline
+{
+height:2.5em;
+}
+
+#topline-left
+{
+height:100%;
+}
+
+#topline-right
+{
+height:100%;
+position:absolute;
+top:0em;
+right:0em;
+}
+
+#header-logo-title
+{
+display:flex;
+flex-direction:row;
+justify-content: flex-start;
+transition:transform 0.5s ease;
+transform-origin: top left;
+}
+
+
+header.small #header-logo-title
+{
+/* transform:scale(0.45); */
+}
+
+#header-logo
+{
+position:relative;
+margin:0 0 0 0;
+overflow:visible;
+}
+
+#header-title
+{
+margin:0 0 0 0;
+margin:0 0 0 0.33em;
+}
+
+#menu-hamburger
+{
+cursor:pointer;
+}
+
+
+/* -------------------------------------- Chapter MENU ------------ */
+
+#header #menu-topline
+{
+position:absolute;
+bottom:0.6em;
+right:6em;
+}
+
+
+nav ul
+{
+list-style-type: none;
+}
+
+
+nav.horizontal>ul
+{
+display: flex;
+justify-content:flex-end;
+flex-direction: row;
+}
+
+nav.horizontal>ul>li
+{
+  /* border-left:0.08em solid; */
+display:inline;
+padding:0 0.7em;
+white-space: nowrap;
+}
+
+nav.horizontal>ul>li:first-child
+{
+border-left:none;
+}
+
+#menu-dialog-list
+{
+position:absolute;
+display:none;
+}
+
+
+
+/* -------------------------------------- Chapter language ------------ */
+
+
+/* CSS Set of langage, now done in JS */
+/* lang:not([lang='de'])
+{
+display:none;
+} */
+
+
+lang
+{
+display:none;
+}
+
+body.lang-de lang[lang="de"],
+body.lang-es lang[lang="es"],
+body.lang-en lang[lang="en"],
+body.lang-hu lang[lang="hu"]
+{
+display:inline;
+}
+
+
+div.language-choice div.language-flag img
+{
+display:none;
+}
+
+div.language-choice.is-open div.language-flag img,
+body.lang-de div.language-flag img.img-lang-de,
+body.lang-en div.language-flag img.img-lang-en,
+body.lang-es div.language-flag img.img-lang-es,
+body.lang-hu div.language-flag img.img-lang-hu
+{
+display:inline;
+}
+
+div.language-choice.is-open div.language-triangle img
+{
+transform:rotate(60deg);
+transition: transform 0.3s linear;
+}
+
+
+#language
+{
+margin:0.1em 0.5em 0 0.3em;
+}
+
+div.language-choice *
+{
+display:inline;
+}
+
+div.language-choice div.language-flag
+{
+display:inline-block;
+width:2em;
+overflow:visible;
+}
+
+body.no-js #language-footer div.language-flag
+{
+  display:flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width:7em;
+  justify-content: space-between;
+}
+
+
+div.language-flag img
+{
+width:2em;
+margin-bottom:0.4em;
+}
+
+div.language-triangle
+{
+top:0.3em;
+}
+
+div.language-triangle img
+{
+height:0.8em;
+}
+
+
+
+/* ---------------------------------------------------------------------- */
+
+
+.section-body
+{
+padding:0.4em 0.9em 1em 2em;
+}
+
+.section-body:empty
+{
+padding:0 !important;
+}
+
+
+img.sym
+{
+height:1.4em;
+width:1.4em;
+}
+
+img.sym.inline
+{
+height:1.15em;
+width:1.15em;
+}
+
+
+/* ---------------------------------------- MOD-HEADER (like tabs) ------------------------- */
+
+
+div.mod-header-outer
+{
+overflow-x: auto;
+overflow-y: visible;
+padding-bottom:0.4em;
+}
+
+div.mod-header
+{
+display:flex;
+flex-direction: row;
+flex-wrap: nowrap;
+justify-content: flex-start;
+align-items: flex-end;
+border-bottom:0.07em solid;
+position:relative;
+padding:0 0 0 0.12em;
+width: fit-content;
+min-width:100%;
+}
+
+div.like-mod-header-item,
+div.mod-header div.mod-header-item
+{
+border-top:0.06em solid;
+border-left:0.06em solid;
+border-right:0.06em solid;
+border-top-left-radius: 0.4em;
+border-top-right-radius: 0.4em;
+display:flex;
+flex-direction: row;
+justify-content: space-around;
+align-content: center;
+align-items: flex-end;
+flex-wrap: nowrap;
+padding:0 0.5em 0 0.4em;
+height:1.4em;
+position:relative;
+margin-left:-0.1em;
+white-space: nowrap;
+}
+
+div.mod-header div.mod-header-item img.sym
+{
+height:1.2em;
+width:auto;
+margin-right:0.1em;
+}
+
+div.mod-header div.mod-header-item.active
+{
+font-size:1.1em;
+}
+
+

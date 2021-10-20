@@ -1,0 +1,225 @@
+{% extends 'backend-base.html.twig' %}
+
+{% block title %}Personas{% endblock %}
+
+{% block stylesheets %}
+      {{ include('be-layout/stylesheet-tabla.html', sandboxed = true) }}
+{% endblock %}
+
+{% block body %}
+<div class="wrapper">
+ {{ include('be-layout/preloader.html', sandboxed = true) }}
+
+  {{ include('be-layout/navbar.html', sandboxed = true) }}
+  
+  {{ include('be-layout/sidebar.html', sandboxed = true) }}
+  
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Personas</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Persona</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Tabla de Personas</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Num_socio</th>
+                        <th>Fecha_inscripcion_rgcs</th>
+                        <th>Acepta_condiciones</th>
+                        <th>Tipo_socio</th>
+                        <th>Ampliacion_cuota</th>
+                        <th>Fecha_cuota</th>
+                        <th>Recibir_informacion</th>
+                        <th>Fecha_informacion</th>
+                        <th>Nif</th>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Direccion</th>
+                        <th>Localidad</th>
+                        <th>Municipio</th>
+                        <th>Provincia</th>
+                        <th>Region</th>
+                        <th>Pais_origen</th>
+                        <th>Telefono</th>
+                        <th>Telefono2</th>
+                        <th>Correo</th>
+                        <th>Relacion_agricultura</th>
+                        <th>Terreno_cultivo</th>
+                        <th>Inscripcion_rope</th>
+                        <th>Codigo_rope</th>
+                        <th>Otras_cuestiones</th>
+                        <th>Documento</th>
+                        <th>Observaciones</th>
+                        <th>actions</th>
+                    </tr>   
+                  </thead>
+                <tbody>
+                {% for persona in personas %}
+                    <tr>
+                        <td>{{ persona.id }}</td>
+                        <td>{{ persona.numSocio }}</td>
+                        <td>{{ persona.fechaInscripcionRgcs ? persona.fechaInscripcionRgcs|date('Y-m-d') : '' }}</td>
+                        <td>{{ persona.aceptaCondiciones ? 'Yes' : 'No' }}</td>
+                        <td>{{ persona.tipoSocio }}</td>
+                        <td>{{ persona.ampliacionCuota ? 'Yes' : 'No' }}</td>
+                        <td>{{ persona.fechaCuota ? persona.fechaCuota|date('Y-m-d') : '' }}</td>
+                        <td>{{ persona.recibirInformacion ? 'Yes' : 'No' }}</td>
+                        <td>{{ persona.fechaInformacion ? persona.fechaInformacion|date('Y-m-d') : '' }}</td>
+                        <td>{{ persona.nif }}</td>
+                        <td>{{ persona.nombre }}</td>
+                        <td>{{ persona.apellidos }}</td>
+                        <td>{{ persona.direccion }}</td>
+                        <td>{{ persona.localidad }}</td>
+                        <td>{{ persona.municipio }}</td>
+                        <td>{{ persona.provincia }}</td>
+                        <td>{{ persona.region }}</td>
+                        <td>{{ persona.paisOrigen }}</td>
+                        <td>{{ persona.telefono }}</td>
+                        <td>{{ persona.telefono2 }}</td>
+                        <td>{{ persona.correo }}</td>
+                        <td>{{ persona.relacionAgricultura }}</td>
+                        <td>{{ persona.terrenoCultivo ? 'Yes' : 'No' }}</td>
+                        <td>{{ persona.inscripcionRope ? 'Yes' : 'No' }}</td>
+                        <td>{{ persona.codigoRope }}</td>
+                        <td>{{ persona.otrasCuestiones }}</td>
+                        <td>{{ persona.documento }}</td>
+                        <td>{{ persona.observaciones }}</td>
+                        <td>
+                            <a href="{{ path('persona_show', {'id': persona.id}) }}">show</a>
+                            <a href="{{ path('persona_edit', {'id': persona.id}) }}">edit</a>
+                        </td>
+                    </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4">No hay registros</td>
+                </tr>
+                {% endfor %}
+                    </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Id</th>
+                                <th>Num_socio</th>
+                                <th>Fecha_inscripcion_rgcs</th>
+                                <th>Acepta_condiciones</th>
+                                <th>Tipo_socio</th>
+                                <th>Ampliacion_cuota</th>
+                                <th>Fecha_cuota</th>
+                                <th>Recibir_informacion</th>
+                                <th>Fecha_informacion</th>
+                                <th>Nif</th>
+                                <th>Nombre</th>
+                                <th>Apellidos</th>
+                                <th>Direccion</th>
+                                <th>Localidad</th>
+                                <th>Municipio</th>
+                                <th>Provincia</th>
+                                <th>Region</th>
+                                <th>Pais_origen</th>
+                                <th>Telefono</th>
+                                <th>Telefono2</th>
+                                <th>Correo</th>
+                                <th>Relacion_agricultura</th>
+                                <th>Terreno_cultivo</th>
+                                <th>Inscripcion_rope</th>
+                                <th>Codigo_rope</th>
+                                <th>Otras_cuestiones</th>
+                                <th>Documento</th>
+                                <th>Observaciones</th>
+                                <th>actions</th>
+                            </tr>   
+                        </tfoot>
+                    </table>
+                </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+      <a href="{{ path('persona_new') }}">Crear nuevo</a>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  
+  
+  {{ include('be-layout/footer.html', sandboxed = true) }}
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<!-- DataTables  & Plugins -->
+<script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('plugins/jszip/jszip.min.js') }}"></script>
+<script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script>
+<script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+<!-- AdminLTE App -->
+<script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{{ asset('dist/js/demo.js') }}"></script>
+<!-- Page specific script -->
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+
+{% endblock %}

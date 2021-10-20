@@ -1,0 +1,48 @@
+.rgcs__ficha-body {}
+
+.rgcs__ficha-container {}
+.ficha__header {
+    background: var(--white);
+    padding: 10px;
+}
+.rgcs__ficha-h h3 {}
+.rgcs__ficha-numero { background: var(--brown)}
+
+.ficha__cont {
+    padding: 20px;
+    background:var(--rgcs-catalogo)
+}
+
+
+.ficha__box .ficha__cont {
+    padding: 20px;
+    margin-top: 5px
+}
+
+.ficha__cont.b-variedad {background: var(--rgcs-catalogo)}
+.ficha__cont.b-fotos {background: var(--rgcs-brown-1)}
+.ficha__cont.b-recolector {background: var(--rgcs-brown-2)}
+.ficha__cont.b-adquisicion {background: var(--rgcs-brown-3)}
+
+.ficha__label {color: var(--white);padding: 5px 0;}
+.ficha__value {color: var(--white);padding: 5px 0;}
+
+.ficha__rows {display: flex;width: auto;}
+.ficha__rows.f-col2 .ficha__row { width: 50%; }
+.ficha__rows.f-col3 .ficha__row { width: 33%; }
+
+.ficha__row {
+    padding: 10px 5px;
+    margin: 1px;
+    border-bottom: 1px solid var(--white);
+}
+/* ADDRESS */
+.ficha__address {
+}
+
+.ficha__address .ficha__row {
+    border-bottom:1px solid #fff;
+    margin:5px;
+    padding:5px;
+    width: 33%;
+}

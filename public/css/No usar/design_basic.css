@@ -1,0 +1,200 @@
+.title {font-weight: bold; color:red;}
+.font-default
+{
+font-family:serif;
+}
+
+#main p,
+#main h2,
+#main h3
+{
+margin-bottom:0.5em;  
+}
+
+
+body
+{
+font-weight:normal;
+font-size:1.01em;
+font-family:serif;
+margin:0;
+padding:0;
+top:0em;
+left:0em;
+}
+
+
+
+#but-see-more
+{
+display:inline;
+margin:3em auto 0 auto;
+text-align:center;
+}
+
+
+label
+{
+font-weight:inherit;
+}
+
+/* ----------------------------- header ----------------------- */
+
+#header a,
+#footer a
+{
+text-decoration: none;
+}
+
+
+
+
+
+/* ----------------------------------------------- footer ------------------------- */
+
+#footer
+{
+margin:3em 0 0 0;
+}
+
+
+#footer-contact-text
+{
+position:absolute;
+right:1em;
+top:0.2em;
+}
+
+#footer-contact-text *
+{
+  text-align:right;
+}
+
+#footer-contact-map img
+{
+width:100%;
+margin:4em 0 0 0 ;
+}
+
+div.top-link
+{
+float:right;
+margin:0.5em 0.5em 0 0;
+}
+
+div.top-link img
+{
+top:0.25em;
+height:0.8em;
+}
+
+div.top-link span
+{
+font-size:0.9em;
+}
+
+#footer-area *
+{
+text-decoration:none;
+}
+
+
+
+/* ----------------------------------------------- section ------------------------- */
+
+
+div.section-header
+{
+padding:1em 0 1em 1em;
+margin:1em 0 0em 0;
+position:relative;
+z-index:11;
+}
+
+section section section div.section-header
+{
+padding:0.5em 0 0.2em 3em;
+margin:1.2em 0 0.5em 0;
+}
+
+
+section section section section  div.section-header
+{
+padding:0.5em 0em 0.2em 3em;
+margin:0.5em 0em 0.3em 0em;
+}
+
+
+div.section-header *
+{
+text-decoration:none;
+}
+
+div.section-body li.bg-css
+{
+background-size:1.3em;
+background-position:left top;
+background-repeat: no-repeat;
+padding-left:1.5em;
+}
+
+
+
+
+/* ----------------------------------------------- but-see-more ------------------------- */
+
+#div-but-see-more
+{
+text-align:center;
+width:100%;
+}
+
+#but-see-more
+{
+opacity:0.8;
+}
+
+#but-see-more span
+{
+display:inline-block;
+font-size:2em;
+opacity:0.6;
+padding:0.6em 4em !important;
+}
+
+
+/* ----------------------------------------------- messages ------------------------- */
+
+
+#div-msg-outer div.err,
+#div-msg-outer div.warn,
+#div-msg-outer div.msg
+{
+width:100%;
+margin:auto;
+padding:0.1em 2em;
+box-shadow:0.1em 0.1em 0.3em #666;
+border-radius:0.3em;
+}
+
+#div-msg-outer div.msg
+{
+border:0.1em solid rgba(0,128,0,1);
+background-color:rgba(0,128,0,0.8);
+color:#003344;
+color:#ddd;
+}
+
+#div-msg-outer div.warn
+{
+border:0.1em solid rgba(255,133,20,1);;
+background-color:rgba(222,133,20,0.9);
+}
+
+
+#div-msg-outer div.err
+{
+border:0.1em solid rgba(255,30,30,1);
+background-color:rgba(255,30,30,0.8);
+font-weight:bold;
+}

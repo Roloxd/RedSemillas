@@ -1,0 +1,191 @@
+
+{% extends 'backend-base.html.twig' %}
+
+{% block title %}Envases{% endblock %}
+
+{% block stylesheets %}
+      {{ include('be-layout/stylesheet-tabla.html', sandboxed = true) }}
+{% endblock %}
+
+{% block body %}
+<div class="wrapper">
+ {{ include('be-layout/preloader.html', sandboxed = true) }}
+
+  {{ include('be-layout/navbar.html', sandboxed = true) }}
+  
+  {{ include('be-layout/sidebar.html', sandboxed = true) }}
+  
+
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Envase</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Envase</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Tabla de envases</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Tipo_almacenamiento</th>
+                            <th>Fecha_envasado</th>
+                            <th>Ubicacion_envase</th>
+                            <th>Cantidad_gramos</th>
+                            <th>Cantidad_unidaddes</th>
+                            <th>Unidades_viables</th>
+                            <th>Temperatura_envasado</th>
+                            <th>Humedad_relativa_envasar</th>
+                            <th>Humedad_relativa_simple</th>
+                            <th>Cantidad_min_seguridad</th>
+                            <th>Cantidad_min_unidades</th>
+                            <th>Unidades_gramo</th>
+                            <th>Disponibilidad_red</th>
+                            <th>Conservacion</th>
+                            <th>Observaciones</th>
+                            <th>actions</th>
+                        </tr>
+                    </thead>
+                  <tbody>
+        {% for envase in envases %}
+            <tr>
+                <td>{{ envase.id }}</td>
+                <td>{{ envase.tipoAlmacenamiento }}</td>
+                <td>{{ envase.fechaEnvasado ? envase.fechaEnvasado|date('Y-m-d') : '' }}</td>
+                <td>{{ envase.ubicacionEnvase }}</td>
+                <td>{{ envase.cantidadGramos }}</td>
+                <td>{{ envase.cantidadUnidaddes }}</td>
+                <td>{{ envase.unidadesViables }}</td>
+                <td>{{ envase.temperaturaEnvasado }}</td>
+                <td>{{ envase.humedadRelativaEnvasar }}</td>
+                <td>{{ envase.humedadRelativaSimple }}</td>
+                <td>{{ envase.cantidadMinSeguridad }}</td>
+                <td>{{ envase.cantidadMinUnidades }}</td>
+                <td>{{ envase.unidadesGramo }}</td>
+                <td>{{ envase.disponibilidadRed }}</td>
+                <td>{{ envase.conservacion ? 'Yes' : 'No' }}</td>
+                <td>{{ envase.observaciones }}</td>
+                <td>
+                    <a href="{{ path('envase_show', {'id': envase.id}) }}">show</a>
+                    <a href="{{ path('envase_edit', {'id': envase.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Sin datos</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+                  <tfoot>
+                    <tr>
+                        <th>Id</th>
+                        <th>Tipo_almacenamiento</th>
+                        <th>Fecha_envasado</th>
+                        <th>Ubicacion_envase</th>
+                        <th>Cantidad_gramos</th>
+                        <th>Cantidad_unidaddes</th>
+                        <th>Unidades_viables</th>
+                        <th>Temperatura_envasado</th>
+                        <th>Humedad_relativa_envasar</th>
+                        <th>Humedad_relativa_simple</th>
+                        <th>Cantidad_min_seguridad</th>
+                        <th>Cantidad_min_unidades</th>
+                        <th>Unidades_gramo</th>
+                        <th>Disponibilidad_red</th>
+                        <th>Conservacion</th>
+                        <th>Observaciones</th>
+                        <th>actions</th>
+                    </tr>  
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+      <a href="{{ path('envase_new') }}">Crear</a>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  
+  
+  {{ include('be-layout/footer.html', sandboxed = true) }}
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<!-- DataTables  & Plugins -->
+<script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('plugins/jszip/jszip.min.js') }}"></script>
+<script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script>
+<script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+<!-- AdminLTE App -->
+<script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{{ asset('dist/js/demo.js') }}"></script>
+<!-- Page specific script -->
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+
+{% endblock %}

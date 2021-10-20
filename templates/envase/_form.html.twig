@@ -1,0 +1,117 @@
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Nuevo envase</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Administración</a></li>
+              <li class="breadcrumb-item active">Nuevo envase</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- left column -->
+          <div class="col-md-6">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Envase</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              {{ form_start(form) }}
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="tipo_almacenamiento">Tipo de almacenamiento</label>
+                    {{ form_widget(form.tipo_almacenamiento, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="fecha_envasado">Fecha de envasado</label>
+                    {{ form_widget(form.fecha_envasado, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="ubicacion_envase">Ubicación envase</label>
+                    {{ form_widget(form.ubicacion_envase, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="cantidad_gramos">Cantidad en gramos</label>
+                    {{ form_widget(form.cantidad_gramos, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="cantidad_unidaddes">Cantidad en unidades</label>
+                    {{ form_widget(form.cantidad_unidaddes, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="unidades_viables">Unidades viables</label>
+                    {{ form_widget(form.unidades_viables, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="temperatura_envasado">Temperatura del envasado</label>
+                    {{ form_widget(form.temperatura_envasado, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="humedad_relativa_envasar">Humedad relativa al envasado</label>
+                    {{ form_widget(form.humedad_relativa_envasar, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="humedad_relativa_simple">Humedad relativa simple</label>
+                    {{ form_widget(form.humedad_relativa_simple, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="cantidad_min_seguridad">Cantidad mínima de seguridad</label>
+                    {{ form_widget(form.cantidad_min_seguridad, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="cantidad_min_unidades">Cantidad mínima unidades</label>
+                    {{ form_widget(form.cantidad_min_unidades, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="unidades_gramo">Unidades en gramos</label>
+                    {{ form_widget(form.unidades_gramo, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="disponibilidad_red">Disponibilidad RED</label>
+                    {{ form_widget(form.disponibilidad_red, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="conservacion">Conservación</label>
+                    {{ form_widget(form.conservacion, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="observaciones">Observaciones</label>
+                    {{ form_widget(form.observaciones, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="entrada">Entrada</label>
+                    {{ form_widget(form.entrada, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                </div>
+                
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                  <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
+                </div>
+              {{ form_end(form) }}
+            </div>
+            <!-- /.card -->
+          </div>
+          <!--/.col (left) -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->

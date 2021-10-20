@@ -1,0 +1,260 @@
+
+
+body
+{
+background:#E7AF40;
+color:#000000;
+}
+
+#app .section-body
+{
+color:#ffffff;    
+}
+
+#footer a,
+#main a
+{
+color:#000000;
+}
+
+#menu-footer a
+{
+color:#E7AF40;
+}
+
+#header a,
+.menu-mod a
+{
+color:#FFFFFF;
+}
+    
+
+#topline-bg
+{
+background:#ffffff;
+}
+
+
+#menu-dialog-ul-bottom li
+{
+background:#A06512;
+border: 0.1em solid #653323;    
+}
+
+#menu-dialog-ul,
+#menu-dialog-ul-admin,
+#menu-dialog-ul-bottom
+{
+background:#653323;
+border: 0.2em solid #653323;
+}
+
+
+#menu-dialog-ul li,
+#menu-dialog-ul-admin li,
+.app-grid .app-grid-but,
+.app-control .app-control-but
+{
+background:#A06512;
+border: 0.1em solid #653323;
+color:#ffffff;
+}
+
+
+#menu-mod li
+{
+background:#A06512;   
+border: 0.25em solid #653323;
+}
+
+#menu-mod li.but-menu-member
+{
+background:#BD7D09;   
+}
+
+#menu-mod li.but-menu-catalog
+{
+background:#DF9500;   
+}
+
+#but-main-reload 
+{
+background:#E7AF40 !important;   
+}
+
+#but-main-info 
+{
+background:#DF9500 !important;   
+}
+
+#but-main-contact 
+{
+background:#BD7D09 !important;   
+}
+
+#but-main-setting 
+{
+background:#A06512 !important;   
+}
+
+#but-main-login
+{
+background:#905910 !important;   
+}
+
+
+
+#home .section-header h2
+{
+font-size:3em;
+}
+
+.app-control-header label
+{
+color:#ffffff;
+font-weight:bold;
+}
+
+
+#popup-content,
+#lightbox-content
+{
+color:#000000;
+}
+
+#main
+{
+background:#E7AF40;
+}
+
+#menu-hamburger
+{
+
+}
+
+div.mod-header
+{
+
+}
+
+div.mod-header div.mod-header-item
+{
+background:#653323;
+border-color:#653323;
+}
+
+
+ul.menu-mod-ul li.active
+{
+background:#653323 !important;
+border-color:#653323 !important;
+}
+
+ul.menu-mod-ul li.active-prev
+{
+border-color:#653323 !important;
+}
+
+div.mod-header div.mod-header-item:not(.active)
+{
+opacity:0.7;
+}
+
+
+div.mod-header div.mod-header-item.active
+{
+background:#653323 !important;
+opacity:1;
+}
+
+div.mod-header div.mod-header-item span
+{
+color:#ffffff;
+}
+
+div.mod-header div.mod-header-item.active span
+{
+color:#ffffff;
+}
+
+
+/* -------------------- */
+
+#topsearch-dialog
+{
+color:#ffffff;
+background:#A06512;
+border: 0.7em solid #653323;        
+}
+
+/* -------------------- */
+
+#login-form button,
+.app-but button
+{
+color:#ffffff;
+border:none;
+background-color:transparent;
+background-image: url('../svg/bg_bubble_green.svg');
+background-repeat: no-repeat;
+background-size:cover;
+}
+
+.app-but.dark button
+{
+}
+
+.app-but.green button,
+.app-but-save button,
+.but-save-inline button
+{
+}
+
+
+/* -------------------- */
+
+.app-control-more-ul
+{
+background:#653323;
+color:#ffffff;
+}
+
+.app-control-more-ul a
+{
+color:#ffffff !important;
+}
+
+.app-control-more-ul li
+{
+background:#A06512;
+border-color:#653323;
+}
+
+.app-control-more-ul-bottom li
+{
+background:#653323;
+border-color:#653323;
+}
+
+.app-table tfoot,
+.app-table tbody
+{
+color:#ffffff;
+}
+
+.app-table tbody td,
+.app-table tfoot td
+{
+background:#ffffff;
+}
+
+.fade-right
+{
+background:linear-gradient(to left, #090909 0%, rgba(9,9,9,0) 100%);
+}
+
+
+#login .app-input
+{
+border:none;    
+}

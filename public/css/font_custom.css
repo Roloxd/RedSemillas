@@ -1,0 +1,136 @@
+
+@font-face
+{
+  font-family:'BubbleboddyNeueRegular';
+  src: url('../font/bubbleboddy_neue/BubbleboddyNeueTrial-Regular.eot') format('embedded-opentype'),
+       url('../font/bubbleboddy_neue/BubbleboddyNeueTrial-Regular.woff') format('woff'),
+       url('../font/bubbleboddy_neue/BubbleboddyNeueTrial-Regular.ttf')  format('truetype'),
+       url('../font/bubbleboddy_neue/BubbleboddyNeueTrial-Regular.svg#BubbleboddyNeueTrial-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+@font-face
+{
+  font-family:'HelveticaNeueRegular';
+  src: url('../font/helvetica_neue/helveticaneue_light-webfont.eot') format('embedded-opentype'),
+       url('../font/helvetica_neue/helveticaneue_light-webfont.woff') format('woff'),
+       url('../font/helvetica_neue/helveticaneue_light-webfont.woff2') format('woff2'),
+       url('../font/helvetica_neue/helveticaneue_light-webfont.ttf')  format('truetype'),
+       url('../font/helvetica_neue/helveticaneue_light-webfont.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.font-small
+{
+font-size:0.91em;
+line-height:1em;
+}
+
+body
+{
+font-family:HelveticaNeueRegular;
+letter-spacing: 0.1em;
+}
+
+.app-input
+{
+font-family:HelveticaNeueRegular;
+font-size: 1em;
+font-weight:bold;  
+}
+
+
+.app-but button label
+{
+font-size:1.8em;
+font-family:BubbleboddyNeueRegular;
+}
+
+
+
+.font-big
+{
+font-size:1.33em;
+letter-spacing: 0.07em;
+line-height: 1.3em;
+}
+
+
+h1,h2,h3,h5,h5,h6,h7,
+.font-headline
+{
+font-family:BubbleboddyNeueRegular;
+font-weight:normal;
+margin:0;
+padding:0;
+border:0;
+outline:0;
+letter-spacing: 0.03em;
+}
+
+
+h1
+{
+font-size:3.2em;
+}
+
+h2
+{
+font-size:2.7em;
+}
+
+
+h3
+{
+font-size:2.0em;
+}
+
+
+h4
+{
+font-size:1.6em;
+}
+
+
+#header a,
+#footer a,
+#main a,
+.menu-mod a
+{
+text-decoration:none;
+font-weight:bold;
+}
+
+
+/* ----------------------------- menu ----------------------- */
+
+
+.text-menu
+{
+font-size:1.1em;
+}
+
+.text-menu-small
+ {
+font-size:0.95em;
+ }
+
+
+ #menu-mod-ul .text-menu,
+ #menu-dialog-ul .text-menu
+{
+font-size:1.35em;
+font-family:BubbleboddyNeueRegular;    
+font-weight:normal;
+letter-spacing:0;
+line-height:1.8em;
+}
+
+#menu-mod-ul .text-menu
+{
+text-transform:uppercase;  
+}
+

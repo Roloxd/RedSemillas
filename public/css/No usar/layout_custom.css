@@ -1,0 +1,232 @@
+
+/*
+.do-sizing-explicit
+{
+width:80vw;
+left:10vw;
+}
+*/
+
+.section-body
+{
+padding:0 0 0 0;
+}
+
+#topline-right
+{
+display:flex;
+}
+
+#menu-dialog
+{
+}
+
+#menu-dialog-list
+{
+top:4.75em;
+right:2.4em;
+text-align:right;
+}
+
+
+#header-title h1
+{
+position:relative;
+top:0.2em;
+left:0.15em;
+}
+
+
+#menu-mod-ul li
+{
+border-radius:0.3em;
+padding:0em 0.2em 0em 0.1em;
+white-space: nowrap;
+z-index:3;
+}
+
+#menu-dialog-ul li,
+#menu-dialog-ul-admin li
+{
+overflow:visible;
+border-radius:0.1em;
+min-width:7em;
+padding:0.1em 0 0em 0.8em; 
+z-index:2;
+/*display:none;  overwritten by JS */
+}
+
+
+#menu-dialog-ul-bottom li
+{
+border-radius:0.1em;
+z-index:2;
+}
+
+#menu-dialog-ul
+{
+display:flex;
+flex-direction:column;
+border-radius:0.1em;
+max-width:13em;
+margin-left:auto;
+}
+
+#menu-dialog-ul-bottom
+{
+display:inline-flex;
+flex-direction: row;
+border-radius:0.1em;
+}
+
+#menu-dialog-ul-admin
+{
+display:inline-flex;
+flex-direction: row;
+padding:0.15em 0.5em 0.15em 0.65em;
+}
+
+body.admin #menu-dialog-ul-bottom
+{
+padding-top:0.25em;
+}
+
+#menu-dialog-ul-admin li
+{
+margin-left:0.15em;
+}
+
+#menu-dialog-ul-bottom li img.sym,
+#menu-dialog-ul  li img.sym,
+#menu-dialog-ul-admin li img.sym,
+#menu-dialog-ul-admin span.fa,
+.menu-mod li img.sym
+{
+height:auto;
+width:2em;
+display:inline;
+position:relative;
+}
+
+#menu-mod-ul li span
+{
+padding-right:0.5em;
+}
+
+#menu-mod-ul li img.sym
+{
+height:2.2em;
+width:auto;
+}
+
+
+#menu-dialog-ul li img.sym
+{
+height:2.1em;
+width:auto;
+top:0.09em;
+}
+
+#menu-dialog-ul-bottom li
+{
+padding:0.3em;    
+}
+
+#menu-dialog-ul-bottom  li img.sym
+{
+height:2.1em;
+width:auto;
+}
+
+#menu-dialog-ul-bottom li span
+{
+display:none;
+}
+
+
+#cont-menu-mod
+{
+position:fixed;
+top:1.85em;
+right:-0.35em;
+z-index:1003;
+transform:rotate(-90deg);    
+transform-origin: right bottom;
+}
+
+#menu-mod
+{
+}
+
+#menu-mod ul
+{
+list-style-type: none;
+display:flex;
+flex-direction:row-reverse;
+flex-wrap:nowrap;
+}
+
+#menu-mod li
+{
+margin-left:-0.25em;    
+}
+
+#menu-mod ul>li>a
+{
+display:block;
+width:100%;
+height:100%;
+}
+
+
+#main
+{
+/* margin-left: 22vw;   /* will be overwritten by js at init */
+
+}
+
+.main__content {width: %}
+.main__sidebar {width: 20%}
+
+.main__sidebar-menu ul li { padding: 5px 5px; list-style: none;}
+
+/*
+
+#cont-menu-mod.mode-mobile
+{
+left:auto;
+right:0.2em;
+top:2.7em;
+padding:0em 0em 0.3em 0.2em;
+border-left:0.1em solid;
+display:none;
+}
+
+
+#cont-menu-mod.mode-mobile span
+{
+display:none; 
+}
+
+body:not(.login-ok) #cont-menu-mod
+{
+opacity:0.1;     
+}
+
+*/
+
+nav.vertical li
+{
+text-align:left;
+white-space: nowrap;
+}
+
+div.language-flag img
+{
+margin-right:0.7em;
+}
+
+body.screen-small.portrait #header-title
+{
+display:none;   /* will be set true after first resize */
+}

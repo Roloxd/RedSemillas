@@ -1,0 +1,97 @@
+
+/* BODY-class LAYOUT-main-setting
+----------------------
+
+* layout-mode-fullscreen   in fact this means the display of the page in full-width of the viewport
+
+* layout-mode-ratio        Set data-ratio="0.66" or is 0.75 (4:3) per default. limits: (0.1 ... 3.0)
+                           if ratio is smaller 1 (as usually), portrait-screens display full-width
+
+----------------------
+
+IMPORTANT: All top-elements like main-slideshow, topline, message-overly and all CSS-fixed elements need the class "do-sizing-explicit"
+
+* do-sizing-explicit    // used typically at #topline,#topimage", thats usually fixed elements
+
+Note:  By setting a CSS-width to .do-sizing-explicit you can realize a 'layout-mode-width', place it in layout_custom.css
+*/
+
+
+
+body.layout-mode-fullscreen,
+body.layout-mode-fullscreen .do-sizing-explicit
+{
+width:100vw;  /* don't know why at 100vw comes out too wide at Chrome */
+max-width:100%;  /* this line fixes it */
+}
+
+
+.con.image
+{
+z-index:9;
+}
+
+.con.image img
+{
+width:100%;  
+}
+
+
+/* ------------------------------------------------- MEDIUM SCREENS (not very big nor very small) ---------------------------- */
+
+
+/* ------------------------------------------------- VERY SMALL SCREENS ---------------------------- */
+@media only screen and (max-width:490px)
+{
+
+  div.box-container div.box-sub
+  {
+  width:100%;
+  margin:1em 0 1em 0 !important;
+  }
+
+  div.box-container-quarter div.box-sub
+  {
+  width:49%;
+  margin:0 0 1em 1% !important;
+  }
+
+  .con.image
+  {
+    width:100% !important;
+    margin:1em 0;
+    z-index:9;
+  }
+
+  #lightbox.show
+  {
+    left:-5%;
+    width:140%;
+  }
+}
+
+
+/* ------------------------------------------------- Quite SMALL SCREENS (AND very small screens) ---------------------------- */
+
+@media only screen and (max-width:690px)
+{
+  #menu-topline
+  {
+    display:none;
+  }
+}
+
+/* ------------------------------------------------- BIG SCREENS ---------------------------- */
+
+
+@media only screen and (min-width: 1200px)
+{
+
+}
+
+/* ------------------------------------------------- VERY BIG SCREENS ---------------------------- */
+
+@media only screen and (min-width: 1600px)
+{
+
+}

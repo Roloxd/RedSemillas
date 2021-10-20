@@ -1,0 +1,117 @@
+/* ------ ADMIN  ------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------------------------------------
+  ----------------------------------------------------------------------------------------------------------------*/
+body.rgcs__admin { background: #e7af40; font-size: 0.9em;
+    font-family: 'HelveticaNeueRegular';
+
+}
+body.rgcs__admin ul {
+    margin-bottom: 0;
+}
+body.rgcs__admin .main-header {
+    background: #fff;
+    height: 105px;
+    padding: 20px;}
+body.rgcs__admin .main-sidebar {
+    background: #e7af40;
+    padding: 0 20px 0 !important;
+}
+body.rgcs__admin .wrapper { width: 100%; margin: 0px}
+body.rgcs__admin .wrapper section.content-header { background: #e7af40 }
+body.rgcs__admin .wrapper section.content-header .content-header-title {color: var(--white)}
+
+body.rgcs__admin .main-header #header-logo img,
+body.rgcs__admin .main-header #header-logo svg
+{ height: 70px;}
+
+body.rgcs__admin .content-header:after,
+body.rgcs__admin .content-header:before {background: #e7af40}
+
+body.rgcs__admin .sidebar-menu a {color: #fff;}
+body.rgcs__admin .sidebar-menu .header{ color: #795548;}
+
+/* Listas  .action*/
+body.rgcs__admin .actions a  {}
+body.rgcs__admin .actions a.action-edit{}
+body.rgcs__admin .actions a.action-delete { }
+
+body.rgcs__admin pre.sf-dump, pre.sf-dump .sf-dump-default {z-index: 0;}
+
+@media (min-width: 1280px){
+
+    body.rgcs__admin .wrapper {
+        grid-column-gap: 10px;
+    }
+    body.rgcs__admin .main-sidebar { width: 200px; border-right: #fff;}
+}
+
+.rgcs__admin .wrapper { width: 100%; }
+.sidebar-menu .header {}
+
+.rgcs__admin--home-panel {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0 30px;
+}
+
+.admin__links { }
+.admin__links h3 { font-size:15px; margin: 10px 0;}
+
+body.rgcs__admin .form-widget input.form-control,
+body.rgcs__admin .form-widget select.form-control,
+body.rgcs__admin .form-widget textarea.form-control
+{
+    padding: 10px 15px 10px;
+    height: 50px;
+}
+
+/* js add element*/
+.form__addElement {}
+.form__addElement input {height: 45px}
+.form__addElement a {
+    padding: 10px 10px;
+    margin: 0px 2px;
+    font-size: 15px;
+}
+.form__addElement-row { display: flex;}
+.form__addElement-error {width: 100%;padding: 5px;color: red;}
+
+
+@media (max-width: 470px){
+
+    body.rgcs__admin .wrapper section.content-header .flex-row {flex-direction: column !important;}
+    body.rgcs__admin .wrapper section.content-header .content-header-title {
+        width: 100%;
+        text-align: center;
+        margin: 10px 0;
+    }
+    .tabs-container li { width: 100%; }
+    body.rgcs__admin .wrapper section.content-header .page-actions { flex-direction: column;}
+    body.rgcs__admin .wrapper section.content-header .page-actions button {
+        margin-bottom: 5px;}
+
+
+}
+body.rgcs__admin .form-group {display: block;}
+body.rgcs__admin .form-group label {margin:0 0px 5px 10px}
+body.rgcs__admin button.btn {
+    padding: 10px 20px;
+    background: var(--green);
+    color: #fff;
+    height: auto;
+    margin: 5px;
+}
+body.rgcs__admin .field-collection-item .form-widget-compound {width: 100%}
+.row-numeroPasaporte {
+    padding: 10px;}
+
+
+
+@media (min-width: 1024px){
+    body.rgcs__admin .form-group label, body.rgcs__admin .form-group legend.col-form-label {
+        text-align: left;
+    }
+}
+
+/* ------ END ADMIN  ------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------------------------------------
+  ----------------------------------------------------------------------------------------------------------------*/ {}
