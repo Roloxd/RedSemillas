@@ -5,7 +5,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Nuevo envase</h1>
+            <h1>{{ text_form }}</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -43,18 +43,6 @@
                   <div class="form-group">
                     <label for="ubicacion_envase">Ubicación envase</label>
                     {{ form_widget(form.ubicacion_envase, {'attr': {'class': 'form-control'}}) }}
-                  </div>
-                  <div class="form-group">
-                    <label for="cantidad_gramos">Cantidad en gramos</label>
-                    {{ form_widget(form.cantidad_gramos, {'attr': {'class': 'form-control'}}) }}
-                  </div>
-                  <div class="form-group">
-                    <label for="cantidad_unidaddes">Cantidad en unidades</label>
-                    {{ form_widget(form.cantidad_unidaddes, {'attr': {'class': 'form-control'}}) }}
-                  </div>
-                  <div class="form-group">
-                    <label for="unidades_viables">Unidades viables</label>
-                    {{ form_widget(form.unidades_viables, {'attr': {'class': 'form-control'}}) }}
                   </div>
                   <div class="form-group">
                     <label for="temperatura_envasado">Temperatura del envasado</label>
@@ -103,11 +91,35 @@
                 <div class="card-footer">
                   <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
                 </div>
-              {{ form_end(form) }}
             </div>
             <!-- /.card -->
           </div>
           <!--/.col (left) -->
+          <!-- right column -->
+          <div class="col-md-6">
+            <!-- general form elements -->
+            <div class="card card-secondary">
+              <div class="card-header">
+                <h3 class="card-title">Contenido</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="cantidad_gramos">Cantidad en gramos</label>
+                  {{ form_widget(form.cantidad_gramos, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="cantidad_unidaddes">Cantidad en unidades</label>
+                  {{ form_widget(form.cantidad_unidaddes, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="unidades_viables">Unidades viables</label>
+                  {{ form_widget(form.unidades_viables, {'attr': {'class': 'form-control'}}) }}
+                </div>
+              {{ form_end(form) }}
+              </div>
+            </div>
+          </div>
         </div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->

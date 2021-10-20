@@ -36,9 +36,12 @@ class PersonaController extends AbstractController
             return $this->redirectToRoute('persona_index', [], Response::HTTP_SEE_OTHER);
         }
 
+        $text = 'Nueva Persona';
+
         return $this->renderForm('persona/new.html.twig', [
             'persona' => $persona,
             'form' => $form,
+            'text_form' => $text,
         ]);
     }
 
@@ -62,9 +65,12 @@ class PersonaController extends AbstractController
             return $this->redirectToRoute('persona_index', [], Response::HTTP_SEE_OTHER);
         }
 
+        $text = 'Editar Persona';
+
         return $this->renderForm('persona/edit.html.twig', [
             'persona' => $persona,
             'form' => $form,
+            'text_form' => $text,
         ]);
     }
 

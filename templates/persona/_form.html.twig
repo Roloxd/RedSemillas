@@ -5,7 +5,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Nueva persona</h1>
+            <h1>{{ text_form }}</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -20,49 +20,30 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
+        <div class="form-group">
+          <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
+        </div>
+      </div>
+      <div class="container-fluid">
         <div class="row">
           <!-- left column -->
           <div class="col-md-6">
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Persona</h3>
+                <h3 class="card-title">Datos de la persona</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
               {{ form_start(form) }}
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="num_socio">Número Socio</label>
-                    {{ form_widget(form.num_socio, {'attr': {'class': 'form-control'}}) }}
-                  </div>
-                  <div class="form-group">
                     <label for="fecha_inscripcion_rgcs">Fecha Inscripción</label>
                     {{ form_widget(form.fecha_inscripcion_rgcs, {'attr': {'class': 'form-control'}}) }}
                   </div>
                   <div class="form-group">
-                    <label for="acepta_condiciones">Aceptar condiciones</label>
-                    {{ form_widget(form.acepta_condiciones, {'attr': {'class': 'form-control'}}) }}
-                  </div>
-                  <div class="form-group">
-                    <label for="tipo_socio">Tipo Socio</label>
-                    {{ form_widget(form.tipo_socio, {'attr': {'class': 'form-control'}}) }}
-                  </div>
-                  <div class="form-group">
-                    <label for="ampliacion_cuota">Amplicación Cuota</label>
-                    {{ form_widget(form.ampliacion_cuota, {'attr': {'class': 'form-control'}}) }}
-                  </div>
-                  <div class="form-group">
-                    <label for="fecha_cuota">Fecha Cuota</label>
-                    {{ form_widget(form.fecha_cuota, {'attr': {'class': 'form-control'}}) }}
-                  </div>
-                  <div class="form-group">
-                    <label for="recibir_informacion">Recibir Información</label>
-                    {{ form_widget(form.recibir_informacion, {'attr': {'class': 'form-control'}}) }}
-                  </div>
-                  <div class="form-group">
-                    <label for="fecha_informacion">Fecha Información</label>
-                    {{ form_widget(form.fecha_informacion, {'attr': {'class': 'form-control'}}) }}
+                    <label for="num_socio">Número Socio</label>
+                    {{ form_widget(form.num_socio, {'attr': {'class': 'form-control'}}) }}
                   </div>
                   <div class="form-group">
                     <label for="nif">DNI, CIF o Pasaporte</label>
@@ -77,7 +58,54 @@
                     {{ form_widget(form.apellidos, {'attr': {'class': 'form-control'}}) }}
                   </div>
                   <div class="form-group">
-                    <label for="direccion">Dirección</label>
+                    <label for="telefono">Teléfono</label>
+                    {{ form_widget(form.telefono, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="telefono2">Teléfono secundario</label>
+                    {{ form_widget(form.telefono2, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="correo">Correo</label>
+                    {{ form_widget(form.correo, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="tipo_socio">Tipo Socio</label>
+                    {{ form_widget(form.tipo_socio, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="acepta_condiciones">Aceptar condiciones</label>
+                    {{ form_widget(form.acepta_condiciones, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="otras_cuestiones">Otras Cuestiones</label>
+                    {{ form_widget(form.otras_cuestiones, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="documento">Documento</label>
+                    {{ form_widget(form.documento, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="observaciones">Observaciones</label>
+                    {{ form_widget(form.observaciones, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- right column -->
+          <div class="col-md-6">
+            <!-- general form elements -->
+            <div class="card card-secondary">
+              <div class="card-header">
+                <h3 class="card-title">Dirección</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <div class="form-group">
+                  <div class="form-group">
+                  <label for="direccion">Dirección</label>
                     {{ form_widget(form.direccion, {'attr': {'class': 'form-control'}}) }}
                   </div>
                   <div class="form-group">
@@ -100,61 +128,66 @@
                     <label for="pais_origen">País de Origen</label>
                     {{ form_widget(form.pais_origen, {'attr': {'class': 'form-control'}}) }}
                   </div>
-                  <div class="form-group">
-                    <label for="telefono">Teléfono</label>
-                    {{ form_widget(form.telefono, {'attr': {'class': 'form-control'}}) }}
-                  </div>
-                  <div class="form-group">
-                    <label for="telefono2">Teléfono secundario</label>
-                    {{ form_widget(form.telefono2, {'attr': {'class': 'form-control'}}) }}
-                  </div>
-                  <div class="form-group">
-                    <label for="correo">Correo</label>
-                    {{ form_widget(form.correo, {'attr': {'class': 'form-control'}}) }}
-                  </div>
-                  <div class="form-group">
-                    <label for="relacion_agricultura">Relación Agricultura</label>
-                    {{ form_widget(form.relacion_agricultura, {'attr': {'class': 'form-control'}}) }}
-                  </div>
-                  <div class="form-group">
-                    <label for="terreno_cultivo">Terreno de cultivo</label>
-                    {{ form_widget(form.terreno_cultivo, {'attr': {'class': 'form-control'}}) }}
-                  </div>
-                  <div class="form-group">
-                    <label for="inscripcion_rope">Inscripción ROPE</label>
-                    {{ form_widget(form.inscripcion_rope, {'attr': {'class': 'form-control'}}) }}
-                  </div>
-                  <div class="form-group">
-                    <label for="codigo_rope">Codigo ROPE</label>
-                    {{ form_widget(form.codigo_rope, {'attr': {'class': 'form-control'}}) }}
-                  </div>
-                  <div class="form-group">
-                    <label for="otras_cuestiones">Otras Cuestiones</label>
-                    {{ form_widget(form.otras_cuestiones, {'attr': {'class': 'form-control'}}) }}
-                  </div>
-                  <div class="form-group">
-                    <label for="documento">Documento</label>
-                    {{ form_widget(form.documento, {'attr': {'class': 'form-control'}}) }}
-                  </div>
-                  <div class="form-group">
-                    <label for="observaciones">Observaciones</label>
-                    {{ form_widget(form.observaciones, {'attr': {'class': 'form-control'}}) }}
-                  </div>
+                  
                 </div>
-                
-                <!-- /.card-body -->
-
-                <div class="card-footer">
-                  <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
-                </div>
-              {{ form_end(form) }}
+              </div>
+              <!-- /.card-header -->
             </div>
-            <!-- /.card -->
+            <!-- .card-header -->
+            <div class="card card-green">
+              <div class="card-header">
+                <h3 class="card-title">Información y condiciones</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="relacion_agricultura">Relación con la agricultura</label>
+                  {{ form_widget(form.relacion_agricultura, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="terreno_cultivo">¿Tiene terreno de cultivo?</label>
+                  {{ form_widget(form.terreno_cultivo, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="inscripcion_rope">Inscripto en ROPE</label>
+                  {{ form_widget(form.inscripcion_rope, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="codigo_rope">Codigo ROPE</label>
+                  {{ form_widget(form.codigo_rope, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="ampliacion_cuota">Amplicación Cuota</label>
+                  {{ form_widget(form.ampliacion_cuota, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="fecha_cuota">Fecha Cuota</label>
+                  {{ form_widget(form.fecha_cuota, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="recibir_informacion">Recibir Información</label>
+                  {{ form_widget(form.recibir_informacion, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="fecha_informacion">Fecha Información</label>
+                  {{ form_widget(form.fecha_informacion, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                {{ form_end(form) }}
+              </div>
+            </div>
+            <!--/.col (right) -->
           </div>
-          <!--/.col (left) -->
         </div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->
+
+      <div class="container-fluid">
+        <div class="form-group">
+          <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
+        </div>
+      </div>
+                
+      
     </section>
     <!-- /.content -->
   </div>

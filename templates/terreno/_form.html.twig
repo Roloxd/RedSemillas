@@ -5,7 +5,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Nuevo terreno</h1>
+            <h1>{{ text_form }}</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -53,18 +53,6 @@
                     {{ form_widget(form.superficie_finca, {'attr': {'class': 'form-control'}}) }}
                   </div>
                   <div class="form-group">
-                    <label for="superficie_cultivo">Superficie de Cultivos</label>
-                    {{ form_widget(form.superficie_cultivo, {'attr': {'class': 'form-control'}}) }}
-                  </div>
-                  <div class="form-group">
-                    <label for="manejo_cultivo">Manejo de Cultivos</label>
-                    {{ form_widget(form.manejo_cultivo, {'attr': {'class': 'form-control'}}) }}
-                  </div>
-                  <div class="form-group">
-                    <label for="tipo_cultivos">Tipo de Cultivos</label>
-                    {{ form_widget(form.tipo_cultivos, {'attr': {'class': 'form-control'}}) }}
-                  </div>
-                  <div class="form-group">
                     <label for="observaciones">Observaciones</label>
                     {{ form_widget(form.observaciones, {'attr': {'class': 'form-control'}}) }}
                   </div>
@@ -79,11 +67,36 @@
                 <div class="card-footer">
                   <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
                 </div>
-              {{ form_end(form) }}
+              
             </div>
             <!-- /.card -->
           </div>
           <!--/.col (left) -->
+          <!-- right column -->
+          <div class="col-md-6">
+            <!-- general form elements -->
+            <div class="card card-secondary">
+              <div class="card-header">
+                <h3 class="card-title">Cultivos</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="superficie_cultivo">Superficie de Cultivos</label>
+                  {{ form_widget(form.superficie_cultivo, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="manejo_cultivo">Manejo de Cultivos</label>
+                  {{ form_widget(form.manejo_cultivo, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="tipo_cultivos">Tipo de Cultivos</label>
+                  {{ form_widget(form.tipo_cultivos, {'attr': {'class': 'form-control'}}) }}
+                </div>
+              {{ form_end(form) }}
+              </div>
+            </div>
+          </div>
         </div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->

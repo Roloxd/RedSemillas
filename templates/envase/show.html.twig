@@ -1,82 +1,106 @@
-{% extends 'base.html.twig' %}
+{% extends 'backend-base.html.twig' %}
 
 {% block title %}Envase{% endblock %}
 
+{% block stylesheets %}
+      {{ include('be-layout/stylesheet.html', sandboxed = true) }}
+{% endblock %}
+
 {% block body %}
-    <h1>Envase</h1>
+<div class="wrapper">
+    {{ include('be-layout/preloader.html', sandboxed = true) }}
+    {{ include('be-layout/navbar.html', sandboxed = true) }}
+    {{ include('be-layout/sidebar.html', sandboxed = true) }}
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ envase.id }}</td>
-            </tr>
-            <tr>
-                <th>Tipo_almacenamiento</th>
-                <td>{{ envase.tipoAlmacenamiento }}</td>
-            </tr>
-            <tr>
-                <th>Fecha_envasado</th>
-                <td>{{ envase.fechaEnvasado ? envase.fechaEnvasado|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Ubicacion_envase</th>
-                <td>{{ envase.ubicacionEnvase }}</td>
-            </tr>
-            <tr>
-                <th>Cantidad_gramos</th>
-                <td>{{ envase.cantidadGramos }}</td>
-            </tr>
-            <tr>
-                <th>Cantidad_unidaddes</th>
-                <td>{{ envase.cantidadUnidaddes }}</td>
-            </tr>
-            <tr>
-                <th>Unidades_viables</th>
-                <td>{{ envase.unidadesViables }}</td>
-            </tr>
-            <tr>
-                <th>Temperatura_envasado</th>
-                <td>{{ envase.temperaturaEnvasado }}</td>
-            </tr>
-            <tr>
-                <th>Humedad_relativa_envasar</th>
-                <td>{{ envase.humedadRelativaEnvasar }}</td>
-            </tr>
-            <tr>
-                <th>Humedad_relativa_simple</th>
-                <td>{{ envase.humedadRelativaSimple }}</td>
-            </tr>
-            <tr>
-                <th>Cantidad_min_seguridad</th>
-                <td>{{ envase.cantidadMinSeguridad }}</td>
-            </tr>
-            <tr>
-                <th>Cantidad_min_unidades</th>
-                <td>{{ envase.cantidadMinUnidades }}</td>
-            </tr>
-            <tr>
-                <th>Unidades_gramo</th>
-                <td>{{ envase.unidadesGramo }}</td>
-            </tr>
-            <tr>
-                <th>Disponibilidad_red</th>
-                <td>{{ envase.disponibilidadRed }}</td>
-            </tr>
-            <tr>
-                <th>Conservacion</th>
-                <td>{{ envase.conservacion ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>Observaciones</th>
-                <td>{{ envase.observaciones }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <h1>Envase</h1>
 
-    <a href="{{ path('envase_index') }}">back to list</a>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ envase.id }}</td>
+                </tr>
+                <tr>
+                    <th>Tipo_almacenamiento</th>
+                    <td>{{ envase.tipoAlmacenamiento }}</td>
+                </tr>
+                <tr>
+                    <th>Fecha_envasado</th>
+                    <td>{{ envase.fechaEnvasado ? envase.fechaEnvasado|date('Y-m-d') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>Ubicacion_envase</th>
+                    <td>{{ envase.ubicacionEnvase }}</td>
+                </tr>
+                <tr>
+                    <th>Cantidad_gramos</th>
+                    <td>{{ envase.cantidadGramos }}</td>
+                </tr>
+                <tr>
+                    <th>Cantidad_unidaddes</th>
+                    <td>{{ envase.cantidadUnidaddes }}</td>
+                </tr>
+                <tr>
+                    <th>Unidades_viables</th>
+                    <td>{{ envase.unidadesViables }}</td>
+                </tr>
+                <tr>
+                    <th>Temperatura_envasado</th>
+                    <td>{{ envase.temperaturaEnvasado }}</td>
+                </tr>
+                <tr>
+                    <th>Humedad_relativa_envasar</th>
+                    <td>{{ envase.humedadRelativaEnvasar }}</td>
+                </tr>
+                <tr>
+                    <th>Humedad_relativa_simple</th>
+                    <td>{{ envase.humedadRelativaSimple }}</td>
+                </tr>
+                <tr>
+                    <th>Cantidad_min_seguridad</th>
+                    <td>{{ envase.cantidadMinSeguridad }}</td>
+                </tr>
+                <tr>
+                    <th>Cantidad_min_unidades</th>
+                    <td>{{ envase.cantidadMinUnidades }}</td>
+                </tr>
+                <tr>
+                    <th>Unidades_gramo</th>
+                    <td>{{ envase.unidadesGramo }}</td>
+                </tr>
+                <tr>
+                    <th>Disponibilidad_red</th>
+                    <td>{{ envase.disponibilidadRed }}</td>
+                </tr>
+                <tr>
+                    <th>Conservacion</th>
+                    <td>{{ envase.conservacion ? 'Yes' : 'No' }}</td>
+                </tr>
+                <tr>
+                    <th>Observaciones</th>
+                    <td>{{ envase.observaciones }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-    <a href="{{ path('envase_edit', {'id': envase.id}) }}">edit</a>
+    <a href="{{ path('envase_index') }}">Volver a la lista</a>
+
+    <a href="{{ path('envase_edit', {'id': envase.id}) }}">Editar</a>
 
     {{ include('envase/_delete_form.html.twig') }}
+
+    {{ include('be-layout/footer.html', sandboxed = true) }}
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+{{ include('be-layout/js.html', sandboxed = true) }}
 {% endblock %}

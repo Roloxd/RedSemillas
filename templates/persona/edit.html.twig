@@ -1,13 +1,32 @@
-{% extends 'base.html.twig' %}
+{% extends 'backend-base.html.twig' %}
 
-{% block title %}Edit Persona{% endblock %}
+{% block title %}Editar Persona{% endblock %}
+
+{% block stylesheets %}
+      {{ include('be-layout/stylesheet.html', sandboxed = true) }}
+{% endblock %}
 
 {% block body %}
-    <h1>Edit Persona</h1>
+<div class="wrapper">
+    {{ include('be-layout/preloader.html', sandboxed = true) }}
+    {{ include('be-layout/navbar.html', sandboxed = true) }}
+    {{ include('be-layout/sidebar.html', sandboxed = true) }}
 
     {{ include('persona/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('persona_index') }}">back to list</a>
+    <a href="{{ path('persona_index') }}">Volver a la lista</a>
 
     {{ include('persona/_delete_form.html.twig') }}
+
+    {{ include('be-layout/footer.html', sandboxed = true) }}
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+{{ include('be-layout/js.html', sandboxed = true) }}
 {% endblock %}

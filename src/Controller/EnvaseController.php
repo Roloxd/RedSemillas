@@ -36,9 +36,12 @@ class EnvaseController extends AbstractController
             return $this->redirectToRoute('envase_index', [], Response::HTTP_SEE_OTHER);
         }
 
+        $text = 'Nuevo Envase';
+
         return $this->renderForm('envase/new.html.twig', [
             'envase' => $envase,
             'form' => $form,
+            'text_form' => $text,
         ]);
     }
 
@@ -62,9 +65,12 @@ class EnvaseController extends AbstractController
             return $this->redirectToRoute('envase_index', [], Response::HTTP_SEE_OTHER);
         }
 
+        $text = 'Editar Envase';
+
         return $this->renderForm('envase/edit.html.twig', [
             'envase' => $envase,
             'form' => $form,
+            'text_form' => $text,
         ]);
     }
 

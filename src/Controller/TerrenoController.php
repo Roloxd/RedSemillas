@@ -36,9 +36,12 @@ class TerrenoController extends AbstractController
             return $this->redirectToRoute('terreno_index', [], Response::HTTP_SEE_OTHER);
         }
 
+        $text = 'Nuevo Terreno';
+
         return $this->renderForm('terreno/new.html.twig', [
             'terreno' => $terreno,
             'form' => $form,
+            'text_form' => $text,
         ]);
     }
 
@@ -62,9 +65,12 @@ class TerrenoController extends AbstractController
             return $this->redirectToRoute('terreno_index', [], Response::HTTP_SEE_OTHER);
         }
 
+        $text = 'Editar Terreno';
+
         return $this->renderForm('terreno/edit.html.twig', [
             'terreno' => $terreno,
             'form' => $form,
+            'text_form' => $text,
         ]);
     }
 

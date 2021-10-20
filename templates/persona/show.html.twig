@@ -1,130 +1,153 @@
-{% extends 'base.html.twig' %}
+{% extends 'backend-base.html.twig' %}
 
 {% block title %}Persona{% endblock %}
 
+{% block stylesheets %}
+      {{ include('be-layout/stylesheet.html', sandboxed = true) }}
+{% endblock %}
+
 {% block body %}
-    <h1>Persona</h1>
+<div class="wrapper">
+    {{ include('be-layout/preloader.html', sandboxed = true) }}
+    {{ include('be-layout/navbar.html', sandboxed = true) }}
+    {{ include('be-layout/sidebar.html', sandboxed = true) }}
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ persona.id }}</td>
-            </tr>
-            <tr>
-                <th>Num_socio</th>
-                <td>{{ persona.numSocio }}</td>
-            </tr>
-            <tr>
-                <th>Fecha_inscripcion_rgcs</th>
-                <td>{{ persona.fechaInscripcionRgcs ? persona.fechaInscripcionRgcs|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Acepta_condiciones</th>
-                <td>{{ persona.aceptaCondiciones ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>Tipo_socio</th>
-                <td>{{ persona.tipoSocio }}</td>
-            </tr>
-            <tr>
-                <th>Ampliacion_cuota</th>
-                <td>{{ persona.ampliacionCuota ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>Fecha_cuota</th>
-                <td>{{ persona.fechaCuota ? persona.fechaCuota|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Recibir_informacion</th>
-                <td>{{ persona.recibirInformacion ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>Fecha_informacion</th>
-                <td>{{ persona.fechaInformacion ? persona.fechaInformacion|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Nif</th>
-                <td>{{ persona.nif }}</td>
-            </tr>
-            <tr>
-                <th>Nombre</th>
-                <td>{{ persona.nombre }}</td>
-            </tr>
-            <tr>
-                <th>Apellidos</th>
-                <td>{{ persona.apellidos }}</td>
-            </tr>
-            <tr>
-                <th>Direccion</th>
-                <td>{{ persona.direccion }}</td>
-            </tr>
-            <tr>
-                <th>Localidad</th>
-                <td>{{ persona.localidad }}</td>
-            </tr>
-            <tr>
-                <th>Municipio</th>
-                <td>{{ persona.municipio }}</td>
-            </tr>
-            <tr>
-                <th>Provincia</th>
-                <td>{{ persona.provincia }}</td>
-            </tr>
-            <tr>
-                <th>Region</th>
-                <td>{{ persona.region }}</td>
-            </tr>
-            <tr>
-                <th>Pais_origen</th>
-                <td>{{ persona.paisOrigen }}</td>
-            </tr>
-            <tr>
-                <th>Telefono</th>
-                <td>{{ persona.telefono }}</td>
-            </tr>
-            <tr>
-                <th>Telefono2</th>
-                <td>{{ persona.telefono2 }}</td>
-            </tr>
-            <tr>
-                <th>Correo</th>
-                <td>{{ persona.correo }}</td>
-            </tr>
-            <tr>
-                <th>Relacion_agricultura</th>
-                <td>{{ persona.relacionAgricultura }}</td>
-            </tr>
-            <tr>
-                <th>Terreno_cultivo</th>
-                <td>{{ persona.terrenoCultivo ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>Inscripcion_rope</th>
-                <td>{{ persona.inscripcionRope ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>Codigo_rope</th>
-                <td>{{ persona.codigoRope }}</td>
-            </tr>
-            <tr>
-                <th>Otras_cuestiones</th>
-                <td>{{ persona.otrasCuestiones }}</td>
-            </tr>
-            <tr>
-                <th>Documento</th>
-                <td>{{ persona.documento }}</td>
-            </tr>
-            <tr>
-                <th>Observaciones</th>
-                <td>{{ persona.observaciones }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <h1>Persona</h1>
 
-    <a href="{{ path('persona_index') }}">back to list</a>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ persona.id }}</td>
+                </tr>
+                <tr>
+                    <th>Num_socio</th>
+                    <td>{{ persona.numSocio }}</td>
+                </tr>
+                <tr>
+                    <th>Fecha_inscripcion_rgcs</th>
+                    <td>{{ persona.fechaInscripcionRgcs ? persona.fechaInscripcionRgcs|date('Y-m-d') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>Acepta_condiciones</th>
+                    <td>{{ persona.aceptaCondiciones ? 'Yes' : 'No' }}</td>
+                </tr>
+                <tr>
+                    <th>Tipo_socio</th>
+                    <td>{{ persona.tipoSocio }}</td>
+                </tr>
+                <tr>
+                    <th>Ampliacion_cuota</th>
+                    <td>{{ persona.ampliacionCuota ? 'Yes' : 'No' }}</td>
+                </tr>
+                <tr>
+                    <th>Fecha_cuota</th>
+                    <td>{{ persona.fechaCuota ? persona.fechaCuota|date('Y-m-d') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>Recibir_informacion</th>
+                    <td>{{ persona.recibirInformacion ? 'Yes' : 'No' }}</td>
+                </tr>
+                <tr>
+                    <th>Fecha_informacion</th>
+                    <td>{{ persona.fechaInformacion ? persona.fechaInformacion|date('Y-m-d') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>Nif</th>
+                    <td>{{ persona.nif }}</td>
+                </tr>
+                <tr>
+                    <th>Nombre</th>
+                    <td>{{ persona.nombre }}</td>
+                </tr>
+                <tr>
+                    <th>Apellidos</th>
+                    <td>{{ persona.apellidos }}</td>
+                </tr>
+                <tr>
+                    <th>Direccion</th>
+                    <td>{{ persona.direccion }}</td>
+                </tr>
+                <tr>
+                    <th>Localidad</th>
+                    <td>{{ persona.localidad }}</td>
+                </tr>
+                <tr>
+                    <th>Municipio</th>
+                    <td>{{ persona.municipio }}</td>
+                </tr>
+                <tr>
+                    <th>Provincia</th>
+                    <td>{{ persona.provincia }}</td>
+                </tr>
+                <tr>
+                    <th>Region</th>
+                    <td>{{ persona.region }}</td>
+                </tr>
+                <tr>
+                    <th>Pais_origen</th>
+                    <td>{{ persona.paisOrigen }}</td>
+                </tr>
+                <tr>
+                    <th>Telefono</th>
+                    <td>{{ persona.telefono }}</td>
+                </tr>
+                <tr>
+                    <th>Telefono2</th>
+                    <td>{{ persona.telefono2 }}</td>
+                </tr>
+                <tr>
+                    <th>Correo</th>
+                    <td>{{ persona.correo }}</td>
+                </tr>
+                <tr>
+                    <th>Relacion_agricultura</th>
+                    <td>{{ persona.relacionAgricultura }}</td>
+                </tr>
+                <tr>
+                    <th>Terreno_cultivo</th>
+                    <td>{{ persona.terrenoCultivo ? 'Yes' : 'No' }}</td>
+                </tr>
+                <tr>
+                    <th>Inscripcion_rope</th>
+                    <td>{{ persona.inscripcionRope ? 'Yes' : 'No' }}</td>
+                </tr>
+                <tr>
+                    <th>Codigo_rope</th>
+                    <td>{{ persona.codigoRope }}</td>
+                </tr>
+                <tr>
+                    <th>Otras_cuestiones</th>
+                    <td>{{ persona.otrasCuestiones }}</td>
+                </tr>
+                <tr>
+                    <th>Documento</th>
+                    <td>{{ persona.documento }}</td>
+                </tr>
+                <tr>
+                    <th>Observaciones</th>
+                    <td>{{ persona.observaciones }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <a href="{{ path('persona_index') }}">Volver a la lista</a>
 
-    <a href="{{ path('persona_edit', {'id': persona.id}) }}">edit</a>
+    <a href="{{ path('persona_edit', {'id': persona.id}) }}">Editar</a>
 
     {{ include('persona/_delete_form.html.twig') }}
+
+    {{ include('be-layout/footer.html', sandboxed = true) }}
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+{{ include('be-layout/js.html', sandboxed = true) }}
 {% endblock %}

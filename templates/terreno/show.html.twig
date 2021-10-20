@@ -1,58 +1,82 @@
-{% extends 'base.html.twig' %}
+{% extends 'backend-base.html.twig' %}
 
 {% block title %}Terreno{% endblock %}
 
+{% block stylesheets %}
+      {{ include('be-layout/stylesheet.html', sandboxed = true) }}
+{% endblock %}
+
 {% block body %}
-    <h1>Terreno</h1>
+<div class="wrapper">
+    {{ include('be-layout/preloader.html', sandboxed = true) }}
+    {{ include('be-layout/navbar.html', sandboxed = true) }}
+    {{ include('be-layout/sidebar.html', sandboxed = true) }}
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ terreno.id }}</td>
-            </tr>
-            <tr>
-                <th>Direccion</th>
-                <td>{{ terreno.direccion }}</td>
-            </tr>
-            <tr>
-                <th>Nombre</th>
-                <td>{{ terreno.nombre }}</td>
-            </tr>
-            <tr>
-                <th>Datos_sigpac</th>
-                <td>{{ terreno.datosSigpac }}</td>
-            </tr>
-            <tr>
-                <th>Localizacion_mapa</th>
-                <td>{{ terreno.localizacionMapa }}</td>
-            </tr>
-            <tr>
-                <th>Superficie_finca</th>
-                <td>{{ terreno.superficieFinca }}</td>
-            </tr>
-            <tr>
-                <th>Superficie_cultivo</th>
-                <td>{{ terreno.superficieCultivo }}</td>
-            </tr>
-            <tr>
-                <th>Manejo_cultivo</th>
-                <td>{{ terreno.manejoCultivo }}</td>
-            </tr>
-            <tr>
-                <th>Tipo_cultivos</th>
-                <td>{{ terreno.tipoCultivos }}</td>
-            </tr>
-            <tr>
-                <th>Observaciones</th>
-                <td>{{ terreno.observaciones }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <h1>Terreno</h1>
 
-    <a href="{{ path('terreno_index') }}">back to list</a>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ terreno.id }}</td>
+                </tr>
+                <tr>
+                    <th>Direccion</th>
+                    <td>{{ terreno.direccion }}</td>
+                </tr>
+                <tr>
+                    <th>Nombre</th>
+                    <td>{{ terreno.nombre }}</td>
+                </tr>
+                <tr>
+                    <th>Datos_sigpac</th>
+                    <td>{{ terreno.datosSigpac }}</td>
+                </tr>
+                <tr>
+                    <th>Localizacion_mapa</th>
+                    <td>{{ terreno.localizacionMapa }}</td>
+                </tr>
+                <tr>
+                    <th>Superficie_finca</th>
+                    <td>{{ terreno.superficieFinca }}</td>
+                </tr>
+                <tr>
+                    <th>Superficie_cultivo</th>
+                    <td>{{ terreno.superficieCultivo }}</td>
+                </tr>
+                <tr>
+                    <th>Manejo_cultivo</th>
+                    <td>{{ terreno.manejoCultivo }}</td>
+                </tr>
+                <tr>
+                    <th>Tipo_cultivos</th>
+                    <td>{{ terreno.tipoCultivos }}</td>
+                </tr>
+                <tr>
+                    <th>Observaciones</th>
+                    <td>{{ terreno.observaciones }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-    <a href="{{ path('terreno_edit', {'id': terreno.id}) }}">edit</a>
+    <a href="{{ path('terreno_index') }}">Volver a la lista</a>
+
+    <a href="{{ path('terreno_edit', {'id': terreno.id}) }}">Editar</a>
 
     {{ include('terreno/_delete_form.html.twig') }}
+
+    {{ include('be-layout/footer.html', sandboxed = true) }}
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+{{ include('be-layout/js.html', sandboxed = true) }}
 {% endblock %}

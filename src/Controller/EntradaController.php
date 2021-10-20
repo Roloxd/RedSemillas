@@ -36,9 +36,12 @@ class EntradaController extends AbstractController
             return $this->redirectToRoute('entrada_index', [], Response::HTTP_SEE_OTHER);
         }
 
+        $text = 'Nueva Entrada';
+
         return $this->renderForm('entrada/new.html.twig', [
             'entrada' => $entrada,
             'form' => $form,
+            'text_form' => $text,
         ]);
     }
 
@@ -62,9 +65,12 @@ class EntradaController extends AbstractController
             return $this->redirectToRoute('entrada_index', [], Response::HTTP_SEE_OTHER);
         }
 
+        $text = 'Editar Entrada';
+
         return $this->renderForm('entrada/edit.html.twig', [
             'entrada' => $entrada,
             'form' => $form,
+            'text_form' => $text,
         ]);
     }
 
