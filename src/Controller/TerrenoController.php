@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Persona;
 use App\Entity\Terreno;
+use App\Form\Persona1Type;
 use App\Form\TerrenoType;
 use App\Repository\TerrenoRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,6 +30,12 @@ class TerrenoController extends AbstractController
         $form = $this->createForm(TerrenoType::class, $terreno);
         $form->handleRequest($request);
 
+        $persona = new Persona();
+        $form2 = $this->createForm(Persona1Type::class, $persona, [
+            'attr' => ['class' => 'formPersona' ]
+        ]);
+        $form2->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($terreno);
@@ -40,7 +48,9 @@ class TerrenoController extends AbstractController
 
         return $this->renderForm('terreno/new.html.twig', [
             'terreno' => $terreno,
+            'persona' => $persona,
             'form' => $form,
+            'form2' => $form2,
             'text_form' => $text,
         ]);
     }

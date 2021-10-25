@@ -26,6 +26,7 @@ class PersonaController extends AbstractController
     {
         $persona = new Persona();
         $form = $this->createForm(Persona2Type::class, $persona);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -43,6 +44,39 @@ class PersonaController extends AbstractController
             'form' => $form,
             'text_form' => $text,
         ]);
+    }
+
+    #[Route('/add', name: 'persona_add', methods: ['POST'])]
+    public function peticion(Request $request): Response
+    {
+        //if($request->isXmlHttpRequest()){
+
+        $persona = new Persona();
+
+        $dni = $request->request->get('dni');
+        $nombre = $request->request->get('nombre');
+        $apellidos = $request->request->get('apellidos');
+
+        $persona->setNif($dni);
+        $persona->setNombre($nombre);
+        $persona->setApellidos($apellidos);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($persona);
+        $entityManager->flush();
+
+        //}
+        
+        $id = $persona->getId();
+
+        $response = new Response();
+        $response->setContent(json_encode([
+            'id' => $id,
+            'nombre' => $nombre,
+        ]));
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;     
     }
 
     #[Route('/{id}', name: 'persona_show', methods: ['GET'])]

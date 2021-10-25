@@ -14,6 +14,48 @@
             </ol>
           </div>
         </div>
+        <!-- Button modal -->
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+          Crear Persona
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Añadir Persona</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              {{ form_start(form2) }}
+              <div class="modal-body">
+                <div class="form-group">
+                  <label for="nif">DNI</label>
+                  {{ form_widget(form2.nif, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="nif">Nombre</label>
+                  {{ form_widget(form2.nombre, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="nif">Apellidos</label>
+                  {{ form_widget(form2.apellidos, {'attr': {'class': 'form-control'}}) }}
+                </div>
+              </div>
+              <div class="alerta-body">
+                <div class="alerta"></div>
+              </div>
+              <label>Validaciones Incompletas - Archivo: funciones.js</label>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary">Añadir</button>
+              </div>
+              {{ form_end(form2) }}
+            </div>
+          </div>
+        </div><!-- /Modal -->
       </div><!-- /.container-fluid -->
     </section>
 

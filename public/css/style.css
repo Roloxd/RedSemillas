@@ -1,0 +1,13 @@
+/*Alerta*/
+.alerta{
+    margin: auto;
+    width: 80%;
+}
+.alerta .error{
+    background-color: rgb(185, 0 ,0);
+    text-align: center;
+    padding: 10px;
+    color: white;
+    text-transform: uppercase;
+    border-radius: 10px;
+}
