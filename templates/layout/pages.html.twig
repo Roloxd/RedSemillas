@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ page.page }}{% endblock %}
+
+{% block body %}
+    <div class="rgcs__page">
+        <h1 class="rgcs__page-title">{{ page.page }}</h1>
+        <div class="rgcs__page-content">
+            {{ page.content | raw }}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block body %}
+	<div id="user__register" class="rgcs__contact-form rgcs__form-cont">
+
+		<div class="rgcs__contact-info">
+			<h3>Red Grancanaria de Semillas</h3>
+
+
+		</div>
+
+		<div class="rgcs__contact-fields">
+		{{ form(contact_form) }}
+		
+		</div>
+	</div>
+{% endblock %}

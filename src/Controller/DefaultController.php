@@ -2,17 +2,41 @@
 
 namespace App\Controller;
 
+use App\Entity\Variedad;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
 {
-    #[Route('/default', name: 'default')]
+    #[Route('/', name: 'index', methods: ["GET"] )]
     public function index(): Response
     {
-        return $this->render('default/index.html.twig', [
-            'controller_name' => 'DefaultController',
+        return $this->render('home.html.twig');
+    }
+
+    #[Route('/quienes-somos', name: 'quienes-somos', methods: ["GET"] )]
+    public function quienessomos(): Response
+    {
+        return $this->render('quienes-somos.html.twig');
+    }
+
+    #[Route('/socios', name: 'socios', methods: ["GET"] )]
+    public function socios(): Response
+    {
+        return $this->render('como-funcionamos.html.twig');
+    }
+
+    #[Route('/catalogo', name: 'catalogo', methods: ["GET"] )]
+    public function catalogo(): Response
+    {
+        $variedades = $this->getDoctrine()
+            ->getRepository(Variedad::class)
+            ->findAll();
+            
+        return $this->render('vista-catalogo.html.twig',[
+            'variedades' => $variedades,
+            'titulo' => 'Catálogo',
         ]);
     }
 

@@ -1,0 +1,8 @@
+{# dump(pages) #}
+<ul>
+{% for page in pages %}
+        <li class="{{ page.slug }}" >
+            <a href="{{ page.slug }}" target="_self">{{ page.page | raw }}</a>
+        </li>
+{% endfor %}
+</ul>

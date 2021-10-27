@@ -4,3 +4,4 @@
 | Algunas entidaddes añadidas.
 | CRUD añadido para cada entidad.
 | Pop-up añadido.
+| Front-end añadido.

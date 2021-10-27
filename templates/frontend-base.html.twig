@@ -1,0 +1,92 @@
+{# templates/base.html.twig #}
+<!DOCTYPE html>
+<html lang="es">
+   <head>
+      <meta charset="UTF-8">
+      <title>Red Gran Canaria De Semillas |
+         {{ 'home' | trans }}
+      </title>
+      <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+      <meta name="description" content="Esta es tu aplicacion web presentada por Red Gran Canaria De Semillas! Aqui puedes informarte, compartir, prestar, obtener, y mucho más.">
+      <meta name="keywords" content="Red de Semillas, sembra, semilla, conservación, planta, pasaporte, etnobotánica, variedad">
+      {% block stylesheets %}
+      {#{{ encore_entry_link_tags('app') }}#}
+{#
+      <link href="{{ asset('css/layout.css') }}" rel="stylesheet" type="text/css">
+#}
+      <link href="{{ asset('css/all.css') }}" rel="stylesheet" type="text/css">
+      <link href="{{ asset('css/design.css') }}" rel="stylesheet" type="text/css">
+      <link href="{{ asset('css/ficha.css') }}" rel="stylesheet" type="text/css">
+      <link href="{{ asset('css/box.css') }}" rel="stylesheet" type="text/css">
+      <link href="{{ asset('css/lightbox.css') }}" rel="stylesheet" type="text/css">
+      <link href="{{ asset('css/popup.css') }}" rel="stylesheet" type="text/css">
+      <link href="{{ asset('css/font_custom.css') }}" rel="stylesheet" type="text/css">
+	  <link href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+      <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="images/x-icon">
+      <link rel="icon" href="{{ asset('images/.._img_icon_icon_144x144.png') }}" type="image/png">
+      <link rel="icon" href="{{ asset('images/.._img_icon_icon_144x144.png') }}" type="image/png">
+      <link rel="icon" href="{{ asset('images/.._img_icon_icon_144x144.png') }}" type="image/png">
+
+         {{ encore_entry_link_tags('app') }}
+      {% endblock %}
+      {% block javascripts %}
+      {#{{ encore_entry_script_tags('app') }}#}
+         <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
+      <script src="{{ asset('js/rgcs_ajax.js') }}"></script>
+      <script src="{{ asset('js/rgcs.js') }}"></script>
+      <script src="{{ asset('js/choices.min.js') }}"></script>
+	  <script src="{{ asset('js/slider.js') }}" defer></script>
+
+      <!-- <script src="{{ asset('js/jquery.scrollTo.min.js') }}"></script> -->
+      <!-- <script src="{{ asset('js/simpleStorage.min.js') }}"></script> -->
+      <!-- <script src="{{ asset('js/global.js') }}"></script> -->
+      <!-- <script src="{{ asset('js/system.js') }}"></script> -->
+      <!-- <script src="{{ asset('js/_login/login.js') }}"></script> -->
+      <!-- <script src="{{ asset('js/custom.js') }}"></script> -->
+         {{ encore_entry_script_tags('app') }}
+      {% endblock %}
+   </head>
+   <body id="body" lang="es" class="">      
+      <div id="div-1em"></div>
+      <div id="top"></div>
+      {% include('layout/header.html.twig') %}
+
+{# render(controller('App\\Controller\\SecurityController::logout')) #}
+
+      <main id="main" class="sub-show-all">
+         <div id="main__content" class="sub-show-all">
+            <div id="content">
+               {% block body %}
+               {% endblock %}
+            </div>
+         </div>
+      </main>
+   {# dump() #}
+
+   
+      {% include('layout/footer.html.twig') %}
+
+      <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+      <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+	  <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+	  <script>
+	  $(document).ready(function() {
+			$('#example').DataTable( {
+				"paging":   true,
+				"ordering": true,
+				"info":     true,
+				"scrollX": true,
+				"responsive": true
+			} );
+		} );
+	  </script>
+   </body>
+   
+   
+   
+</html>
+</div>
+</div>
+</body>
+</html>

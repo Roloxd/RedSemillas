@@ -1,0 +1,52 @@
+<div id="rgcs__search" class="rgcs__search">
+	<div class="rgcs__srch">
+		{{ form_start(form) }}
+
+{# dump(form) #}
+
+{% set data = form %}
+
+		<div class="rgcs__srch-field rgcs__form--col">
+			{{ form_row(data.search, 
+				{'attr': {'class':''},
+				 'row_attr': {'class':'rgcs__srch-row srch-txt'}
+				}) }}
+			{{ form_row(data.submit, {
+				'attr': {'class':'bubble__bg-a'},
+				'row_attr': {'class':'rgcs__srch-row srch-btn'}
+				}) }}
+		</div>
+
+		<div class="rgcs__srch-field rgcs__form--col">
+			<div class="rgcs__srch-filtro">
+				<span class="srch-filtro-span">Filtros</span>
+				<span class="rgcs__srch-filtro-arrow"><i class="fas fa-caret-down"></i></span>
+			</div>
+			<!--<div class="rgcs__srch-icons">
+				<div class="rgcs__srch-icon">
+					<i class="fas fa-save"></i>
+				</div>
+				<div class="rgcs__srch-icon">
+					<i class="fas fa-download"></i>
+				</div>
+			</div>-->
+
+		</div>
+
+		<div class="rgcs__srch-filtro-cont">
+			<div class="rgcs__form-rows rgcs__form--col">
+				{{ form_row(data.familia) }}
+				{{ form_row(data.especie) }}
+			</div>
+			<div class="rgcs__form-rows rgcs__form--col">
+				{{ form_row(data.genero) }}
+				{{ form_row(data.nombreComun) }}
+			</div>
+			<div class="rgcs__form-rows rgcs__form--col">
+				{{ form_row(data.polinizacion) }}
+			</div>
+		</div>
+
+		{{ form_end(form) }}
+	</div>
+</div>

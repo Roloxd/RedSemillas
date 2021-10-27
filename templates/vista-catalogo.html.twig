@@ -1,0 +1,117 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+	<!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	
+	<link href="{{ asset('css/catalogo.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{ asset('css/smartpaginator.css') }}" rel="stylesheet" type="text/css" />
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	
+	<script src="{{ asset('js/catalogo.js') }}"></script>
+
+	<script src="{{ asset('js/jquery-1.4.4.min.js') }}"></script>
+	<script src="{{ asset('js/smartpaginator.js') }}"></script>
+	
+{% endblock %}
+
+
+{% block body %}
+
+	<div class="tittle-who space-t">
+		<h1>
+			{{titulo}}
+		</h1>
+	</div>
+
+	<div id="green-contents" class="row contents">
+		<div id="variedades" class="offset-sm-1 offset-lg-2 col-12 col-sm-10 col-lg-8 orange">
+{% for variedad in variedades %}
+			{% set id = loop.index %}
+			{% set titulo = variedad.nombreComun %}
+			{% set nombre = variedad.nombreLocal %}
+			{% set imagen = asset('images/home_home_rgcs_impression.png') %}				
+			{% set familia = variedad.familia %}
+			{% set genero = variedad.genero %}
+			{% set especie = variedad.especie %}
+			{% set subtaxon = variedad.subtaxon %}
+			{% set texto = variedad.descripcion %}				
+			<div id="{{id}}" class="variedad">
+			
+				<div class="row mini">
+					<div class="col-1">
+						<div class="number-div">
+							<p class="number">{{id}}</p>
+						</div>
+					</div>
+					<div class="col-9 col-sm-8 texto-div">
+							<span class="tittle">{{titulo}}</span>
+							<span class="text">{{nombre}}</span>
+					</div>
+					<div class="d-none d-sm-block col-sm-1 img-div">
+						<img src="{{imagen}}" class="images img-fluid rounded" />
+					</div>
+					<div class="col-2 img-div expand">                        
+						<img src={{ asset("images/img/theme_light/but/but_expand.png")}} class="icono-more img-fluid" />
+					</div>
+				</div>
+				<div class="row medio">
+					<div class="col-12">
+						<div class="row">
+							<div class="col-1">
+								<div class="number-div">
+									<p class="number">{{id}}</p>
+								</div>
+							</div>
+							<div class="col-9 texto-div">
+								<div class="tittle">{{titulo}}</div>
+								<div class="text">{{nombre}}</div>
+							</div>
+							<div class="col-2 img-div cerrar">
+								<img src={{ asset('images/img/theme_light/but/but_expand.png')}} class="icono-more img-fluid" />
+							</div>
+						</div>
+					</div>
+					<div class="col-12 col-md-5">
+						<img src="{{imagen}}" class="img-fluid rounded" />
+					</div>
+					<div class="col-12 col-md-7">
+						<div class="taxon bg-bubble">
+							<div><span class="propiedad">FAMILIA:</span><span>{{familia}}</span></div>
+							<div><span class="propiedad">GÉNERO:</span><span>{{genero}}</span></div>
+							<div><span class="propiedad">ESPECIE:</span><span class="text-lower">{{especie}}</span></div>
+							<div><span class="propiedad">SUBTAXÓN:</span><span class="text-lower">{{subtaxon}}</span></div>
+						</div>
+						<p>{{texto}}</p>
+					</div>
+				</div>			
+			</div>
+{% endfor %}
+		<script type="text/javascript">
+        $(document).ready(function () {
+			var numVariedades = $('.variedad').last().attr('id');
+            $('#paginador').smartpaginator({ totalrecords: numVariedades, recordsperpage: 20, datacontainer: 'variedades', dataelement: '.variedad', initval: 0, next: 'Next', prev: 'Prev', first: 'First', last: 'Last', theme: 'green' });
+        });
+    	</script>
+
+		</div>
+		<div id="paginador" class="offset-sm-1 offset-lg-2 col-12 col-sm-10 col-lg-8 bordes-paginador">
+        </div>
+	</div>
+
+	<script src="{{ asset('js/codigo.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,275 @@
+{% extends 'base.html.twig' %}
+
+{% block javascripts %}
+	{{ parent() }}
+
+	<script src="{{ asset('js/slider.js') }}" defer></script>
+
+{% endblock %}
+
+{% block body %}
+
+<section id="home" data-changefreq="monthly" data-priority="0.65" class="ps-main show">
+          <div class="section-header hide">
+            <h2> Bienvenidas! </h2>
+          </div>
+
+          <!-- Aquí va el carrusel -->
+          <div class="section-body section-body-home">
+            <!-- div importante -->
+            <div id="home-impression-outer-outer">
+              <div class="home-impression-nav nav-left">
+                <svg viewbox="0 0 500 500" id="flecha_iz">
+                  <path id="home-triangle-left" style="fill:#ffffff;stroke:none;" d="M 50,250 400,20 400,480 Z"></path>
+                </svg>
+              </div>
+              <div id="home-impression-outer">
+                <div id="home-impression">
+                  <div id="home-impression-01" class="home-impression">
+                    <a href="semillas" class="link-see link-color" data-ids="catalog">
+                      <svg viewbox="0 0 500 500" preserveaspectratio="none">
+                        <path class="home-ring-outer" style="fill:#DF9500;stroke:none;"
+                          d="M 460,210 C 430,340 370,380 250,390 140,400 48,320 48,210 48,93 130,10 250,25 370,38 480,74 460,210 Z">
+                        </path>
+                        <path class="home-ring-inner" style="fill:#ffffff;stroke:none;"
+                          d="M 230,210 C 230,260 200,290 150,290 100,290 64,260 63,220 62,160 91,130 140,130 200,130 230,150 230,210 Z">
+                        </path>
+                        <circle class="home-nav-01" r="9.5" cy="350" cx="220"
+                          style="fill:#ffffff;stroke:#453d46;stroke-width:2;"></circle>
+                        <circle class="home-nav-02" r="9.5" cy="350" cx="250"
+                          style="fill:#453d46;stroke:none;stroke-width:2;"></circle>
+                        <circle class="home-nav-03" r="9.5" cy="350" cx="280"
+                          style="fill:#453d46;stroke:none;stroke-width:2;"></circle>
+                        <clippath id="clip-home-01">
+                          <path
+                            d="M 460,210 C 430,340 370,380 250,390 140,400 48,320 48,210 48,93 130,10 250,25 370,38 480,74 460,210 Z">
+                          </path>
+                        </clippath>
+                        <image x="238" y="64" height="288" href="images/home/home_top_01_trans.png"
+                          clip-path="url(#clip-home-01)" alt="Banco de semillas"></image>
+                      </svg>
+                      <div class="home-impression-text">
+                        <h3> Catá-<br>logo</h3>
+                      </div>
+                    </a>
+                  </div>
+                  <div id="home-impression-02" class="home-impression">
+                    <a href="socios" class="link-see link-color" data-ids="member">
+                      <svg style="" viewbox="0 0 500 500" preserveaspectratio="none">
+                        <path class="home-ring-outer" style="fill:#bd7d09;stroke:none;"
+                          d="M 460,210 C 430,340 370,380 250,390 140,400 48,320 48,210 48,93 130,10 250,25 370,38 480,74 460,210 Z">
+                        </path>
+                        <path class="home-ring-inner" style="fill:#ffffff;stroke:none;"
+                          d="M 230,210 C 230,260 200,290 150,290 100,290 64,260 63,220 62,160 91,130 140,130 200,130 230,150 230,210 Z">
+                        </path>
+                        <circle class="home-nav-01" r="9.5" cy="350" cx="220"
+                          style="fill:#453d46;stroke:none;stroke-width:2;"></circle>
+                        <circle class="home-nav-02" r="9.5" cy="350" cx="250"
+                          style="fill:#ffffff;stroke:#453d46;stroke-width:2;"></circle>
+                        <circle class="home-nav-03" r="9.5" cy="350" cx="280"
+                          style="fill:#453d46;stroke:none;stroke-width:2;"></circle>
+                        <clippath id="clip-home-02">
+                          <path
+                            d="M 460,210 C 430,340 370,380 250,390 140,400 48,320 48,210 48,93 130,10 250,25 370,38 480,74 460,210 Z">
+                          </path>
+                        </clippath>
+                        <image x="272" y="54" height="328" href="images/home/home_top_02_trans.png"
+                          clip-path="url(#clip-home-02)" alt="Banco de semillas"></image>
+                      </svg>
+                      <div class="home-impression-text socios-margin">
+                        <h3> Socios </h3>
+                      </div>
+                    </a>
+                  </div>
+                  <div id="home-impression-03" class="home-impression">
+                    <a href="quienes-somos" class="link-see link-color" data-ids="about">
+                      <svg style="" viewbox="0 0 500 500" preserveaspectratio="none">
+                        <path class="home-ring-outer" style="fill:#A06512;stroke:none;"
+                          d="M 460,210 C 430,340 370,380 250,390 140,400 48,320 48,210 48,93 130,10 250,25 370,38 480,74 460,210 Z">
+                        </path>
+                        <path class="home-ring-inner" style="fill:#ffffff;stroke:none;"
+                          d="M 230,210 C 230,260 200,290 150,290 100,290 64,260 63,220 62,160 91,130 140,130 200,130 230,150 230,210 Z">
+                        </path>
+                        <circle class="home-nav-01" r="9.5" cy="350" cx="220"
+                          style="fill:#453d46;stroke:none;stroke-width:2;"></circle>
+                        <circle class="home-nav-02" r="9.5" cy="350" cx="250"
+                          style="fill:#453d46;stroke:none;stroke-width:2;"></circle>
+                        <circle class="home-nav-03" r="9.5" cy="350" cx="280"
+                          style="fill:#ffffff;stroke:#453d46;stroke-width:2;"></circle>
+                        <clippath id="clip-home-03">
+                          <path
+                            d="M 460,210 C 430,340 370,380 250,390 140,400 48,320 48,210 48,93 130,10 250,25 370,38 480,74 460,210 Z">
+                          </path>
+                        </clippath>
+                        <image x="252" y="64" height="228" href="images/home/home_top_03_trans.png"
+                          clip-path="url(#clip-home-03)" alt="Semillas slider"></image>
+                      </svg>
+                      <div class="home-impression-text">
+                        <h3> <span class="home-imp-txt-red">RED</span><br><span class="home-imp-txt-rgcs">RGCS</span>
+                        </h3>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="home-impression-nav nav-right">
+                <svg viewbox="0 0 500 500" id="flecha">
+                  <path id="home-triangle-right" style="fill:#ffffff;stroke:none;" d="M 450,250 100,20 100,480 Z">
+                  </path>
+                </svg>
+              </div>
+            </div>
+            <div class="con text bg-bubble space-b">
+              <div>
+                <h2> Bienvenidxs </h2>
+
+                <p class="">¡Bienvenidxs a la nueva aplicación web de la Red Gran Canaria de Semillas! Esperamos ampliar
+                  poco a poco la información de nuestro catálogo y las funciones de la app.
+                  Estamos en fase de prueba… ¡Adelante! Disfruta de la experiencia y si encuentras fallos, por favor,
+                  comunícanoslo para poder corregirlos.</p>
+
+              </div>
+            </div>
+            <div id="home-impression-rgcs"> <img src="images/home_home_rgcs_impression.png" alt="RGCS impression"></div>
+            <div class="con text bg-bubble space-b">
+              <div>
+                <p><b> En el menu superior derecha tienes acceso a todas las funciones. Que te diviertas! </b>
+                </p>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="clear-both"></div>
+        </section>
+
+  <div class="section-body section-body-home">
+  <div class="main__secc catalogo ">
+    <div class="main__secc_content">
+
+      <div class="bg-bubble secc__text ">
+        <h3>Catálogo</h3>
+        <div>
+          En esta sección podrás ver la información de las variedades con las que contamos y consultar, la
+          disponibilidad de semillas que tenemos en la Red.
+        </div>
+        
+        <button class="more_button"> <a href="semillas">Ver más</a></button>
+
+
+      </div>
+      <div class="secc__img">
+        <img src="images/home/home_top_01_trans.png" alt="Catálogo">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-body section-body-home">
+  <div class="main__secc socios ">
+    <div class="main__secc_content">
+      <div class="secc__img">
+        <img src="images/home/home_top_02_trans.png" alt="Socios">
+      </div>
+      <div class="bg-bubble secc__text ">
+        <h3>Socios</h3>
+        <div>
+          Cuando esté habilitada esta sección, podrás ver las semillas que has obtenido de la Red, así como consultar el
+          estado de tus compromisos con la misma, además de actualizar tus datos de soci@
+        </div>
+
+        <button class="more_button"> <a href="socios">Ver más</a></button>
+
+
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="section-body section-body-home">
+  <div class="main__secc redgcs">
+
+    <div class="main__secc_content ">
+
+      <div class="bg-bubble secc__text ">
+        <h3>Red RGCS</h3>
+        <div>
+          En esta sección podrás conocer algo más la RED, consultar información sobre nosotrxs, nuestro funcionamiento,
+          objetivos, proyectos, fuentes de financiación, etc.
+        </div>
+        <!-- Boton con enlace a quienes somos-->
+        <button class="more_button"> <a href="quienes-somos">Ver más</a></button>
+
+      </div>
+      <div class="secc__img">
+        <img src="images/home/home_top_03_trans.png" alt="Red Canaria de semillas" class="font RGCS">
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<div class="section-body section-body-home">
+  <div class="main__secc space-b space-t">
+    <div class="bg-bubble objetives">
+      <h3 class="bubble__title">Objetivos</h3>
+      <div class="bubble__txt scrollbar" id="style-1">
+        - Recuperar nuestras semillas tradicionales, los saberes de la tierra de nuestros/as mayores en el aspecto
+        agronómico, cultural y culinario. <br> <br>
+        - Potencia el consumo de los cultivares locales por parte de la población, poniendo especial atención en sus
+        propiedades nutricionales y organolépticas. <br> <br>
+        - Contribuir a la autonomía y soberanía de los/as agricultores/as, por ende, de toda la humanidad, en lo que a
+        la resiliencia en nuestros campos se refiere, creando una alternativa a las grandes multinacionales
+        distribuidoras de tan sólo unas pocas variedades comerciales, mediante la distribución de variedades locales a
+        través de mecanismos de colaboración e intercambio.
+      </div>
+      <div class="bubble__img trigo">
+        <img src="images/trigo.jpg" alt="" class="font RGCS">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="section-body section-body-home">
+  <div class="main__secc">
+    <div class="bg-bubble objetives">
+      <h3 class="bubble__title ">Recuperación / Semillas de la tierra</h3>
+      <div class="recuperation">
+        <div class="trigo">
+          <img src="images/trigo.jpg" alt="" class="font RGCS">
+        </div>
+		<div class="bubble__txt">
+          El verdadero valor de las variedades locales está en la herencia de nuestros antepasados, en siglos de
+          co-evolución y conocimientos acumulados sobre su cultivo, su comportamiento, asociaciones y adaptación en
+          las diferentes partes del mundo, sus usos y particularidades culinarias, tóxicas, organolépticas o
+          nutricionales, sus aplicaciones medicinales, rituales o psicotrópicas, su empleo como recursos de diferentes
+          índoles: combustible, textil, estructural, etc. <br> <br>
+          La recuperación de variedades locales pasa por múltiples líneas de acción que se interrelacionan entre sí,
+          ya que esta labor no consiste únicamente en sembrar y recoger semillas para multiplicar. <br> <br>
+          Por todo esto la recuperación de las variedades y su mantenimiento, requiere de la acción de multitud de
+          actores y recursos. Labores que antes formaban parte de la estructura social y los oficios asociados a la
+          población rural, que con el éxodo rural están casi en extinción, y cuya subsistencia ha recaído en unas
+          pocas personas con la enorme responsabilidad que subyace de la conservación y transmisión de este
+          inconmensurable patrimonio que estamos perdiendo a pasos agigantados. <br> <br>
+          Como asociación y Red de Semillas nos vemos en la obligación de plantear estrategias y desarrollar acciones
+          para paliar o evitar que esto continúe por los mismos derroteros, y cuantas más seamos, con más fuerza
+          podremos hacerlo. Así pues, te animamos a acercarte a nuestra RED, hay mil maneras de participar. ¡Seguro
+          que en la RED encuentras tu espacio, aquí cabemos todxs!
+        </div>
+      </div>
+    </div>
+  </div>
+</div>	
+
+<section id="imprint" class="sub-switch sub-show-none hide ps-main"><div class="section-header">
+<h3>
+	Aviso legal
+</h3></div><div class="section-body section-body-imprint"></div><div class="clear-both"></div></section><section id="terms" class="sub-switch sub-show-none hide ps-main"><div class="section-header">
+<h4>Términos y Condiciones</h4></div><div class="section-body section-body-terms"></div><div class="clear-both"></div></section><section id="privacy" class="sub-switch sub-show-none hide ps-main"><div class="section-header">
+<h4>Política de Privacidad</h4></div><div class="section-body section-body-privacy"></div><div class="clear-both"></div></section><section id="cookie" class="sub-switch sub-show-none hide ps-main"><div class="section-header">
+<h4>
+	Política de Cookies
+</h4></div><div class="section-body section-body-cookie"></div><div class="clear-both"></div></section>
+
+{% endblock %}

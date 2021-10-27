@@ -1,0 +1,122 @@
+<div class="menu__popup">
+    <div>
+
+        <div>
+            <div class="menu__sections">
+                <div id="cont-menu-mod">
+                    <div id="menu-mod" class="menu-mod">
+                        <ul id="menu-mod-ul" class="menu-mod-ul">
+                            <li id="home-impression-menu" class="but-menu but-menu-catalog">
+                                <a href="{{ path('catalogo') }}" class="link-see" data-ids="catalog">
+                                    <svg viewBox="0 0 500 500" preserveAspectRatio="none">
+                                        <path class="home-ring-outer" style="fill:#DF9500;stroke:none;" d="M 460,210 C 430,340 370,380 250,390 140,400 48,320 48,210 48,93 130,10 250,25 370,38 480,74 460,210 Z"></path>
+                                        <path class="home-ring-inner" style="fill:#ffffff;stroke:none;" d="M 311 308 C 311 348 286 441 165 446 C 75 447 16 406 13 306 C 14 227 43 169 157 163 C 278 167 311 238 311 306 Z"></path>
+                                        <clipPath id="clip-home-01">
+                                            <path d="M 627 213 C 678 455 626 445 307 441 C 66 436 54 409 48 210 C 48 93 130 10 250 25 C 511 34 526 36 627 213 Z"></path>
+                                        </clipPath>
+                                        <image x="240" y="100" height="350" href="{{ asset('images/home/home_top_01_trans.png')}}" clip-path="url(#clip-home-01)"></image>
+                                    </svg>
+                                    <div class="menu-impression-text">
+                                        <h3> Catá-<br>logo</h3>
+                                    </div>
+                                </a>
+                            </li>
+                            <li id="home-impression-menu" class="but-menu but-menu-member">
+                                <a href="{{ path('socios') }}" class="link-see" data-ids="member">
+                                    <svg style="" viewbox="0 0 500 500" preserveaspectratio="none">
+                                        <path class="home-ring-outer" style="fill:#bd7d09;stroke:none;" d="M 460,210 C 430,340 370,380 250,390 140,400 48,320 48,210 48,93 130,10 250,25 370,38 480,74 460,210 Z"></path>
+                                        <path class="home-ring-inner" style="fill:#ffffff;stroke:none;" d="M 354 262 C 328 357 236 360 175 364 C 98 370 19 344 15 274 C 14 227 37 161 166 156 C 290 155 360 183 354 261 Z"></path>
+                                        <clippath id="clip-home-02">
+                                            <path d="M 532 211 C 552 412 481 457 338 459 C 38 449 36 403 48 210 C 48 93 130 10 250 25 C 370 38 531 37 532 211 Z"></path>
+                                        </clippath>
+                                        <image x="355" y="154" height="358" href="{{ asset('images/home/home_top_02_trans.png')}}" clip-path="url(#clip-home-02)"></image>
+                                    </svg>
+                                    <div class="menu-impression-text">
+                                        <h3> Socios </h3>
+                                    </div>
+                                </a>
+                            </li>
+                            <li id="home-impression-menu" class="but-menu but-menu-about">
+                                <a href="{{ path('quienes-somos') }}" class="link-see" data-ids="about">
+                                    <svg style="" viewbox="0 0 500 500" preserveaspectratio="none">
+                                        <path class="home-ring-outer" style="fill:#A06512;stroke:none;" d="M 460,210 C 430,340 370,380 250,390 140,400 48,320 48,210 48,93 130,10 250,25 370,38 480,74 460,210 Z"></path>
+                                        <path class="home-ring-inner" style="fill:#ffffff;stroke:none;" d="M 311 308 C 311 348 286 441 165 446 C 75 447 16 406 13 306 C 14 227 43 169 157 163 C 278 167 311 238 311 306 Z"></path>
+                                        <clippath id="clip-home-03">
+                                            <path d="M 532 211 C 552 412 481 457 338 459 C 38 449 36 403 48 210 C 48 93 130 10 250 25 C 370 38 531 37 532 211 Z"></path>
+                                        </clippath>
+                                        <image x="260" y="50" height="360" href="{{ asset('images/home/home_top_03_trans.png')}}" clip-path="url(#clip-home-03)"></image>
+                                    </svg>
+                                    <div class="menu-impression-text">
+                                        <h3> <span class="home-imp-txt-red">RED</span><br><span class="home-imp-txt-rgcs">RGCS</span> </h3>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="menu__options">
+            <ul>
+                <li><a href="{{ path('catalogo') }}">Catálogo</a></li>
+            </ul>
+        </div>
+
+        <!--<div class="menu__tools">
+
+            <div id="menu-dialog-list" style="display:block">
+
+                <ul id="menu-dialog-ul-bottom">
+                    <li id="but-main-reload">
+                        <a href="#reload" title="reload">
+                            <img class="sym" src="{{ asset('images/img/but_light_but_reload.png') }}" alt="menu symbol">
+                            <span class="text-menu">
+                           Recargar
+                        </span>
+                        </a>
+                    </li>
+                    <li id="but-main-info">
+                        <a href="#info" title="info">
+                            <img class="sym" src="{{ asset('images/img/but_light_but_info.png') }}" alt="menu symbol">
+                            <span class="text-menu">
+                           Info
+                        </span>
+                        </a>
+                    </li>
+                    <li id="but-main-contact">
+                        <a href="{{ absolute_url('contact') }}" title="contact" class="link-see" data-ids="contact">
+                            <img class="sym" src="{{ asset('images/img/but_light_but_contact.png') }}" alt="menu symbol">
+                            <span class="text-menu">
+                           Contacto/lang&gt;
+                        </span>
+                        </a>
+                    </li>
+                    <li id="but-main-setting">
+                        <a href="setting" title="setting" class="link-see" data-ids="setting">
+                            <img class="sym" src="{{ asset('images/img/but_light_but_setting.png') }}" alt="menu symbol">
+                            <span class="text-menu">
+                           Ajustes
+                        </span>
+                        </a>
+                    </li>
+                    <li id="but-main-login">
+                        <a href="{{ absolute_url('login') }}" title="Log-In&amp;-Out">
+                            <img class="sym" src="{{ asset('images/img/but_light_but_login.png') }}" alt="menu symbol">
+                            <span class="text-menu">
+                                          <a href="{{ path('logout') }}"></a>
+
+                        </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+
+
+        </div>
+		-->
+    </div>
+
+</div>

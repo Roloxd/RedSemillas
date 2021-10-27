@@ -2588,7 +2588,6 @@ body.layout-mode-fullscreen .do-sizing-explicit {
   }
 }
 
-
 /* ------------------------------------------------- Quite SMALL SCREENS (AND very small screens) ---------------------------- */
 @media only screen and (max-width:690px) {
   #menu-topline {

@@ -11,6 +11,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	
 	$('#menu-hamburger').click(function(){	
 		$('.menu__popup').slideToggle(200);
+
+		var searchBox = document.getElementById('rgcs__search');
+		if(searchBox.className.includes('show')){
+			searchBox.classList.remove("show");
+		}
 	});  
 	
 	$('.rgcs__srch-filtro').click(function(){
@@ -22,6 +27,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		searchbtn.addEventListener('click', function(){
 			var searchBox = document.getElementById('rgcs__search')
 				.classList.toggle('show');
+
+				var menuPopup = document.getElementsByClassName('menu__popup');
+				if(menuPopup[0].style.cssText == 'display: block;'){
+					menuPopup[0].style.cssText = 'display: none;'
+				}
 		})
 	}
 	

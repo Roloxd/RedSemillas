@@ -1,0 +1,121 @@
+.orange {
+	margin-top:20px;
+	padding: 15px;
+    background-color: #DAA520;  
+    border-radius: 20px;
+}
+
+.variedad
+{
+    background-color: var(--rgcs-soft-brown);
+	mask-image: url('../images/img/bg_bubble_white.svg');
+	-webkit-mask-image: url('../images/img/bg_bubble_white.svg');
+	mask-size: 100% 100%;
+	-webkit-mask-size: 100% 100%;
+	background-size: 100% 100%;
+	padding-left: 20px;
+	padding-top: 2px;
+    /*border-radius: 20px;    */
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom:10px;
+    height: auto;
+}
+.medio{
+	padding: 20px;
+}
+
+.number{
+    height: auto;
+    width: auto;
+
+    border-radius: 50%;
+    background-color: #653323;
+    color: whitesmoke;
+    font-size: 15px;
+    
+    text-align: center;
+
+    font-weight: bold;
+}
+
+.number-div{
+    width: 24px;    
+    height: auto;
+    margin-top: 10%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    vertical-align: top;
+    text-align: left;
+}
+
+.texto-div{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis
+    
+}
+
+.tittle{
+    color: var(--rgcs-naranja);
+    font-size: 15px;    
+    text-align: left;
+    font-weight: bold;
+}
+
+.variedad .text {
+    text-transform: uppercase;
+}
+
+.text{
+    color: black;
+    font-size: 12px;
+}
+
+.text-lower{
+    text-transform: lowercase;
+}
+
+.img-div{
+
+    
+        display:flex;
+        justify-content: center;
+        align-items: center;
+}
+
+.images{
+	margin: 4px;
+	max-height: 30px;
+    float: right;
+}
+
+.icono-more{
+	max-width: 25px;
+    float: right;
+}
+
+.taxon{
+	background-color: #DAA520;  
+    border-radius: 20px;
+	padding: 10px;
+}
+
+.taxon .propiedad{
+	color: #ffffff;
+	padding: 10px;
+}
+
+.imagen{
+	
+}
+
+/* Aumenta el ancho de circulo marron de cada registro */
+.ancho-1{
+    width: 35px;
+}
+
+/*.row.medio {
+    display: none;
+}*/

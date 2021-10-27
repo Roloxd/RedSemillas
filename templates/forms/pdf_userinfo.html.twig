@@ -1,0 +1,188 @@
+{#{%  extends 'base.html.twig' %}
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="{{ asset('css/pdf_userinfo.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}#}
+
+<!DOCTYPE html>
+<html lang="{{ 'First Name' | trans }}">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="description" content="Esta es tu aplicacion web presentada por Red Gran Canaria De Semillas! Aqui puedes informarte, compartir, prestar, obtener, y mucho mas.">
+    <meta name="keywords" content="Red de Semillas, sembra, semilla, conservación, planta, pasaporte, etnobotánica, variedad">
+    <link href="{{ absolute_url(asset('css/pdf_userinfo.css')) }}" rel="stylesheet" type="text/css">
+</head>
+
+{% block body %}
+
+    <div class="rgcs__pdf-body form_body">
+        <div>
+            {# dump(profile) #}
+
+            {%  set profile = user.profiles %}
+            {%  set address = user.profiles.direccion %}
+
+            <div class="pdf__header-body">
+                <div class="pdf__header-container">
+
+                    <div class="pdf__header-logo">
+                        <div id="header-logo">
+                            <a href="{{ absolute_url('/rgcs-app/public') }}" class="link-see" data-ids="home">
+                                <img src="{{ absolute_url(asset('images/img/logo_logo_rgcs_small_white.jpg')) }}" alt="logo">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="pdf__header-info">
+                        Asociación de Agricultura Ecológica Tierra Fértil<br>
+                        C.I.F.: G35348127<br>
+                        C/ Viñatico, 8 – Local Izquierdo<br>
+                        Las Palmas de Gran Canaria
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="pdf__datospersonales">
+
+                <div class="rgcs__pdf-row rgcs__form--col">
+                    <div class="pdf__field pdf__col-2">
+                        <div class="pdf__title">
+                            {{ 'nombre'  | trans }}
+                        </div>
+                        <div class="pdf__info">
+                            {{ profile.firstName }}
+                        </div>
+                    </div>
+
+                    <div class="pdf__field pdf__col-2">
+                        <div class="pdf__title">
+                            {{ 'apellidos'  | trans }}
+                        </div>
+                        <div class="pdf__info">
+                            {{ profile.lastName }}
+                        </div>
+                    </div>
+
+                </div>
+                <div class="pdf__field pdf__col-2 full">
+                    <div class="pdf__title">
+                        {{ 'identification_card'  | trans }}:
+                    </div>
+                    <div class="pdf__info">
+                        {{ profile.identificationCard }}
+                    </div>
+                </div>
+
+
+                <div class="rgcs__pdf-row col-3">
+
+                    <div class="pdf__field">
+                        <div class="pdf__title">
+                            {{ 'email'  | trans }}:
+                        </div>
+
+                        <div class="pdf__info">
+                            {{ profile.email }}
+                        </div>
+                    </div>
+
+                    <div class="pdf__field">
+                        <div class="pdf__title">{{ 'phone_1'  | trans }}:</div>
+                        <div class="pdf__info">{{ profile.phone1 }} </div>
+                    </div>
+
+                    <div class="pdf__field">
+                        <div class="pdf__title">{{ 'phone_2'  | trans }}:</div>
+                        <div class="pdf__info">{{ profile.phone2 }} </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="pdf__direccion">
+
+                <h3>{{ 'direccion' | trans }}</h3>
+
+                <div class="rgcs__pdf-row rgcs__form--col">
+
+                    <div class="pdf__field pdf__col-2 full">
+                        <div class="pdf__title">{{ 'nombreVia'  | trans }}:</div>
+                        <div class="pdf__info">{{ address.tipoVia | trans }} {{ address.nombreVia }} </div>
+                    </div>
+
+                </div>
+                <div class="separator"></div>
+                <div class="rgcs__pdf-row col-4">
+                    <div class="pdf__field pdf__col-2">
+                        <div class="pdf__title">{{ 'numero'  | trans }}:</div>
+                        <div class="pdf__info">{{ address.numero }} </div>
+                    </div>
+
+                    <div class="pdf__field pdf__col-2">
+                        <div class="pdf__title">{{ 'portal'  | trans }}:</div>
+                        <div class="pdf__info">{{ address.portal }} </div>
+                    </div>
+
+                    <div class="pdf__field pdf__col-2">
+                        <div class="pdf__title">{{ 'planta'  | trans }}:</div>
+                        <div class="pdf__info">{{ address.planta }} </div>
+                    </div>
+
+                    <div class="pdf__field pdf__col-2">
+                        <div class="pdf__title">{{ 'puerta'  | trans }}:</div>
+                        <div class="pdf__info">{{ address.puerta }} </div>
+                    </div>
+                </div>
+
+                <div class="pdf__field pdf__col-2">
+                    <div class="pdf__title">{{ 'city'  | trans }}:</div>
+                    <div class="pdf__info">{{ address.city }} </div>
+                </div>
+
+                <div class="pdf__field pdf__col-2">
+                    <div class="pdf__title">{{ 'municipality'  | trans }}:</div>
+                    <div class="pdf__info">{{ address.municipality }} </div>
+                </div>
+
+                <div class="pdf__field pdf__col-2">
+                    <div class="pdf__title">{{ 'province'  | trans }}:</div>
+                    <div class="pdf__info">{{ address.province }} </div>
+                </div>
+
+                <div class="pdf__field pdf__col-2">
+                    <div class="pdf__title">{{ 'state'  | trans }}:</div>
+                    <div class="pdf__info">{{ address.state }} </div>
+                </div>
+
+                <div class="pdf__field pdf__col-2">
+                    <div class="pdf__title">{{ 'country'  | trans }}:</div>
+                    <div class="pdf__info">{{ address.country }} </div>
+                </div>
+
+
+
+            </div>
+
+            <div class="pdf__field pdf__col-2 full">
+                <div class="pdf__title">{{ 'receive_information'  | trans }}</div>
+                <div class="pdf__info">{{ profile.receiveInformation }} </div>
+            </div>
+
+            <div class="pdf__field pdf__col-2 full">
+                <div class="pdf__title">{{ 'como_conocio'  | trans }}:</div>
+                <div class="pdf__info">{{ profile.comoConocio }} </div>
+            </div>
+
+            <div class="pdf__field pdf__col-2 full">
+                <div class="pdf__title">{{ 'esta_interesado'  | trans }}</div>
+                <div class="pdf__info">{{ profile.estaInteresado }} </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+</html>
