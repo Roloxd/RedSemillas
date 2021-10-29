@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\VariedadRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -32,7 +34,7 @@ class Variedad
     private $nombreLocal;
 
     /**
-     * @var int|null
+     * @var string|null
      *
      * @ORM\Column(name="especie", type="string", type="string", length=45, nullable=true)
      */
@@ -49,12 +51,7 @@ class Variedad
      * @ORM\Column(name="genero", type="string", length=45, nullable=true)
      */
     private $genero;
-    /**
-     * @var int|null
-     *
-     * @ORM\Column(name="subtaxon", type="string", length=45, nullable=true)
-     */
-    private $subtaxon;
+   
     /**
      * @var int|null
      *
@@ -199,9 +196,34 @@ class Variedad
      */
     private $observaciones;
 
-    public function getIdVariedad(): ?int
+    /**
+     * @ORM\ManyToOne(targetEntity=UsoVariedad::class, inversedBy="variedad")
+     */
+    private $usoVariedad;
+
+    /**
+     * @ORM\OneToOne(targetEntity=ImagenSeleccionada::class, mappedBy="variedad", cascade={"persist", "remove"})
+     */
+    private $imagenSeleccionada;
+
+    /**
+     * @ORM\OneToMany(targetEntity=CicloYSiembra::class, mappedBy="variedad")
+     */
+    private $cicloYSiembras;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Taxon::class, inversedBy="variedad", cascade={"persist", "remove"})
+     */
+    private $subtaxon;
+
+    public function __construct()
     {
-        return $this->idVariedad;
+        $this->cicloYSiembras = new ArrayCollection();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
     }
 
     public function getNombreComun(): ?string
@@ -233,7 +255,7 @@ class Variedad
         return $this->especie;
     }
 
-    public function setEspecie(?int $especie): self
+    public function setEspecie(?string $especie): self
     {
         $this->especie = $especie;
 
@@ -248,11 +270,6 @@ class Variedad
     public function getGenero(): ?string
     {
         return $this->genero;
-    }
-	
-    public function getSubtaxon(): ?string
-    {
-        return $this->subtaxon;
     }
 	
     public function getDescripcion(): ?string
@@ -500,6 +517,82 @@ class Variedad
     public function setObservaciones(?string $observaciones): self
     {
         $this->observaciones = $observaciones;
+
+        return $this;
+    }
+
+    public function getUsoVariedad(): ?UsoVariedad
+    {
+        return $this->usoVariedad;
+    }
+
+    public function setUsoVariedad(?UsoVariedad $usoVariedad): self
+    {
+        $this->usoVariedad = $usoVariedad;
+
+        return $this;
+    }
+
+    public function getImagenSeleccionada(): ?ImagenSeleccionada
+    {
+        return $this->imagenSeleccionada;
+    }
+
+    public function setImagenSeleccionada(?ImagenSeleccionada $imagenSeleccionada): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($imagenSeleccionada === null && $this->imagenSeleccionada !== null) {
+            $this->imagenSeleccionada->setVariedad(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($imagenSeleccionada !== null && $imagenSeleccionada->getVariedad() !== $this) {
+            $imagenSeleccionada->setVariedad($this);
+        }
+
+        $this->imagenSeleccionada = $imagenSeleccionada;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CicloYSiembra[]
+     */
+    public function getCicloYSiembras(): Collection
+    {
+        return $this->cicloYSiembras;
+    }
+
+    public function addCicloYSiembra(CicloYSiembra $cicloYSiembra): self
+    {
+        if (!$this->cicloYSiembras->contains($cicloYSiembra)) {
+            $this->cicloYSiembras[] = $cicloYSiembra;
+            $cicloYSiembra->setVariedad($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCicloYSiembra(CicloYSiembra $cicloYSiembra): self
+    {
+        if ($this->cicloYSiembras->removeElement($cicloYSiembra)) {
+            // set the owning side to null (unless already changed)
+            if ($cicloYSiembra->getVariedad() === $this) {
+                $cicloYSiembra->setVariedad(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getSubtaxon(): ?Taxon
+    {
+        return $this->subtaxon;
+    }
+
+    public function setSubtaxon(?Taxon $subtaxon): self
+    {
+        $this->subtaxon = $subtaxon;
 
         return $this;
     }

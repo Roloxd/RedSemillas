@@ -20,6 +20,7 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
+      {{ form_start(form) }}
         <div class="form-group">
           <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
         </div>
@@ -35,7 +36,6 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              {{ form_start(form) }}
                 <div class="card-body">
                   <div class="form-group">
                     <label for="fecha_inscripcion_rgcs">Fecha Inscripción</label>
@@ -172,7 +172,7 @@
                   <label for="fecha_informacion">Fecha Información</label>
                   {{ form_widget(form.fecha_informacion, {'attr': {'class': 'form-control'}}) }}
                 </div>
-                {{ form_end(form) }}
+                
               </div>
             </div>
             <!--/.col (right) -->
@@ -180,14 +180,12 @@
         </div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->
-
       <div class="container-fluid">
         <div class="form-group">
           <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
         </div>
       </div>
-                
-      
+      {{ form_end(form) }}    
     </section>
     <!-- /.content -->
   </div>

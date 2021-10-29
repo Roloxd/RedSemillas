@@ -4,23 +4,20 @@ namespace App\Controller;
 
 use App\Entity\Variedad;
 use App\Form\Variedad1Type;
+use App\Repository\VariedadRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/terreno')]
+#[Route('/admin/variedades')]
 class VariedadController extends AbstractController
 {
     #[Route('/', name: 'variedad_index', methods: ['GET'])]
-    public function index(): Response
+    public function index(VariedadRepository $variedadRepository): Response
     {
-        $variedads = $this->getDoctrine()
-            ->getRepository(Variedad::class)
-            ->findAll();
-
         return $this->render('variedad/index.html.twig', [
-            'variedads' => $variedads,
+            'variedades' => $variedadRepository->findAll(),
         ]);
     }
 
@@ -29,6 +26,7 @@ class VariedadController extends AbstractController
     {
         $variedad = new Variedad();
         $form = $this->createForm(Variedad1Type::class, $variedad);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -39,13 +37,16 @@ class VariedadController extends AbstractController
             return $this->redirectToRoute('variedad_index', [], Response::HTTP_SEE_OTHER);
         }
 
+        $text = 'Nueva Variedad';
+
         return $this->renderForm('variedad/new.html.twig', [
             'variedad' => $variedad,
             'form' => $form,
+            'text_form' => $text,
         ]);
     }
 
-    #[Route('/{id}', name: 'terreno_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'variedad_show', methods: ['GET'])]
     public function show(Variedad $variedad): Response
     {
         return $this->render('variedad/show.html.twig', [
@@ -65,9 +66,12 @@ class VariedadController extends AbstractController
             return $this->redirectToRoute('variedad_index', [], Response::HTTP_SEE_OTHER);
         }
 
+        $text = 'Editar Variedad';
+
         return $this->renderForm('variedad/edit.html.twig', [
             'variedad' => $variedad,
             'form' => $form,
+            'text_form' => $text,
         ]);
     }
 

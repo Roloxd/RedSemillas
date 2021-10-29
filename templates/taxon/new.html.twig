@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Taxon{% endblock %}
+
+{% block body %}
+    <h1>Create new Taxon</h1>
+
+    {{ include('taxon/_form.html.twig') }}
+
+    <a href="{{ path('taxon_index') }}">back to list</a>
+{% endblock %}

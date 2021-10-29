@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}UsoVariedad{% endblock %}
+
+{% block body %}
+    <h1>UsoVariedad</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ uso_variedad.id }}</td>
+            </tr>
+            <tr>
+                <th>Descripcion</th>
+                <td>{{ uso_variedad.descripcion }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('uso_variedad_index') }}">back to list</a>
+
+    <a href="{{ path('uso_variedad_edit', {'id': uso_variedad.id}) }}">edit</a>
+
+    {{ include('uso_variedad/_delete_form.html.twig') }}
+{% endblock %}

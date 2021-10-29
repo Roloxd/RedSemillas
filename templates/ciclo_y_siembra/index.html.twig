@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CicloYSiembra index{% endblock %}
+
+{% block body %}
+    <h1>CicloYSiembra index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Altitud</th>
+                <th>Zona</th>
+                <th>Coordenadas</th>
+                <th>Ciclo</th>
+                <th>Enero</th>
+                <th>Febrero</th>
+                <th>Marzo</th>
+                <th>Abril</th>
+                <th>Mayo</th>
+                <th>Junio</th>
+                <th>Julio</th>
+                <th>Agosto</th>
+                <th>Septiembre</th>
+                <th>Octubre</th>
+                <th>Noviembre</th>
+                <th>Diciembre</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ciclo_y_siembra in ciclo_y_siembras %}
+            <tr>
+                <td>{{ ciclo_y_siembra.id }}</td>
+                <td>{{ ciclo_y_siembra.altitud }}</td>
+                <td>{{ ciclo_y_siembra.zona }}</td>
+                <td>{{ ciclo_y_siembra.coordenadas }}</td>
+                <td>{{ ciclo_y_siembra.ciclo }}</td>
+                <td>{{ ciclo_y_siembra.enero }}</td>
+                <td>{{ ciclo_y_siembra.febrero }}</td>
+                <td>{{ ciclo_y_siembra.marzo }}</td>
+                <td>{{ ciclo_y_siembra.abril }}</td>
+                <td>{{ ciclo_y_siembra.mayo }}</td>
+                <td>{{ ciclo_y_siembra.junio }}</td>
+                <td>{{ ciclo_y_siembra.julio }}</td>
+                <td>{{ ciclo_y_siembra.agosto }}</td>
+                <td>{{ ciclo_y_siembra.septiembre }}</td>
+                <td>{{ ciclo_y_siembra.octubre }}</td>
+                <td>{{ ciclo_y_siembra.noviembre }}</td>
+                <td>{{ ciclo_y_siembra.diciembre }}</td>
+                <td>
+                    <a href="{{ path('ciclo_y_siembra_show', {'id': ciclo_y_siembra.id}) }}">show</a>
+                    <a href="{{ path('ciclo_y_siembra_edit', {'id': ciclo_y_siembra.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="18">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('ciclo_y_siembra_new') }}">Create new</a>
+{% endblock %}

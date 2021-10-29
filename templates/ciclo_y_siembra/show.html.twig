@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CicloYSiembra{% endblock %}
+
+{% block body %}
+    <h1>CicloYSiembra</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ ciclo_y_siembra.id }}</td>
+            </tr>
+            <tr>
+                <th>Altitud</th>
+                <td>{{ ciclo_y_siembra.altitud }}</td>
+            </tr>
+            <tr>
+                <th>Zona</th>
+                <td>{{ ciclo_y_siembra.zona }}</td>
+            </tr>
+            <tr>
+                <th>Coordenadas</th>
+                <td>{{ ciclo_y_siembra.coordenadas }}</td>
+            </tr>
+            <tr>
+                <th>Ciclo</th>
+                <td>{{ ciclo_y_siembra.ciclo }}</td>
+            </tr>
+            <tr>
+                <th>Enero</th>
+                <td>{{ ciclo_y_siembra.enero }}</td>
+            </tr>
+            <tr>
+                <th>Febrero</th>
+                <td>{{ ciclo_y_siembra.febrero }}</td>
+            </tr>
+            <tr>
+                <th>Marzo</th>
+                <td>{{ ciclo_y_siembra.marzo }}</td>
+            </tr>
+            <tr>
+                <th>Abril</th>
+                <td>{{ ciclo_y_siembra.abril }}</td>
+            </tr>
+            <tr>
+                <th>Mayo</th>
+                <td>{{ ciclo_y_siembra.mayo }}</td>
+            </tr>
+            <tr>
+                <th>Junio</th>
+                <td>{{ ciclo_y_siembra.junio }}</td>
+            </tr>
+            <tr>
+                <th>Julio</th>
+                <td>{{ ciclo_y_siembra.julio }}</td>
+            </tr>
+            <tr>
+                <th>Agosto</th>
+                <td>{{ ciclo_y_siembra.agosto }}</td>
+            </tr>
+            <tr>
+                <th>Septiembre</th>
+                <td>{{ ciclo_y_siembra.septiembre }}</td>
+            </tr>
+            <tr>
+                <th>Octubre</th>
+                <td>{{ ciclo_y_siembra.octubre }}</td>
+            </tr>
+            <tr>
+                <th>Noviembre</th>
+                <td>{{ ciclo_y_siembra.noviembre }}</td>
+            </tr>
+            <tr>
+                <th>Diciembre</th>
+                <td>{{ ciclo_y_siembra.diciembre }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('ciclo_y_siembra_index') }}">back to list</a>
+
+    <a href="{{ path('ciclo_y_siembra_edit', {'id': ciclo_y_siembra.id}) }}">edit</a>
+
+    {{ include('ciclo_y_siembra/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,137 @@
+{% extends 'backend-base.html.twig' %}
+
+{% block title %}Variedad{% endblock %}
+
+{% block stylesheets %}
+      {{ include('be-layout/stylesheet.html', sandboxed = true) }}
+{% endblock %}
+
+{% block body %}
+<div class="wrapper">
+    {{ include('be-layout/preloader.html', sandboxed = true) }}
+    {{ include('be-layout/navbar.html', sandboxed = true) }}
+    {{ include('be-layout/sidebar.html', sandboxed = true) }}
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <h1>Variedad</h1>
+
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ variedad.id }}</td>
+                </tr>
+                <tr>
+                    <th>NombreComun</th>
+                    <td>{{ variedad.nombreComun }}</td>
+                </tr>
+                <tr>
+                    <th>NombreLocal</th>
+                    <td>{{ variedad.nombreLocal }}</td>
+                </tr>
+                <tr>
+                    <th>Especie</th>
+                    <td>{{ variedad.especie }}</td>
+                </tr>
+                <tr>
+                    <th>TipoSiembra</th>
+                    <td>{{ variedad.tipoSiembra }}</td>
+                </tr>
+                <tr>
+                    <th>DiasSemillero</th>
+                    <td>{{ variedad.diasSemillero }}</td>
+                </tr>
+                <tr>
+                    <th>MarcoA</th>
+                    <td>{{ variedad.marcoA }}</td>
+                </tr>
+                <tr>
+                    <th>MarcoB</th>
+                    <td>{{ variedad.marcoB }}</td>
+                </tr>
+                <tr>
+                    <th>Densidad</th>
+                    <td>{{ variedad.densidad }}</td>
+                </tr>
+                <tr>
+                    <th>CicloCultivo</th>
+                    <td>{{ variedad.cicloCultivo }}</td>
+                </tr>
+                <tr>
+                    <th>Polinizacion</th>
+                    <td>{{ variedad.polinizacion }}</td>
+                </tr>
+                <tr>
+                    <th>Caracterizacion</th>
+                    <td>{{ variedad.caracterizacion }}</td>
+                </tr>
+                <tr>
+                    <th>ViabilidadMin</th>
+                    <td>{{ variedad.viabilidadMin }}</td>
+                </tr>
+                <tr>
+                    <th>ViabilidadMax</th>
+                    <td>{{ variedad.viabilidadMax }}</td>
+                </tr>
+                <tr>
+                    <th>ConocimientosTradicionales</th>
+                    <td>{{ variedad.conocimientosTradicionales }}</td>
+                </tr>
+                <tr>
+                    <th>CmPlanta</th>
+                    <td>{{ variedad.cmPlanta }}</td>
+                </tr>
+                <tr>
+                    <th>CmFlor</th>
+                    <td>{{ variedad.cmFlor }}</td>
+                </tr>
+                <tr>
+                    <th>CmFruto</th>
+                    <td>{{ variedad.cmFruto }}</td>
+                </tr>
+                <tr>
+                    <th>CmSemilla</th>
+                    <td>{{ variedad.cmSemilla }}</td>
+                </tr>
+                <tr>
+                    <th>CArgonomicas</th>
+                    <td>{{ variedad.cArgonomicas }}</td>
+                </tr>
+                <tr>
+                    <th>COrganolepticas</th>
+                    <td>{{ variedad.cOrganolepticas }}</td>
+                </tr>
+                <tr>
+                    <th>Propagacion</th>
+                    <td>{{ variedad.propagacion }}</td>
+                </tr>
+                <tr>
+                    <th>Otros</th>
+                    <td>{{ variedad.otros }}</td>
+                </tr>
+                <tr>
+                    <th>Observaciones</th>
+                    <td>{{ variedad.observaciones }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <a href="{{ path('variedad_index') }}">Volver a la lista</a>
+
+    <a href="{{ path('variedad_edit', {'id': variedad.id}) }}">Editar</a>
+
+    {{ include('variedad/_delete_form.html.twig') }}
+
+    {{ include('be-layout/footer.html', sandboxed = true) }}
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+{{ include('be-layout/js.html', sandboxed = true) }}
+{% endblock %}

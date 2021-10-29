@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit CicloYSiembra{% endblock %}
+
+{% block body %}
+    <h1>Edit CicloYSiembra</h1>
+
+    {{ include('ciclo_y_siembra/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('ciclo_y_siembra_index') }}">back to list</a>
+
+    {{ include('ciclo_y_siembra/_delete_form.html.twig') }}
+{% endblock %}

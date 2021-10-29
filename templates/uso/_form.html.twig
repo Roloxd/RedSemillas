@@ -1,0 +1,66 @@
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>{{ text_form }}</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Administración</a></li>
+              <li class="breadcrumb-item active">Nuevo Uso</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- left column -->
+          <div class="col-md-6">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Uso</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              {{ form_start(form) }}
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="uso">Uso</label>
+                    {{ form_widget(form.uso, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="tipo">Tipo</label>
+                    {{ form_widget(form.tipo, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="usoVariedad">Uso Variedad</label>
+                    {{ form_widget(form.usoVariedad, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                </div>
+                
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                  <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
+                </div>
+              {{ form_end(form) }}
+            </div>
+            <!-- /.card -->
+          </div>
+          <!--/.col (left) -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+      <a href="{{ path('uso_index') }}">Volver a la lista</a>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->

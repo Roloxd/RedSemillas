@@ -17,6 +17,7 @@ use Symfony\Component\VarDumper\VarDumper;
 
 use App\Entity\Variedad;
 use mysqli;
+use Symfony\Component\Validator\Constraints\IsNull;
 
 /**
  * @Route("/semillas", name="search.")
@@ -57,8 +58,9 @@ class SearchController extends AbstractController
         
         $variedades = null;
 		$post = $request->request->get('search');//['search'];
-        VarDumper::dump($post);
+
 		$titulo = 'Catálogo';
+
         if($post){    
 			$titulo = 'Resultado de búsqueda';     
 			/*$variedades = $this->getDoctrine()
@@ -116,8 +118,10 @@ class SearchController extends AbstractController
 			
 			$variedades = $qb->getQuery()
 							->getResult();
-			 
-            VarDumper::dump($variedades);
+
+			if(empty($variedades)){
+				$titulo = 'No hay resultados';
+			}
 
         }
        // dump($request->request->get('search')['query']); die;

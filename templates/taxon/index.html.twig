@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Taxon index{% endblock %}
+
+{% block body %}
+    <h1>Taxon index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Tipo</th>
+                <th>Nombre</th>
+                <th>Padre</th>
+                <th>Autoridad</th>
+                <th>Subtaxon</th>
+                <th>Autoridad_subtaxon</th>
+                <th>Observaciones</th>
+                <th>Descripcion</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for taxon in taxa %}
+            <tr>
+                <td>{{ taxon.id }}</td>
+                <td>{{ taxon.tipo }}</td>
+                <td>{{ taxon.nombre }}</td>
+                <td>{{ taxon.padre }}</td>
+                <td>{{ taxon.autoridad }}</td>
+                <td>{{ taxon.subtaxon }}</td>
+                <td>{{ taxon.autoridadSubtaxon }}</td>
+                <td>{{ taxon.observaciones }}</td>
+                <td>{{ taxon.descripcion }}</td>
+                <td>
+                    <a href="{{ path('taxon_show', {'id': taxon.id}) }}">show</a>
+                    <a href="{{ path('taxon_edit', {'id': taxon.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('taxon_new') }}">Create new</a>
+{% endblock %}

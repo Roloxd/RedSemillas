@@ -1,0 +1,32 @@
+{% extends 'backend-base.html.twig' %}
+
+{% block title %}Editar Variedad{% endblock %}
+
+{% block stylesheets %}
+      {{ include('be-layout/stylesheet.html', sandboxed = true) }}
+{% endblock %}
+
+{% block body %}
+<div class="wrapper">
+    {{ include('be-layout/preloader.html', sandboxed = true) }}
+    {{ include('be-layout/navbar.html', sandboxed = true) }}
+    {{ include('be-layout/sidebar.html', sandboxed = true) }}
+
+    {{ include('variedad/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('variedad_index') }}">Volver a la lista</a>
+
+    {{ include('variedad/_delete_form.html.twig') }}
+
+    {{ include('be-layout/footer.html', sandboxed = true) }}
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+{{ include('be-layout/js.html', sandboxed = true) }}
+{% endblock %}

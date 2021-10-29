@@ -5,3 +5,4 @@
 | CRUD añadido para cada entidad.
 | Pop-up añadido.
 | Front-end añadido.
+| Entidades nuevas y sus formularios (Falta completar).

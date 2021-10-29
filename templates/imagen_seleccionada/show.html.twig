@@ -1,0 +1,58 @@
+{% extends 'backend-base.html.twig' %}
+
+{% block title %}Imagen Seleccionada{% endblock %}
+
+{% block stylesheets %}
+      {{ include('be-layout/stylesheet.html', sandboxed = true) }}
+{% endblock %}
+
+{% block body %}
+<div class="wrapper">
+    {{ include('be-layout/preloader.html', sandboxed = true) }}
+    {{ include('be-layout/navbar.html', sandboxed = true) }}
+    {{ include('be-layout/sidebar.html', sandboxed = true) }}
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <h1>Imagen Seleccionada</h1>
+
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ imagen_seleccionada.id }}</td>
+                </tr>
+                <tr>
+                    <th>Tipo</th>
+                    <td>{{ imagen_seleccionada.tipo }}</td>
+                </tr>
+                <tr>
+                    <th>Imagen</th>
+                    <td>{{ imagen_seleccionada.imagen }}</td>
+                </tr>
+                <tr>
+                    <th>Variedad</th>
+                    <td>{{ imagen_seleccionada.variedad }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a href="{{ path('imagen_seleccionada_index') }}">Volver a la lista</a>
+
+        <a href="{{ path('imagen_seleccionada_edit', {'id': imagen_seleccionada.id}) }}">Editar</a>
+
+        {{ include('imagen_seleccionada/_delete_form.html.twig') }}
+    </div>
+
+    {{ include('be-layout/footer.html', sandboxed = true) }}
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+{{ include('be-layout/js.html', sandboxed = true) }}
+{% endblock %}

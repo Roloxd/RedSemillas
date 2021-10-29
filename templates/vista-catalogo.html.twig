@@ -38,6 +38,7 @@
 		</h1>
 	</div>
 
+{% if variedades == true %}
 	<div id="green-contents" class="row contents">
 		<div id="variedades" class="offset-sm-1 offset-lg-2 col-12 col-sm-10 col-lg-8 orange">
 {% for variedad in variedades %}
@@ -113,5 +114,8 @@
         </div>
 	</div>
 
-	<script src="{{ asset('js/codigo.js') }}"></script>
+{% endif %}
+
+<script src="{{ asset('js/codigo.js') }}"></script>
+
 {% endblock %}
