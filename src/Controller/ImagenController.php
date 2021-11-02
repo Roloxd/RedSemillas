@@ -3,14 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Imagen;
-use App\Entity\ImagenSeleccionada;
-use App\Form\ImagenSeleccionadaType;
 use App\Form\ImagenType;
 use App\Repository\ImagenRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
 
 #[Route('/admin/imagen')]
 class ImagenController extends AbstractController
@@ -24,7 +24,7 @@ class ImagenController extends AbstractController
     }
 
     #[Route('/new', name: 'imagen_new', methods: ['GET','POST'])]
-    public function new(Request $request): Response
+    public function new(Request $request, string $imgDir): Response
     {
         $imagen = new Imagen();
         $form = $this->createForm(ImagenType::class, $imagen);
@@ -32,6 +32,19 @@ class ImagenController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+
+            if($img = $form['url']->getData()){
+                $filename = bin2hex(random_bytes( length: 6 )) . '.' . $img->guessExtension();
+
+                try {
+                    $img->move($imgDir, $filename);
+                } catch (FileException $e) {
+                    
+                }
+
+                $imagen->setUrl($filename);
+            }
+
             $entityManager->persist($imagen);
             $entityManager->flush();
 
@@ -56,13 +69,28 @@ class ImagenController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'imagen_edit', methods: ['GET','POST'])]
-    public function edit(Request $request, Imagen $imagen): Response
+    public function edit(Request $request, Imagen $imagen, string $imgDir): Response
     {
         $form = $this->createForm(ImagenType::class, $imagen);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $entityManager = $this->getDoctrine()->getManager();
+
+            if($img = $form['url']->getData()){
+                $filename = bin2hex(random_bytes( length: 6 )) . '.' . $img->guessExtension();
+
+                try {
+                    unlink($imgDir . $imagen->getUrl());
+                    $img->move($imgDir, $filename);
+                } catch (FileException $e) {
+                    
+                }
+
+                $imagen->setUrl($filename);
+            }
+
+            $entityManager->flush();
 
             return $this->redirectToRoute('imagen_index', [], Response::HTTP_SEE_OTHER);
         }

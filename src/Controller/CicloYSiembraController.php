@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/ciclo/y/siembra')]
+#[Route('/admin/ciclo/y/siembra')]
 class CicloYSiembraController extends AbstractController
 {
     #[Route('/', name: 'ciclo_y_siembra_index', methods: ['GET'])]
@@ -36,9 +36,12 @@ class CicloYSiembraController extends AbstractController
             return $this->redirectToRoute('ciclo_y_siembra_index', [], Response::HTTP_SEE_OTHER);
         }
 
+        $text_form = 'Nuevo Ciclo y Siembra';
+
         return $this->renderForm('ciclo_y_siembra/new.html.twig', [
             'ciclo_y_siembra' => $cicloYSiembra,
             'form' => $form,
+            'text_form' => $text_form,
         ]);
     }
 
@@ -62,9 +65,12 @@ class CicloYSiembraController extends AbstractController
             return $this->redirectToRoute('ciclo_y_siembra_index', [], Response::HTTP_SEE_OTHER);
         }
 
+        $text_form = 'Editar Ciclo y Siembra';
+
         return $this->renderForm('ciclo_y_siembra/edit.html.twig', [
             'ciclo_y_siembra' => $cicloYSiembra,
             'form' => $form,
+            'text_form' => $text_form,
         ]);
     }
 

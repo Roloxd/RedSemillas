@@ -1,11 +1,32 @@
-{% extends 'base.html.twig' %}
+{% extends 'backend-base.html.twig' %}
 
-{% block title %}New CicloYSiembra{% endblock %}
+{% block title %}Nueva Persona{% endblock %}
+
+{% block stylesheets %}
+      {{ include('be-layout/stylesheet.html', sandboxed = true) }}
+{% endblock %}
 
 {% block body %}
-    <h1>Create new CicloYSiembra</h1>
+<div class="wrapper">
+ {{ include('be-layout/preloader.html', sandboxed = true) }}
 
-    {{ include('ciclo_y_siembra/_form.html.twig') }}
+  {{ include('be-layout/navbar.html', sandboxed = true) }}
+  
+  {{ include('be-layout/sidebar.html', sandboxed = true) }}
+  
 
-    <a href="{{ path('ciclo_y_siembra_index') }}">back to list</a>
+  {{ include('ciclo_y_siembra/_form.html.twig') }}
+  
+  {{ include('be-layout/footer.html', sandboxed = true) }}
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+{{ include('be-layout/js.html', sandboxed = true) }}
+
 {% endblock %}

@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/taxon')]
+#[Route('/admin/taxon')]
 class TaxonController extends AbstractController
 {
     #[Route('/', name: 'taxon_index', methods: ['GET'])]
@@ -36,9 +36,12 @@ class TaxonController extends AbstractController
             return $this->redirectToRoute('taxon_index', [], Response::HTTP_SEE_OTHER);
         }
 
+        $text_form = 'Nuevo Taxon';
+
         return $this->renderForm('taxon/new.html.twig', [
             'taxon' => $taxon,
             'form' => $form,
+            'text_form' => $text_form,
         ]);
     }
 
@@ -62,9 +65,12 @@ class TaxonController extends AbstractController
             return $this->redirectToRoute('taxon_index', [], Response::HTTP_SEE_OTHER);
         }
 
+        $text_form = 'Editar Taxon';
+
         return $this->renderForm('taxon/edit.html.twig', [
             'taxon' => $taxon,
             'form' => $form,
+            'text_form' => $text_form,
         ]);
     }
 

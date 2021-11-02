@@ -40,20 +40,20 @@ class Variedad
      */
     private $especie;
     /**
-     * @var int|null
+     * @var string|null
      *
      * @ORM\Column(name="familia", type="string", length=45, nullable=true)
      */
     private $familia;
     /**
-     * @var int|null
+     * @var string|null
      *
      * @ORM\Column(name="genero", type="string", length=45, nullable=true)
      */
     private $genero;
    
     /**
-     * @var int|null
+     * @var string|null
      *
      * @ORM\Column(name="descripcion", type="string", length=1000, nullable=true)
      */

@@ -129,6 +129,22 @@
                     <label for="observaciones">Observaciones</label>
                     {{ form_widget(form.observaciones, {'attr': {'class': 'form-control'}}) }}
                   </div>
+                  <div class="form-group">
+                    <label for="usoVariedad">Uso variedad</label>
+                    {{ form_widget(form.usoVariedad, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="imagenSeleccionada">Imagen</label>
+                    {{ form_widget(form.imagenSeleccionada, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="cicloYSiembras">Ciclo y Siembras</label>
+                    {{ form_widget(form.cicloYSiembras, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="subtaxon">Subtaxon</label>
+                    {{ form_widget(form.subtaxon, {'attr': {'class': 'form-control'}}) }}
+                  </div>
                 </div>
                 <!-- /.card-body -->
             </div>
@@ -143,7 +159,13 @@
           <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
         </div>
       </div>
-      {{ form_end(form) }}          
+      {{ form_end(form) }}  
+
+      <a href="{{ path('variedad_index') }}">Volver a la lista</a>
+
+      {% if text_form == 'Editar Variedad' %}
+        {{ include('variedad/_delete_form.html.twig') }}
+      {% endif %}
       
     </section>
     <!-- /.content -->

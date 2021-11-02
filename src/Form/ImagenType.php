@@ -7,13 +7,20 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Image;
 
 class ImagenType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('url', FileType::class)
+            ->add('url', FileType::class, array(
+                'required' => false,
+                'mapped' => false,
+                'constraints' => array(
+                    new Image(['maxSize' => '1024k'])
+                )
+            ))
             ->add('titulo')
             ->add('credito')
         ;

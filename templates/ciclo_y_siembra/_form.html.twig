@@ -1,4 +1,126 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>{{ text_form }}</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Administración</a></li>
+              <li class="breadcrumb-item active">Nuevi ciclo y siembra</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- left column -->
+          <div class="col-md-6">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Ciclo y Siembra</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              {{ form_start(form) }}
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="altitud">Altitud</label>
+                    {{ form_widget(form.altitud, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="zona">Zona</label>
+                    {{ form_widget(form.zona, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="coordenadas">Coordenadas</label>
+                    {{ form_widget(form.coordenadas, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="ciclo">Ciclo</label>
+                    {{ form_widget(form.ciclo, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="enero">Enero</label>
+                    {{ form_widget(form.enero, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="febrero">Febrero</label>
+                    {{ form_widget(form.febrero, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="marzo">Marzo</label>
+                    {{ form_widget(form.marzo, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="abril">Abril</label>
+                    {{ form_widget(form.abril, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="mayo">Mayo</label>
+                    {{ form_widget(form.mayo, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="junio">Junio</label>
+                    {{ form_widget(form.junio, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="julio">Julio</label>
+                    {{ form_widget(form.julio, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="agosto">Agosto</label>
+                    {{ form_widget(form.agosto, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="septiembre">Septiembre</label>
+                    {{ form_widget(form.septiembre, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="octubre">Octubre</label>
+                    {{ form_widget(form.octubre, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="noviembre">Noviembre</label>
+                    {{ form_widget(form.noviembre, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="diciembre">Diciembre</label>
+                    {{ form_widget(form.diciembre, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="variedad">Variedad</label>
+                    {{ form_widget(form.variedad, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                </div>
+                
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                  <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
+                </div>
+              {{ form_end(form) }}
+            </div>
+            <!-- /.card -->
+          </div>
+          <!--/.col (left) -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+      <a href="{{ path('ciclo_y_siembra_index') }}">Volver a la lista</a>
+
+      {% if text_form == 'Editar Ciclo y Siembra' %}
+        {{ include('ciclo_y_siembra/_delete_form.html.twig') }}
+      {% endif %}
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->

@@ -1,13 +1,24 @@
-{% extends 'base.html.twig' %}
+{% extends 'backend-base.html.twig' %}
 
-{% block title %}CicloYSiembra{% endblock %}
+{% block title %}Entrada{% endblock %}
+
+{% block stylesheets %}
+      {{ include('be-layout/stylesheet.html', sandboxed = true) }}
+{% endblock %}
 
 {% block body %}
-    <h1>CicloYSiembra</h1>
+<div class="wrapper">
+    {{ include('be-layout/preloader.html', sandboxed = true) }}
+    {{ include('be-layout/navbar.html', sandboxed = true) }}
+    {{ include('be-layout/sidebar.html', sandboxed = true) }}
 
-    <table class="table">
-        <tbody>
-            <tr>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <h1>Ciclo y Siembra</h1>
+
+        <table class="table">
+            <tbody>
+                <tr>
                 <th>Id</th>
                 <td>{{ ciclo_y_siembra.id }}</td>
             </tr>
@@ -75,12 +86,24 @@
                 <th>Diciembre</th>
                 <td>{{ ciclo_y_siembra.diciembre }}</td>
             </tr>
-        </tbody>
-    </table>
+        </table>
 
-    <a href="{{ path('ciclo_y_siembra_index') }}">back to list</a>
+        <a href="{{ path('ciclo_y_siembra_index') }}">Volver a la lista</a>
 
-    <a href="{{ path('ciclo_y_siembra_edit', {'id': ciclo_y_siembra.id}) }}">edit</a>
+        <a href="{{ path('ciclo_y_siembra_edit', {'id': ciclo_y_siembra.id}) }}">Editar</a>
 
-    {{ include('ciclo_y_siembra/_delete_form.html.twig') }}
+        {{ include('ciclo_y_siembra/_delete_form.html.twig') }}
+    </div>
+
+    {{ include('be-layout/footer.html', sandboxed = true) }}
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+{{ include('be-layout/js.html', sandboxed = true) }}
 {% endblock %}

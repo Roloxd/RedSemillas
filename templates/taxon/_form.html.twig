@@ -1,4 +1,94 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>{{ text_form }}</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Administración</a></li>
+              <li class="breadcrumb-item active">Nuevo Taxón</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- left column -->
+          <div class="col-md-6">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Taxón</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              {{ form_start(form) }}
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="tipo">Tipo</label>
+                    {{ form_widget(form.tipo, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    {{ form_widget(form.nombre, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="padre">Padre</label>
+                    {{ form_widget(form.padre, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="autoridad">Autoridad</label>
+                    {{ form_widget(form.autoridad, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="subtaxon">Subtaxon</label>
+                    {{ form_widget(form.subtaxon, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="autoridad_subtaxon">Autoridad de Subtaxon</label>
+                    {{ form_widget(form.autoridad_subtaxon, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="descripcion">Descripción</label>
+                    {{ form_widget(form.descripcion, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="variedad">Variedad</label>
+                    {{ form_widget(form.variedad, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="observaciones">Observaciones</label>
+                    {{ form_widget(form.observaciones, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                </div>
+                
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                  <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
+                </div>
+              {{ form_end(form) }}
+            </div>
+            <!-- /.card -->
+          </div>
+          <!--/.col (left) -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+      <a href="{{ path('taxon_index') }}">Volver a la lista</a>
+
+      {% if text_form == 'Editar Taxon' %}
+        {{ include('taxon/_delete_form.html.twig') }}
+      {% endif %}
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->

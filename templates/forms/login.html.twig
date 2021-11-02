@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Iniciar Sesión{% endblock %}
 
 {% block body %}
 <div class="login__form">
@@ -13,18 +13,18 @@
         {% if app.user %}
             <div class="mb-3">
                 
-                You are logged in as {{ app.user.email }}, <a href="{{ path('logout') }}">{{ 'logout' | trans }}</a>
+                Ya has iniciado sesión con: {{ app.user.email }}, <a href="{{ path('logout') }}">{{ 'cerrar sesión' | trans }}</a>
             </div>
         {% endif %}
     
-        <h1 class="h3 mb-3 font-weight-normal">{{ 'login' | trans }}</h1>
+        <h1 class="h3 mb-3 font-weight-normal">{{ 'Iniciar Sesión' | trans }}</h1>
         <div class="rgcs__form-row">
-            <!-- <label for="inputEmail">Email</label> -->
-            <input type="text" name="_username" id="inputUsername" class="form-control" required autofocus placeholder="{{ 'username.email' | trans }}">
+            <label for="inputEmail">Email</label>
+            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
         </div>
         <div class="rgcs__form-row">
-            <!-- <label for="inputPassword">Password</label> -->
-            <input type="password" name="_password" id="inputPassword" class="form-control" required placeholder="{{ 'password' | trans }}">
+            <label for="inputPassword">Contraseña</label>
+            <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
         </div>
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
     
@@ -34,12 +34,12 @@
         #}
             <div class="checkbox mb-3">
                 <label>
-                    <input type="checkbox" name="_remember_me"> Remember me
+                    <input type="checkbox" name="_remember_me"> Recuérdame
                 </label>
             </div>
         
     
-        <button class="btn btn-lg btn-primary bubble__btn-green" type="submit">{{ 'Submit' | trans }}</button>
+        <button class="btn btn-lg btn-primary bubble__btn-green" type="submit">{{ 'Acceder' | trans }}</button>
     </form>
 </div>
 {% endblock %}

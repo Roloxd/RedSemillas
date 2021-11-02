@@ -35,6 +35,10 @@ class Variedad1Type extends AbstractType
             ->add('propagacion')
             ->add('otros')
             ->add('observaciones')
+            ->add('usoVariedad')
+            ->add('imagenSeleccionada')
+            ->add('cicloYSiembras')
+            ->add('subtaxon')
         ;
     }
 
