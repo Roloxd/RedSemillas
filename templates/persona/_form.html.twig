@@ -185,7 +185,13 @@
           <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
         </div>
       </div>
-      {{ form_end(form) }}    
+      {{ form_end(form) }}  
+
+      <a href="{{ path('persona_index') }}">Volver a la lista</a>
+
+      {% if text_form == 'Editar Persona' %}
+        {{ include('persona/_delete_form.html.twig') }}
+      {% endif %}
     </section>
     <!-- /.content -->
   </div>

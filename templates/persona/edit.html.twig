@@ -13,11 +13,7 @@
     {{ include('be-layout/sidebar.html', sandboxed = true) }}
 
     {{ include('persona/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('persona_index') }}">Volver a la lista</a>
-
-    {{ include('persona/_delete_form.html.twig') }}
-
+    
     {{ include('be-layout/footer.html', sandboxed = true) }}
 
     <!-- Control Sidebar -->

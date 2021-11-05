@@ -4,6 +4,9 @@ namespace App\Form;
 
 use App\Entity\Variedad;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,14 +18,32 @@ class Variedad1Type extends AbstractType
             ->add('nombreComun')
             ->add('nombreLocal')
             ->add('especie')
-            ->add('tipoSiembra')
+            ->add('tipoSiembra', ChoiceType::class, [
+                'placeholder' => 'Selecciona tipo de siembra',
+                'choices'  => [
+                    'Directa' => 'Directa',
+                    'Semillero' => 'Semillero',
+                    'Voleo' => 'Voleo',
+                ],
+            ])
             ->add('diasSemillero')
+            ->add('descripcion')
             ->add('marcoA')
             ->add('marcoB')
             ->add('densidad')
             ->add('cicloCultivo')
-            ->add('polinizacion')
-            ->add('caracterizacion')
+            ->add('polinizacion', ChoiceType::class, [
+                'placeholder' => 'Selecciona polinización',
+                'choices'  => [
+                    'Alógama' => 'Alógama',
+                    'Autógama' => 'Autógama',
+                    'Mixta ' => 'Mixta ',
+                ],
+            ])
+            ->add('caracterizacion', CheckboxType::class, [
+                'label'    => 'Caracterización',
+                'required' => false,
+            ])
             ->add('viabilidadMin')
             ->add('viabilidadMax')
             ->add('conocimientosTradicionales')
@@ -34,9 +55,11 @@ class Variedad1Type extends AbstractType
             ->add('cOrganolepticas')
             ->add('propagacion')
             ->add('otros')
-            ->add('observaciones')
-            ->add('usoVariedad')
-            ->add('imagenSeleccionada')
+            ->add('observaciones', TextareaType::class, [
+                'attr' => ['class' => 'tinymce'],
+            ])
+            //->add('usoVariedad')
+            //->add('imagenSeleccionada')
             ->add('cicloYSiembras')
             ->add('subtaxon')
         ;

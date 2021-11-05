@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Entrada;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,7 +17,9 @@ class Entrada1Type extends AbstractType
             ->add('num_pasaporte')
             ->add('cantidad')
             ->add('superficie_cultivo')
-            ->add('fecha_entrada')
+            ->add('fecha_entrada', DateType::class, [
+                'widget' => 'single_text',
+            ])
             ->add('tipo_entrada')
             ->add('observaciones')
             ->add('id_terreno')

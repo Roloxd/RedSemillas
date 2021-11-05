@@ -44,6 +44,7 @@
                   {{ form_widget(form2.apellidos, {'attr': {'class': 'form-control'}}) }}
                 </div>
               </div>
+              {{ form_end(form2) }}
               <div class="alerta-body">
                 <div class="alerta"></div>
               </div>
@@ -141,6 +142,9 @@
         </div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->
+
+      <a href="{{ path('terreno_index') }}">Volver a la lista</a>
+      
     </section>
     <!-- /.content -->
   </div>

@@ -84,13 +84,13 @@
                 </tr>
             </tbody>
         </table>
+
+        <a href="{{ path('envase_index') }}">Volver a la lista</a>
+
+        <a href="{{ path('envase_edit', {'id': envase.id}) }}">Editar</a>
+
+        {{ include('envase/_delete_form.html.twig') }}
     </div>
-
-    <a href="{{ path('envase_index') }}">Volver a la lista</a>
-
-    <a href="{{ path('envase_edit', {'id': envase.id}) }}">Editar</a>
-
-    {{ include('envase/_delete_form.html.twig') }}
 
     {{ include('be-layout/footer.html', sandboxed = true) }}
 

@@ -596,4 +596,11 @@ class Variedad
 
         return $this;
     }
+
+    public function setDescripcion(?string $descripcion): self
+    {
+        $this->descripcion = $descripcion;
+
+        return $this;
+    }
 }

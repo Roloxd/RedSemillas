@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Envase;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,7 +14,9 @@ class EnvaseType extends AbstractType
     {
         $builder
             ->add('tipo_almacenamiento')
-            ->add('fecha_envasado')
+            ->add('fecha_envasado', DateType::class, [
+                'widget' => 'single_text',
+            ])
             ->add('ubicacion_envase')
             ->add('cantidad_gramos')
             ->add('cantidad_unidaddes')

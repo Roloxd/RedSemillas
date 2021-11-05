@@ -33,6 +33,11 @@ class Imagen
      */
     private $credito;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=ImagenSeleccionada::class, inversedBy="imagen")
+     */
+    private $imagenSeleccionada;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -107,5 +112,17 @@ class Imagen
     public function __toString()
     {
         return $this->id;
+    }
+
+    public function getImagenSeleccionada(): ?ImagenSeleccionada
+    {
+        return $this->imagenSeleccionada;
+    }
+
+    public function setImagenSeleccionada(?ImagenSeleccionada $imagenSeleccionada): self
+    {
+        $this->imagenSeleccionada = $imagenSeleccionada;
+
+        return $this;
     }
 }

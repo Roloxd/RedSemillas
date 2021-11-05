@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Persona;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,13 +14,19 @@ class Persona2Type extends AbstractType
     {
         $builder
             ->add('num_socio')
-            ->add('fecha_inscripcion_rgcs')
+            ->add('fecha_inscripcion_rgcs', DateType::class, [
+                'widget' => 'single_text',
+            ])
             ->add('acepta_condiciones')
             ->add('tipo_socio')
             ->add('ampliacion_cuota')
-            ->add('fecha_cuota')
+            ->add('fecha_cuota', DateType::class, [
+                'widget' => 'single_text',
+            ])
             ->add('recibir_informacion')
-            ->add('fecha_informacion')
+            ->add('fecha_informacion', DateType::class, [
+                'widget' => 'single_text',
+            ])
             ->add('nif')
             ->add('nombre')
             ->add('apellidos')

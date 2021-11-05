@@ -36,6 +36,12 @@ class TerrenoController extends AbstractController
         ]);
         $form2->handleRequest($request);
 
+        if ($form2->isSubmitted() && $form2->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($persona);
+            $entityManager->flush();
+        }
+
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($terreno);

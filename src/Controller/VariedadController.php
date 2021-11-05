@@ -2,7 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Imagen;
+use App\Entity\ImagenSeleccionada;
 use App\Entity\Variedad;
+use App\Form\ImagenSeleccionadaType;
+use App\Form\ImagenType;
 use App\Form\Variedad1Type;
 use App\Repository\VariedadRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,25 +29,78 @@ class VariedadController extends AbstractController
     public function new(Request $request): Response
     {
         $variedad = new Variedad();
-        $form = $this->createForm(Variedad1Type::class, $variedad);
-
+        $form = $this->createForm(Variedad1Type::class, $variedad, [
+            'attr' => ['class' => 'formVariedad' ]
+        ]);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($variedad);
-            $entityManager->flush();
+        $imagen = new Imagen();
+        $form2 = $this->createForm(ImagenType::class, $imagen, [
+            'attr' => ['class' => 'formImagen' ]
+        ]);
+        $form2->handleRequest($request);
 
-            return $this->redirectToRoute('variedad_index', [], Response::HTTP_SEE_OTHER);
+        $imagenSelect = new ImagenSeleccionada();
+        $form3 = $this->createForm(ImagenSeleccionadaType::class, $imagenSelect, [
+            'attr' => ['class' => 'formImagenSelect' ]
+        ]);
+        $form3->handleRequest($request);
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // $entityManager = $this->getDoctrine()->getManager();
+            // $entityManager->persist($variedad);
+            // $entityManager->flush();
+
+            // return $this->redirectToRoute('variedad_index', [], Response::HTTP_SEE_OTHER);
         }
 
         $text = 'Nueva Variedad';
 
         return $this->renderForm('variedad/new.html.twig', [
             'variedad' => $variedad,
+            'imagen' => $imagen,
+            'imagenSelect' => $imagenSelect,
             'form' => $form,
+            'form2' => $form2,
+            'form3' => $form3,
             'text_form' => $text,
         ]);
+    }
+
+    #[Route('/add', name: 'variedad_add', methods: ['POST'])]
+    public function peticion(Request $request): Response
+    {
+        //if($request->isXmlHttpRequest()){
+
+        $variedad = new Variedad();
+
+        $nombreComun = $request->request->get('nombreComun');
+        $tipoSiembra = $request->request->get('tipoSiembra');
+        $polinizacion = $request->request->get('polinizacion');
+        $observaciones = $request->request->get('observaciones');
+
+        $variedad->setNombreComun($nombreComun);
+        $variedad->setTipoSiembra($tipoSiembra);
+        $variedad->setPolinizacion($polinizacion);
+        $variedad->setObservaciones($observaciones);
+
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($variedad);
+        $entityManager->flush();
+
+        //}
+        
+        $idVariedad = $variedad->getId();
+
+        $response = new Response();
+        $response->setContent(json_encode([
+            'idVariedad' => $idVariedad,
+        ]));
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;     
     }
 
     #[Route('/{id}', name: 'variedad_show', methods: ['GET'])]

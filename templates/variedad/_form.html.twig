@@ -20,13 +20,7 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-      {{ form_start(form) }}
-        <div class="form-group">
-          <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
-        </div>
-      </div>
-      <div class="container-fluid">
-        <div class="row">
+        <div id="variedad" class="row" style="">
           <!-- left column -->
           <div class="col-md-6">
             <!-- general form elements -->
@@ -36,6 +30,7 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
+              {{ form_start(form) }}
                 <div class="card-body">
                   <div class="form-group">
                     <label for="nombreComun">Nombre Común</label>
@@ -50,6 +45,10 @@
                     {{ form_widget(form.especie, {'attr': {'class': 'form-control'}}) }}
                   </div>
                   <div class="form-group">
+                    <label for="descripcion">Descripción</label>
+                    {{ form_widget(form.descripcion, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
                     <label for="tipoSiembra">Tipo de siembra</label>
                     {{ form_widget(form.tipoSiembra, {'attr': {'class': 'form-control'}}) }}
                   </div>
@@ -58,11 +57,11 @@
                     {{ form_widget(form.diasSemillero, {'attr': {'class': 'form-control'}}) }}
                   </div>
                   <div class="form-group">
-                    <label for="marcoA">Marco A</label>
+                    <label for="marcoA">Distancia entre plata</label>
                     {{ form_widget(form.marcoA, {'attr': {'class': 'form-control'}}) }}
                   </div>
                   <div class="form-group">
-                    <label for="marcoB">Marco B</label>
+                    <label for="marcoB">Distancia entre lineas</label>
                     {{ form_widget(form.marcoB, {'attr': {'class': 'form-control'}}) }}
                   </div>
                   <div class="form-group">
@@ -82,11 +81,11 @@
                     {{ form_widget(form.caracterizacion, {'attr': {'class': 'form-control'}}) }}
                   </div>
                   <div class="form-group">
-                    <label for="viabilidadMin">Viabilidad Min</label>
+                    <label for="viabilidadMin">Viabilidad Min (Años)</label>
                     {{ form_widget(form.viabilidadMin, {'attr': {'class': 'form-control'}}) }}
                   </div>
                   <div class="form-group">
-                    <label for="viabilidadMax">Viabilidad Max</label>
+                    <label for="viabilidadMax">Viabilidad Max (Años)</label>
                     {{ form_widget(form.viabilidadMax, {'attr': {'class': 'form-control'}}) }}
                   </div>
                   <div class="form-group">
@@ -129,14 +128,10 @@
                     <label for="observaciones">Observaciones</label>
                     {{ form_widget(form.observaciones, {'attr': {'class': 'form-control'}}) }}
                   </div>
-                  <div class="form-group">
+                  {# <div class="form-group">
                     <label for="usoVariedad">Uso variedad</label>
                     {{ form_widget(form.usoVariedad, {'attr': {'class': 'form-control'}}) }}
-                  </div>
-                  <div class="form-group">
-                    <label for="imagenSeleccionada">Imagen</label>
-                    {{ form_widget(form.imagenSeleccionada, {'attr': {'class': 'form-control'}}) }}
-                  </div>
+                  </div> #}
                   <div class="form-group">
                     <label for="cicloYSiembras">Ciclo y Siembras</label>
                     {{ form_widget(form.cicloYSiembras, {'attr': {'class': 'form-control'}}) }}
@@ -146,20 +141,75 @@
                     {{ form_widget(form.subtaxon, {'attr': {'class': 'form-control'}}) }}
                   </div>
                 </div>
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary">Guardar</button>
+              </div>
+                {{ form_end(form) }}  
                 <!-- /.card-body -->
             </div>
             <!-- /.card -->
           </div>
         </div>
         <!-- /.row -->
-      </div><!-- /.container-fluid -->
-
-      <div class="container-fluid">
-        <div class="form-group">
-          <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
+        <div id="imagen" class="row" style="display: none;">
+          <div class="col-md-6">
+            <!-- general form elements -->
+            {{ form_start(form2) }}
+            <div class="card card-secondary">
+              <div class="card-header">
+                <h3 class="card-title">Imagen</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="titulo">Titulo</label>
+                  {{ form_widget(form2.titulo, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="url">Subir Imagen</label>
+                  {{ form_widget(form2.url, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="credito">Credito</label>
+                  {{ form_widget(form2.credito, {'attr': {'class': 'form-control'}}) }}
+                </div>
+              </div>
+              <div class="card-footer">
+              <button type="button" class="btn btn-primary" onclick="cerrar();">Cerrar</button>
+                  <button type="submit" class="btn btn-primary">Continuar</button>
+              </div>
+            </div>
+            {{ form_end(form2) }}
+          </div>
         </div>
-      </div>
-      {{ form_end(form) }}  
+        <!-- /.row -->
+        <div id="imagenSelect" class="row" style="display: none;">
+          <div class="col-md-6">
+            <!-- general form elements -->
+            {{ form_start(form3) }}
+            <div class="card card-secondary">
+              <div class="card-header">
+                <h3 class="card-title">Tipo de Imagen</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="tipo">Tipo</label>
+                  {{ form_widget(form3.tipo, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  {{ form_widget(form3.variedad, {'attr': {'class': 'form-control'}}) }}
+                </div>
+              </div>
+              <div class="card-footer">
+                  <button type="submit" class="btn btn-primary">Añadir nueva imagen</button>
+                  <button type="submit" class="btn btn-primary">Terminar</button>
+              </div>
+            </div>
+            {{ form_end(form3) }}
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
 
       <a href="{{ path('variedad_index') }}">Volver a la lista</a>
 
