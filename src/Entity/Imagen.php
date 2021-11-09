@@ -89,9 +89,14 @@ class Imagen
 
     public function addImagenSeleccionada(ImagenSeleccionada $ImagenSeleccionada): self
     {
-        if (!$this->ImagenSeleccionadas->contains($ImagenSeleccionada)) {
-            $this->ImagenSeleccionadas[] = $ImagenSeleccionada;
-            $ImagenSeleccionada->setImagen($this);
+        // if (!$this->ImagenSeleccionadas->contains($ImagenSeleccionada)) {
+        //     $this->ImagenSeleccionadas[] = $ImagenSeleccionada;
+        //     $ImagenSeleccionada->addImagen($this);
+        // }
+
+        if (!$this->getImagenSeleccionada()) {
+            $this->ImagenSeleccionada = $ImagenSeleccionada;
+            $ImagenSeleccionada->addImagen($this);
         }
 
         return $this;

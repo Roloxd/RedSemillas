@@ -33,7 +33,7 @@ class DefaultController extends AbstractController
         $variedades = $this->getDoctrine()
             ->getRepository(Variedad::class)
             ->findAll();
-            
+
         return $this->render('vista-catalogo.html.twig',[
             'variedades' => $variedades,
             'titulo' => 'Catálogo',

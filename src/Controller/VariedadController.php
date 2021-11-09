@@ -75,22 +75,42 @@ class VariedadController extends AbstractController
 
         $variedad = new Variedad();
 
-        $nombreComun = $request->request->get('nombreComun');
-        $tipoSiembra = $request->request->get('tipoSiembra');
-        $polinizacion = $request->request->get('polinizacion');
-        $observaciones = $request->request->get('observaciones');
+        $datos = $request->request->get('variedad1');
 
-        $variedad->setNombreComun($nombreComun);
-        $variedad->setTipoSiembra($tipoSiembra);
-        $variedad->setPolinizacion($polinizacion);
-        $variedad->setObservaciones($observaciones);
+        $variedad->setNombreComun($datos['nombreComun']);
+        $variedad->setNombreLocal($datos['nombreLocal']);
+        $variedad->setFamilia($datos['familia']);
+        $variedad->setGenero($datos['genero']);
+        $variedad->setEspecie($datos['especie']);
+        $variedad->setDescripcion($datos['descripcion']);
+        $variedad->setTipoSiembra($datos['tipoSiembra']);
+        $variedad->setDiasSemillero($datos['diasSemillero']);
+        $variedad->setMarcoA($datos['marcoA']);
+        $variedad->setMarcoB($datos['marcoB']);
+        $variedad->setDensidad($datos['densidad']);
+        $variedad->setCicloCultivo($datos['cicloCultivo']);
+        $variedad->setPolinizacion($datos['polinizacion']);
+        $variedad->setViabilidadMin($datos['viabilidadMin']);
+        $variedad->setViabilidadMax($datos['viabilidadMax']);
+        $variedad->setConocimientosTradicionales($datos['conocimientosTradicionales']);
+        $variedad->setCmPlanta($datos['cmPlanta']);
+        $variedad->setCmFlor($datos['cmFlor']);
+        $variedad->setCmFruto($datos['cmFruto']);
+        $variedad->setCmSemilla($datos['cmSemilla']);
+        $variedad->setCArgonomicas($datos['cArgonomicas']);
+        $variedad->setCOrganolepticas($datos['cOrganolepticas']);
+        $variedad->setPropagacion($datos['propagacion']);
+        $variedad->setOtros($datos['otros']);
+        $variedad->setObservaciones($datos['observaciones']);
+        //$variedad->setSubtaxon($datos['subtaxon']);
+
 
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($variedad);
         $entityManager->flush();
 
-        //}
+        // //}
         
         $idVariedad = $variedad->getId();
 
@@ -106,8 +126,38 @@ class VariedadController extends AbstractController
     #[Route('/{id}', name: 'variedad_show', methods: ['GET'])]
     public function show(Variedad $variedad): Response
     {
+
         return $this->render('variedad/show.html.twig', [
             'variedad' => $variedad,
+        ]);
+    }
+
+    #[Route('/{id}/img', name: 'variedad_img', methods: ['GET','POST'])]
+    public function img(Request $request): Response
+    {
+        $imagen = new Imagen();
+        $form = $this->createForm(ImagenType::class, $imagen, [
+            'attr' => ['class' => 'formImagen' ]
+        ]);
+        $form->handleRequest($request);
+
+        $imagenSelect = new ImagenSeleccionada();
+        $form2 = $this->createForm(ImagenSeleccionadaType::class, $imagenSelect, [
+            'attr' => ['class' => 'formImagenSelect' ]
+        ]);
+        $form2->handleRequest($request);
+
+        $idVariedad = $request->get('id');
+
+        $text = 'Nueva Imagen';
+
+        return $this->renderForm('imagen/new.html.twig', [
+            'imagen' => $imagen,
+            'imagenSelect' => $imagenSelect,
+            'form' => $form,
+            'form2' => $form2,
+            'text_form' => $text,
+            'idVariedad' => $idVariedad,
         ]);
     }
 
@@ -135,7 +185,7 @@ class VariedadController extends AbstractController
     #[Route('/{id}', name: 'variedad_delete', methods: ['POST'])]
     public function delete(Request $request, Variedad $variedad): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$variedad->getIdVariedad(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$variedad->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($variedad);
             $entityManager->flush();

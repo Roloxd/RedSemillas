@@ -9,6 +9,10 @@ use Intervention\Image\ImageManagerStatic as Image;
 
 
 use App\Entity\Imagen;
+use App\Entity\ImagenSeleccionada;
+use App\Entity\Variedad;
+use App\Form\ImagenSeleccionada2Type;
+use App\Form\ImagenSeleccionadaType;
 use App\Form\ImagenType;
 use App\Repository\ImagenRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -40,7 +44,7 @@ class ImagenController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
 
             if($img = $form['url']->getData()){
-                $filename = bin2hex(random_bytes( length: 6 )) . '.' . $img->guessExtension();
+                $filename = md5(uniqid()) . '.' . $img->guessExtension();
                 // $img_reescalada = Image::make($img)->fit(800,600);
                 try {
                     $img->move($imgDir, $filename);
@@ -77,38 +81,112 @@ class ImagenController extends AbstractController
         $datos = $request->request->get('imagen');
         $titulo = $datos['titulo'];
         $credito = $datos['credito'];
+        $idVariedad = $datos['idVariedad'];
 
         $file = $request->files->get('imagen');
-        if($img = $file['url']->getData()){
-            dump($img);
-            $filename = bin2hex(random_bytes( length: 6 )) . '.' . $img->guessExtension();
-            //$img_reescalada = Image::make($img)->fit(800,600);
-            try {
-                $img->move($imgDir, $filename);
-            } catch (FileException $e) {
-                
-            }
-            $img->save($imgDir . $filename);
+        
+        $filename = md5(uniqid()).'.'.$file['url']->guessExtension();
+        //$img_reescalada = Image::make($img)->fit(800,600);
+        try {
+            $file['url']->move($imgDir, $filename);
+        } catch (FileException $e) {
+            
         }
 
         $Imagen->setTitulo($titulo);
         $Imagen->setCredito($credito);
         $Imagen->setUrl($filename);
 
+        $Variedad = $this->getDoctrine()
+            ->getRepository(Variedad::class)
+            ->find($idVariedad);
+
+        if($Variedad->getImagenSeleccionada() === null){
+            $neverRelation = true;
+        } else {
+            $neverRelation = false;
+
+            $idImagenSelect = $Variedad->getImagenSeleccionada()->getId();
+            
+            $ImagenSeleccionada = $this->getDoctrine()
+            ->getRepository(ImagenSeleccionada::class)
+            ->find($idImagenSelect);
+
+            $Imagen->addImagenSeleccionada($ImagenSeleccionada);
+        }
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($Imagen);
+        $entityManager->flush();
+
+        if($neverRelation){
+            $idImagen = $Imagen->getId();
+        } else {
+            $idImagen = '';
+        }
+        
+
+        //}
+    
+        $response = new Response();
+        $response->setContent(json_encode([
+            'idImagen' => $idImagen,
+            'neverRelation' => $neverRelation,
+        ]));
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;     
+    }
+
+    #[Route('/update', name: 'imagen_update', methods: ['POST'])]
+    public function update(Request $request, string $imgDir): Response
+    {
+        //if($request->isXmlHttpRequest()){
+        $Imagen = new Imagen();
+
+        $datos = $request->request->get('imagen');
+        $titulo = $datos['titulo'];
+        $credito = $datos['credito'];
+        $idVariedad = $datos['idVariedad'];
+        
+
+        $file = $request->files->get('imagen');
+        
+        $filename = md5(uniqid()).'.'.$file['url']->guessExtension();
+        //$img_reescalada = Image::make($img)->fit(800,600);
+        try {
+            $file['url']->move($imgDir, $filename);
+        } catch (FileException $e) {
+            
+        }
+
+        $Variedad = $this->getDoctrine()
+            ->getRepository(Variedad::class)
+            ->find($idVariedad);
+
+        $idImagenSelect = $Variedad->getImagenSeleccionada()->getId();
+
+        $ImagenSelect = $this->getDoctrine()
+        ->getRepository(ImagenSeleccionada::class)
+        ->find($idImagenSelect);
+
+        $Imagen->setTitulo($titulo);
+        $Imagen->setCredito($credito);
+        $Imagen->setUrl($filename);
+        $Imagen->addImagenSeleccionada($ImagenSelect);
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($Imagen);
         $entityManager->flush();
 
         //}
-        
-        $idImagen = $Imagen->getId();
 
         $response = new Response();
         $response->setContent(json_encode([
-            'idImagen' => $idImagen,
+            'Content',
+            Response::HTTP_OK,
+            ['content-type' => 'text/html']
         ]));
-        $response->headers->set('Content-Type', 'application/json');
 
         return $response;     
     }
@@ -133,16 +211,16 @@ class ImagenController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
 
             if($img = $form['url']->getData()){
-                $filename = bin2hex(random_bytes( length: 6 )) . '.' . $img->guessExtension();
+                $filename = md5(uniqid()).'.'.$img->guessExtension();
 
                 try {
                     unlink($imgDir . $imagen->getUrl());
                     // $img_reescalada = Image::make($img)->fit(800,600);
+                    $img->move($imgDir . $filename);
                 } catch (FileException $e) {
                     
                 }
 
-                $img->save($imgDir . $filename);
                 $imagen->setUrl($filename);
             }
 

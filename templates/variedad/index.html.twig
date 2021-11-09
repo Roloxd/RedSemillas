@@ -102,8 +102,9 @@
                         <td>{{ variedad.otros }}</td>
                         <td>{{ variedad.observaciones }}</td>
                         <td>
-                            <a href="{{ path('variedad_show', {'id': variedad.id}) }}">show</a>
-                            <a href="{{ path('variedad_edit', {'id': variedad.id}) }}">edit</a>
+                            <a href="{{ path('variedad_show', {'id': variedad.id}) }}">Ver</a>
+                            <a href="{{ path('variedad_edit', {'id': variedad.id}) }}">Editar</a>
+                            <a href="{{ path('variedad_img', {'id': variedad.id}) }}">Añadir imagen</a>
                         </td>
                     </tr>
                 {% else %}

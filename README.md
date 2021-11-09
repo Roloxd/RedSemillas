@@ -8,4 +8,5 @@
 | Entidades nuevas y sus formularios (Falta completar).
 | Corta-fuegos arreglado
 | Subida de img añadido (Se produce un error al eliminar la consulta)
-| Formulario Variedad (Subida de imagen no esta acabado)
+| Formulario Variedad
+| Catalogo (Falta mostrar imagenes y subtaxon)

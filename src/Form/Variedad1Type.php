@@ -17,6 +17,8 @@ class Variedad1Type extends AbstractType
         $builder
             ->add('nombreComun')
             ->add('nombreLocal')
+            ->add('familia')
+            ->add('genero')
             ->add('especie')
             ->add('tipoSiembra', ChoiceType::class, [
                 'placeholder' => 'Selecciona tipo de siembra',
@@ -57,6 +59,7 @@ class Variedad1Type extends AbstractType
             ->add('otros')
             ->add('observaciones', TextareaType::class, [
                 'attr' => ['class' => 'tinymce'],
+                'required' => false,
             ])
             //->add('usoVariedad')
             //->add('imagenSeleccionada')

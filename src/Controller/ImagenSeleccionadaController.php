@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Imagen;
 use App\Entity\ImagenSeleccionada;
+use App\Entity\Variedad;
 use App\Form\ImagenSeleccionadaType;
 use App\Repository\ImagenSeleccionadaRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -10,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/imagen/seleccion')]
+#[Route('/admin/img/seleccion')]
 class ImagenSeleccionadaController extends AbstractController
 {
     #[Route('/', name: 'imagen_seleccionada_index', methods: ['GET'])]
@@ -24,13 +26,13 @@ class ImagenSeleccionadaController extends AbstractController
     #[Route('/new', name: 'imagen_seleccionada_new', methods: ['GET','POST'])]
     public function new(Request $request): Response
     {
-        $imagenSeleccionada = new ImagenSeleccionada();
-        $form = $this->createForm(ImagenSeleccionadaType::class, $imagenSeleccionada);
+        $ImagenSeleccionada = new ImagenSeleccionada();
+        $form = $this->createForm(ImagenSeleccionadaType::class, $ImagenSeleccionada);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($imagenSeleccionada);
+            $entityManager->persist($ImagenSeleccionada);
             $entityManager->flush();
 
             return $this->redirectToRoute('imagen_seleccionada_index', [], Response::HTTP_SEE_OTHER);
@@ -39,10 +41,96 @@ class ImagenSeleccionadaController extends AbstractController
         $text = 'Nueva Selección de Imagen';
 
         return $this->renderForm('imagen_seleccionada/new.html.twig', [
-            'imagen_seleccionada' => $imagenSeleccionada,
+            'imagen_seleccionada' => $ImagenSeleccionada,
             'form' => $form,
             'text_form' => $text,
         ]);
+    }
+
+    #[Route('/add', name: 'imagen_seleccionada_add', methods: ['POST'])]
+    public function peticion(Request $request): Response
+    {
+        //if($request->isXmlHttpRequest()){
+
+        $ImagenSeleccionada = new ImagenSeleccionada();
+
+        $tipo = $request->request->get('tipo');
+        $idVariedad = $request->request->get('idVariedad');
+        $idImagen = $request->request->get('idImagen');
+
+        $Variedad = $this->getDoctrine()
+            ->getRepository(Variedad::class)
+            ->find($idVariedad);
+
+        $Imagen = $this->getDoctrine()
+        ->getRepository(Imagen::class)
+        ->find($idImagen);
+        
+        $ImagenSeleccionada->setTipo($tipo);
+        $ImagenSeleccionada->setVariedad($Variedad);
+        $ImagenSeleccionada->addImagen($Imagen);
+        
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($ImagenSeleccionada);
+        $entityManager->flush();
+
+        //}
+        
+        $response = new Response();
+        $response->setContent(json_encode([
+            'Content',
+            Response::HTTP_OK,
+            ['content-type' => 'text/html']
+        ]));
+
+        return $response;     
+    }
+
+    #[Route('/relation', name: 'imagen_seleccionada_relation', methods: ['POST'])]
+    public function relation(Request $request): Response
+    {
+        //if($request->isXmlHttpRequest()){
+
+        $tipo = $request->request->get('tipo');
+        $idVariedad = $request->request->get('idVariedad');
+        $idImagen = $request->request->get('idImagen');
+
+        dump($idImagen);
+
+        $Variedad = $this->getDoctrine()
+            ->getRepository(Variedad::class)
+            ->find($idVariedad);
+
+        $Imagen = $this->getDoctrine()
+            ->getRepository(Imagen::class)
+            ->find($idImagen);
+
+        if($Variedad->getImagenSeleccionada() == null){
+            $ImagenSeleccionada = new ImagenSeleccionada;
+
+            $ImagenSeleccionada->setTipo($tipo);
+            $ImagenSeleccionada->setVariedad($Variedad);
+            $ImagenSeleccionada->addImagen($Imagen);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($ImagenSeleccionada);
+            $entityManager->flush();
+        } else {
+
+        }
+
+        //dump($Variedad->getImagenSeleccionada());
+
+        //}
+        
+        $response = new Response();
+        $response->setContent(json_encode([
+            'Content',
+            Response::HTTP_OK,
+            ['content-type' => 'text/html']
+        ]));
+
+        return $response;     
     }
 
     #[Route('/{id}', name: 'imagen_seleccionada_show', methods: ['GET'])]

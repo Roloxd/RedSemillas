@@ -41,6 +41,14 @@
                     {{ form_widget(form.nombreLocal, {'attr': {'class': 'form-control'}}) }}
                   </div>
                   <div class="form-group">
+                    <label for="familia">Familia</label>
+                    {{ form_widget(form.familia, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="genero">Genero</label>
+                    {{ form_widget(form.genero, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
                     <label for="especie">Especie</label>
                     {{ form_widget(form.especie, {'attr': {'class': 'form-control'}}) }}
                   </div>
@@ -197,13 +205,9 @@
                   <label for="tipo">Tipo</label>
                   {{ form_widget(form3.tipo, {'attr': {'class': 'form-control'}}) }}
                 </div>
-                <div class="form-group">
-                  {{ form_widget(form3.variedad, {'attr': {'class': 'form-control'}}) }}
-                </div>
               </div>
               <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Añadir nueva imagen</button>
-                  <button type="submit" class="btn btn-primary">Terminar</button>
+                  <button type="submit" class="btn btn-primary">Guardar</button>
               </div>
             </div>
             {{ form_end(form3) }}

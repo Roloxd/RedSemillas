@@ -20,44 +20,60 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <div class="row">
-          <!-- left column -->
+        <div id="imagen" class="row" style="">
           <div class="col-md-6">
             <!-- general form elements -->
+            {{ form_start(form) }}
             <div class="card card-primary">
               <div class="card-header">
                 <h3 class="card-title">Imagen</h3>
               </div>
               <!-- /.card-header -->
-              <!-- form start -->
-              {{ form_start(form) }}
-                <div class="card-body">
-                  <div class="form-group">
-                    <label for="url">Subir Imagen</label>
-                    {{ form_widget(form.url, {'attr': {'class': 'form-control'}}) }}
-                  </div>
-                  <div class="form-group">
-                    <label for="titulo">Titulo</label>
-                    {{ form_widget(form.titulo, {'attr': {'class': 'form-control'}}) }}
-                  </div>
-                  <div class="form-group">
-                    <label for="credito">Credito</label>
-                    {{ form_widget(form.credito, {'attr': {'class': 'form-control'}}) }}
-                  </div>
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="titulo">Titulo</label>
+                  {{ form_widget(form.titulo, {'attr': {'class': 'form-control'}}) }}
                 </div>
-                
-                <!-- /.card-body -->
-
-                <div class="card-footer">
-                  <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
+                <div class="form-group">
+                  <label for="url">Subir Imagen</label>
+                  {{ form_widget(form.url, {'attr': {'class': 'form-control'}}) }}
                 </div>
-              {{ form_end(form) }}
+                <div class="form-group">
+                  <label for="credito">Credito</label>
+                  {{ form_widget(form.credito, {'attr': {'class': 'form-control'}}) }}
+                </div>
+              </div>
+              <div class="card-footer">
+                  <button type="submit" class="btn btn-primary">Continuar</button>
+              </div>
             </div>
-            <!-- /.card -->
+            <input name="imagen[idVariedad]" type="hidden" value="{{ idVariedad }}" id="idVariedad">
+            {{ form_end(form) }}
           </div>
-          <!--/.col (left) -->
         </div>
         <!-- /.row -->
+        <div id="imagenSelect" class="row" style="display: none;">
+          <div class="col-md-6">
+            <!-- general form elements -->
+            {{ form_start(form2) }}
+            <div class="card card-secondary">
+              <div class="card-header">
+                <h3 class="card-title">Tipo de Imagen</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="tipo">Tipo</label>
+                  {{ form_widget(form2.tipo, {'attr': {'class': 'form-control'}}) }}
+                </div>
+              </div>
+              <div class="card-footer">
+                  <button type="submit" class="btn btn-primary">Guardar</button>
+              </div>
+            </div>
+            {{ form_end(form2) }}
+          </div>
+        </div>
       </div><!-- /.container-fluid -->
       <a href="{{ path('imagen_index') }}">Volver a la lista</a>
 

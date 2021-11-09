@@ -262,9 +262,23 @@ class Variedad
         return $this;
     }
 
+    public function setFamilia(?string $familia): self
+    {
+        $this->familia = $familia;
+
+        return $this;
+    }
+
     public function getFamilia(): ?string
     {
         return $this->familia;
+    }
+
+    public function setGenero(?string $genero): self
+    {
+        $this->genero = $genero;
+
+        return $this;
     }
 	
     public function getGenero(): ?string
@@ -506,7 +520,7 @@ class Variedad
     }
 
     public function __toString() {
-        return $this->nombreComun;
+        return $this->id;
     }
 
     public function getObservaciones(): ?string

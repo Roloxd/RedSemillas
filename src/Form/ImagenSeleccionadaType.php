@@ -23,7 +23,7 @@ class ImagenSeleccionadaType extends AbstractType
                 ],
             ])
             //->add('imagen')
-            ->add('variedad')
+            //->add('variedad')
         ;
     }
 

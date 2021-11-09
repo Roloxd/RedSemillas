@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if(formImagenSelect){
         validarFormularioImagenSelect();
     }
-    
 });
 
 function validarFormularioPersona(){
@@ -159,13 +158,6 @@ if(formVariedad != null) {
 if(formImagen != null) {
     formImagen.addEventListener('submit', evento => {
         evento.preventDefault();
-
-        divImagen = document.querySelector('#imagen');
-        divImagenSelect = document.querySelector('#imagenSelect');
-
-        $(divImagen).hide();
-        $(divImagenSelect).show();
-        
         newImagen();
     });
 }
@@ -223,89 +215,109 @@ function newPersona(){
 }
 
 function newVariedad(){
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if(this.readyState == 4 && this.status == 200){
-            var respuesta = JSON.parse(this.response);
-            
+    $.ajax({
+        url:"/admin/variedades/add",
+        data: new FormData(formVariedad),
+        type:"post",
+        contentType:false,
+        processData:false,
+        cache:false,
+        error:function(err){
+                console.error(err);
+        },
+        success:function(data){
+            //console.log(data);
             const input = document.createElement('INPUT');
             input.setAttribute('type', 'hidden');
-            input.setAttribute('value', respuesta['idVariedad']);
+            input.setAttribute('value', data['idVariedad']);
             input.setAttribute('id', 'idVariedad');
+            input.setAttribute('name', 'imagen[idVariedad]');
 
-            imagenSelect.appendChild(input);
+            formImagen.appendChild(input);
+        },
+        complete:function(){
+            //console.log("Solicitud finalizada.");
         }
-
-    };
-
-    const {variedad1_nombreComun, variedad1_tipoSiembra, variedad1_polinizacion, variedad1_observaciones} = datos;
-
-    var params = 'nombreComun=' + variedad1_nombreComun + "&tipoSiembra=" + variedad1_tipoSiembra + "&polinizacion=" + variedad1_polinizacion + "&observaciones=" + variedad1_observaciones;
-
-    xhttp.open("POST", "/admin/variedades/add", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send(params);
-    return false;
+    });
 }
 
 function newImagen(){
-    // var xhttp = new XMLHttpRequest();
-    // xhttp.onreadystatechange = function () {
-    //     if(this.readyState == 4 && this.status == 200){
-    //         var respuesta = JSON.parse(this.response);
-            
-    //         const input = document.createElement('INPUT');
-    //         input.setAttribute('type', 'hidden');
-    //         input.setAttribute('value', respuesta['idImagen']);
-    //         input.setAttribute('id', 'idImagen');
+    $.ajax({
+        url:"/admin/imagen/add",
+        data: new FormData(formImagen),
+        type:"post",
+        contentType:false,
+        processData:false,
+        cache:false,
+        error:function(err){
+                console.error(err);
+        },
+        success:function(data){
+            //console.log(data);
+            if(data['neverRelation'] === true){
+                const input = document.createElement('INPUT');
+                input.setAttribute('type', 'hidden');
+                input.setAttribute('value', data['idImagen']);
+                input.setAttribute('id', 'idImagen');
+    
+                formImagen.appendChild(input);
 
-    //         imagenSelect.appendChild(input);
+                divImagen = document.querySelector('#imagen');
+                divImagenSelect = document.querySelector('#imagenSelect');
+    
+                $(divImagen).hide();
+                $(divImagenSelect).show();
+            }
 
-            $.ajax({
-                url:"/admin/variedades/new",
-                data: new FormData(formImagen),// la función formData está disponible en casi todos los navegadores nuevos.
-                type:"post",
-                contentType:false,
-                processData:false,
-                cache:false,
-                dataType:"json", // Cambie esto de acuerdo con su respuesta del servidor.
-                error:function(err){
-                      console.error(err);
-                },
-                success:function(data){
-                     console.log(data);      
-                },
-                complete:function(){
-                 console.log("Solicitud finalizada.");
-              
-                }
-            });
-        // }
-    // };
-
-    // const {imagen_titulo, imagen_credito} = datos;
-    // var params = 'titulo=' + imagen_titulo + "&credito=" + imagen_credito;
-
-    // xhttp.open("POST", "/admin/imagen/add", true);
-    // xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    // xhttp.send(params);
-    // return false;
+            document.querySelector('#imagen_titulo').value = "";
+            document.querySelector('#imagen_credito').value = "";
+            document.querySelector('#imagen_url').value = "";
+        },
+        complete:function(){
+            //console.log("Solicitud finalizada.");
+        }
+    });
 }
 
 function newImagenSelect(){
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if(this.readyState == 4 && this.status == 200){
-            //var respuesta = JSON.parse(this.response);
-            
+            url = "/admin/variedades/" + variedad.value + "/img";
+
+            $('#idVariedad').remove();
+            $('#idImagen').remove();
+
+            window.location.href = url;
         }
     };
 
-    const {} = datos;
+    const {imagen_seleccionada_tipo} = datos;
+    var variedad = document.querySelector('#idVariedad');
+    var imagen = document.querySelector('#idImagen');
 
-    //var params = 'titulo=' + imagen_titulo + "&credito=" + imagen_credito;
+    var params = 'tipo=' + imagen_seleccionada_tipo + '&idVariedad=' + variedad.value + '&idImagen=' + imagen.value;
 
-    xhttp.open("POST", "/admin/imagen/add", true);
+    xhttp.open("POST", "/admin/img/seleccion/add", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(params);
+    return false;
+}
+
+function addRelation(idImagen){
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if(this.readyState == 4 && this.status == 200){
+
+        }
+    };
+
+    var variedad = document.querySelector('#idVariedad');
+    // var imagen = document.querySelector('#idImagen');
+    console.log(idImagen);
+    var params = 'idVariedad=' + variedad.value + '&idImagen=' + idImagen;
+
+    xhttp.open("POST", "/admin/img/seleccion/relation", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(params);
     return false;
@@ -314,3 +326,4 @@ function newImagenSelect(){
 function cerrar(){
     window.location.href = "/admin/variedades";
 }
+
