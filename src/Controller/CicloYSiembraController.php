@@ -10,10 +10,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/ciclo/y/siembra')]
+/**
+ * @Route("/admin/ciclo/y/siembra")
+ */
 class CicloYSiembraController extends AbstractController
 {
-    #[Route('/', name: 'ciclo_y_siembra_index', methods: ['GET'])]
+    /**
+     * @Route("/", name="ciclo_y_siembra_index", methods={"GET"})
+     */
     public function index(CicloYSiembraRepository $cicloYSiembraRepository): Response
     {
         return $this->render('ciclo_y_siembra/index.html.twig', [
@@ -21,7 +25,9 @@ class CicloYSiembraController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'ciclo_y_siembra_new', methods: ['GET','POST'])]
+    /**
+     * @Route("/new", name="ciclo_y_siembra_new", methods={"GET", "POST"})
+     */
     public function new(Request $request): Response
     {
         $cicloYSiembra = new CicloYSiembra();
@@ -45,7 +51,9 @@ class CicloYSiembraController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'ciclo_y_siembra_show', methods: ['GET'])]
+    /**
+     * @Route("/{id}", name="ciclo_y_siembra_show", methods={"GET"})
+     */
     public function show(CicloYSiembra $cicloYSiembra): Response
     {
         return $this->render('ciclo_y_siembra/show.html.twig', [
@@ -53,7 +61,9 @@ class CicloYSiembraController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'ciclo_y_siembra_edit', methods: ['GET','POST'])]
+    /**
+     * @Route("/{id}/edit", name="ciclo_y_siembra_edit", methods={"GET", "POST"})
+     */
     public function edit(Request $request, CicloYSiembra $cicloYSiembra): Response
     {
         $form = $this->createForm(CicloYSiembraType::class, $cicloYSiembra);
@@ -74,7 +84,9 @@ class CicloYSiembraController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'ciclo_y_siembra_delete', methods: ['POST'])]
+    /**
+     * @Route("/{id}", name="ciclo_y_siembra_delete", methods={"POST"})
+     */
     public function delete(Request $request, CicloYSiembra $cicloYSiembra): Response
     {
         if ($this->isCsrfTokenValid('delete'.$cicloYSiembra->getId(), $request->request->get('_token'))) {

@@ -97,10 +97,12 @@ function validarFormularioImagen(){
     const titulo = document.querySelector('#imagen_titulo');
     const imagen = document.querySelector('#imagen_url');
     const credito = document.querySelector('#imagen_credito');
+    const principal = document.querySelector('#imagen_principal');
 
     titulo.addEventListener('input', leerValor);
     imagen.addEventListener('input', leerValor);
     credito.addEventListener('input', leerValor);
+    principal.addEventListener('input', leerValor);
 }
 
 function validarFormularioImagenSelect(){
@@ -144,14 +146,29 @@ if(formPersona != null) {
 if(formVariedad != null) {
     formVariedad.addEventListener('submit', evento => {
         evento.preventDefault();
-        
-        divVariedad = document.querySelector('#variedad');
-        divImagen = document.querySelector('#imagen');
 
-        $(divVariedad).hide();
-        $(divImagen).show();
-        
-        newVariedad();
+        //Validar Formulario
+        const {variedad1_marcoA, variedad1_marcoB, variedad1_densidad} = datos;
+
+        const patron = /^[0-9]{1}[.]{1}[0-9]{3}$/i;
+
+        const comparacionMarcoA = patron.test(variedad1_marcoA);
+        const comparacionMarcoB = patron.test(variedad1_marcoB);
+        const comparacionDensidad = patron.test(variedad1_densidad);
+
+
+        if(!variedad1_marcoA == '' && !comparacionMarcoA){
+            mostrarAlerta('Distacia entre planta, error de formato. | Formato: 0.000', true);
+        } else if (!variedad1_marcoB == '' && !comparacionMarcoB) {
+            mostrarAlerta('Distancia entre lineas, error de formato. | Formato: 0.000', true);
+        } else if(!variedad1_densidad == '' && !comparacionDensidad) {
+            mostrarAlerta('Densidad, error de formato. | Formato: 0.000', true);
+        } else {
+            divVariedad = document.querySelector('#variedad');
+            divImagen = document.querySelector('#imagen');
+            
+            newVariedad();
+        }
     });
 }
 
@@ -227,13 +244,8 @@ function newVariedad(){
         },
         success:function(data){
             //console.log(data);
-            const input = document.createElement('INPUT');
-            input.setAttribute('type', 'hidden');
-            input.setAttribute('value', data['idVariedad']);
-            input.setAttribute('id', 'idVariedad');
-            input.setAttribute('name', 'imagen[idVariedad]');
-
-            formImagen.appendChild(input);
+            url = "/admin/variedades/" + data['idVariedad'] + "/variedad/img";
+            window.location.href = url;
         },
         complete:function(){
             //console.log("Solicitud finalizada.");
@@ -283,7 +295,7 @@ function newImagenSelect(){
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if(this.readyState == 4 && this.status == 200){
-            url = "/admin/variedades/" + variedad.value + "/img";
+            url = "/admin/variedades/" + variedad.value + "/variedad/img";
 
             $('#idVariedad').remove();
             $('#idImagen').remove();

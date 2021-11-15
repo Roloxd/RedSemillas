@@ -13,6 +13,7 @@ services:
         bind: 
             string $projectDir: '%kernel.project_dir%'
             $imgDir: '%kernel.project_dir%/public/uploads/img/'
+
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:

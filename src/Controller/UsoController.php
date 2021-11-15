@@ -11,9 +11,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/admin/uso')]
+/**
+ * @Route("/admin/uso")
+ */
 class UsoController extends AbstractController
 {
-    #[Route('/', name: 'uso_index', methods: ['GET'])]
+    /**
+     * @Route("/", name="uso_index", methods={"GET"})
+     */
     public function index(UsoRepository $usoRepository): Response
     {
         return $this->render('uso/index.html.twig', [
@@ -21,7 +26,9 @@ class UsoController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'uso_new', methods: ['GET','POST'])]
+    /**
+     * @Route("/new", name="uso_new", methods={"GET", "POST"})
+     */
     public function new(Request $request): Response
     {
         $uso = new Uso();
@@ -45,7 +52,9 @@ class UsoController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'uso_show', methods: ['GET'])]
+    /**
+     * @Route("/{id}", name="uso_show", methods={"GET"})
+     */
     public function show(Uso $uso): Response
     {
         return $this->render('uso/show.html.twig', [
@@ -53,7 +62,9 @@ class UsoController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'uso_edit', methods: ['GET','POST'])]
+    /**
+     * @Route("/{id}/edit", name="uso_edit", methods={"GET", "POST"})
+     */
     public function edit(Request $request, Uso $uso): Response
     {
         $form = $this->createForm(UsoType::class, $uso);
@@ -74,7 +85,9 @@ class UsoController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'uso_delete', methods: ['POST'])]
+    /**
+     * @Route("/{id}", name="uso_delete", methods={"POST"})
+     */
     public function delete(Request $request, Uso $uso): Response
     {
         if ($this->isCsrfTokenValid('delete'.$uso->getId(), $request->request->get('_token'))) {

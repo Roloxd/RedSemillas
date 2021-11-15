@@ -51,6 +51,7 @@
                         <th>Url</th>
                         <th>Titulo</th>
                         <th>Credito</th>
+                        <th>Principal</th>
                         <th>actions</th>
                     </tr>   
                   </thead>
@@ -61,6 +62,7 @@
                         <td>{{ imagen.url }}</td>
                         <td>{{ imagen.titulo }}</td>
                         <td>{{ imagen.credito }}</td>
+                        <td>{{ imagen.principal }}</td>
                         <td>
                             <a href="{{ path('imagen_show', {'id': imagen.id}) }}">show</a>
                             <a href="{{ path('imagen_edit', {'id': imagen.id}) }}">edit</a>
@@ -78,6 +80,7 @@
                                 <th>Url</th>
                                 <th>Titulo</th>
                                 <th>Credito</th>
+                                <th>Principal</th>
                                 <th>actions</th>
                             </tr>   
                         </tfoot>
@@ -92,7 +95,6 @@
         <!-- /.row -->
       </div>
       <!-- /.container-fluid -->
-      <a href="{{ path('imagen_new') }}">Crear nuevo</a>
     </section>
     <!-- /.content -->
   </div>

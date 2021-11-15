@@ -1,5 +1,5 @@
 # RedSemillas 
-| Codigo Base Symfony v5.3.9.
+| Codigo Base Symfony v5.3.9. (Laragon)
 | Añadido registro de usuarios.
 | Algunas entidaddes añadidas.
 | CRUD añadido para cada entidad.
@@ -7,6 +7,6 @@
 | Front-end añadido.
 | Entidades nuevas y sus formularios (Falta completar).
 | Corta-fuegos arreglado
-| Subida de img añadido (Se produce un error al eliminar la consulta)
+| Subida de img añadido
 | Formulario Variedad
 | Catalogo (Falta mostrar imagenes y subtaxon)

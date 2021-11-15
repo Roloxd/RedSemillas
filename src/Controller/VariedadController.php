@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Imagen;
 use App\Entity\ImagenSeleccionada;
+use App\Entity\Taxon;
 use App\Entity\Variedad;
 use App\Form\ImagenSeleccionadaType;
 use App\Form\ImagenType;
@@ -14,10 +15,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/variedades')]
+/**
+ * @Route("/admin/variedades")
+ */
 class VariedadController extends AbstractController
 {
-    #[Route('/', name: 'variedad_index', methods: ['GET'])]
+    /**
+     * @Route("/", name="variedad_index", methods={"GET"})
+     */
     public function index(VariedadRepository $variedadRepository): Response
     {
         return $this->render('variedad/index.html.twig', [
@@ -25,7 +30,9 @@ class VariedadController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'variedad_new', methods: ['GET','POST'])]
+    /**
+     * @Route("/new", name="variedad_new", methods={"GET", "POST"})
+     */
     public function new(Request $request): Response
     {
         $variedad = new Variedad();
@@ -33,19 +40,6 @@ class VariedadController extends AbstractController
             'attr' => ['class' => 'formVariedad' ]
         ]);
         $form->handleRequest($request);
-
-        $imagen = new Imagen();
-        $form2 = $this->createForm(ImagenType::class, $imagen, [
-            'attr' => ['class' => 'formImagen' ]
-        ]);
-        $form2->handleRequest($request);
-
-        $imagenSelect = new ImagenSeleccionada();
-        $form3 = $this->createForm(ImagenSeleccionadaType::class, $imagenSelect, [
-            'attr' => ['class' => 'formImagenSelect' ]
-        ]);
-        $form3->handleRequest($request);
-
 
         if ($form->isSubmitted() && $form->isValid()) {
             // $entityManager = $this->getDoctrine()->getManager();
@@ -59,16 +53,14 @@ class VariedadController extends AbstractController
 
         return $this->renderForm('variedad/new.html.twig', [
             'variedad' => $variedad,
-            'imagen' => $imagen,
-            'imagenSelect' => $imagenSelect,
             'form' => $form,
-            'form2' => $form2,
-            'form3' => $form3,
             'text_form' => $text,
         ]);
     }
 
-    #[Route('/add', name: 'variedad_add', methods: ['POST'])]
+    /**
+     * @Route("/add", name="variedad_add", methods={"POST"})
+     */
     public function peticion(Request $request): Response
     {
         //if($request->isXmlHttpRequest()){
@@ -76,6 +68,32 @@ class VariedadController extends AbstractController
         $variedad = new Variedad();
 
         $datos = $request->request->get('variedad1');
+
+        $entero = ['diasSemillero', 'viabilidadMin', 'viabilidadMax', 'cicloCultivo'];
+        $decimal = ['marcoA', 'marcoB', 'densidad'];
+        $entity = ['subtaxon'];
+
+        foreach($entero as $value){
+            if($datos[$value] == "" || empty($datos[$value])){
+                $datos[$value] = 0;
+            }
+        }
+
+        foreach($decimal as $value){
+            if($datos[$value] == "" || empty($datos[$value])){
+                $datos[$value] = 0.000;
+            }
+        }
+
+        foreach($entity as $value){
+            if($datos[$value] == "" || empty($datos[$value])){
+                $taxon = $this->getDoctrine()
+                    ->getRepository(Taxon::class)
+                    ->find($datos['subtaxon']);
+
+                $variedad->setSubtaxon($taxon);
+            }
+        }
 
         $variedad->setNombreComun($datos['nombreComun']);
         $variedad->setNombreLocal($datos['nombreLocal']);
@@ -102,9 +120,6 @@ class VariedadController extends AbstractController
         $variedad->setPropagacion($datos['propagacion']);
         $variedad->setOtros($datos['otros']);
         $variedad->setObservaciones($datos['observaciones']);
-        //$variedad->setSubtaxon($datos['subtaxon']);
-
-
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($variedad);
@@ -123,7 +138,9 @@ class VariedadController extends AbstractController
         return $response;     
     }
 
-    #[Route('/{id}', name: 'variedad_show', methods: ['GET'])]
+    /**
+     * @Route("/{id}", name="variedad_show", methods={"GET"})
+     */
     public function show(Variedad $variedad): Response
     {
 
@@ -132,8 +149,33 @@ class VariedadController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/img', name: 'variedad_img', methods: ['GET','POST'])]
-    public function img(Request $request): Response
+    /**
+     * @Route("/{id}/edit", name="variedad_edit", methods={"GET", "POST"})
+     */
+    public function edit(Request $request, Variedad $variedad): Response
+    {
+        $form = $this->createForm(Variedad1Type::class, $variedad);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('variedad_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        $text = 'Editar Variedad';
+
+        return $this->renderForm('variedad/edit.html.twig', [
+            'variedad' => $variedad,
+            'form' => $form,
+            'text_form' => $text,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/variedad/img", name="variedad_img", methods={"GET"})
+     */
+    public function variedadImg(Request $request): Response
     {
         $imagen = new Imagen();
         $form = $this->createForm(ImagenType::class, $imagen, [
@@ -160,29 +202,10 @@ class VariedadController extends AbstractController
             'idVariedad' => $idVariedad,
         ]);
     }
-
-    #[Route('/{id}/edit', name: 'variedad_edit', methods: ['GET','POST'])]
-    public function edit(Request $request, Variedad $variedad): Response
-    {
-        $form = $this->createForm(Variedad1Type::class, $variedad);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('variedad_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        $text = 'Editar Variedad';
-
-        return $this->renderForm('variedad/edit.html.twig', [
-            'variedad' => $variedad,
-            'form' => $form,
-            'text_form' => $text,
-        ]);
-    }
-
-    #[Route('/{id}', name: 'variedad_delete', methods: ['POST'])]
+    
+    /**
+     * @Route("/{id}", name="variedad_delete", methods={"POST"})
+     */
     public function delete(Request $request, Variedad $variedad): Response
     {
         if ($this->isCsrfTokenValid('delete'.$variedad->getId(), $request->request->get('_token'))) {

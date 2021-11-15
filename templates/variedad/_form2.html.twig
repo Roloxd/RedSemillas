@@ -1,0 +1,174 @@
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>{{ text_form }}</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Administración</a></li>
+              <li class="breadcrumb-item active">Nueva Variedad</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div id="variedad" class="row" style="">
+          <!-- left column -->
+          <div class="col-md-6">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Datos de la Variedad</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              {{ form_start(form) }}
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="nombreComun">Nombre Común</label>
+                    {{ form_widget(form.nombreComun, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="nombreLocal">Nombre Local</label>
+                    {{ form_widget(form.nombreLocal, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="familia">Familia</label>
+                    {{ form_widget(form.familia, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="genero">Genero</label>
+                    {{ form_widget(form.genero, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="especie">Especie</label>
+                    {{ form_widget(form.especie, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="descripcion">Descripción</label>
+                    {{ form_widget(form.descripcion, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="tipoSiembra">Tipo de siembra</label>
+                    {{ form_widget(form.tipoSiembra, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="diasSemillero">Dias de semillero</label>
+                    {{ form_widget(form.diasSemillero, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="marcoA">Distancia entre plata</label>
+                    {{ form_widget(form.marcoA, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="marcoB">Distancia entre lineas</label>
+                    {{ form_widget(form.marcoB, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="densidad">Densidad</label>
+                    {{ form_widget(form.densidad, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="cicloCultivo">Ciclo de cultivo</label>
+                    {{ form_widget(form.cicloCultivo, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="polinizacion">Polinización</label>
+                    {{ form_widget(form.polinizacion, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="caracterizacion">Caracterización</label>
+                    {{ form_widget(form.caracterizacion, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="viabilidadMin">Viabilidad Min (Años)</label>
+                    {{ form_widget(form.viabilidadMin, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="viabilidadMax">Viabilidad Max (Años)</label>
+                    {{ form_widget(form.viabilidadMax, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="conocimientosTradicionales">Conocimientos Tradicionales</label>
+                    {{ form_widget(form.conocimientosTradicionales, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="cmPlanta">CM Planta</label>
+                    {{ form_widget(form.cmPlanta, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="cmFlor">CM Flor</label>
+                    {{ form_widget(form.cmFlor, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="cmFruto">CM Fruto</label>
+                    {{ form_widget(form.cmFruto, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="cmSemilla">CM Semilla</label>
+                    {{ form_widget(form.cmSemilla, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="cArgonomicas">C Argonomicas</label>
+                    {{ form_widget(form.cArgonomicas, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="cOrganolepticas">C Organolepticas</label>
+                    {{ form_widget(form.cOrganolepticas, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="propagacion">Propagación</label>
+                    {{ form_widget(form.propagacion, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="otros">Otros</label>
+                    {{ form_widget(form.otros, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="observaciones">Observaciones</label>
+                    {{ form_widget(form.observaciones, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  {# <div class="form-group">
+                    <label for="usoVariedad">Uso variedad</label>
+                    {{ form_widget(form.usoVariedad, {'attr': {'class': 'form-control'}}) }}
+                  </div> #}
+                  <div class="form-group">
+                    <label for="cicloYSiembras">Ciclo y Siembras</label>
+                    {{ form_widget(form.cicloYSiembras, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="subtaxon">Subtaxon</label>
+                    {{ form_widget(form.subtaxon, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                </div>
+                <div class="alerta"></div>
+                <div class="card-footer">
+                  <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
+                </div>
+                {{ form_end(form) }}  
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+
+      <a href="{{ path('variedad_index') }}">Volver a la lista</a>
+
+      {% if text_form == 'Editar Variedad' %}
+        {{ include('variedad/_delete_form.html.twig') }}
+      {% endif %}
+      
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->

@@ -110,7 +110,7 @@ class Variedad
     /**
      * @var int|null
      *
-     * @ORM\Column(name="caracterizacion", type="integer", nullable=true, options={"comment"="de momento no hay ficha de caracterización. Fase 2."})
+     * @ORM\Column(name="caracterizacion", type="boolean", nullable=true, options={"comment"="de momento no hay ficha de caracterización. Fase 2."})
      */
     private $caracterizacion;
 
@@ -197,11 +197,6 @@ class Variedad
     private $observaciones;
 
     /**
-     * @ORM\ManyToOne(targetEntity=UsoVariedad::class, inversedBy="variedad")
-     */
-    private $usoVariedad;
-
-    /**
      * @ORM\OneToOne(targetEntity=ImagenSeleccionada::class, mappedBy="variedad", cascade={"persist", "remove"})
      */
     private $imagenSeleccionada;
@@ -216,9 +211,15 @@ class Variedad
      */
     private $subtaxon;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UsoVariedad::class, mappedBy="variedad")
+     */
+    private $usoVariedads;
+
     public function __construct()
     {
         $this->cicloYSiembras = new ArrayCollection();
+        $this->usoVariedads = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -535,18 +536,6 @@ class Variedad
         return $this;
     }
 
-    public function getUsoVariedad(): ?UsoVariedad
-    {
-        return $this->usoVariedad;
-    }
-
-    public function setUsoVariedad(?UsoVariedad $usoVariedad): self
-    {
-        $this->usoVariedad = $usoVariedad;
-
-        return $this;
-    }
-
     public function getImagenSeleccionada(): ?ImagenSeleccionada
     {
         return $this->imagenSeleccionada;
@@ -614,6 +603,36 @@ class Variedad
     public function setDescripcion(?string $descripcion): self
     {
         $this->descripcion = $descripcion;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UsoVariedad[]
+     */
+    public function getUsoVariedads(): Collection
+    {
+        return $this->usoVariedads;
+    }
+
+    public function addUsoVariedad(UsoVariedad $usoVariedad): self
+    {
+        if (!$this->usoVariedads->contains($usoVariedad)) {
+            $this->usoVariedads[] = $usoVariedad;
+            $usoVariedad->setVariedad($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUsoVariedad(UsoVariedad $usoVariedad): self
+    {
+        if ($this->usoVariedads->removeElement($usoVariedad)) {
+            // set the owning side to null (unless already changed)
+            if ($usoVariedad->getVariedad() === $this) {
+                $usoVariedad->setVariedad(null);
+            }
+        }
 
         return $this;
     }

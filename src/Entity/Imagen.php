@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ImagenRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -34,9 +35,19 @@ class Imagen
     private $credito;
 
     /**
-     * @ORM\ManyToOne(targetEntity=ImagenSeleccionada::class, inversedBy="imagen")
+     * @ORM\OneToMany(targetEntity=ImagenSeleccionada::class, mappedBy="imagen")
      */
-    private $imagenSeleccionada;
+    private $imagenSeleccionadas;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $principal;
+
+    public function __construct()
+    {
+        $this->imagenSeleccionadas = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -79,54 +90,49 @@ class Imagen
         return $this;
     }
 
+    public function __toString()
+    {
+        return $this->id;
+    }
+
     /**
      * @return Collection|ImagenSeleccionada[]
      */
     public function getImagenSeleccionadas(): Collection
     {
-        return $this->ImagenSeleccionadas;
+        return $this->imagenSeleccionadas;
     }
 
-    public function addImagenSeleccionada(ImagenSeleccionada $ImagenSeleccionada): self
+    public function addImagenSeleccionada(ImagenSeleccionada $imagenSeleccionada): self
     {
-        // if (!$this->ImagenSeleccionadas->contains($ImagenSeleccionada)) {
-        //     $this->ImagenSeleccionadas[] = $ImagenSeleccionada;
-        //     $ImagenSeleccionada->addImagen($this);
-        // }
-
-        if (!$this->getImagenSeleccionada()) {
-            $this->ImagenSeleccionada = $ImagenSeleccionada;
-            $ImagenSeleccionada->addImagen($this);
+        if (!$this->imagenSeleccionadas->contains($imagenSeleccionada)) {
+            $this->imagenSeleccionadas[] = $imagenSeleccionada;
+            $imagenSeleccionada->setImagen($this);
         }
 
         return $this;
     }
 
-    public function removeImagen(ImagenSeleccionada $ImagenSeleccionada): self
+    public function removeImagenSeleccionada(ImagenSeleccionada $imagenSeleccionada): self
     {
-        if ($this->ImagenSeleccionadas->removeElement($ImagenSeleccionada)) {
+        if ($this->imagenSeleccionadas->removeElement($imagenSeleccionada)) {
             // set the owning side to null (unless already changed)
-            if ($ImagenSeleccionada->getImagen() === $this) {
-                $ImagenSeleccionada->setImagen(null);
+            if ($imagenSeleccionada->getImagen() === $this) {
+                $imagenSeleccionada->setImagen(null);
             }
         }
 
         return $this;
     }
 
-    public function __toString()
+    public function getPrincipal(): ?bool
     {
-        return $this->id;
+        return $this->principal;
     }
 
-    public function getImagenSeleccionada(): ?ImagenSeleccionada
+    public function setPrincipal(bool $principal): self
     {
-        return $this->imagenSeleccionada;
-    }
-
-    public function setImagenSeleccionada(?ImagenSeleccionada $imagenSeleccionada): self
-    {
-        $this->imagenSeleccionada = $imagenSeleccionada;
+        $this->principal = $principal;
 
         return $this;
     }

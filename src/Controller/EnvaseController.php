@@ -10,10 +10,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/envase')]
+/**
+ * @Route("/admin/envase")
+ */
 class EnvaseController extends AbstractController
 {
-    #[Route('/', name: 'envase_index', methods: ['GET'])]
+    /**
+     * @Route("/", name="envase_index", methods={"GET"})
+     */
     public function index(EnvaseRepository $envaseRepository): Response
     {
         return $this->render('envase/index.html.twig', [
@@ -21,7 +25,9 @@ class EnvaseController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'envase_new', methods: ['GET','POST'])]
+    /**
+     * @Route("/new", name="envase_new", methods={"GET", "POST"})
+     */
     public function new(Request $request): Response
     {
         $envase = new Envase();
@@ -45,7 +51,9 @@ class EnvaseController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'envase_show', methods: ['GET'])]
+    /**
+     * @Route("/{id}", name="envase_show", methods={"GET"})
+     */
     public function show(Envase $envase): Response
     {
         return $this->render('envase/show.html.twig', [
@@ -53,7 +61,9 @@ class EnvaseController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'envase_edit', methods: ['GET','POST'])]
+    /**
+     * @Route("/{id}/edit", name="envase_edit", methods={"GET", "POST"})
+     */
     public function edit(Request $request, Envase $envase): Response
     {
         $form = $this->createForm(EnvaseType::class, $envase);
@@ -74,7 +84,9 @@ class EnvaseController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'envase_delete', methods: ['POST'])]
+    /**
+     * @Route("/{id}", name="envase_delete", methods={"POST"})
+     */
     public function delete(Request $request, Envase $envase): Response
     {
         if ($this->isCsrfTokenValid('delete'.$envase->getId(), $request->request->get('_token'))) {

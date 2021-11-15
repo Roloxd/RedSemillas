@@ -42,10 +42,7 @@ class Variedad1Type extends AbstractType
                     'Mixta ' => 'Mixta ',
                 ],
             ])
-            ->add('caracterizacion', CheckboxType::class, [
-                'label'    => 'Caracterización',
-                'required' => false,
-            ])
+            ->add('caracterizacion')
             ->add('viabilidadMin')
             ->add('viabilidadMax')
             ->add('conocimientosTradicionales')

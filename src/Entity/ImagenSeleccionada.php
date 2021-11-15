@@ -30,14 +30,10 @@ class ImagenSeleccionada
     private $variedad;
 
     /**
-     * @ORM\OneToMany(targetEntity=Imagen::class, mappedBy="imagenSeleccionada")
+     * @ORM\ManyToOne(targetEntity=Imagen::class, inversedBy="imagenSeleccionadas")
      */
     private $imagen;
 
-    public function __construct()
-    {
-        $this->imagen = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -73,32 +69,14 @@ class ImagenSeleccionada
         return $this->id;
     }
 
-    /**
-     * @return Collection|Imagen[]
-     */
-    public function getImagen(): Collection
+    public function getImagen(): ?Imagen
     {
         return $this->imagen;
     }
 
-    public function addImagen(Imagen $imagen): self
+    public function setImagen(?Imagen $imagen): self
     {
-        if (!$this->imagen->contains($imagen)) {
-            $this->imagen[] = $imagen;
-            $imagen->setImagenSeleccionada($this);
-        }
-
-        return $this;
-    }
-
-    public function removeImagen(Imagen $imagen): self
-    {
-        if ($this->imagen->removeElement($imagen)) {
-            // set the owning side to null (unless already changed)
-            if ($imagen->getImagenSeleccionada() === $this) {
-                $imagen->setImagenSeleccionada(null);
-            }
-        }
+        $this->imagen = $imagen;
 
         return $this;
     }

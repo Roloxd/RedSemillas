@@ -149,6 +149,7 @@
                     {{ form_widget(form.subtaxon, {'attr': {'class': 'form-control'}}) }}
                   </div>
                 </div>
+                <div class="alerta"></div>
                 <div class="card-footer">
                   <button type="submit" class="btn btn-primary">Guardar</button>
               </div>
@@ -159,60 +160,6 @@
           </div>
         </div>
         <!-- /.row -->
-        <div id="imagen" class="row" style="display: none;">
-          <div class="col-md-6">
-            <!-- general form elements -->
-            {{ form_start(form2) }}
-            <div class="card card-secondary">
-              <div class="card-header">
-                <h3 class="card-title">Imagen</h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <div class="form-group">
-                  <label for="titulo">Titulo</label>
-                  {{ form_widget(form2.titulo, {'attr': {'class': 'form-control'}}) }}
-                </div>
-                <div class="form-group">
-                  <label for="url">Subir Imagen</label>
-                  {{ form_widget(form2.url, {'attr': {'class': 'form-control'}}) }}
-                </div>
-                <div class="form-group">
-                  <label for="credito">Credito</label>
-                  {{ form_widget(form2.credito, {'attr': {'class': 'form-control'}}) }}
-                </div>
-              </div>
-              <div class="card-footer">
-              <button type="button" class="btn btn-primary" onclick="cerrar();">Cerrar</button>
-                  <button type="submit" class="btn btn-primary">Continuar</button>
-              </div>
-            </div>
-            {{ form_end(form2) }}
-          </div>
-        </div>
-        <!-- /.row -->
-        <div id="imagenSelect" class="row" style="display: none;">
-          <div class="col-md-6">
-            <!-- general form elements -->
-            {{ form_start(form3) }}
-            <div class="card card-secondary">
-              <div class="card-header">
-                <h3 class="card-title">Tipo de Imagen</h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <div class="form-group">
-                  <label for="tipo">Tipo</label>
-                  {{ form_widget(form3.tipo, {'attr': {'class': 'form-control'}}) }}
-                </div>
-              </div>
-              <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Guardar</button>
-              </div>
-            </div>
-            {{ form_end(form3) }}
-          </div>
-        </div>
       </div><!-- /.container-fluid -->
 
       <a href="{{ path('variedad_index') }}">Volver a la lista</a>

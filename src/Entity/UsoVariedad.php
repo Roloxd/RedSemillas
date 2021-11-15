@@ -20,91 +20,25 @@ class UsoVariedad
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity=Variedad::class, mappedBy="usoVariedad")
-     */
-    private $variedad;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Uso::class, mappedBy="usoVariedad")
-     */
-    private $uso;
-
-    /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $descripcion;
 
-    public function __construct()
-    {
-        $this->variedad = new ArrayCollection();
-        $this->uso = new ArrayCollection();
-    }
+    /**
+     * @ORM\ManyToOne(targetEntity=Uso::class, inversedBy="usoVariedads")
+     */
+    private $uso;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Variedad::class, inversedBy="usoVariedads")
+     */
+    private $variedad;
 
     public function getId(): ?int
     {
         return $this->id;
     }
-
-    /**
-     * @return Collection|Variedad[]
-     */
-    public function getVariedad(): Collection
-    {
-        return $this->variedad;
-    }
-
-    public function addVariedad(Variedad $variedad): self
-    {
-        if (!$this->variedad->contains($variedad)) {
-            $this->variedad[] = $variedad;
-            $variedad->setUsoVariedad($this);
-        }
-
-        return $this;
-    }
-
-    public function removeVariedad(Variedad $variedad): self
-    {
-        if ($this->variedad->removeElement($variedad)) {
-            // set the owning side to null (unless already changed)
-            if ($variedad->getUsoVariedad() === $this) {
-                $variedad->setUsoVariedad(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Uso[]
-     */
-    public function getUso(): Collection
-    {
-        return $this->uso;
-    }
-
-    public function addUso(Uso $uso): self
-    {
-        if (!$this->uso->contains($uso)) {
-            $this->uso[] = $uso;
-            $uso->setUsoVariedad($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUso(Uso $uso): self
-    {
-        if ($this->uso->removeElement($uso)) {
-            // set the owning side to null (unless already changed)
-            if ($uso->getUsoVariedad() === $this) {
-                $uso->setUsoVariedad(null);
-            }
-        }
-
-        return $this;
-    }
-
+    
     public function getDescripcion(): ?string
     {
         return $this->descripcion;
@@ -113,6 +47,30 @@ class UsoVariedad
     public function setDescripcion(?string $descripcion): self
     {
         $this->descripcion = $descripcion;
+
+        return $this;
+    }
+
+    public function getUso(): ?Uso
+    {
+        return $this->uso;
+    }
+
+    public function setUso(?Uso $uso): self
+    {
+        $this->uso = $uso;
+
+        return $this;
+    }
+
+    public function getVariedad(): ?Variedad
+    {
+        return $this->variedad;
+    }
+
+    public function setVariedad(?Variedad $variedad): self
+    {
+        $this->variedad = $variedad;
 
         return $this;
     }

@@ -22,10 +22,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-#[Route('/admin/imagen')]
+/**
+ * @Route("/admin/imagen")
+ */
 class ImagenController extends AbstractController
 {
-    #[Route('/', name: 'imagen_index', methods: ['GET'])]
+    /**
+     * @Route("/", name="imagen_index", methods={"GET"})
+     */
     public function index(ImagenRepository $imagenRepository): Response
     {
         return $this->render('imagen/index.html.twig', [
@@ -33,7 +37,9 @@ class ImagenController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'imagen_new', methods: ['GET','POST'])]
+    /**
+     * @Route("/new", name="imagen_new", methods={"GET", "POST"})
+     */
     public function new(Request $request, string $imgDir): Response
     {
         $imagen = new Imagen();
@@ -71,7 +77,9 @@ class ImagenController extends AbstractController
         ]);
     }
 
-    #[Route('/add', name: 'imagen_add', methods: ['POST'])]
+    /**
+     * @Route("/add", name="imagen_add", methods={"POST"})
+     */
     public function peticion(Request $request, string $imgDir): Response
     {
         //if($request->isXmlHttpRequest()){
@@ -81,6 +89,13 @@ class ImagenController extends AbstractController
         $datos = $request->request->get('imagen');
         $titulo = $datos['titulo'];
         $credito = $datos['credito'];
+       
+
+        if(!isset($datos['principal'])){
+            $datos['principal'] = 0;
+        }
+
+        $principal = $datos['principal'];
         $idVariedad = $datos['idVariedad'];
 
         $file = $request->files->get('imagen');
@@ -95,6 +110,7 @@ class ImagenController extends AbstractController
 
         $Imagen->setTitulo($titulo);
         $Imagen->setCredito($credito);
+        $Imagen->setPrincipal($principal);
         $Imagen->setUrl($filename);
 
         $Variedad = $this->getDoctrine()
@@ -138,7 +154,9 @@ class ImagenController extends AbstractController
         return $response;     
     }
 
-    #[Route('/update', name: 'imagen_update', methods: ['POST'])]
+    /**
+     * @Route("/update", name="imagen_update", methods={"POST"})
+     */
     public function update(Request $request, string $imgDir): Response
     {
         //if($request->isXmlHttpRequest()){
@@ -191,7 +209,9 @@ class ImagenController extends AbstractController
         return $response;     
     }
 
-    #[Route('/{id}', name: 'imagen_show', methods: ['GET'])]
+    /**
+     * @Route("/{id}", name="imagen_show", methods={"GET"})
+     */
     public function show(Imagen $imagen): Response
     {
         return $this->render('imagen/show.html.twig', [
@@ -199,7 +219,9 @@ class ImagenController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'imagen_edit', methods: ['GET','POST'])]
+    /**
+     * @Route("/{id}/edit", name="imagen_edit", methods={"GET", "POST"})
+     */
     public function edit(Request $request, Imagen $imagen, string $imgDir): Response
     {
         
@@ -238,7 +260,9 @@ class ImagenController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'imagen_delete', methods: ['POST'])]
+    /**
+     * @Route("/{id}", name="imagen_delete", methods={"POST"})
+     */
     public function delete(Request $request, Imagen $imagen, string $imgDir): Response
     {
         if ($this->isCsrfTokenValid('delete'.$imagen->getId(), $request->request->get('_token'))) {

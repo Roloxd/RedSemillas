@@ -9,25 +9,33 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
 {
-    #[Route('/', name: 'index', methods: ["GET"] )]
+    /**
+     * @Route("/", name="index")
+     */
     public function index(): Response
     {
         return $this->render('home.html.twig');
     }
 
-    #[Route('/quienes-somos', name: 'quienes-somos', methods: ["GET"] )]
+    /**
+     * @Route("/quienes-somos", name="quienes-somos")
+     */
     public function quienessomos(): Response
     {
         return $this->render('quienes-somos.html.twig');
     }
 
-    #[Route('/socios', name: 'socios', methods: ["GET"] )]
+    /**
+     * @Route("/socios", name="socios")
+     */
     public function socios(): Response
     {
         return $this->render('como-funcionamos.html.twig');
     }
 
-    #[Route('/catalogo', name: 'catalogo', methods: ["GET"] )]
+    /**
+     * @Route("/catalogo", name="catalogo")
+     */
     public function catalogo(): Response
     {
         $variedades = $this->getDoctrine()
@@ -40,7 +48,9 @@ class DefaultController extends AbstractController
         ]);
     }
 
-    #[Route('/correo', name: 'correo')]
+    /**
+     * @Route("/correo", name="correo")
+     */
     public function email($name = "Cesar", \Swift_Mailer $mailer)
     {
         $message = (new \Swift_Message('Hello Email'))
