@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Taxon;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use phpDocumentor\Reflection\Types\Boolean;
 
 /**
  * @method Taxon|null find($id, $lockMode = null, $lockVersion = null)
@@ -47,4 +48,123 @@ class TaxonRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
+    /**
+     * @return Taxon[]
+     */
+    public function findAllFamilia(): array
+    {
+        // $entityManager = $this->getEntityManager()->getConnection();
+
+        // $sql = 'SELECT DISTINCT tipo FROM taxon t';
+        // $stmt = $entityManager->prepare($sql);
+
+        // return $stmt->fetchAllAssociative();
+
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT DISTINCT t.tipo
+            FROM App\Entity\Taxon t'
+        );
+
+        return $query->getResult();
+    }
+
+    /**
+     * @return Taxon[]
+     */
+    public function findAllEspecie(): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT t.nombre, t.padre
+            FROM App\Entity\Taxon t
+            WHERE t.tipo = :especie'
+        )->setParameter('especie', "Especie");
+
+        return $query->getResult();
+    }
+
+    /**
+     * @return Taxon[]
+     */
+    public function findEspecie(int $id): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT t.nombre
+            FROM App\Entity\Taxon t
+            WHERE t.tipo = :especie AND t.id :id'
+        )->setParameter('especie', "Especie")->setParameter('id', $id);
+
+        return $query->getResult();
+    }
+
+    /**
+     * @return Taxon[]
+     */
+    public function findHijosFamilia(int $padre): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT t.nombre
+            FROM App\Entity\Taxon t
+            WHERE t.tipo = :genero AND t.padre = :padre'
+        )->setParameter('padre', $padre)->setParameter('genero', "Genero");
+
+        return $query->getResult();
+    }
+
+    /**
+     * @return Taxon[]
+     */
+    public function findHijosGenero(int $padre): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT t.nombre
+            FROM App\Entity\Taxon t
+            WHERE t.tipo = :genero AND t.padre = :padre'
+        )->setParameter('padre', $padre)->setParameter('genero', "Especie");
+
+        return $query->getResult();
+    }
+
+    /**
+     * @return Taxon[]
+     */
+    public function findFamilias(): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT t.nombre
+            FROM App\Entity\Taxon t
+            WHERE t.tipo = :tipo '
+        )->setParameter('tipo', "Familia");
+
+        return $query->getResult();
+    }
+
+    /**
+     * @return Taxon[]
+     */
+    public function findId(string $nombre): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT t.id
+            FROM App\Entity\Taxon t
+            WHERE t.nombre = :nombre'
+        )->setParameter('nombre', $nombre);
+
+        return $query->getResult();
+    }
 }

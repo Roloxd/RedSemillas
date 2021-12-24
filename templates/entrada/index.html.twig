@@ -23,7 +23,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Entradas</h1>
+            <h1>Tabla Entradas</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -42,20 +42,21 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Tabla de Entradas</h3>
+                {# <h3 class="card-title">Tabla de Entradas</h3> #}
+                <a class="btn btn-app" href="{{ path('entrada_new') }}" style="margin: 0px;">
+                  <i class="fas fa-edit"></i>
+                  Crear Entrada
+                </a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                         <tr>
-                            <th>Id</th>
-                            <th>Codigo_entrada</th>
-                            <th>Num_pasaporte</th>
-                            <th>Cantidad</th>
-                            <th>Superficie_cultivo</th>
-                            <th>Fecha_entrada</th>
-                            <th>Tipo_entrada</th>
+                            <th>ID</th>
+                            <th>Cantidad en gramos</th>
+                            <th>Fecha entrada</th>
+                            <th>Tipo entrada</th>
                             <th>Observaciones</th>
                             <th>actions</th>
                         </tr>
@@ -64,10 +65,7 @@
         {% for entrada in entradas %}
             <tr>
                 <td>{{ entrada.id }}</td>
-                <td>{{ entrada.codigoEntrada }}</td>
-                <td>{{ entrada.numPasaporte }}</td>
                 <td>{{ entrada.cantidad }}</td>
-                <td>{{ entrada.superficieCultivo }}</td>
                 <td>{{ entrada.fechaEntrada ? entrada.fechaEntrada|date('Y-m-d') : '' }}</td>
                 <td>{{ entrada.tipoEntrada }}</td>
                 <td>{{ entrada.observaciones }}</td>
@@ -82,19 +80,16 @@
             </tr>
         {% endfor %}
                 </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>Id</th>
-                            <th>Codigo_entrada</th>
-                            <th>Num_pasaporte</th>
-                            <th>Cantidad</th>
-                            <th>Superficie_cultivo</th>
-                            <th>Fecha_entrada</th>
-                            <th>Tipo_entrada</th>
-                            <th>Observaciones</th>
-                            <th>actions</th>
-                        </tr>  
-                    </tfoot>
+                  <tfoot>
+                      <tr>
+                          <th>ID</th>
+                          <th>Cantidad en gramos</th>
+                          <th>Fecha entrada</th>
+                          <th>Tipo entrada</th>
+                          <th>Observaciones</th>
+                          <th>actions</th>
+                      </tr>  
+                  </tfoot>
                 </table>
             </div>
             <!-- /.card-body -->
@@ -106,7 +101,6 @@
     <!-- /.row -->
     </div>
     <!-- /.container-fluid -->
-    <a href="{{ path('entrada_new') }}">Crear</a>
 </section>
     <!-- /.content -->
   </div>

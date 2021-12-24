@@ -20,7 +20,7 @@ class EntradaType extends AbstractType
             ->add('fecha_entrada')
             ->add('tipo_entrada')
             ->add('observaciones')
-            ->add('id_terreno')
+            //->add('id_terreno')
         ;
     }
 

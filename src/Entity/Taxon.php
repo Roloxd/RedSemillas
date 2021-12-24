@@ -58,7 +58,7 @@ class Taxon
     private $descripcion;
 
     /**
-     * @ORM\OneToOne(targetEntity=Variedad::class, mappedBy="subtaxon", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Variedad::class, mappedBy="especie", cascade={"persist", "remove"})
      */
     private $variedad;
 
@@ -172,12 +172,12 @@ class Taxon
     {
         // unset the owning side of the relation if necessary
         if ($variedad === null && $this->variedad !== null) {
-            $this->variedad->setSubtaxon(null);
+            $this->variedad->setEspecie(null);
         }
 
         // set the owning side of the relation if necessary
-        if ($variedad !== null && $variedad->getSubtaxon() !== $this) {
-            $variedad->setSubtaxon($this);
+        if ($variedad !== null && $variedad->getEspecie() !== $this) {
+            $variedad->setEspecie($this);
         }
 
         $this->variedad = $variedad;
@@ -185,8 +185,9 @@ class Taxon
         return $this;
     }
 
-    public function __toString()
+    public function __toString(): ?string
     {
-        return $this->nombre;
+        return $this->id;
     }
+
 }

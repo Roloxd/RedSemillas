@@ -35,70 +35,65 @@ class CicloYSiembra
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $coordenadas;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
     private $ciclo;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $enero;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $febrero;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $marzo;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $abril;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $mayo;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $junio;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $julio;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $agosto;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $septiembre;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $octubre;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $noviembre;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $diciembre;
 
@@ -143,18 +138,6 @@ class CicloYSiembra
         return $this;
     }
 
-    public function getCoordenadas(): ?string
-    {
-        return $this->coordenadas;
-    }
-
-    public function setCoordenadas(?string $coordenadas): self
-    {
-        $this->coordenadas = $coordenadas;
-
-        return $this;
-    }
-
     public function getCiclo(): ?string
     {
         return $this->ciclo;
@@ -167,144 +150,144 @@ class CicloYSiembra
         return $this;
     }
 
-    public function getEnero(): ?int
+    public function getEnero(): ?bool
     {
         return $this->enero;
     }
 
-    public function setEnero(?int $enero): self
+    public function setEnero(?bool $enero): self
     {
         $this->enero = $enero;
 
         return $this;
     }
 
-    public function getFebrero(): ?int
+    public function getFebrero(): ?bool
     {
         return $this->febrero;
     }
 
-    public function setFebrero(?int $febrero): self
+    public function setFebrero(?bool $febrero): self
     {
         $this->febrero = $febrero;
 
         return $this;
     }
 
-    public function getMarzo(): ?int
+    public function getMarzo(): ?bool
     {
         return $this->marzo;
     }
 
-    public function setMarzo(?int $marzo): self
+    public function setMarzo(?bool $marzo): self
     {
         $this->marzo = $marzo;
 
         return $this;
     }
 
-    public function getAbril(): ?int
+    public function getAbril(): ?bool
     {
         return $this->abril;
     }
 
-    public function setAbril(?int $abril): self
+    public function setAbril(?bool $abril): self
     {
         $this->abril = $abril;
 
         return $this;
     }
 
-    public function getMayo(): ?int
+    public function getMayo(): ?bool
     {
         return $this->mayo;
     }
 
-    public function setMayo(?int $mayo): self
+    public function setMayo(?bool $mayo): self
     {
         $this->mayo = $mayo;
 
         return $this;
     }
 
-    public function getJunio(): ?int
+    public function getJunio(): ?bool
     {
         return $this->junio;
     }
 
-    public function setJunio(?int $junio): self
+    public function setJunio(?bool $junio): self
     {
         $this->junio = $junio;
 
         return $this;
     }
 
-    public function getJulio(): ?int
+    public function getJulio(): ?bool
     {
         return $this->julio;
     }
 
-    public function setJulio(?int $julio): self
+    public function setJulio(?bool $julio): self
     {
         $this->julio = $julio;
 
         return $this;
     }
 
-    public function getAgosto(): ?int
+    public function getAgosto(): ?bool
     {
         return $this->agosto;
     }
 
-    public function setAgosto(?int $agosto): self
+    public function setAgosto(?bool $agosto): self
     {
         $this->agosto = $agosto;
 
         return $this;
     }
 
-    public function getSeptiembre(): ?int
+    public function getSeptiembre(): ?bool
     {
         return $this->septiembre;
     }
 
-    public function setSeptiembre(?int $septiembre): self
+    public function setSeptiembre(?bool $septiembre): self
     {
         $this->septiembre = $septiembre;
 
         return $this;
     }
 
-    public function getOctubre(): ?int
+    public function getOctubre(): ?bool
     {
         return $this->octubre;
     }
 
-    public function setOctubre(?int $octubre): self
+    public function setOctubre(?bool $octubre): self
     {
         $this->octubre = $octubre;
 
         return $this;
     }
 
-    public function getNoviembre(): ?int
+    public function getNoviembre(): ?bool
     {
         return $this->noviembre;
     }
 
-    public function setNoviembre(?int $noviembre): self
+    public function setNoviembre(?bool $noviembre): self
     {
         $this->noviembre = $noviembre;
 
         return $this;
     }
 
-    public function getDiciembre(): ?int
+    public function getDiciembre(): ?bool
     {
         return $this->diciembre;
     }
 
-    public function setDiciembre(?int $diciembre): self
+    public function setDiciembre(?bool $diciembre): self
     {
         $this->diciembre = $diciembre;
 

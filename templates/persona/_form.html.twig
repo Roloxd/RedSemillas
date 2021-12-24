@@ -14,17 +14,84 @@
             </ol>
           </div>
         </div>
+        <div>
+          <!-- Button modal -->
+          <button id="btn-donante" type="button" class="btn bg-gradient-warning" data-toggle="modal" data-target="#exampleModal">
+            Añadir como donante
+          </button>
+          <a class="btn btn-primary" href="#ancla-persona">Persona</a>
+          <a class="btn btn-secondary" href="#ancla-direccion">Dirección</a>
+          <a class="btn btn-success" href="#ancla-info">Información y condiciones</a>
+          {% if text_form == 'Editar Persona' %}
+            {{ include('persona/_delete_form.html.twig') }}
+          {% endif %}
+        </div>
+        
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Datos del donante</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+                <div class="modal-body">
+                <form name="donante" method="post" class="formDonante">
+                  <div class="form-group">
+                    <label for="donante_tipo_donante">Tipo de donante</label>
+                    <a href="#" data-toggle="tooltip" title="Seleccione el tipo de donante.">?</a>
+                    <select id ="donante_tipo_donante" class="form-control" type="text" name="donante[tipo_donante]" list="tipo_donante_list">
+                      <option selected disabled>--Seleccione una opción--</option>
+                      <option value="Instituto de germoplasma">Instituto de germoplasma</option>
+                      <option value="Otro usuario">Usuario</option>
+                    <select>
+                  </div>
+                  <div id="instcode" class="form-group" style="display: none;">
+                    <label for="donante_instcode">Código de la institución</label>
+                    <a href="#" data-toggle="tooltip" title="Escribe el código de la institución.">?</a>
+                    <input type="text" id="donante_instcode" class="form-control" name="donante[instcode]" maxlength="255" list="instcode_list" />
+                    <datalist id="instcode_list">
+                      <option value="">Ejemplo 1</option>
+                      <option value="">Ejemplo 2</option>
+                    </datalist>
+                  </div>
+                  <div class="form-group">
+                    <label for="donante_proyecto">Proyecto</label>
+                    <a href="#" data-toggle="tooltip" title="Nombre del proyecto o ensayo que da origen a la muestra. (sólo en el caso de que exista)">?</a>
+                    <textarea type="text" id="donante_proyecto" class="form-control" name="donante[proyecto]" ></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="donante_num_accesion_donante">Número de accesión del donante</label>
+                    <a href="#" data-toggle="tooltip" title="Cualquier otra identificación de esta accesión que se haya encontrado en otras colecciones. Use el siguiente sistema: INSTCODE:ACCENUMB;INSTCODE:ACCENUMB;">?</a>
+                    <input type="text" id="donante_num_accesion_donante" class="form-control" name="donante[num_accesion_donante]" maxlength="255" />
+                  </div>
+                  <div class="form-group">
+                    <label for="donante_observaciones">Observaciones</label>
+                    <a href="#" data-toggle="tooltip" title="En caso de hacer referencia específica a alguno de los
+campos incluir la abreviatura del campo seguida de dos puntos (:)
+sin dejar espacios antes y después de éstos. 
+Para incluir observaciones de diferentes campos, 
+Separa estos con punto y coma (;) sin espacios.">?</a>
+                    <textarea id="donante_observaciones" class="form-control" name="donante[observaciones]"></textarea>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                  <button type="submit" class="btn btn-primary">Añadir</button>
+                </div>
+                </form>
+            </div>
+          </div>
+        </div><!-- /Modal -->
       </div><!-- /.container-fluid -->
     </section>
 
     <!-- Main content -->
     <section class="content">
-      <div class="container-fluid">
       {{ form_start(form) }}
-        <div class="form-group">
-          <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
-        </div>
-      </div>
       <div class="container-fluid">
         <div class="row">
           <!-- left column -->
@@ -32,7 +99,12 @@
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Datos de la persona</h3>
+                <h3 id="ancla-persona" class="card-title">Persona</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
@@ -47,7 +119,7 @@
                   </div>
                   <div class="form-group">
                     <label for="nif">DNI, CIF o Pasaporte</label>
-                    {{ form_widget(form.nif, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_widget(form.nif, {'attr': {'class': 'form-control', 'required': ''}}) }}
                   </div>
                   <div class="form-group">
                     <label for="nombre">Nombre</label>
@@ -89,6 +161,7 @@
                     <label for="observaciones">Observaciones</label>
                     {{ form_widget(form.observaciones, {'attr': {'class': 'form-control'}}) }}
                   </div>
+                  <input id="persona_donante" type="hidden" name="persona2[donante]">
                 </div>
                 <!-- /.card-body -->
             </div>
@@ -97,12 +170,17 @@
           <!-- right column -->
           <div class="col-md-6">
             <!-- general form elements -->
-            <div class="card card-secondary">
+            <div class="card card-secondary collapsed-card">
               <div class="card-header">
-                <h3 class="card-title">Dirección</h3>
+                <h3 id="ancla-direccion" class="card-title">Dirección</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
               </div>
               <!-- /.card-header -->
-              <div class="card-body">
+              <div class="card-body" style="display: none;">
                 <div class="form-group">
                   <div class="form-group">
                   <label for="direccion">Dirección</label>
@@ -136,7 +214,12 @@
             <!-- .card-header -->
             <div class="card card-green">
               <div class="card-header">
-                <h3 class="card-title">Información y condiciones</h3>
+                <h3 id="ancla-info" class="card-title">Información y condiciones</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -180,18 +263,12 @@
         </div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->
-      <div class="container-fluid">
-        <div class="form-group">
-          <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
-        </div>
+      <div class="d-flex justify-content-between">
+        <a class="btn btn-secondary" href="{{ path('persona_index') }}">Volver a la lista</a>
+        <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
       </div>
       {{ form_end(form) }}  
 
-      <a href="{{ path('persona_index') }}">Volver a la lista</a>
-
-      {% if text_form == 'Editar Persona' %}
-        {{ include('persona/_delete_form.html.twig') }}
-      {% endif %}
     </section>
     <!-- /.content -->
   </div>

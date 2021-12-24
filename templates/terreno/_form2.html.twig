@@ -14,11 +14,20 @@
             </ol>
           </div>
         </div>
+        <!-- Anclas -->
+        <div>
+          <a class="btn btn-primary" href="#ancla-terreno">Terreno</a>
+          <a class="btn btn-secondary" href="#ancla-cultivos">Cultivos</a>
+          {% if text_form == 'Editar Terreno' %}
+            {{ include('terreno/_delete_form.html.twig') }}
+          {% endif %}
+        </div> <!-- /Anclas -->
       </div><!-- /.container-fluid -->
     </section>
 
     <!-- Main content -->
     <section class="content">
+      {{ form_start(form) }}
       <div class="container-fluid">
         <div class="row">
           <!-- left column -->
@@ -26,19 +35,43 @@
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Terreno</h3>
+                <h3 id="ancla-terreno" class="card-title">Terreno</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              {{ form_start(form) }}
                 <div class="card-body">
+                  <div class="form-group">
+                    <label for="nombre">Nombre del terreno</label>
+                    {{ form_widget(form.nombre, {'attr': {'class': 'form-control'}}) }}
+                  </div>
                   <div class="form-group">
                     <label for="direccion">Dirección</label>
                     {{ form_widget(form.direccion, {'attr': {'class': 'form-control'}}) }}
                   </div>
                   <div class="form-group">
-                    <label for="nombre">Nombre del terreno</label>
-                    {{ form_widget(form.nombre, {'attr': {'class': 'form-control'}}) }}
+                    <label for="localidad">Localidad</label>
+                    {{ form_widget(form.localidad, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="municipio">Municipio</label>
+                    {{ form_widget(form.municipio, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="provincia">Provincia</label>
+                    {{ form_widget(form.provincia, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="region">Region</label>
+                    {{ form_widget(form.region, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="pais_origen">Pais de origen</label>
+                    {{ form_widget(form.pais_origen, {'attr': {'class': 'form-control'}}) }}
                   </div>
                   <div class="form-group">
                     <label for="datos_sigpac">Datos SIGPAC</label>
@@ -57,17 +90,15 @@
                     {{ form_widget(form.observaciones, {'attr': {'class': 'form-control'}}) }}
                   </div>
                   <div class="form-group">
-                    <label for="id_persona">Propietario del terreno</label>
+                    <label for="id_persona">Persona</label>
                     {{ form_widget(form.id_persona, {'attr': {'class': 'form-control'}}) }}
                   </div>
+                  <div class="form-group">
+                    <label for="persona_propietaria">¿Es propietario del terreno?</label>
+                    {{ form_widget(form.persona_propietaria, {'attr': {'class': 'form-control'}}) }}
+                  </div>
                 </div>
-                
                 <!-- /.card-body -->
-
-                <div class="card-footer">
-                  <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
-                </div>
-              
             </div>
             <!-- /.card -->
           </div>
@@ -77,7 +108,12 @@
             <!-- general form elements -->
             <div class="card card-secondary">
               <div class="card-header">
-                <h3 class="card-title">Cultivos</h3>
+                <h3 id="ancla-cultivos" class="card-title">Cultivos</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -93,19 +129,17 @@
                   <label for="tipo_cultivos">Tipo de Cultivos</label>
                   {{ form_widget(form.tipo_cultivos, {'attr': {'class': 'form-control'}}) }}
                 </div>
-              {{ form_end(form) }}
               </div>
             </div>
           </div>
         </div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->
-
-      <a href="{{ path('terreno_index') }}">Volver a la lista</a>
-
-      {% if text_form == 'Editar Terreno' %}
-        {{ include('terreno/_delete_form.html.twig') }}
-      {% endif %}
+      <div class="d-flex justify-content-between">
+        <a class="btn btn-secondary" href="{{ path('terreno_index') }}">Volver a la lista</a>
+        <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
+      </div>
+      {{ form_end(form) }}
     </section>
     <!-- /.content -->
   </div>

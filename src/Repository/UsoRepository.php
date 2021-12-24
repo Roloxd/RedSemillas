@@ -47,4 +47,20 @@ class UsoRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @return Uso[]
+     */
+    public function findUsoTipo(string $tipo): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT  u.id, u.tipo
+            FROM App\Entity\Uso u
+            WHERE u.tipo = :tipo '
+        )->setParameter('tipo', $tipo);
+
+        return $query->getResult();
+    }
 }

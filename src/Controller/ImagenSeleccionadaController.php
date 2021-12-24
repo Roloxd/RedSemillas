@@ -12,10 +12,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/img/seleccion')]
+/**
+ * @Route("/admin/img/seleccion")
+ */
 class ImagenSeleccionadaController extends AbstractController
 {
-    #[Route('/', name: 'imagen_seleccionada_index', methods: ['GET'])]
+    /**
+     * @Route("/", name="imagen_seleccionada_index", methods={"GET"})
+     */
     public function index(ImagenSeleccionadaRepository $imagenSeleccionadaRepository): Response
     {
         return $this->render('imagen_seleccionada/index.html.twig', [
@@ -23,7 +27,9 @@ class ImagenSeleccionadaController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'imagen_seleccionada_new', methods: ['GET','POST'])]
+    /**
+     * @Route("/new", name="imagen_seleccionada_new", methods={"GET", "POST"})
+     */
     public function new(Request $request): Response
     {
         $ImagenSeleccionada = new ImagenSeleccionada();
@@ -47,7 +53,9 @@ class ImagenSeleccionadaController extends AbstractController
         ]);
     }
 
-    #[Route('/add', name: 'imagen_seleccionada_add', methods: ['POST'])]
+    /**
+     * @Route("/add", name="imagen_seleccionada_add", methods={"POST"})
+     */
     public function peticion(Request $request): Response
     {
         //if($request->isXmlHttpRequest()){
@@ -68,7 +76,7 @@ class ImagenSeleccionadaController extends AbstractController
         
         $ImagenSeleccionada->setTipo($tipo);
         $ImagenSeleccionada->setVariedad($Variedad);
-        $ImagenSeleccionada->addImagen($Imagen);
+        $ImagenSeleccionada->setImagen($Imagen);
         
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($ImagenSeleccionada);
@@ -86,7 +94,9 @@ class ImagenSeleccionadaController extends AbstractController
         return $response;     
     }
 
-    #[Route('/relation', name: 'imagen_seleccionada_relation', methods: ['POST'])]
+    /**
+     * @Route("/relation", name="imagen_seleccionada_relation", methods={"POST"})
+     */
     public function relation(Request $request): Response
     {
         //if($request->isXmlHttpRequest()){
@@ -133,7 +143,9 @@ class ImagenSeleccionadaController extends AbstractController
         return $response;     
     }
 
-    #[Route('/{id}', name: 'imagen_seleccionada_show', methods: ['GET'])]
+    /**
+     * @Route("/{id}", name="imagen_seleccionada_show", methods={"GET"})
+     */
     public function show(ImagenSeleccionada $imagenSeleccionada): Response
     {
         return $this->render('imagen_seleccionada/show.html.twig', [
@@ -141,7 +153,9 @@ class ImagenSeleccionadaController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'imagen_seleccionada_edit', methods: ['GET','POST'])]
+    /**
+     * @Route("/{id}/edit", name="imagen_seleccionada_edit", methods={"GET", "POST"})
+     */
     public function edit(Request $request, ImagenSeleccionada $imagenSeleccionada): Response
     {
         $form = $this->createForm(ImagenSeleccionadaType::class, $imagenSeleccionada);
@@ -162,7 +176,9 @@ class ImagenSeleccionadaController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'imagen_seleccionada_delete', methods: ['POST'])]
+    /**
+     * @Route("/{id}", name="imagen_seleccionada_delete", methods={"POST"})
+     */
     public function delete(Request $request, ImagenSeleccionada $imagenSeleccionada): Response
     {
         if ($this->isCsrfTokenValid('delete'.$imagenSeleccionada->getId(), $request->request->get('_token'))) {

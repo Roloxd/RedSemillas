@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block body %}
-<div class="wrapper">
+<div class="wrapper" style="width: fit-content;">
  {{ include('be-layout/preloader.html', sandboxed = true) }}
 
   {{ include('be-layout/navbar.html', sandboxed = true) }}
@@ -21,7 +21,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Variedades</h1>
+            <h1>Tabla Variedades</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -40,67 +40,88 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Tabla de Variedades</h3>
+                {# <h3 class="card-title">Tabla de Variedades</h3> #}
+                <a class="btn btn-app" href="{{ path('variedad_new') }}" style="margin: 0px;">
+                  <i class="fas fa-edit"></i>
+                  Crear Variedad
+                </a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>NombreComun</th>
-                        <th>NombreLocal</th>
-                        <th>Especie</th>
-                        <th>TipoSiembra</th>
-                        <th>DiasSemillero</th>
-                        <th>MarcoA</th>
-                        <th>MarcoB</th>
-                        <th>Densidad</th>
-                        <th>CicloCultivo</th>
-                        <th>Polinizacion</th>
-                        <th>Caracterizacion</th>
-                        <th>ViabilidadMin</th>
-                        <th>ViabilidadMax</th>
-                        <th>ConocimientosTradicionales</th>
-                        <th>CmPlanta</th>
-                        <th>CmFlor</th>
-                        <th>CmFruto</th>
-                        <th>CmSemilla</th>
-                        <th>CArgonomicas</th>
-                        <th>COrganolepticas</th>
-                        <th>Propagacion</th>
-                        <th>Otros</th>
-                        <th>Observaciones</th>
-                        <th>actions</th>
+                        <th>Opciones</th>
+                        <th data-toggle="tooltip" title="Código de identificación de la variedad">ID</th>
+                        {# <th>Código</th> #}
+                        <th data-toggle="tooltip" title="Nombre común del cultivo">Nombre Común</th>
+                        <th data-toggle="tooltip" title="La designación registrada u otra designación que se da al material recibido. Si hay varios nombres, se separan con punto y coma sin dejar espacio entre ellos. Ejemplo: Nombre de la accesión: Bogatyr;Symphony;Emma">Nombre Local</th>
+                        <th data-toggle="tooltip" title="La parte específica del nombre científico">Especie</th>
+                        <th data-toggle="tooltip" title="Nombre del género dado al taxó.">Genero</th>
+                        <th data-toggle="tooltip" title="Familia botánica a la que pertenece la muestra">Familia</th>
+                        <th data-toggle="tooltip" title="Breve descripción de la planta y/o cultivo">Breve Descripción Planta y/o Cultivo</th>
+                        <th data-toggle="tooltip" title="Descripción completa de la variedad.">Descripción</th>
+                        <th data-toggle="tooltip" title="Tipo de siembra">Tipo de Siembra</th>
+                        <th data-toggle="tooltip" title="Tiempo de semillero">Tiempo de Semillero</th>
+                        <th data-toggle="tooltip" title="Marco de plantación. Marco A">Distancia entre Plata</th>
+                        <th data-toggle="tooltip" title="Marco de plantación. Marco B">Distancia entre Lineas</th>
+                        <th data-toggle="tooltip" title="Densidad de cultivo">Densidad</th>
+                        <th data-toggle="tooltip" title="Ciclo de cultivo, teniendo en cuenta que el cultivo está destinado para semilla">Ciclo Cultivo</th>
+                        <th data-toggle="tooltip" title="Tipo de polinización más frecuente.">Tipo de Polinización</th>
+                        <th data-toggle="tooltip" title="Densidad de cultivo">Caracterización</th>
+                        <th data-toggle="tooltip" title="Tiempo mínimo que pueden vivir las semillas en condiciones ambientales de 25 ºC">Viabilidad Min</th>
+                        <th data-toggle="tooltip" title="Tiempo máximo que pueden vivir las semillas en condiciones ambientales de 25 ºC">Viabilidad Max</th>
+                        <th data-toggle="tooltip" title="Conocimeinitos tradicionales aosciados a la variedad">Conocimientos Tradicionales</th>
+                        <th data-toggle="tooltip" title="Descripción de las características más notables de la planta">Características Morfológicas de la Planta</th>
+                        <th data-toggle="tooltip" title="Descripción de las características más notables de la  flor">Características Morfológicas de la Flor</th>
+                        <th data-toggle="tooltip" title="Descripción de las características más notables del fruto">Características Morfológicas del Fruto</th>
+                        <th data-toggle="tooltip" title="Descripción de las características más notables de la semilla">Características Morfológicas de la Semilla</th>
+                        <th data-toggle="tooltip" title="Descripción de las características agronómicas más notables">Características Agronómicas</th>
+                        <th data-toggle="tooltip" title="Descripción de las características orgnolépticas más notables">Características Organolépticas</th>
+                        <th data-toggle="tooltip" title="Descripción del manejo para la propagación, selección y mejora del cultivo">Propagación, Selección y Mejora</th>
+                        <th data-toggle="tooltip" title="Descripción de los aspectos más significativos para la propagación, selección y mejora del cultivo">Otros Aspectos</th>
+                        <th data-toggle="tooltip" title="Para añadir notas o para completar datos de los descriptores">Observaciones</th>
+                        <th>Opciones</th>
                     </tr>   
                   </thead>
                 <tbody>
                 {% for variedad in variedades %}
+                  {% set id = variedad.id %}
                     <tr>
+                        <td>
+                            <a href="{{ path('variedad_show', {'id': variedad.id}) }}">Ver</a>
+                            <a href="{{ path('variedad_edit', {'id': variedad.id}) }}">Editar</a>
+                            <a href="{{ path('variedad_img', {'id': variedad.id}) }}">Añadir imagen</a>
+                        </td>
                         <td>{{ variedad.id }}</td>
-                        <td>{{ variedad.nombreComun }}</td>
-                        <td>{{ variedad.nombreLocal }}</td>
-                        <td>{{ variedad.especie }}</td>
-                        <td>{{ variedad.tipoSiembra }}</td>
-                        <td>{{ variedad.diasSemillero }}</td>
-                        <td>{{ variedad.marcoA }}</td>
-                        <td>{{ variedad.marcoB }}</td>
-                        <td>{{ variedad.densidad }}</td>
-                        <td>{{ variedad.cicloCultivo }}</td>
-                        <td>{{ variedad.polinizacion }}</td>
-                        <td>{{ variedad.caracterizacion }}</td>
-                        <td>{{ variedad.viabilidadMin }}</td>
-                        <td>{{ variedad.viabilidadMax }}</td>
-                        <td>{{ variedad.conocimientosTradicionales }}</td>
-                        <td>{{ variedad.cmPlanta }}</td>
-                        <td>{{ variedad.cmFlor }}</td>
-                        <td>{{ variedad.cmFruto }}</td>
-                        <td>{{ variedad.cmSemilla }}</td>
-                        <td>{{ variedad.cArgonomicas }}</td>
-                        <td>{{ variedad.cOrganolepticas }}</td>
-                        <td>{{ variedad.propagacion }}</td>
-                        <td>{{ variedad.otros }}</td>
-                        <td>{{ variedad.observaciones }}</td>
+                        {# <td>{{ variedad.codigo }}</td> #}
+                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Nombre Común" >{{ variedad.nombreComun }}</td>
+                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Nombre Local" >{{ variedad.nombreLocal }}</td>
+                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Especie" >{{ especies[id] }}</td>
+                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Genero" >{{ generos[id] }}</td>
+                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Familia" >{{ familias[id] }}</td>
+                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Descripción Planta y/o Cultivo" >{{ variedad.breveDescrPlantaCultivo }}</td>
+                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Descripción" >{{ variedad.descripcion }}</td>
+                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Tipo de Siembra" >{{ variedad.tipoSiembra }}</td>
+                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Días de Semillero" >{{ variedad.diasSemillero }}</td>
+                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Distancia entre Planta" >{{ variedad.marcoA }}</td>
+                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Distancia entre Lineas" >{{ variedad.marcoB }}</td>
+                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Densidad" >{{ variedad.densidad }}</td>
+                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Ciclo Cultivo" >{{ variedad.cicloCultivo }}</td>
+                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Tipo de Polinización" >{{ variedad.polinizacion }}</td>
+                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Caracterización" >{{ variedad.caracterizacion }}</td>
+                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Viabilidad Min" >{{ variedad.viabilidadMin }}</td>
+                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Viabilidad Max" >{{ variedad.viabilidadMax }}</td>
+                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Conocimientos Tradicionales" >{{ variedad.conocimientosTradicionales }}</td>
+                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Características Morfológicas de la Planta" >{{ variedad.cmPlanta }}</td>
+                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Características Morfológicas de la Flor" >{{ variedad.cmFlor }}</td>
+                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Características Morfológicas del Fruto" >{{ variedad.cmFruto }}</td>
+                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Características Morfológicas de la Semilla" >{{ variedad.cmSemilla }}</td>
+                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Características Agronómicas" >{{ variedad.cArgonomicas }}</td>
+                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Características Organolépticas" >{{ variedad.cOrganolepticas }}</td>
+                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Propagación, Selección y Mejora" >{{ variedad.propagacion }}</td>
+                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Otros Aspectos" >{{ variedad.otros }}</td>
+                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Observaciones" >{{ variedad.observaciones }}</td>
                         <td>
                             <a href="{{ path('variedad_show', {'id': variedad.id}) }}">Ver</a>
                             <a href="{{ path('variedad_edit', {'id': variedad.id}) }}">Editar</a>
@@ -115,31 +136,37 @@
                     </tbody>
                         <tfoot>
                             <tr>
-                                <th>Id</th>
-                                <th>NombreComun</th>
-                                <th>NombreLocal</th>
-                                <th>Especie</th>
-                                <th>TipoSiembra</th>
-                                <th>DiasSemillero</th>
-                                <th>MarcoA</th>
-                                <th>MarcoB</th>
-                                <th>Densidad</th>
-                                <th>CicloCultivo</th>
-                                <th>Polinizacion</th>
-                                <th>Caracterizacion</th>
-                                <th>ViabilidadMin</th>
-                                <th>ViabilidadMax</th>
-                                <th>ConocimientosTradicionales</th>
-                                <th>CmPlanta</th>
-                                <th>CmFlor</th>
-                                <th>CmFruto</th>
-                                <th>CmSemilla</th>
-                                <th>CArgonomicas</th>
-                                <th>COrganolepticas</th>
-                                <th>Propagacion</th>
-                                <th>Otros</th>
-                                <th>Observaciones</th>
-                                <th>actions</th>
+                                <th>Opciones</th>
+                                <th data-toggle="tooltip" title="Código de identificación de la variedad">ID</th>
+                                {# <th>Código</th> #}
+                                <th data-toggle="tooltip" title="Nombre común del cultivo">Nombre Común</th>
+                                <th data-toggle="tooltip" title="La designación registrada u otra designación que se da al material recibido. Si hay varios nombres, se separan con punto y coma sin dejar espacio entre ellos. Ejemplo: Nombre de la accesión: Bogatyr;Symphony;Emma">Nombre Local</th>
+                                <th data-toggle="tooltip" title="La parte específica del nombre científico">Especie</th>
+                                <th data-toggle="tooltip" title="Nombre del género dado al taxó.">Genero</th>
+                                <th data-toggle="tooltip" title="Familia botánica a la que pertenece la muestra">Familia</th>
+                                <th data-toggle="tooltip" title="Breve descripción de la planta y/o cultivo">Breve Descripción Planta y/o Cultivo</th>
+                                <th data-toggle="tooltip" title="Descripción completa de la variedad.">Descripción</th>
+                                <th data-toggle="tooltip" title="Tipo de siembra">Tipo de Siembra</th>
+                                <th data-toggle="tooltip" title="Tiempo de semillero">Tiempo de Semillero</th>
+                                <th data-toggle="tooltip" title="Marco de plantación. Marco A">Distancia entre Plata</th>
+                                <th data-toggle="tooltip" title="Marco de plantación. Marco B">Distancia entre Lineas</th>
+                                <th data-toggle="tooltip" title="Densidad de cultivo">Densidad</th>
+                                <th data-toggle="tooltip" title="Ciclo de cultivo, teniendo en cuenta que el cultivo está destinado para semilla">Ciclo Cultivo</th>
+                                <th data-toggle="tooltip" title="Tipo de polinización más frecuente.">Tipo de Polinización</th>
+                                <th data-toggle="tooltip" title="Densidad de cultivo">Caracterización</th>
+                                <th data-toggle="tooltip" title="Tiempo mínimo que pueden vivir las semillas en condiciones ambientales de 25 ºC">Viabilidad Min</th>
+                                <th data-toggle="tooltip" title="Tiempo máximo que pueden vivir las semillas en condiciones ambientales de 25 ºC">Viabilidad Max</th>
+                                <th data-toggle="tooltip" title="Conocimeinitos tradicionales aosciados a la variedad">Conocimientos Tradicionales</th>
+                                <th data-toggle="tooltip" title="Descripción de las características más notables de la planta">Características Morfológicas de la Planta</th>
+                                <th data-toggle="tooltip" title="Descripción de las características más notables de la  flor">Características Morfológicas de la Flor</th>
+                                <th data-toggle="tooltip" title="Descripción de las características más notables del fruto">Características Morfológicas del Fruto</th>
+                                <th data-toggle="tooltip" title="Descripción de las características más notables de la semilla">Características Morfológicas de la Semilla</th>
+                                <th data-toggle="tooltip" title="Descripción de las características agronómicas más notables">Características Agronómicas</th>
+                                <th data-toggle="tooltip" title="Descripción de las características orgnolépticas más notables">Características Organolépticas</th>
+                                <th data-toggle="tooltip" title="Descripción del manejo para la propagación, selección y mejora del cultivo">Propagación, Selección y Mejora</th>
+                                <th data-toggle="tooltip" title="Descripción de los aspectos más significativos para la propagación, selección y mejora del cultivo">Otros Aspectos</th>
+                                <th data-toggle="tooltip" title="Para añadir notas o para completar datos de los descriptores">Observaciones</th>
+                                <th>Opciones</th>
                             </tr>   
                         </tfoot>
                     </table>
@@ -153,7 +180,6 @@
         <!-- /.row -->
       </div>
       <!-- /.container-fluid -->
-      <a href="{{ path('variedad_new') }}">Crear nuevo</a>
     </section>
     <!-- /.content -->
   </div>
@@ -192,12 +218,14 @@
 <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('dist/js/demo.js') }}"></script>
+
 <!-- Page specific script -->
 <script>
   $(function () {
     $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+      "responsive": false, "lengthChange": true, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+      "order": [[ 1, "asc" ]]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({
       "paging": true,

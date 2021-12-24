@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Entrada;
 use App\Entity\Persona;
 use App\Entity\Terreno;
 use App\Form\Persona1Type;
@@ -12,10 +13,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/terreno')]
+/**
+ * @Route("/admin/terreno")
+ */
 class TerrenoController extends AbstractController
 {
-    #[Route('/', name: 'terreno_index', methods: ['GET'])]
+    /**
+     * @Route("/", name="terreno_index", methods={"GET"})
+     */
     public function index(TerrenoRepository $terrenoRepository): Response
     {
         return $this->render('terreno/index.html.twig', [
@@ -23,7 +28,9 @@ class TerrenoController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'terreno_new', methods: ['GET','POST'])]
+    /**
+     * @Route("/new", name="terreno_new", methods={"GET", "POST"})
+     */
     public function new(Request $request): Response
     {
         $terreno = new Terreno();
@@ -61,7 +68,55 @@ class TerrenoController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'terreno_show', methods: ['GET'])]
+    /**
+     * @Route("/getTerrenosPersona", name="terreno_TerrenosPersona", methods={"POST"})
+     */
+    public function getTerrenosPersona(Request $request): Response
+    {
+        $dni = $request->request->get('dni');
+        $idEntrada = $request->request->get('idEntrada');
+        
+        $idPersona = $this->getDoctrine()
+                ->getRepository(Persona::class)
+                ->findId($dni);
+
+        if(!empty($idPersona)){
+            $terrenos = $this->getDoctrine()
+                ->getRepository(Terreno::class)
+                ->findTerrenosPersona($idPersona[0]['id']);
+
+            if(empty($terrenos)){
+                $terrenos = "";
+            }
+        } else {
+            $terrenos = "";
+        }
+
+        if(!empty($idEntrada)){
+            $entrada = $this->getDoctrine()
+                ->getRepository(Entrada::class)
+                ->find($idEntrada);
+
+            foreach($entrada->getIdTerreno()->getValues() as $terreno){
+                $arrayIdTerrenos[] = $terreno->getId();
+            }
+        } else {
+            $arrayIdTerrenos = "";
+        }
+
+        $response = new Response();
+        $response->setContent(json_encode([
+            'terrenos' => $terrenos,
+            'arrayIdTerrenos' => $arrayIdTerrenos,
+        ]));
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;  
+    }
+
+    /**
+     * @Route("/{id}", name="terreno_show", methods={"GET"})
+     */
     public function show(Terreno $terreno): Response
     {
         return $this->render('terreno/show.html.twig', [
@@ -69,7 +124,9 @@ class TerrenoController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'terreno_edit', methods: ['GET','POST'])]
+    /**
+     * @Route("/{id}/edit", name="terreno_edit", methods={"GET", "POST"})
+     */
     public function edit(Request $request, Terreno $terreno): Response
     {
         $form = $this->createForm(TerrenoType::class, $terreno);
@@ -89,8 +146,10 @@ class TerrenoController extends AbstractController
             'text_form' => $text,
         ]);
     }
-
-    #[Route('/{id}', name: 'terreno_delete', methods: ['POST'])]
+    
+    /**
+     * @Route("/{id}", name="terreno_delete", methods={"POST"})
+     */
     public function delete(Request $request, Terreno $terreno): Response
     {
         if ($this->isCsrfTokenValid('delete'.$terreno->getId(), $request->request->get('_token'))) {

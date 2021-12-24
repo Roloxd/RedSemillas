@@ -20,7 +20,7 @@ class TaxonType extends AbstractType
             ->add('autoridad_subtaxon')
             ->add('observaciones')
             ->add('descripcion')
-            ->add('variedad')
+            // ->add('variedad')
         ;
     }
 

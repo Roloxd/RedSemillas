@@ -215,6 +215,6 @@ class Entrada
 
     public function __toString()
     {
-        return $this->codigo_entrada;
+        return (string) $this->id;
     }
 }

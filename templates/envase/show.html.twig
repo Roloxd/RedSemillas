@@ -19,64 +19,80 @@
         <table class="table">
             <tbody>
                 <tr>
-                    <th>Id</th>
+                    <th>ID</th>
                     <td>{{ envase.id }}</td>
                 </tr>
                 <tr>
-                    <th>Tipo_almacenamiento</th>
+                    <th>Tipo de almacenamiento</th>
                     <td>{{ envase.tipoAlmacenamiento }}</td>
                 </tr>
                 <tr>
-                    <th>Fecha_envasado</th>
+                    <th>Fecha de envasado</th>
                     <td>{{ envase.fechaEnvasado ? envase.fechaEnvasado|date('Y-m-d') : '' }}</td>
                 </tr>
                 <tr>
-                    <th>Ubicacion_envase</th>
+                    <th>Ubicacion del envase</th>
                     <td>{{ envase.ubicacionEnvase }}</td>
                 </tr>
                 <tr>
-                    <th>Cantidad_gramos</th>
+                    <th>Cantidad en gramos</th>
                     <td>{{ envase.cantidadGramos }}</td>
                 </tr>
                 <tr>
-                    <th>Cantidad_unidaddes</th>
-                    <td>{{ envase.cantidadUnidaddes }}</td>
+                    <th>Cantidad en unidades</th>
+                    <td>{{ envase.cantidadUnidades }}</td>
                 </tr>
                 <tr>
-                    <th>Unidades_viables</th>
+                    <th>Unidades viables</th>
                     <td>{{ envase.unidadesViables }}</td>
                 </tr>
                 <tr>
-                    <th>Temperatura_envasado</th>
+                    <th>Temperatura del envasado</th>
                     <td>{{ envase.temperaturaEnvasado }}</td>
                 </tr>
                 <tr>
-                    <th>Humedad_relativa_envasar</th>
+                    <th>Humedad relativa al envasar</th>
                     <td>{{ envase.humedadRelativaEnvasar }}</td>
                 </tr>
                 <tr>
-                    <th>Humedad_relativa_simple</th>
-                    <td>{{ envase.humedadRelativaSimple }}</td>
+                    <th>Humedad relativa de la semilla</th>
+                    <td>{{ envase.humedadRelativaSemilla }}</td>
                 </tr>
                 <tr>
-                    <th>Cantidad_min_seguridad</th>
+                    <th>Cantidad min seguridad</th>
                     <td>{{ envase.cantidadMinSeguridad }}</td>
                 </tr>
                 <tr>
-                    <th>Cantidad_min_unidades</th>
+                    <th>Cantidad min unidades</th>
                     <td>{{ envase.cantidadMinUnidades }}</td>
                 </tr>
                 <tr>
-                    <th>Unidades_gramo</th>
+                    <th>Unidades gramo</th>
                     <td>{{ envase.unidadesGramo }}</td>
                 </tr>
                 <tr>
-                    <th>Disponibilidad_red</th>
+                    <th>Disponibilidad RED</th>
                     <td>{{ envase.disponibilidadRed }}</td>
                 </tr>
                 <tr>
                     <th>Conservacion</th>
-                    <td>{{ envase.conservacion ? 'Yes' : 'No' }}</td>
+                    <td>{{ envase.conservacion ? 'Si' : 'No' }}</td>
+                </tr>
+                <tr>
+                    <th>Condicion Biologica</th>
+                    <td>{{ envase.condicionBiologica }}</td>
+                </tr>
+                <tr>
+                    <th>Datos ancestrales</th>
+                    <td>{{ envase.datosAncestrales }}</td>
+                </tr>
+                <tr>
+                    <th>Fuente recolección</th>
+                    <td>{{ envase.fuenteRecoleccion }}</td>
+                </tr>
+                <tr>
+                    <th>Estado accesión con respecto al MLS</th>
+                    <td>{{ envase.estadoAccesionMls }}</td>
                 </tr>
                 <tr>
                     <th>Observaciones</th>

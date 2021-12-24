@@ -74,6 +74,36 @@ class Terreno
      */
     private $entradas;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $localidad;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $municipio;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $provincia;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $region;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $pais_origen;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $persona_propietaria;
+
     public function __construct()
     {
         $this->entradas = new ArrayCollection();
@@ -234,5 +264,77 @@ class Terreno
     public function __toString()
     {
         return $this->nombre;
+    }
+
+    public function getLocalidad(): ?string
+    {
+        return $this->localidad;
+    }
+
+    public function setLocalidad(?string $localidad): self
+    {
+        $this->localidad = $localidad;
+
+        return $this;
+    }
+
+    public function getMunicipio(): ?string
+    {
+        return $this->municipio;
+    }
+
+    public function setMunicipio(?string $municipio): self
+    {
+        $this->municipio = $municipio;
+
+        return $this;
+    }
+
+    public function getProvincia(): ?string
+    {
+        return $this->provincia;
+    }
+
+    public function setProvincia(?string $provincia): self
+    {
+        $this->provincia = $provincia;
+
+        return $this;
+    }
+
+    public function getRegion(): ?string
+    {
+        return $this->region;
+    }
+
+    public function setRegion(?string $region): self
+    {
+        $this->region = $region;
+
+        return $this;
+    }
+
+    public function getPaisOrigen(): ?string
+    {
+        return $this->pais_origen;
+    }
+
+    public function setPaisOrigen(?string $pais_origen): self
+    {
+        $this->pais_origen = $pais_origen;
+
+        return $this;
+    }
+
+    public function getPersonaPropietaria(): ?bool
+    {
+        return $this->persona_propietaria;
+    }
+
+    public function setPersonaPropietaria(bool $persona_propietaria): self
+    {
+        $this->persona_propietaria = $persona_propietaria;
+
+        return $this;
     }
 }

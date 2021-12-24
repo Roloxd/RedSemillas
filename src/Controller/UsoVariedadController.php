@@ -10,10 +10,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/uso/variedad')]
+/**
+ * @Route("/admin/uso/variedad")
+ */
 class UsoVariedadController extends AbstractController
 {
-    #[Route('/', name: 'uso_variedad_index', methods: ['GET'])]
+    /**
+     * @Route("/", name="uso_variedad_index", methods={"GET"})
+     */
     public function index(UsoVariedadRepository $usoVariedadRepository): Response
     {
         return $this->render('uso_variedad/index.html.twig', [
@@ -21,7 +25,9 @@ class UsoVariedadController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'uso_variedad_new', methods: ['GET','POST'])]
+    /**
+     * @Route("/new", name="uso_variedad_new", methods={"GET", "POST"})
+     */
     public function new(Request $request): Response
     {
         $usoVariedad = new UsoVariedad();
@@ -42,7 +48,9 @@ class UsoVariedadController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'uso_variedad_show', methods: ['GET'])]
+    /**
+     * @Route("/{id}", name="uso_variedad_show", methods={"GET"})
+     */
     public function show(UsoVariedad $usoVariedad): Response
     {
         return $this->render('uso_variedad/show.html.twig', [
@@ -50,7 +58,9 @@ class UsoVariedadController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'uso_variedad_edit', methods: ['GET','POST'])]
+    /**
+     * @Route("/{id}/edit", name="uso_variedad_edit", methods={"GET", "POST"})
+     */
     public function edit(Request $request, UsoVariedad $usoVariedad): Response
     {
         $form = $this->createForm(UsoVariedadType::class, $usoVariedad);
@@ -67,8 +77,10 @@ class UsoVariedadController extends AbstractController
             'form' => $form,
         ]);
     }
-
-    #[Route('/{id}', name: 'uso_variedad_delete', methods: ['POST'])]
+    
+    /**
+     * @Route("/{id}", name="uso_variedad_delete", methods={"POST"})
+     */
     public function delete(Request $request, UsoVariedad $usoVariedad): Response
     {
         if ($this->isCsrfTokenValid('delete'.$usoVariedad->getId(), $request->request->get('_token'))) {

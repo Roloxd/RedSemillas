@@ -47,4 +47,35 @@ class PersonaRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @return Persona[]
+     */
+    public function findAllNombres(): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT p.nombre, p.apellidos, p.nif
+            FROM App\Entity\Persona p'
+        );
+
+        return $query->getResult();
+    }
+
+    /**
+     * @return Persona[]
+     */
+    public function findId(string $dni): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT p.id
+            FROM App\Entity\Persona p
+            WHERE p.nif = :dni'
+        )->setParameter('dni', $dni);
+
+        return $query->getResult();
+    }
 }

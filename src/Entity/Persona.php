@@ -159,6 +159,11 @@ class Persona
      */
     private $terrenos;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Donante::class, inversedBy="persona")
+     */
+    private $donante;
+
     public function __construct()
     {
         $this->terrenos = new ArrayCollection();
@@ -526,5 +531,17 @@ class Persona
     public function __toString()
     {
         return $this->nombre;
+    }
+
+    public function getDonante(): ?Donante
+    {
+        return $this->donante;
+    }
+
+    public function setDonante(?Donante $donante): self
+    {
+        $this->donante = $donante;
+
+        return $this;
     }
 }

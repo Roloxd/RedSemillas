@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Taxon;
+use App\Entity\Variedad;
 use App\Form\TaxonType;
 use App\Repository\TaxonRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -10,10 +11,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/taxon')]
+/**
+ * @Route("/admin/taxon")
+ */
 class TaxonController extends AbstractController
 {
-    #[Route('/', name: 'taxon_index', methods: ['GET'])]
+    /**
+     * @Route("/", name="taxon_index", methods={"GET"})
+     */
     public function index(TaxonRepository $taxonRepository): Response
     {
         return $this->render('taxon/index.html.twig', [
@@ -21,10 +26,13 @@ class TaxonController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'taxon_new', methods: ['GET','POST'])]
+    /**
+     * @Route("/new", name="taxon_new", methods={"GET", "POST"})
+     */
     public function new(Request $request): Response
     {
         $taxon = new Taxon();
+        // $form = $this->createForm(TaxonType::class, $taxon);
         $form = $this->createForm(TaxonType::class, $taxon);
         $form->handleRequest($request);
 
@@ -45,7 +53,9 @@ class TaxonController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'taxon_show', methods: ['GET'])]
+    /**
+     * @Route("/{id}", name="taxon_show", methods={"GET"})
+     */
     public function show(Taxon $taxon): Response
     {
         return $this->render('taxon/show.html.twig', [
@@ -53,7 +63,9 @@ class TaxonController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'taxon_edit', methods: ['GET','POST'])]
+    /**
+     * @Route("/{id}/edit", name="taxon_edit", methods={"GET", "POST"})
+     */
     public function edit(Request $request, Taxon $taxon): Response
     {
         $form = $this->createForm(TaxonType::class, $taxon);
@@ -74,7 +86,9 @@ class TaxonController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'taxon_delete', methods: ['POST'])]
+    /**
+     * @Route("/{id}", name="taxon_delete", methods={"POST"})
+     */
     public function delete(Request $request, Taxon $taxon): Response
     {
         if ($this->isCsrfTokenValid('delete'.$taxon->getId(), $request->request->get('_token'))) {

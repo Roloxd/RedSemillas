@@ -47,4 +47,20 @@ class ImagenSeleccionadaRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @return ImagenSeleccionada[]
+     */
+    public function findIdImagenesVariedad(int $variedad_id): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT i.id
+            FROM App\Entity\ImagenSeleccionada i
+            WHERE i.variedad = :variedad_id'
+        )->setParameter('variedad_id', $variedad_id);
+
+        return $query->getResult();
+    }
 }

@@ -47,4 +47,20 @@ class TerrenoRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @return Terreno[]
+     */
+    public function findTerrenosPersona(int $id): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT t.id, t.nombre
+            FROM App\Entity\Terreno t
+            WHERE t.id_persona = :id'
+        )->setParameter('id', $id);
+
+        return $query->getResult();
+    }
 }

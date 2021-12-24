@@ -14,11 +14,21 @@
             </ol>
           </div>
         </div>
+        <!-- Anclas -->
+        <div>
+          <a class="btn btn-primary" href="#ancla-envase">Envase</a>
+          <a class="btn btn-info" href="#ancla-cantidad">Cantidad</a>
+          <a class="btn btn-success" href="#ancla-adquisicion">Adquisición</a>
+          {% if text_form == 'Editar Envase' %}
+            {{ include('envase/_delete_form.html.twig') }}
+          {% endif %}
+        </div> <!-- /Anclas -->
       </div><!-- /.container-fluid -->
     </section>
 
     <!-- Main content -->
     <section class="content">
+    {{ form_start(form) }}
       <div class="container-fluid">
         <div class="row">
           <!-- left column -->
@@ -26,71 +36,81 @@
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Envase</h3>
+                <h3 id="ancla-envase" class="card-title">Envase</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              {{ form_start(form) }}
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="tipo_almacenamiento">Tipo de almacenamiento</label>
-                    {{ form_widget(form.tipo_almacenamiento, {'attr': {'class': 'form-control'}}) }}
+                    <label for="envase_entrada">Entrada</label>
+                    <a href="#" data-toggle="tooltip" title="Escribe 'E' o el numero de entrada. Seleccione la entrada.">?</a>
+                    <input id ="envase_entrada" class="form-control" type="text" name="envase[entrada]" list="entradas_list" value="{{ idEntrada }}" />
+                    <datalist id="entradas_list"></datalist>
                   </div>
                   <div class="form-group">
-                    <label for="fecha_envasado">Fecha de envasado</label>
-                    {{ form_widget(form.fecha_envasado) }}
+                    <label for="envase_tipo_almacenamiento">Tipo de almacenamiento</label>
+                    <a href="#" data-toggle="tooltip" title="Escribe código o texto del tipo de almacenamiento.">?</a>
+                    <input id ="envase_tipo_almacenamiento" class="form-control" type="text" name="envase[tipo_almacenamiento]" list="almacenamiento_list" value="{{ tipoAlmacenamiento }}" />
+                    <datalist id="almacenamiento_list">
+                      <option value="10. Colección de semillas">10. Colección de semillas</option>
+                      <option value="11. Corto plazo">11. Corto plazo</option>
+                      <option value="12. Medio plazo">12. Medio plazo</option>
+                      <option value="13. Largo plazo">13. Largo plazo</option>
+                      <option value="20. Colección de campo">20. Colección de campo</option>
+                      <option value="30. Colección in vitro">30. Colección in vitro</option>
+                      <option value="40. Colección crioconservada">40. Colección crioconservada</option>
+                      <option value="50. Colección de ADN">50. Colección de ADN</option>
+                      <option value="90. Otra:">99. Otra (ej., 99. Otra:"anotación")</option>
+                    </datalist>
                   </div>
                   <div class="form-group">
-                    <label for="ubicacion_envase">Ubicación envase</label>
+                    <label for="envase_fecha_envasado">Fecha de envasado</label>
+                    <a href="#" data-toggle="tooltip" title="Fecha de inventaria de la muestra y envada adecuadamente.">?</a>
+                    {{ form_widget(form.fecha_envasado, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="envase_ubicacion_envase">Ubicación envase</label>
+                    <a href="#" data-toggle="tooltip" title="Ubicación del envase dentro de los diferentes lugares que la Red tiene disponbles para guardar los envases.">?</a>
                     {{ form_widget(form.ubicacion_envase, {'attr': {'class': 'form-control'}}) }}
                   </div>
                   <div class="form-group">
-                    <label for="temperatura_envasado">Temperatura del envasado</label>
+                    <label for="envase_temperatura_envasado">Temperatura del envasado</label>
+                    <a href="#" data-toggle="tooltip" title="Grados centígrados del ambiente al que han estado expuestas las semillas, al menos las últimas 24 horas, en el momento y lugar donde se realiza el envasado expresado en grados centígrados.">?</a>
                     {{ form_widget(form.temperatura_envasado, {'attr': {'class': 'form-control'}}) }}
                   </div>
                   <div class="form-group">
-                    <label for="humedad_relativa_envasar">Humedad relativa al envasado</label>
+                    <label for="envase_humedad_relativa_envasar">Humedad relativa al envasar</label>
+                    <a href="#" data-toggle="tooltip" title="Humedad relativa ambiente al que han estado expuestas las semillas, al menos las últimas 24 horas, en el momento y lugar donde se realiza el envasado expresado en %.">?</a>
                     {{ form_widget(form.humedad_relativa_envasar, {'attr': {'class': 'form-control'}}) }}
                   </div>
                   <div class="form-group">
-                    <label for="humedad_relativa_simple">Humedad relativa simple</label>
-                    {{ form_widget(form.humedad_relativa_simple, {'attr': {'class': 'form-control'}}) }}
+                    <label for="envase_humedad_relativa_semilla">Humedad relativa semilla</label>
+                    <a href="#" data-toggle="tooltip" title="Contenido de humedad de la semilla en el momento del envasado.">?</a>
+                    {{ form_widget(form.humedad_relativa_semilla, {'attr': {'class': 'form-control'}}) }}
                   </div>
                   <div class="form-group">
-                    <label for="cantidad_min_seguridad">Cantidad mínima de seguridad</label>
-                    {{ form_widget(form.cantidad_min_seguridad, {'attr': {'class': 'form-control'}}) }}
-                  </div>
-                  <div class="form-group">
-                    <label for="cantidad_min_unidades">Cantidad mínima unidades</label>
-                    {{ form_widget(form.cantidad_min_unidades, {'attr': {'class': 'form-control'}}) }}
-                  </div>
-                  <div class="form-group">
-                    <label for="unidades_gramo">Unidades en gramos</label>
-                    {{ form_widget(form.unidades_gramo, {'attr': {'class': 'form-control'}}) }}
-                  </div>
-                  <div class="form-group">
-                    <label for="disponibilidad_red">Disponibilidad RED</label>
+                    <label for="envase_disponibilidad_red">Disponibilidad RED</label>
+                    <a href="#" data-toggle="tooltip" title="Cantidades disponibles dentro de la RGCS según los distintos sistemas de obtención de semillas.">?</a>
                     {{ form_widget(form.disponibilidad_red, {'attr': {'class': 'form-control'}}) }}
                   </div>
                   <div class="form-group">
-                    <label for="conservacion">Conservación</label>
+                    <label for="envase_conservacion">Conservación</label>
+                    <a href="#" data-toggle="tooltip" title="Necesidad de conservación para el envase.">?</a>
                     {{ form_widget(form.conservacion, {'attr': {'class': 'form-control'}}) }}
                   </div>
+                  
                   <div class="form-group">
-                    <label for="observaciones">Observaciones</label>
+                    <label for="envase_observaciones">Observaciones</label>
+                    <a href="#" data-toggle="tooltip" title="Este campo se utiliza para añadir notas o para completar datos.">?</a>
                     {{ form_widget(form.observaciones, {'attr': {'class': 'form-control'}}) }}
                   </div>
-                  <div class="form-group">
-                    <label for="entrada">Entrada</label>
-                    {{ form_widget(form.entrada, {'attr': {'class': 'form-control'}}) }}
-                  </div>
                 </div>
-                
                 <!-- /.card-body -->
-
-                <div class="card-footer">
-                  <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
-                </div>
             </div>
             <!-- /.card -->
           </div>
@@ -98,37 +118,143 @@
           <!-- right column -->
           <div class="col-md-6">
             <!-- general form elements -->
-            <div class="card card-secondary">
+            <div class="card card-info collapsed-card">
               <div class="card-header">
-                <h3 class="card-title">Contenido</h3>
+                <h3 id="ancla-cantidad" class="card-title">Cantidad</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body" style="display: none;">
+                <div class="form-group">
+                  <label for="envase_unidades_gramo">Unidades por gramo</label>
+                  <a href="#" data-toggle="tooltip" title="Cantidad de unidades que hay por gramo de semillas.">?</a>
+                  {{ form_widget(form.unidades_gramo, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="envase_cantidad_gramos">Cantidad de material en gramos</label>
+                    <a href="#" data-toggle="tooltip" title="Este campo expresa la cantidad de gramos contenidos en el envase.">?</a>
+                  {{ form_widget(form.cantidad_gramos, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="envase_cantidad_unidades">Cantidad de material en unidades</label>
+                    <a href="#" data-toggle="tooltip" title="Este campo expresa la cantidad de unidades a la que equivales los gramos contenidos en el envase.">?</a>
+                  {{ form_widget(form.cantidad_unidades, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="envase_cantidad_min_seguridad">Cantidad mínima de seguridad</label>
+                  <a href="#" data-toggle="tooltip" title="Cantidad que se reserva para realizar las multiplicaciones de las semillas y evitar así su perdida, expresada en gramos.">?</a>
+                  {{ form_widget(form.cantidad_min_seguridad, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="envase_cantidad_min_unidades">Cantidad mínima unidades</label>
+                  <a href="#" data-toggle="tooltip" title="Cantidad que se reserva para realizar las multiplicaciones de las semillas y evitar así su perdida, expresada en unidades.">?</a>
+                  {{ form_widget(form.cantidad_min_unidades, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="envase_unidades_viables">Unidades viables</label>
+                    <a href="#" data-toggle="tooltip" title="Este campo expresa la cantidad de unidades germinables a la que equivalen los gramos contenidos en el envase teniendo en cuenta su último porcentaje de germinación.">?</a>
+                  {{ form_widget(form.unidades_viables, {'attr': {'class': 'form-control'}}) }}
+                </div>
+              </div>
+            </div>
+            <div class="card card-success">
+              <div class="card-header">
+                <h3 id="ancla-adquisicion" class="card-title">Adquisición</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
                 <div class="form-group">
-                  <label for="cantidad_gramos">Cantidad en gramos</label>
-                  {{ form_widget(form.cantidad_gramos, {'attr': {'class': 'form-control'}}) }}
-                </div>
-                <div class="form-group">
-                  <label for="cantidad_unidaddes">Cantidad en unidades</label>
-                  {{ form_widget(form.cantidad_unidaddes, {'attr': {'class': 'form-control'}}) }}
-                </div>
-                <div class="form-group">
-                  <label for="unidades_viables">Unidades viables</label>
-                  {{ form_widget(form.unidades_viables, {'attr': {'class': 'form-control'}}) }}
-                </div>
-              {{ form_end(form) }}
+                    <label for="envase_condicion_biologica">Condición Biologica</label>
+                    <a href="#" data-toggle="tooltip" title="Escribe código o texto de la condición biologica.">?</a>
+                    <input id ="envase_condicion_biologica" class="form-control" type="text" name="envase[condicion_biologica]" list="condicion_biologica_list" value="{{ condicionBiologica }}" />
+                    <datalist id="condicion_biologica_list">
+                      <option value="100. Silvestre">100. Silvestre</option>
+                      <option value="110. Natural">110. Natural</option>
+                      <option value="120. Seminatural o silvestre">120. Seminatural o silvestre</option>
+                      <option value="130. Seminatural o sembrado">130. Seminatural o sembrado</option>
+                      <option value="200. Arvense (o espontánea)">200. Arvense (o espontánea)</option>
+                      <option value="300. Cultivar tradicional o variedad nativa">300. Cultivar tradicional o variedad nativa</option>
+                      <option value="400. Material para cruzamientos o para investigación">400. Material para cruzamientos o para investigación</option>
+                      <option value="410. Línea del mejorador">410. Línea del mejorador</option>
+                      <option value="411. Población sintética">411. Población sintética</option>
+                      <option value="412. Híbrido">412. Híbrido</option>
+                      <option value="413. Reserva de fundación o población básica">413. Reserva de fundación o población básica</option>
+                      <option value="414. Línea autógama">414. Línea autógama (progenitor de un cultivar híbrido)</option>
+                      <option value="415. Población segregante">415. Población segregante</option>
+                      <option value="416. Selección clónica">416. Selección clónica</option>
+                      <option value="420. Reserva genética">420. Reserva genética</option>
+                      <option value="421. Mutante">421. Mutante (mutantes inducidos o inserción, poblaciones por ‘TILLING’)</option>
+                      <option value="422. Reservas citogenéticas">422. Reservas citogenéticas (ampliación o sustitución cromosómica, aneuploides, anfiploides)</option>
+                      <option value="423. Otras reservas genéticas">423. Otras reservas genéticas (ej., poblaciones de mapeo)</option>
+                      <option value="500. Cultivar avanzado o mejorado">500. Cultivar avanzado o mejorado (métodos convencionales de mejoramiento)</option>
+                      <option value="600. OGM">600. OGM (a través de ingeniería genética)</option>
+                      <option value="999. Otro:">999. Otro (ej., 999.Otro:"anotación")</option>
+                    </datalist>
+                  </div>
+                  <div class="form-group">
+                    <label for="envase_datos_ancestrales">Datos ancestrales</label>
+                    <a href="#" data-toggle="tooltip" title="Información sobre el pedigrí (genealogía) o sobre otra descripción que contenga información de los ancestros (por ej., variedad del progenitor cuando se trata de un mutante o de una selección). 
+Por ejemplo, un pedigrí ‘Hanna/7*Atlas/Turk/8*Atlas’; o una descripción como ‘mutación que se encontró en Hanna’, 'selección obtenida de Irene' o 'cruce en el que participaron entre otras, Hanna e Irene'.">?</a>
+                    {{ form_widget(form.datos_ancestrales, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="envase_fuente_recoleccion">Fuente de recolección o adquisición</label>
+                    <a href="#" data-toggle="tooltip" title="Escribe código o texto de la fuente de recolección">?</a>
+                    <input id ="envase_fuente_recoleccion" class="form-control" type="text" name="envase[fuente_recoleccion]" list="fuente_recoleccion_list" value="{{ fuenteRecoleccion }}" />
+                    <datalist id="fuente_recoleccion_list">
+                      <option value="10. Hábitat silvestre">10. Hábitat silvestre</option>
+                      <option value="11. Bosque (selva) o paraje boscoso">11. Bosque (selva) o paraje boscoso</option>
+                      <option value="12. Matorrales o monte">12. Matorrales o monte</option>
+                      <option value="13. Pradera">13. Pradera (pastizal)</option>
+                      <option value="14. Desierto o tundra">14. Desierto o tundra</option>
+                      <option value="15. Hábitat acuático">15. Hábitat acuático</option>
+                      <option value="20. Finca o parcela cultivada">20. Finca o parcela cultivada</option>
+                      <option value="21. Campo">21. Campo</option>
+                      <option value="22. Huerto">22. Huerto</option>
+                      <option value="23. Solar, huerto familiar">23. Solar, huerto familiar (urbano, periurbano o rural)</option>
+                      <option value="24. Barbecho">24. Barbecho (tierra en descanso)</option>
+                      <option value="25. Pastura">25. Pastura</option>
+                      <option value="26. Almacén de granja">26. Almacén de granja</option>
+                      <option value="27. Área de trilla">27. Área de trilla</option>
+                      <option value="28. Parque">28. Parque</option>
+                      <option value="30. Mercado o tienda">30. Mercado o tienda</option>
+                      <option value="40. Instituto, estación experimental, organización de investigación, banco de germoplasma">40. Instituto, estación experimental, organización de investigación, banco de germoplasma</option>
+                      <option value="50. Compañía de semillas">50. Compañía de semillas</option>
+                      <option value="60. Hábitat de arvenses, de plantas ruderales o disturbado">60. Hábitat de arvenses, de plantas ruderales o disturbado</option>
+                      <option value="61. Orilla de carretera">61. Orilla de carretera</option>
+                      <option value="62. Borde (o margen) del campo">62. Borde (o margen) del campo</option>
+                      <option value="99. Otro:">99. Otro (ej., 99.Otro:"anotación")</option>
+                    </datalist>
+                  </div>
+                  <div class="form-group">
+                    <label for="envase_estado_accesion_mls">Estado accesión con respecto al MLS</label>
+                    <a href="#" data-toggle="tooltip" title="El estado de la accesión con respecto al Sistema Multilateral (MLS, en inglés) del Tratado Internacional de los Recursos Fitogenéticos para la Alimentación y la Agricultura.">?</a>
+                    <input id ="envase_estado_accesion_mls" class="form-control" type="text" name="envase[estado_accesion_mls]" list="estado_accesion_mls_list" value="{{ estadoMLS }}" />
+                    <datalist id="estado_accesion_mls_list">
+                      <option value="No">No (no está incluido)</option>
+                      <option value="Si">Si (está incluido)</option>
+                      <option value="99. Otro:">99. Otro (ej., 99. Otro:"anotación")</option>
+                    </datalist>
+                  </div>
               </div>
-            </div>
           </div>
         </div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->
-
-      <a href="{{ path('envase_index') }}">Volver a la lista</a>
-
-      {% if text_form == 'Editar Envase' %}
-        {{ include('envase/_delete_form.html.twig') }}
-      {% endif %}
+      <div class="d-flex justify-content-between">
+        <a class="btn btn-secondary" href="{{ path('envase_index') }}">Volver a la lista</a>
+        <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
+      </div>
+      {{ form_end(form) }}
     </section>
     <!-- /.content -->
   </div>

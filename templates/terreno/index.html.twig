@@ -23,7 +23,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Terrenos</h1>
+            <h1>Tabla Terrenos</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -42,7 +42,11 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Tabla de Terrenos</h3>
+                {# <h3 class="card-title">Tabla de Terrenos</h3> #}
+                <a class="btn btn-app" href="{{ path('terreno_new') }}" style="margin: 0px;">
+                  <i class="fas fa-edit"></i>
+                  Crear Terreno
+                </a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -50,8 +54,13 @@
                   <thead>
                         <tr>
                             <th>Id</th>
-                            <th>Direccion</th>
                             <th>Nombre</th>
+                            <th>Dirección</th>
+                            <th>Localidad</th>
+                            <th>Municipio</th>
+                            <th>Provincia</th>
+                            <th>Region</th>
+                            <th>Pais Origen</th>
                             <th>Datos_sigpac</th>
                             <th>Localizacion_mapa</th>
                             <th>Superficie_finca</th>
@@ -66,8 +75,13 @@
         {% for terreno in terrenos %}
             <tr>
                 <td>{{ terreno.id }}</td>
-                <td>{{ terreno.direccion }}</td>
                 <td>{{ terreno.nombre }}</td>
+                <td>{{ terreno.direccion }}</td>
+                <td>{{ terreno.localidad }}</td>
+                <td>{{ terreno.municipio }}</td>
+                <td>{{ terreno.provincia }}</td>
+                <td>{{ terreno.region }}</td>
+                <td>{{ terreno.paisOrigen }}</td>
                 <td>{{ terreno.datosSigpac }}</td>
                 <td>{{ terreno.localizacionMapa }}</td>
                 <td>{{ terreno.superficieFinca }}</td>
@@ -89,8 +103,13 @@
                   <tfoot>
                     <tr>
                         <th>Id</th>
-                        <th>Direccion</th>
                         <th>Nombre</th>
+                        <th>Dirección</th>
+                        <th>Localidad</th>
+                        <th>Municipio</th>
+                        <th>Provincia</th>
+                        <th>Region</th>
+                        <th>Pais Origen</th>
                         <th>Datos_sigpac</th>
                         <th>Localizacion_mapa</th>
                         <th>Superficie_finca</th>
@@ -112,7 +131,6 @@
         <!-- /.row -->
       </div>
       <!-- /.container-fluid -->
-      <a href="{{ path('terreno_new') }}">Crear</a>
     </section>
     <!-- /.content -->
   </div>

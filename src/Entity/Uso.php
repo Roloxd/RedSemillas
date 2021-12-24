@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UsoRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,9 +30,24 @@ class Uso
     private $tipo;
 
     /**
-     * @ORM\ManyToOne(targetEntity=UsoVariedad::class, inversedBy="uso")
+     * @ORM\OneToMany(targetEntity=UsoVariedad::class, mappedBy="uso")
      */
-    private $usoVariedad;
+    private $usoVariedads;
+
+    public function __construct()
+    {
+        $this->usoVariedads = new ArrayCollection();
+    }
+
+    /**
+     * @ORM\OneToMany(targetEntity=UsoVariedad::class, mappedBy="uso")
+     */
+    private $usoVariedads;
+
+    public function __construct()
+    {
+        $this->usoVariedads = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -61,14 +78,62 @@ class Uso
         return $this;
     }
 
-    public function getUsoVariedad(): ?UsoVariedad
+    /**
+     * @return Collection|UsoVariedad[]
+     */
+    public function getUsoVariedads(): Collection
     {
-        return $this->usoVariedad;
+        return $this->usoVariedads;
     }
 
-    public function setUsoVariedad(?UsoVariedad $usoVariedad): self
+    public function addUsoVariedad(UsoVariedad $usoVariedad): self
     {
-        $this->usoVariedad = $usoVariedad;
+        if (!$this->usoVariedads->contains($usoVariedad)) {
+            $this->usoVariedads[] = $usoVariedad;
+            $usoVariedad->setUso($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUsoVariedad(UsoVariedad $usoVariedad): self
+    {
+        if ($this->usoVariedads->removeElement($usoVariedad)) {
+            // set the owning side to null (unless already changed)
+            if ($usoVariedad->getUso() === $this) {
+                $usoVariedad->setUso(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UsoVariedad[]
+     */
+    public function getUsoVariedads(): Collection
+    {
+        return $this->usoVariedads;
+    }
+
+    public function addUsoVariedad(UsoVariedad $usoVariedad): self
+    {
+        if (!$this->usoVariedads->contains($usoVariedad)) {
+            $this->usoVariedads[] = $usoVariedad;
+            $usoVariedad->setUso($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUsoVariedad(UsoVariedad $usoVariedad): self
+    {
+        if ($this->usoVariedads->removeElement($usoVariedad)) {
+            // set the owning side to null (unless already changed)
+            if ($usoVariedad->getUso() === $this) {
+                $usoVariedad->setUso(null);
+            }
+        }
 
         return $this;
     }

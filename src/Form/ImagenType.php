@@ -23,6 +23,7 @@ class ImagenType extends AbstractType
             ))
             ->add('titulo')
             ->add('credito')
+            ->add('principal')
         ;
     }
 

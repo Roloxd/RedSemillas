@@ -40,7 +40,7 @@ class Envase
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $cantidad_unidaddes;
+    private $cantidad_unidades;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -60,7 +60,7 @@ class Envase
     /**
      * @ORM\Column(type="float", nullable=true)
      */
-    private $humedad_relativa_simple;
+    private $humedad_relativa_semilla;
 
     /**
      * @ORM\Column(type="float", nullable=true)
@@ -96,6 +96,36 @@ class Envase
      * @ORM\ManyToOne(targetEntity=Entrada::class, inversedBy="num_envase")
      */
     private $entrada;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $condicion_biologica;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $datos_ancestrales;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $fuente_recoleccion;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $nombre_instituto;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $codigo_instituto;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $estado_accesion_mls;
 
     public function getId(): ?int
     {
@@ -150,14 +180,14 @@ class Envase
         return $this;
     }
 
-    public function getCantidadUnidaddes(): ?int
+    public function getCantidadUnidades(): ?int
     {
-        return $this->cantidad_unidaddes;
+        return $this->cantidad_unidades;
     }
 
-    public function setCantidadUnidaddes(?int $cantidad_unidaddes): self
+    public function setCantidadUnidades(?int $cantidad_unidades): self
     {
-        $this->cantidad_unidaddes = $cantidad_unidaddes;
+        $this->cantidad_unidades = $cantidad_unidades;
 
         return $this;
     }
@@ -198,14 +228,14 @@ class Envase
         return $this;
     }
 
-    public function getHumedadRelativaSimple(): ?float
+    public function getHumedadRelativaSemilla(): ?float
     {
-        return $this->humedad_relativa_simple;
+        return $this->humedad_relativa_semilla;
     }
 
-    public function setHumedadRelativaSimple(?float $humedad_relativa_simple): self
+    public function setHumedadRelativaSemilla(?float $humedad_relativa_semilla): self
     {
-        $this->humedad_relativa_simple = $humedad_relativa_simple;
+        $this->humedad_relativa_semilla = $humedad_relativa_semilla;
 
         return $this;
     }
@@ -292,5 +322,82 @@ class Envase
         $this->entrada = $entrada;
 
         return $this;
+    }
+
+    public function getCondicionBiologica(): ?string
+    {
+        return $this->condicion_biologica;
+    }
+
+    public function setCondicionBiologica(?string $condicion_biologica): self
+    {
+        $this->condicion_biologica = $condicion_biologica;
+
+        return $this;
+    }
+
+    public function getDatosAncestrales(): ?string
+    {
+        return $this->datos_ancestrales;
+    }
+
+    public function setDatosAncestrales(?string $datos_ancestrales): self
+    {
+        $this->datos_ancestrales = $datos_ancestrales;
+
+        return $this;
+    }
+
+    public function getFuenteRecoleccion(): ?string
+    {
+        return $this->fuente_recoleccion;
+    }
+
+    public function setFuenteRecoleccion(?string $fuente_recoleccion): self
+    {
+        $this->fuente_recoleccion = $fuente_recoleccion;
+
+        return $this;
+    }
+
+    public function getNombreInstituto(): ?string
+    {
+        return $this->nombre_instituto;
+    }
+
+    public function setNombreInstituto(?string $nombre_instituto): self
+    {
+        $this->nombre_instituto = $nombre_instituto;
+
+        return $this;
+    }
+
+    public function getCodigoInstituto(): ?string
+    {
+        return $this->codigo_instituto;
+    }
+
+    public function setCodigoInstituto(?string $codigo_instituto): self
+    {
+        $this->codigo_instituto = $codigo_instituto;
+
+        return $this;
+    }
+
+    public function getEstadoAccesionMls(): ?string
+    {
+        return $this->estado_accesion_mls;
+    }
+
+    public function setEstadoAccesionMls(?string $estado_accesion_mls): self
+    {
+        $this->estado_accesion_mls = $estado_accesion_mls;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->id;
     }
 }

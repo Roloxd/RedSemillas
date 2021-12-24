@@ -59,8 +59,8 @@
                 <td>{{ imagen_seleccionada.id }}</td>
                 <td>{{ imagen_seleccionada.tipo }}</td>
                 <td>
-                    <a href="{{ path('imagen_seleccionada_show', {'id': imagen_seleccionada.id}) }}">show</a>
-                    <a href="{{ path('imagen_seleccionada_edit', {'id': imagen_seleccionada.id}) }}">edit</a>
+                    {# <a href="{{ path('imagen_seleccionada_show', {'id': imagen_seleccionada.id}) }}">show</a> #}
+                    {# <a href="{{ path('imagen_seleccionada_edit', {'id': imagen_seleccionada.id}) }}">edit</a> #}
                 </td>
             </tr>
         {% else %}
@@ -87,8 +87,8 @@
         <!-- /.row -->
       </div>
       <!-- /.container-fluid -->
-      <a href="{{ path('imagen_seleccionada_new') }}">Crear</a>
-    </section>
+      {# <a href="{{ path('imagen_seleccionada_new') }}">Crear</a>
+    </section> #}
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->

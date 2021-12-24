@@ -36,25 +36,6 @@ class Variedad
     /**
      * @var string|null
      *
-     * @ORM\Column(name="especie", type="string", type="string", length=45, nullable=true)
-     */
-    private $especie;
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="familia", type="string", length=45, nullable=true)
-     */
-    private $familia;
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="genero", type="string", length=45, nullable=true)
-     */
-    private $genero;
-   
-    /**
-     * @var string|null
-     *
      * @ORM\Column(name="descripcion", type="string", length=1000, nullable=true)
      */
     private $descripcion;	
@@ -108,9 +89,9 @@ class Variedad
     private $polinizacion;
 
     /**
-     * @var int|null
+     * @var bool|null
      *
-     * @ORM\Column(name="caracterizacion", type="integer", nullable=true, options={"comment"="de momento no hay ficha de caracterización. Fase 2."})
+     * @ORM\Column(name="caracterizacion", type="boolean", nullable=true, options={"comment"="de momento no hay ficha de caracterización. Fase 2."})
      */
     private $caracterizacion;
 
@@ -197,11 +178,6 @@ class Variedad
     private $observaciones;
 
     /**
-     * @ORM\ManyToOne(targetEntity=UsoVariedad::class, inversedBy="variedad")
-     */
-    private $usoVariedad;
-
-    /**
      * @ORM\OneToOne(targetEntity=ImagenSeleccionada::class, mappedBy="variedad", cascade={"persist", "remove"})
      */
     private $imagenSeleccionada;
@@ -212,19 +188,47 @@ class Variedad
     private $cicloYSiembras;
 
     /**
-     * @ORM\OneToOne(targetEntity=Taxon::class, inversedBy="variedad", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Taxon::class, inversedBy="variedad")
      */
-    private $subtaxon;
+    private $especie;
+
+    /**
+     * @ORM\OneToMany(targetEntity=UsoVariedad::class, mappedBy="variedad")
+     */
+    private $usoVariedads;
+
+    /**
+     * @ORM\Column(type="integer", length=9, nullable=true)
+     */
+    private $codigo;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $breve_descr_planta_cultivo;
+
+    /**
+     * @ORM\OneToMany(targetEntity=UsoVariedad::class, mappedBy="variedad")
+     */
+    private $usoVariedads;
 
     public function __construct()
     {
         $this->cicloYSiembras = new ArrayCollection();
+        $this->usoVariedads = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
     }
+
+    // public function setId(?int $id): self
+    // {
+    //     $this->id = $id;
+
+    //     return $this;
+    // }
 
     public function getNombreComun(): ?string
     {
@@ -248,42 +252,6 @@ class Variedad
         $this->nombreLocal = $nombreLocal;
 
         return $this;
-    }
-
-    public function getEspecie(): ?string
-    {
-        return $this->especie;
-    }
-
-    public function setEspecie(?string $especie): self
-    {
-        $this->especie = $especie;
-
-        return $this;
-    }
-
-    public function setFamilia(?string $familia): self
-    {
-        $this->familia = $familia;
-
-        return $this;
-    }
-
-    public function getFamilia(): ?string
-    {
-        return $this->familia;
-    }
-
-    public function setGenero(?string $genero): self
-    {
-        $this->genero = $genero;
-
-        return $this;
-    }
-	
-    public function getGenero(): ?string
-    {
-        return $this->genero;
     }
 	
     public function getDescripcion(): ?string
@@ -375,12 +343,12 @@ class Variedad
         return $this;
     }
 
-    public function getCaracterizacion(): ?int
+    public function getCaracterizacion(): ?bool
     {
         return $this->caracterizacion;
     }
 
-    public function setCaracterizacion(?int $caracterizacion): self
+    public function setCaracterizacion(?bool $caracterizacion): self
     {
         $this->caracterizacion = $caracterizacion;
 
@@ -519,7 +487,8 @@ class Variedad
         return $this;
     }
 
-    public function __toString() {
+    public function __toString(): ?string
+    {
         return $this->id;
     }
 
@@ -531,18 +500,6 @@ class Variedad
     public function setObservaciones(?string $observaciones): self
     {
         $this->observaciones = $observaciones;
-
-        return $this;
-    }
-
-    public function getUsoVariedad(): ?UsoVariedad
-    {
-        return $this->usoVariedad;
-    }
-
-    public function setUsoVariedad(?UsoVariedad $usoVariedad): self
-    {
-        $this->usoVariedad = $usoVariedad;
 
         return $this;
     }
@@ -599,14 +556,14 @@ class Variedad
         return $this;
     }
 
-    public function getSubtaxon(): ?Taxon
+    public function getEspecie(): ?Taxon
     {
-        return $this->subtaxon;
+        return $this->especie;
     }
 
-    public function setSubtaxon(?Taxon $subtaxon): self
+    public function setEspecie(?Taxon $especie): self
     {
-        $this->subtaxon = $subtaxon;
+        $this->especie = $especie;
 
         return $this;
     }
@@ -614,6 +571,60 @@ class Variedad
     public function setDescripcion(?string $descripcion): self
     {
         $this->descripcion = $descripcion;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UsoVariedad[]
+     */
+    public function getUsoVariedads(): Collection
+    {
+        return $this->usoVariedads;
+    }
+
+    public function addUsoVariedad(UsoVariedad $usoVariedad): self
+    {
+        if (!$this->usoVariedads->contains($usoVariedad)) {
+            $this->usoVariedads[] = $usoVariedad;
+            $usoVariedad->setVariedad($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUsoVariedad(UsoVariedad $usoVariedad): self
+    {
+        if ($this->usoVariedads->removeElement($usoVariedad)) {
+            // set the owning side to null (unless already changed)
+            if ($usoVariedad->getVariedad() === $this) {
+                $usoVariedad->setVariedad(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCodigo(): ?int
+    {
+        return $this->codigo;
+    }
+
+    public function setCodigo(?int $codigo): self
+    {
+        $this->codigo = $codigo;
+
+        return $this;
+    }
+
+    public function getBreveDescrPlantaCultivo(): ?string
+    {
+        return $this->breve_descr_planta_cultivo;
+    }
+
+    public function setBreveDescrPlantaCultivo(?string $breve_descr_planta_cultivo): self
+    {
+        $this->breve_descr_planta_cultivo = $breve_descr_planta_cultivo;
 
         return $this;
     }

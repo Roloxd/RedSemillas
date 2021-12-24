@@ -14,7 +14,6 @@ class CicloYSiembraType extends AbstractType
         $builder
             ->add('altitud')
             ->add('zona')
-            ->add('coordenadas')
             ->add('ciclo')
             ->add('enero')
             ->add('febrero')

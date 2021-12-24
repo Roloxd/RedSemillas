@@ -1,7 +1,22 @@
+/*Form Variedad: Codigo VAR-*/
+.flex{
+    display: flex;
+}
+
+.lavel-centrado{
+    margin: auto 5px;
+}
+
+/* Float*/
+.float-right{
+    float: right;
+}
+
 /*Alerta*/
 .alerta{
     margin: auto;
     width: 80%;
+    justify-content: center;
 }
 .alerta .error{
     background-color: rgb(185, 0 ,0);

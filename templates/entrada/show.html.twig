@@ -19,31 +19,19 @@
         <table class="table">
             <tbody>
                 <tr>
-                    <th>Id</th>
+                    <th>ID</th>
                     <td>{{ entrada.id }}</td>
                 </tr>
                 <tr>
-                    <th>Codigo_entrada</th>
-                    <td>{{ entrada.codigoEntrada }}</td>
-                </tr>
-                <tr>
-                    <th>Num_pasaporte</th>
-                    <td>{{ entrada.numPasaporte }}</td>
-                </tr>
-                <tr>
-                    <th>Cantidad</th>
+                    <th>Cantidad en gramos</th>
                     <td>{{ entrada.cantidad }}</td>
                 </tr>
                 <tr>
-                    <th>Superficie_cultivo</th>
-                    <td>{{ entrada.superficieCultivo }}</td>
-                </tr>
-                <tr>
-                    <th>Fecha_entrada</th>
+                    <th>Fecha de entrada</th>
                     <td>{{ entrada.fechaEntrada ? entrada.fechaEntrada|date('Y-m-d') : '' }}</td>
                 </tr>
                 <tr>
-                    <th>Tipo_entrada</th>
+                    <th>Tipo de entrada</th>
                     <td>{{ entrada.tipoEntrada }}</td>
                 </tr>
                 <tr>
@@ -52,11 +40,11 @@
                 </tr>
             </tbody>
         </table>
+
+        <a href="{{ path('entrada_index') }}">Volver a la lista</a>
+
+        <a href="{{ path('entrada_edit', {'id': entrada.id}) }}">Editar</a>
     </div>
-
-    <a href="{{ path('entrada_index') }}">Volver a la lista</a>
-
-    <a href="{{ path('entrada_edit', {'id': entrada.id}) }}">Editar</a>
 
     {{ include('entrada/_delete_form.html.twig') }}
 

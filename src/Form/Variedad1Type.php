@@ -17,9 +17,6 @@ class Variedad1Type extends AbstractType
         $builder
             ->add('nombreComun')
             ->add('nombreLocal')
-            ->add('familia')
-            ->add('genero')
-            ->add('especie')
             ->add('tipoSiembra', ChoiceType::class, [
                 'placeholder' => 'Selecciona tipo de siembra',
                 'choices'  => [
@@ -29,7 +26,10 @@ class Variedad1Type extends AbstractType
                 ],
             ])
             ->add('diasSemillero')
-            ->add('descripcion')
+            ->add('descripcion', TextareaType::class, [
+                'attr' => ['class' => 'tinymce'],
+                'required' => false,
+            ])
             ->add('marcoA')
             ->add('marcoB')
             ->add('densidad')
@@ -42,10 +42,7 @@ class Variedad1Type extends AbstractType
                     'Mixta ' => 'Mixta ',
                 ],
             ])
-            ->add('caracterizacion', CheckboxType::class, [
-                'label'    => 'Caracterización',
-                'required' => false,
-            ])
+            ->add('caracterizacion')
             ->add('viabilidadMin')
             ->add('viabilidadMax')
             ->add('conocimientosTradicionales')
@@ -61,10 +58,10 @@ class Variedad1Type extends AbstractType
                 'attr' => ['class' => 'tinymce'],
                 'required' => false,
             ])
+            ->add('breveDescrPlantaCultivo')
             //->add('usoVariedad')
-            //->add('imagenSeleccionada')
-            ->add('cicloYSiembras')
-            ->add('subtaxon')
+            //->add('cicloYSiembras')
+            // ->add('especie')
         ;
     }
 

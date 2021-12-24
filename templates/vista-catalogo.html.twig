@@ -42,15 +42,15 @@
 	<div id="green-contents" class="row contents">
 		<div id="variedades" class="offset-sm-1 offset-lg-2 col-12 col-sm-10 col-lg-8 orange">
 {% for variedad in variedades %}
-			{% set id = loop.index %}
+			{% set id = variedad.id %}
 			{% set titulo = variedad.nombreComun %}
 			{% set nombre = variedad.nombreLocal %}
 			{% set imagen = asset('images/home_home_rgcs_impression.png') %}				
-			{% set familia = variedad.familia %}
+			{# {% set familia = variedad.familia %}
 			{% set genero = variedad.genero %}
-			{% set especie = variedad.especie %}
-			{% set subtaxon = variedad.subtaxon %}
-			{% set texto = variedad.descripcion %}				
+			{% set especie = variedad.especie %} #}
+			{# {% set subtaxon = variedad.subtaxon %} #}
+			{% set texto = variedad.descripcion %}	
 			<div id="{{id}}" class="variedad">
 			
 				<div class="row mini">
@@ -64,7 +64,8 @@
 							<span class="text">{{nombre}}</span>
 					</div>
 					<div class="d-none d-sm-block col-sm-1 img-div">
-						<img src="{{imagen}}" class="images img-fluid rounded" />
+						<img src="{{ imagen }}" class="images img-fluid rounded" />
+						{# <img src="{{ asset(imagenes[id]) }}" class="images img-fluid rounded" /> #}
 					</div>
 					<div class="col-2 img-div expand">                        
 						<img src={{ asset("images/img/theme_light/but/but_expand.png")}} class="icono-more img-fluid" />
@@ -92,10 +93,10 @@
 					</div>
 					<div class="col-12 col-md-7">
 						<div class="taxon bg-bubble">
-							<div><span class="propiedad">FAMILIA:</span><span>{{familia}}</span></div>
-							<div><span class="propiedad">GÉNERO:</span><span>{{genero}}</span></div>
-							<div><span class="propiedad">ESPECIE:</span><span class="text-lower">{{especie}}</span></div>
-							<div><span class="propiedad">SUBTAXÓN:</span><span class="text-lower">{{subtaxon}}</span></div>
+							<div><span class="propiedad">FAMILIA:</span><span>{{familias[id]}}</span></div>
+							<div><span class="propiedad">GÉNERO:</span><span>{{generos[id]}}</span></div>
+							<div><span class="propiedad">ESPECIE:</span><span class="text-lower">{{especies[id]}}</span></div>
+							<div><span class="propiedad">SUBTAXÓN:</span><span class="text-lower">{{subtaxons[id]}}</span></div>
 						</div>
 						<p>{{texto}}</p>
 					</div>
