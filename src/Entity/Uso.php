@@ -49,6 +49,16 @@ class Uso
         $this->usoVariedads = new ArrayCollection();
     }
 
+    /**
+     * @ORM\OneToMany(targetEntity=UsoVariedad::class, mappedBy="uso")
+     */
+    private $usoVariedads;
+
+    public function __construct()
+    {
+        $this->usoVariedads = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -74,6 +84,36 @@ class Uso
     public function setTipo(?string $tipo): self
     {
         $this->tipo = $tipo;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UsoVariedad[]
+     */
+    public function getUsoVariedads(): Collection
+    {
+        return $this->usoVariedads;
+    }
+
+    public function addUsoVariedad(UsoVariedad $usoVariedad): self
+    {
+        if (!$this->usoVariedads->contains($usoVariedad)) {
+            $this->usoVariedads[] = $usoVariedad;
+            $usoVariedad->setUso($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUsoVariedad(UsoVariedad $usoVariedad): self
+    {
+        if ($this->usoVariedads->removeElement($usoVariedad)) {
+            // set the owning side to null (unless already changed)
+            if ($usoVariedad->getUso() === $this) {
+                $usoVariedad->setUso(null);
+            }
+        }
 
         return $this;
     }
