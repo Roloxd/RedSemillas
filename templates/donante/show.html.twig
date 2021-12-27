@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Donante{% endblock %}
+
+{% block body %}
+    <h1>Donante</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ donante.id }}</td>
+            </tr>
+            <tr>
+                <th>Tipo_donante</th>
+                <td>{{ donante.tipoDonante }}</td>
+            </tr>
+            <tr>
+                <th>Codigo_donante</th>
+                <td>{{ donante.codigoDonante }}</td>
+            </tr>
+            <tr>
+                <th>Instname</th>
+                <td>{{ donante.instname }}</td>
+            </tr>
+            <tr>
+                <th>Instcode</th>
+                <td>{{ donante.instcode }}</td>
+            </tr>
+            <tr>
+                <th>Instdress</th>
+                <td>{{ donante.instdress }}</td>
+            </tr>
+            <tr>
+                <th>Instobservaciones</th>
+                <td>{{ donante.instobservaciones }}</td>
+            </tr>
+            <tr>
+                <th>Proyecto</th>
+                <td>{{ donante.proyecto }}</td>
+            </tr>
+            <tr>
+                <th>Num_accesion_donante</th>
+                <td>{{ donante.numAccesionDonante }}</td>
+            </tr>
+            <tr>
+                <th>Observaciones</th>
+                <td>{{ donante.observaciones }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('donante_index') }}">back to list</a>
+
+    <a href="{{ path('donante_edit', {'id': donante.id}) }}">edit</a>
+
+    {{ include('donante/_delete_form.html.twig') }}
+{% endblock %}

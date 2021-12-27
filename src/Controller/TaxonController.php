@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/admin/taxon')]
 /**
  * @Route("/admin/taxon")
  */
@@ -51,6 +52,77 @@ class TaxonController extends AbstractController
             'form' => $form,
             'text_form' => $text_form,
         ]);
+    }
+
+    /**
+     * @Route("/familia", name="taxon_familia", methods={"POST"})
+     */
+    public function familia(): Response
+    {
+
+        $familia = $this->getDoctrine()
+            ->getRepository(Taxon::class)
+            ->findAllFamilia();
+
+        $response = new Response();
+        $response->setContent(json_encode([
+            'familia' => $familia,
+        ]));
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;     
+    }
+
+    /**
+     * @Route("/especie", name="taxon_especie", methods={"POST"})
+     */
+    public function especie(Request $request): Response
+    {
+        $idVariedad = $request->request->get('idVariedad');
+        $array = [];
+        $especieDefault = null;
+
+        $especies = $this->getDoctrine()
+            ->getRepository(Taxon::class)
+            ->findAllEspecie();
+
+        foreach($especies as $especie){
+            $especieName = $especie['nombre'];
+             //Añadir especie, familia, genero, y enviar a la  vista
+
+            $genero = $this->getDoctrine()
+                ->getRepository(Taxon::class)
+                ->find($especie['padre']);
+
+            $generoName = $genero->getNombre();
+
+            $familia = $this->getDoctrine()
+                ->getRepository(Taxon::class)
+                ->find($genero->getPadre());
+
+            $familiaName = $familia->getNombre();
+
+            $array[$especieName] = $familiaName . " - " . $generoName . " - " . $especieName;
+        }
+
+        if($idVariedad){
+            $variedad = $this->getDoctrine()
+                ->getRepository(Variedad::class)
+                ->find($idVariedad);
+
+            if(!empty($variedad->getEspecie())){
+                $especieDefault = $variedad->getEspecie()->getNombre();
+            }
+        }
+
+        $response = new Response();
+        $response->setContent(json_encode([
+            'especies' => $array,
+            'especieDefault' => $especieDefault,
+        ]));
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;     
     }
 
     /**

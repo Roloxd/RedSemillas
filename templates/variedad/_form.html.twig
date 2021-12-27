@@ -48,13 +48,13 @@
               <!-- form start -->
               
                 <div class="card-body">
-                  {# <div class="form-group">
+                  <div class="form-group">
                     <p><b>Código ID</b></p>
                     <div class="flex">
                       <label for="codigo" class="lavel-centrado">VAR-</label>
                       {{ form_widget(form.codigo, {'attr': {'class': 'form-control', 'placeholder': '00000'}}) }}
                     </div>
-                  </div> #}
+                  </div>
                   <div class="form-group">
                     <label for="variedad1_nombreComun">Nombre Común</label>
                     <a href="#" data-toggle="tooltip" title="Nombre común del cultivo">?</a>
@@ -114,15 +114,340 @@
                     {{ form_widget(form.especie, {'attr': {'class': 'form-control'}}) }}
                   </div> #}
                 </div>
-                <div class="alerta"></div>
-                <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Guardar</button>
-              </div>
-                {{ form_end(form) }}  
                 <!-- /.card-body -->
             </div>
             <!-- /.card -->
           </div>
+          <!-- right column -->
+          <div id="columna-right" class="col-md-6">
+            <!-- general form elements -->
+            <div class="card card-info">
+              <div class="card-header">
+                <h3 id="ancla-generico" class="card-title">Genérico</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="variedad1_tipoSiembra">Tipo de siembra</label>
+                  <a href="#" data-toggle="tooltip" title="Tipo de siembra.">?</a>
+                  {{ form_widget(form.tipoSiembra, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="variedad1_diasSemillero">Tiempo de semillero</label>
+                  <a href="#" data-toggle="tooltip" title="Tiempo de semillero. Expresado en días.">?</a>
+                  {{ form_widget(form.diasSemillero, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="variedad1_polinizacion">Tipo de polinización</label>
+                  <a href="#" data-toggle="tooltip" title="Tipo de polinización más frecuente.">?</a>
+                  {{ form_widget(form.polinizacion, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="variedad1_viabilidadMin">Viabilidad Min (Años)</label>
+                  <a href="#" data-toggle="tooltip" title="Tiempo mínimo que pueden vivir las semillas en condiciones ambientales de 25 ºC.">?</a>
+                  {{ form_widget(form.viabilidadMin, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="variedad1_viabilidadMax">Viabilidad Max (Años)</label>
+                  <a href="#" data-toggle="tooltip" title="Tiempo máximo que pueden vivir las semillas en condiciones ambientales de 25 ºC.">?</a>
+                  {{ form_widget(form.viabilidadMax, {'attr': {'class': 'form-control'}}) }}
+                </div>
+              </div>
+              <!-- /.card-header -->
+            </div>
+            <div class="card card-secondary collapsed-card">
+              <div class="card-header">
+                <h3 id="ancla-especifico" class="card-title">Específico</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body" style="display: none;">
+                <div class="form-group">
+                  <label for="variedad1_breveDescrPlantaCultivo">Breve descripción de la planta y/o cultivo</label>
+                  <a href="#" data-toggle="tooltip" title="Breve descripción de la planta y/o cultivo.">?</a>
+                  {{ form_widget(form.breveDescrPlantaCultivo, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="variedad1_descripcion">Descripción</label>
+                  <a href="#" data-toggle="tooltip" title="Descripción completa de la variedad.">?</a>
+                  {{ form_widget(form.descripcion, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="variedad1_marcoA">Distancia entre plata</label>
+                  <a href="#" data-toggle="tooltip" title="Marco A (Distancia entre planta) de plantación. Formato: 0.000">?</a>
+                  {{ form_widget(form.marcoA, {'attr': {'class': 'form-control', 'placeholder': '0.000'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="variedad1_marcoB">Distancia entre lineas</label>
+                  <a href="#" data-toggle="tooltip" title="Marco B (Distancia entre lineas) de plantación. Formato: 0.000">?</a>
+                  {{ form_widget(form.marcoB, {'attr': {'class': 'form-control', 'placeholder': '0.000'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="variedad1_cicloCultivo">Ciclo de cultivo</label>
+                  <a href="#" data-toggle="tooltip" title="Ciclo de cultivo, teniendo en cuenta que el cultivo está destinado para semilla.">?</a>
+                  {{ form_widget(form.cicloCultivo, {'attr': {'class': 'form-control'}}) }}
+                </div>
+              </div>
+              <!-- /.card-header -->
+            </div>
+            <!-- card -->
+            <div class="card card-success collapsed-card">
+              <div class="card-header">
+                <h3 id="ancla-caracteristicas" class="card-title">Descripción morfológica</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body" style="display: none;">
+                <div class="form-group">
+                  <label for="variedad1_cmPlanta">Características morfológicas Planta</label>
+                  <a href="#" data-toggle="tooltip" title="Descripción de las características más notables de la planta.">?</a>
+                  {{ form_widget(form.cmPlanta, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="variedad1_cmFlor">Características morfológicas Flor</label>
+                  <a href="#" data-toggle="tooltip" title="Descripción de las características más notables de la flor.">?</a>
+                  {{ form_widget(form.cmFlor, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="variedad1_cmFruto">Características morfológicas Fruto</label>
+                  <a href="#" data-toggle="tooltip" title="Descripción de las características más notables del fruto.">?</a>
+                  {{ form_widget(form.cmFruto, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="variedad1_cmSemilla">Características morfológicas Semilla</label>
+                  <a href="#" data-toggle="tooltip" title="Descripción de las características más notables de la semilla.">?</a>
+                  {{ form_widget(form.cmSemilla, {'attr': {'class': 'form-control'}}) }}
+                </div>
+              </div>
+            </div>
+            <!-- /.card -->
+            <!-- card -->
+            <div class="card card-purple collapsed-card">
+              <div class="card-header">
+                <h3 id="ancla-agroOrga" class="card-title">Agronómica y Organolépticas</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body" style="display: none;">
+                <div class="form-group">
+                  <label for="variedad1_cArgonomicas">Características Agronómicas</label>
+                  <a href="#" data-toggle="tooltip" title="Descripción de las características agronómicas más notables.">?</a>
+                  {{ form_widget(form.cArgonomicas, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="variedad1_cOrganolepticas">Características Organolépticas</label>
+                  <a href="#" data-toggle="tooltip" title="Descripción de las características orgnolépticas más notables.">?</a>
+                  {{ form_widget(form.cOrganolepticas, {'attr': {'class': 'form-control'}}) }}
+                </div>
+              </div>
+            </div>
+            <!-- /.card -->
+            <!-- card -->
+            <div class="card card-olive collapsed-card">
+              <div class="card-header">
+                <h3 id="ancla-usos" class="card-title">Usos</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div id="contenido-usos" class="card-body" style="display: none;">
+                <div class="form-group">
+                  <label for="variedad1_usoAlimenHumana">Usos para la alimentación humana</label>
+                  <a href="#" data-toggle="tooltip" title="Descripción de los usos más notables para la alimentación humana. 
+Pulsar 'Ctrl + Click Izquierdo' para seleccionar más de una opción.">?</a>
+                  <select id ="variedad1_usoAlimenHumana" class="form-control" type="text" name="variedad1[usoAlimenHumana][]" multiple="multiple"></select>
+                </div>
+                <div class="form-group">
+                  <label for="variedad1_usoAlimenAnimal">Usos para la alimentación animal</label>
+                  <a href="#" data-toggle="tooltip" title="Descripción de los usos más notables para la alimentación animal. 
+Pulsar 'Ctrl + Click Izquierdo' para seleccionar más de una opción.">?</a>
+                  <select id ="variedad1_usoAlimenAnimal" class="form-control" type="text" name="variedad1[usoAlimenAnimal][]" multiple="multiple"><select>
+                </div>
+                <div class="form-group">
+                  <label for="variedad1_usoMedicinales">Usos medicinales</label>
+                  <a href="#" data-toggle="tooltip" title="Descripción de los usos medicinales más notables. 
+Pulsar 'Ctrl + Click Izquierdo' para seleccionar más de una opción.">?</a>
+                  <select id ="variedad1_usoMedicinales" class="form-control" type="text" name="variedad1[usoMedicinales][]" multiple="multiple"><select>
+                </div>
+                <div class="form-group">
+                  <label for="variedad1_usoVeterinarios">Usos veterinarios</label>
+                  <a href="#" data-toggle="tooltip" title="Descripción de los usos veterinarios más notables. 
+Pulsar 'Ctrl + Click Izquierdo' para seleccionar más de una opción.">?</a>
+                  <select id ="variedad1_usoVeterinarios" class="form-control" type="text" name="variedad1[usoVeterinarios][]" multiple="multiple"></select>
+                </div>
+                <div class="form-group">
+                  <label for="variedad1_usoToxicNocivo">Usos tóxico y nocivo</label>
+                  <a href="#" data-toggle="tooltip" title="Descripción de los usos tóxico y nocivo más notables. 
+Pulsar 'Ctrl + Click Izquierdo' para seleccionar más de una opción.">?</a>
+                  <select id ="variedad1_usoToxicNocivo" class="form-control" type="text" name="variedad1[usoToxicNocivo][]" multiple="multiple"></select>
+                </div>
+                <div class="form-group">
+                  <label for="variedad1_usoCombustible">Usos como combustible</label>
+                  <a href="#" data-toggle="tooltip" title="Descripción de los usos combustibles más notables. 
+Pulsar 'Ctrl + Click Izquierdo' para seleccionar más de una opción.">?</a>
+                  <select id ="variedad1_usoCombustible" class="form-control" type="text" name="variedad1[usoCombustible][]" multiple="multiple"></select>
+                </div>
+                <div class="form-group">
+                  <label for="variedad1_usoConstruccion">Usos en construcción</label>
+                  <a href="#" data-toggle="tooltip" title="Descripción de los usos en construcción más notables. 
+Pulsar 'Ctrl + Click Izquierdo' para seleccionar más de una opción.">?</a>
+                  <select id ="variedad1_usoConstruccion" class="form-control" type="text" name="variedad1[usoConstruccion][]" multiple="multiple"><select>
+                </div>
+                <div class="form-group">
+                  <label for="variedad1_usoArtesania">Usos en artesanía o industria</label>
+                  <a href="#" data-toggle="tooltip" title="Descripción de los usos artesansanos o industriales más notables. 
+Pulsar 'Ctrl + Click Izquierdo' para seleccionar más de una opción.">?</a>
+                  <select id ="variedad1_usoArtesania" class="form-control" type="text" name="variedad1[usoArtesania][]" multiple="multiple"><select>
+                </div>
+                <div class="form-group">
+                  <label for="variedad1_usoMedioambientales">Usos medioambientales</label>
+                  <a href="#" data-toggle="tooltip" title="Descripción de los usos medioambientales más notables. 
+Pulsar 'Ctrl + Click Izquierdo' para seleccionar más de una opción.">?</a>
+                  <select id ="variedad1_usoMedioambientales" class="form-control" type="text" name="variedad1[usoMedioambientales][]" multiple="multiple"></select>
+                </div>
+                <div class="form-group">
+                  <label for="variedad1_usoOrnamentales">Usos ornamentales</label>
+                  <a href="#" data-toggle="tooltip" title="Descripción de los usos ornamentales más notables. 
+Pulsar 'Ctrl + Click Izquierdo' para seleccionar más de una opción.">?</a>
+                  <select id ="variedad1_usoOrnamentales" class="form-control" type="text" name="variedad1[usoOrnamentales][]" multiple="multiple"></select>
+                </div>
+                <div class="form-group">
+                  <label for="variedad1_usoSociales">Usos sociales, simbólicos y rituales</label>
+                  <a href="#" data-toggle="tooltip" title="Descripción de los usos sociales, simbólicos y rituales más notables. 
+Pulsar 'Ctrl + Click Izquierdo' para seleccionar más de una opción.">?</a>
+                  <select id ="variedad1_usoSociales" class="form-control" type="text" name="variedad1[usoSociales][]" multiple="multiple"></select>
+                </div>
+              </div>
+            </div>
+            <!-- /.card -->
+            <!-- card -->
+            <div class="card card-pink collapsed-card">
+              <div class="card-header">
+                <h3 id="ancla-usos" class="card-title">Ciclo y Siembra</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div id="contenido-usos" class="card-body" style="display: none;">
+                <div class="form-group">
+                  <label>Tipo de Planta</label>
+                  <div class="row">
+                    <div class="form-check col-3">
+                      <input type="checkbox" id="ciclo_y_siembra_anual" name="ciclo_y_siembra[0][ciclo][anual]" class="form-check-input">
+                      <label class="form-check-label" for="ciclo_y_siembra_anual">Anual</label>
+                    </div>
+                    <div class="form-check col-3">
+                      <input type="checkbox" id="ciclo_y_siembra_bianual" name="ciclo_y_siembra[0][ciclo][bianual]" class="form-check-input">
+                      <label class="form-check-label" for="ciclo_y_siembra_bianual">Bianual</label>
+                    </div>
+                    <div class="form-check col-3">
+                      <input type="checkbox" id="ciclo_y_siembra_perenne" name="ciclo_y_siembra[0][ciclo][perenne]" class="form-check-input">
+                      <label class="form-check-label" for="ciclo_y_siembra_perenne">Perenne</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Epoca de Siembra</label>
+                  <div class="row">
+                    <div class="form-check col-3">
+                      <input type="checkbox" name="ciclo_y_siembra[0][meses][ene]" class="form-check-input">
+                      <label class="form-check-label">Enero</label>
+                    </div>
+                    <div class="form-check col-3">
+                      <input type="checkbox" name="ciclo_y_siembra[0][meses][feb]" class="form-check-input">
+                      <label class="form-check-label">Febrero</label>
+                    </div>
+                    <div class="form-check col-3">
+                      <input type="checkbox" name="ciclo_y_siembra[0][meses][mar]" class="form-check-input">
+                      <label class="form-check-label">Marzo</label>
+                    </div>
+                    <div class="form-check col-3">
+                      <input type="checkbox" name="ciclo_y_siembra[0][meses][abr]" class="form-check-input">
+                      <label class="form-check-label">Abril</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-check col-3">
+                      <input type="checkbox" name="ciclo_y_siembra[0][meses][may]" class="form-check-input">
+                      <label class="form-check-label">Mayo</label>
+                    </div>
+                    <div class="form-check col-3">
+                      <input type="checkbox" name="ciclo_y_siembra[0][meses][jun]" class="form-check-input">
+                      <label class="form-check-label">Junio</label>
+                    </div>
+                    <div class="form-check col-3">
+                      <input type="checkbox" name="ciclo_y_siembra[0][meses][jul]" class="form-check-input">
+                      <label class="form-check-label">Julio</label>
+                    </div>
+                    <div class="form-check col-3">
+                      <input type="checkbox" name="ciclo_y_siembra[0][meses][ago]" class="form-check-input">
+                      <label class="form-check-label">Agosto</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-check col-3">
+                      <input type="checkbox" name="ciclo_y_siembra[0][meses][sep]" class="form-check-input">
+                      <label class="form-check-label">Septiembre</label>
+                    </div>
+                    <div class="form-check col-3">
+                      <input type="checkbox" name="ciclo_y_siembra[0][meses][oct]" class="form-check-input">
+                      <label class="form-check-label">Octubre</label>
+                    </div>
+                    <div class="form-check col-3">
+                      <input type="checkbox" name="ciclo_y_siembra[0][meses][nov]" class="form-check-input">
+                      <label class="form-check-label">Noviembre</label>
+                    </div>
+                    <div class="form-check col-3">
+                      <input type="checkbox" name="ciclo_y_siembra[0][meses][dic]" class="form-check-input">
+                      <label class="form-check-label">Diciembre</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="ciclo_y_siembra_altitud">Altitud</label>
+                  <select id="ciclo_y_siembra_altitud" class="form-control" name="ciclo_y_siembra[0][altitud]">
+                    <option selected disabled>-- Seleccione altitud --</option>
+                    <option value="+300m">+300m</option>
+                    <option value="-300m">-300m</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="ciclo_y_siembra_zona">Zona</label>
+                  <select id ="ciclo_y_siembra_zona" class="form-control" name="ciclo_y_siembra[0][zona]">
+                    <option selected disabled>-- Seleccione zona --</option>
+                    <option value="norte">Norte</option>
+                    <option value="sur">Sur</option>
+                  </select>
+                </div>
+                <button type="button" class="btn btn-info btn-sm" data-btn-plus="cicloSiembra"><i class="fa fa-plus"></i> Añadir más</button>
+              </div>
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col-md-6 -->
         </div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->

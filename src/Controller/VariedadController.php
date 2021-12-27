@@ -32,6 +32,11 @@ class VariedadController extends AbstractController
             ->getRepository(Variedad::class)
             ->findAll();
 
+        $especies = null;
+        $generos = null;
+        $familias = null;
+        $cicloysiembra = null;
+
         foreach($variedadesDB as $variedadDB){
             if(!empty($variedadDB->getEspecie())){
                 $especies[$variedadDB->getId()] = $variedadDB->getEspecie()->getNombre();
@@ -57,6 +62,87 @@ class VariedadController extends AbstractController
                 $familias[$variedadDB->getId()] = "";
                 $subtaxons[$variedadDB->getId()] = "";
             }
+
+            //Ciclo y Siembra de la variedad
+            if(!empty($variedadDB->getCicloYSiembras()->getValues())){
+                foreach($variedadDB->getCicloYSiembras()->getValues() as $cicloysiembra){
+                    $arrayCicloysiembra[$variedadDB->getId()][$cicloysiembra->getId()]['altitud'] = $cicloysiembra->getAltitud();
+                    $arrayCicloysiembra[$variedadDB->getId()][$cicloysiembra->getId()]['zona'] = $cicloysiembra->getZona();
+    
+                    if(!empty($cicloysiembra->getCiclo())){
+                        $texto = "";
+                        $ciclos = explode(";", $cicloysiembra->getCiclo());
+    
+                        for($i = 0; $i < count($ciclos); $i++){
+    
+                            if($i > 0 && count($ciclos) > 1 && $ciclos[$i] != ""){
+                                $texto .= "-";
+                            }
+                            $texto .= $ciclos[$i];
+                        }
+    
+                        $arrayCicloysiembra[$variedadDB->getId()][$cicloysiembra->getId()]['ciclo'] = $texto;
+                    }
+                    
+                    $meses = [];
+                    if($cicloysiembra->getEnero() != null){
+                        $meses[] = "Enero";
+                    }
+                    if($cicloysiembra->getFebrero() != null){
+                        $meses[] = "Febrero";
+                    }
+                    if($cicloysiembra->getMarzo() != null){
+                        $meses[] = "Marzo";
+                    }
+                    if($cicloysiembra->getAbril() != null){
+                        $meses[] = "Abril";
+                    }
+                    if($cicloysiembra->getMayo() != null){
+                        $meses[] = "Mayo";
+                    }
+                    if($cicloysiembra->getJunio() != null){
+                        $meses[] = "Junio";
+                    }
+                    if($cicloysiembra->getJulio() != null){
+                        $meses[] = "Julio";
+                    }
+                    if($cicloysiembra->getAgosto() != null){
+                        $meses[] = "Agosto";
+                    }
+                    if($cicloysiembra->getSeptiembre() != null){
+                        $meses[] = "Septiembre";
+                    }
+                    if($cicloysiembra->getOctubre() != null){
+                        $meses[] = "Octubre";
+                    }
+                    if($cicloysiembra->getNoviembre() != null){
+                        $meses[] = "Noviembre";
+                    }
+                    if($cicloysiembra->getDiciembre() != null){
+                        $meses[] = "Diciembre";
+                    }
+                    
+                    if(!empty($meses)){
+                        $texto = "";
+    
+                        for($i = 0; $i < count($meses); $i++){
+    
+                            if($i > 0 && count($meses) > 1 && $meses[$i] != ""){
+                                $texto .= "-";
+                            }
+                            $texto .= $meses[$i];
+                        }
+    
+                        $arrayCicloysiembra[$variedadDB->getId()][$cicloysiembra->getId()]['meses'] = $texto;
+                    }
+                }
+            } else {
+                $arrayCicloysiembra[$variedadDB->getId()][0]['altitud'] = "";
+                $arrayCicloysiembra[$variedadDB->getId()][0]['zona'] = "";
+                $arrayCicloysiembra[$variedadDB->getId()][0]['ciclo'] = "";
+                $arrayCicloysiembra[$variedadDB->getId()][0]['meses'] = "";
+            }
+            
         }
 
         return $this->render('variedad/index.html.twig', [
@@ -64,6 +150,7 @@ class VariedadController extends AbstractController
             'especies' => $especies,
             'generos' => $generos,
             'familias' => $familias,
+            'cicloysiembra' => $arrayCicloysiembra,
         ]);
     }
 
@@ -80,6 +167,34 @@ class VariedadController extends AbstractController
 
         if ($form->isSubmitted()) {
             $datos = $request->request->get('variedad1');
+
+            if(isset($datos["codigo"]) && !empty($datos["codigo"])) {
+                
+                $variedad2 = $this->getDoctrine()
+                    ->getRepository(Variedad::class)
+                    ->findCodigo($datos["codigo"]);
+
+                if($variedad2 == null){
+                    $variedad->setCodigo($datos["codigo"]);
+                } else {
+                    //Si existe una variedad mostrar error.
+                }
+            } else if (empty($datos["codigo"])) {
+                $variedades = $this->getDoctrine()
+                    ->getRepository(Variedad::class)
+                    ->findAll();
+
+                $codigos = null;
+                if(!empty($variedades)){
+                    foreach($variedades as $variedadCodigo){
+                        $codigos[] = $variedadCodigo->getCodigo();
+                    }
+
+                    $codigo = max($codigos) + 1;
+                }
+                
+                $variedad->setCodigo($codigo);
+            }
 
             $entero = ['diasSemillero', 'viabilidadMin', 'viabilidadMax', 'cicloCultivo'];
             $decimal = ['marcoA', 'marcoB', 'densidad'];
@@ -392,9 +507,19 @@ class VariedadController extends AbstractController
             }
         }
 
+        $cicloysiembra = $this->getDoctrine()
+            ->getRepository(CicloYSiembra::class)
+            ->findAll();
+
+        $ultimoId = null;
+        if(!empty($cicloysiembra)){
+            $ultimoId = $cicloysiembra[count($cicloysiembra)-1]->getId();
+        }
+        
         $response = new Response();
         $response->setContent(json_encode([
             'ArrayCicloYSiembra' => $arrayCicloYSiembra,
+            'ultimoId'  =>  $ultimoId,
         ]));
         $response->headers->set('Content-Type', 'application/json');
 
@@ -424,6 +549,23 @@ class VariedadController extends AbstractController
 
         if ($form->isSubmitted()) {
             $datos = $request->request->get('variedad1');
+
+            if(isset($datos["codigo"]) && empty($datos["codigo"])) {
+                $variedades = $this->getDoctrine()
+                    ->getRepository(Variedad::class)
+                    ->findAll();
+
+                $codigos = null;
+                if(!empty($variedades)){
+                    foreach($variedades as $variedadCodigo){
+                        $codigos[] = $variedadCodigo->getCodigo();
+                    }
+
+                    $codigo = max($codigos) + 1;
+                }
+                
+                $variedad->setCodigo($codigo);
+            }
 
             $entero = ['diasSemillero', 'viabilidadMin', 'viabilidadMax', 'cicloCultivo'];
             $decimal = ['marcoA', 'marcoB', 'densidad'];
@@ -495,7 +637,6 @@ class VariedadController extends AbstractController
             
             foreach ($usos as $value) {
                 if(!empty($datos[$value])){
-                    
                     if(!empty($arrayUsoVariedads)){
 
                         //Comprobar si existe ya una relación
@@ -507,18 +648,16 @@ class VariedadController extends AbstractController
                             $arrayIdUsos[] = intval($id);
                         }
                     } else {
-                        //Si en la variedad no existen usos relacionados
                         foreach ($datos[$value] as $id) {
                             $idsUsoVariedadsSinRelacion[] = $id;
                         }
+                        $arrayIdUsos[] = intval($id);
                     }
                 }
-                
             }
-            
+
             //Creamos la relación
             foreach($idsUsoVariedadsSinRelacion as $id){
-
                 $uso = $this->getDoctrine()
                     ->getRepository(Uso::class)
                     ->find($id);
@@ -539,12 +678,16 @@ class VariedadController extends AbstractController
                 if(!in_array($id, $arrayIdUsos)) {
 
                     $uso = $this->getDoctrine()
-                        ->getRepository(Uso::class)
-                        ->find($id);
+                        ->getRepository(UsoVariedad::class)
+                        ->findUsoVareidad($id, $variedad->getId());
 
-                    $entityManager = $this->getDoctrine()->getManager();
-                    $entityManager->remove($uso);
-                    $entityManager->flush();
+
+                    //Eliminar UsoVariedad y no Uso
+                    dump($uso); exit;
+
+                    // $entityManager = $this->getDoctrine()->getManager();
+                    // $entityManager->remove($uso);
+                    // $entityManager->flush();
                 }
             }
 
@@ -557,11 +700,22 @@ class VariedadController extends AbstractController
                 foreach($datosCiclosYSiembras as $key => $datosCicloYSiembra){
                     $marcado = [];
 
+                    //
                     $registro = $this->getDoctrine()
                         ->getRepository(CicloYSiembra::class)
                         ->find($key);
 
+                    // dump($registro);
 
+                    $nuevo = false;
+                    if($registro == null){
+                        $registro = new CicloYSiembra;
+                        $registro->setVariedad($variedad);
+                        $nuevo = true;
+                        dump($registro);
+                    }
+
+                    
                     // anual, bianual y perenne | Multiseleccion
                     if(isset($datosCicloYSiembra["ciclo"]) && !empty($datosCicloYSiembra["ciclo"])) {
                         
@@ -654,51 +808,54 @@ class VariedadController extends AbstractController
                                     break;
                             }
                             
-                            //desmarcar
-                            foreach($meses as $mes){
-                                if(!in_array($mes, $marcado)){
-                                    switch($mes){
-                                        case "ene":
-                                            $registro->setEnero(null);
-                                            break;
-                                        case "feb":
-                                            $registro->setFebrero(null);
-                                            break;
-                                        case "mar":
-                                            $registro->setMarzo(null);
-                                            break;
-                                        case "abr":
-                                            $registro->setAbril(null);
-                                            break;
-                                        case "may":
-                                            $registro->setMayo(null);
-                                            break;
-                                        case "jun":
-                                            $registro->setJunio(null);
-                                            break;
-                                        case "jul":
-                                            $registro->setJulio(null);
-                                            break;
-                                        case "ago":
-                                            $registro->setAgosto(null);
-                                            break;
-                                        case "sep":
-                                            $registro->setSeptiembre(null);
-                                            break;
-                                        case "oct":
-                                            $registro->setOctubre(null);
-                                            break;
-                                        case "nov":
-                                            $registro->setNoviembre(null);
-                                            break;
-                                        case "dic":
-                                            $registro->setDiciembre(null);
-                                            break;
-                                        default:
-                                            break;
+                            if($nuevo === false) {
+                                //desmarcar
+                                foreach($meses as $mes){
+                                    if(!in_array($mes, $marcado)){
+                                        switch($mes){
+                                            case "ene":
+                                                $registro->setEnero(null);
+                                                break;
+                                            case "feb":
+                                                $registro->setFebrero(null);
+                                                break;
+                                            case "mar":
+                                                $registro->setMarzo(null);
+                                                break;
+                                            case "abr":
+                                                $registro->setAbril(null);
+                                                break;
+                                            case "may":
+                                                $registro->setMayo(null);
+                                                break;
+                                            case "jun":
+                                                $registro->setJunio(null);
+                                                break;
+                                            case "jul":
+                                                $registro->setJulio(null);
+                                                break;
+                                            case "ago":
+                                                $registro->setAgosto(null);
+                                                break;
+                                            case "sep":
+                                                $registro->setSeptiembre(null);
+                                                break;
+                                            case "oct":
+                                                $registro->setOctubre(null);
+                                                break;
+                                            case "nov":
+                                                $registro->setNoviembre(null);
+                                                break;
+                                            case "dic":
+                                                $registro->setDiciembre(null);
+                                                break;
+                                            default:
+                                                break;
+                                        }
                                     }
                                 }
                             }
+                            
                         }
                     }
 

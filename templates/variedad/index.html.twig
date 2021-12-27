@@ -81,6 +81,10 @@
                         <th data-toggle="tooltip" title="Descripción del manejo para la propagación, selección y mejora del cultivo">Propagación, Selección y Mejora</th>
                         <th data-toggle="tooltip" title="Descripción de los aspectos más significativos para la propagación, selección y mejora del cultivo">Otros Aspectos</th>
                         <th data-toggle="tooltip" title="Para añadir notas o para completar datos de los descriptores">Observaciones</th>
+                        <th data-toggle="tooltip" title="">Ciclo Y Siembra Altitud</th>
+                        <th data-toggle="tooltip" title="">Ciclo Y Siembra Zona</th>
+                        <th data-toggle="tooltip" title="">Ciclo Y Siembra Ciclos</th>
+                        <th data-toggle="tooltip" title="">Ciclo Y Siembra Meses</th>
                         <th>Opciones</th>
                     </tr>   
                   </thead>
@@ -93,8 +97,8 @@
                             <a href="{{ path('variedad_edit', {'id': variedad.id}) }}">Editar</a>
                             <a href="{{ path('variedad_img', {'id': variedad.id}) }}">Añadir imagen</a>
                         </td>
-                        <td>{{ variedad.id }}</td>
-                        {# <td>{{ variedad.codigo }}</td> #}
+                        {# <td>{{ variedad.id }}</td> #}
+                        <td>{{ variedad.codigo }}</td>
                         <td data-toggle="tooltip" title="ID: {{id}} | Columna: Nombre Común" >{{ variedad.nombreComun }}</td>
                         <td data-toggle="tooltip" title="ID: {{id}} | Columna: Nombre Local" >{{ variedad.nombreLocal }}</td>
                         <td data-toggle="tooltip" title="ID: {{id}} | Columna: Especie" >{{ especies[id] }}</td>
@@ -122,6 +126,26 @@
                         <td data-toggle="tooltip" title="ID: {{id}} | Columna: Propagación, Selección y Mejora" >{{ variedad.propagacion }}</td>
                         <td data-toggle="tooltip" title="ID: {{id}} | Columna: Otros Aspectos" >{{ variedad.otros }}</td>
                         <td data-toggle="tooltip" title="ID: {{id}} | Columna: Observaciones" >{{ variedad.observaciones }}</td>
+                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Ciclo Y Siembra Altitud" >
+                        {% for element in cicloysiembra[id] %}
+                          <p>{{ element['altitud'] }}</p>
+                        {% endfor %}
+                        </td>
+                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Ciclo Y Siembra Zona" >
+                        {% for element in cicloysiembra[id] %}
+                          <p>{{ element['zona'] }}</p>
+                        {% endfor %}
+                        </td>
+                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Ciclo Y Siembra Ciclos" >
+                        {% for element in cicloysiembra[id] %}
+                          <p>{{ element['ciclo'] }}</p>
+                        {% endfor %}
+                        </td>
+                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Ciclo Y Siembra Meses" >
+                        {% for element in cicloysiembra[id] %}
+                          <p>{{ element['meses'] }}</p>
+                        {% endfor %}
+                        </td>
                         <td>
                             <a href="{{ path('variedad_show', {'id': variedad.id}) }}">Ver</a>
                             <a href="{{ path('variedad_edit', {'id': variedad.id}) }}">Editar</a>
@@ -166,6 +190,10 @@
                                 <th data-toggle="tooltip" title="Descripción del manejo para la propagación, selección y mejora del cultivo">Propagación, Selección y Mejora</th>
                                 <th data-toggle="tooltip" title="Descripción de los aspectos más significativos para la propagación, selección y mejora del cultivo">Otros Aspectos</th>
                                 <th data-toggle="tooltip" title="Para añadir notas o para completar datos de los descriptores">Observaciones</th>
+                                <th data-toggle="tooltip" title="">Ciclo Y Siembra</th>
+                                <th data-toggle="tooltip" title="">Ciclo Y Siembra Zona</th>
+                                <th data-toggle="tooltip" title="">Ciclo Y Siembra Ciclos</th>
+                                <th data-toggle="tooltip" title="">Ciclo Y Siembra Meses</th>
                                 <th>Opciones</th>
                             </tr>   
                         </tfoot>

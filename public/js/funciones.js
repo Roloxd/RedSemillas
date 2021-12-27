@@ -26,7 +26,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         if(formVariedad) {
-            agregarMasCicloSiembra();
+            const btn_anadir = document.querySelector('button[data-btn-plus="cicloSiembra"]');
+            agregarMasCicloSiembra(btn_anadir);
         }
     }
 
@@ -48,12 +49,11 @@ function consultarCiclosySiembras(){
     xhttp.onreadystatechange = function () {
         if(this.readyState == 4 && this.status == 200){
             var respuesta = JSON.parse(this.response);
-            const ids = Object.keys(respuesta['ArrayCicloYSiembra']);
 
             if(respuesta['ArrayCicloYSiembra'] != null){
+                const ids = Object.keys(respuesta['ArrayCicloYSiembra']);
                 Object.values(respuesta['ArrayCicloYSiembra']).forEach(cicloYSiembra => {
-
-                    datos['cicloYSiembra'] = ids[datos['iterador']];
+                    datos['cicloYSiembra'] = parseInt(ids[datos['iterador']]);
 
                     let ciclos = '';
                     if(cicloYSiembra['ciclo'] != null) {
@@ -285,11 +285,26 @@ function consultarCiclosySiembras(){
                         form_group.appendChild(select);
     
                     car_body.appendChild(form_group); 
-    
+                    
                     columnaDerecha.appendChild(div);
                     datos['iterador'] += 1;
                 });
             }
+
+            if(respuesta['ultimoId'] != null){
+                datos['cicloYSiembra'] = respuesta['ultimoId'];
+            }
+
+            //Boton añadir
+            const btn = document.createElement('BUTTON');
+            btn.classList = 'btn btn-info btn-sm';
+            btn.type = 'button';
+            btn.setAttribute('data-btn-plus', 'cicloSiembra');
+            btn.innerHTML = `<i class="fa fa-plus"></i> Añadir Ciclo y Siembra`;
+            btn.style = 'margin-bottom: 1rem;';
+            columnaDerecha.appendChild(btn);
+
+            agregarMasCicloSiembra(btn);
         }
     }
 
@@ -301,12 +316,12 @@ function consultarCiclosySiembras(){
     return false;
 }
 
-function agregarMasCicloSiembra(){
-    const btn_anadir = document.querySelector('button[data-btn-plus="cicloSiembra"]');
+function agregarMasCicloSiembra(btn_anadir){
     const columnaDerecha = document.querySelector('#columna-right');
 
     //console.log(btn_anadir.parentNode);
     btn_anadir.addEventListener('click', () =>{
+        console.log(datos['cicloYSiembra']);
         datos['cicloYSiembra'] += 1;
 
         const div = document.createElement('DIV');
@@ -545,8 +560,6 @@ function selectUsos(){
         if(this.readyState == 4 && this.status == 200){
             
             var respuesta = JSON.parse(this.response);
-
-            console.log(respuesta);
 
             Object.values(respuesta).forEach(usos => {
 

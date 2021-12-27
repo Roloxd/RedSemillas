@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\VariedadRepository;
+use App\Repository\VariedadCopiaRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=VariedadRepository::class)
+ * @ORM\Entity(repositoryClass=VariedadCopiaRepository::class)
  */
-class Variedad
+class VariedadCopia
 {
     /**
      * @ORM\Id
@@ -178,34 +178,19 @@ class Variedad
     private $observaciones;
 
     /**
-     * @ORM\OneToOne(targetEntity=ImagenSeleccionada::class, mappedBy="variedad", cascade={"persist", "remove"})
-     */
-    private $imagenSeleccionada;
-
-    /**
-     * @ORM\OneToMany(targetEntity=CicloYSiembra::class, mappedBy="variedad")
-     */
-    private $cicloYSiembras;
-
-    /**
-     * @ORM\OneToOne(targetEntity=Taxon::class, inversedBy="variedad")
+     * @ORM\Column(type="string", length=45, nullable=true)
      */
     private $especie;
 
     /**
-     * @ORM\OneToMany(targetEntity=UsoVariedad::class, mappedBy="variedad")
+     * @ORM\Column(type="string", length=45, nullable=true)
      */
-    private $usoVariedads;
+    private $familia;
 
     /**
-     * @ORM\Column(type="integer", length=9, nullable=true)
+     * @ORM\Column(type="string", length=45, nullable=true)
      */
-    private $codigo;
-
-    /**
-     * @ORM\Column(type="string", length=100, nullable=true)
-     */
-    private $breve_descr_planta_cultivo;
+    private $genero;
 
     public function __construct()
     {
@@ -217,13 +202,6 @@ class Variedad
     {
         return $this->id;
     }
-
-    // public function setId(?int $id): self
-    // {
-    //     $this->id = $id;
-
-    //     return $this;
-    // }
 
     public function getNombreComun(): ?string
     {
@@ -499,66 +477,38 @@ class Variedad
         return $this;
     }
 
-    public function getImagenSeleccionada(): ?ImagenSeleccionada
-    {
-        return $this->imagenSeleccionada;
-    }
-
-    public function setImagenSeleccionada(?ImagenSeleccionada $imagenSeleccionada): self
-    {
-        // unset the owning side of the relation if necessary
-        if ($imagenSeleccionada === null && $this->imagenSeleccionada !== null) {
-            $this->imagenSeleccionada->setVariedad(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($imagenSeleccionada !== null && $imagenSeleccionada->getVariedad() !== $this) {
-            $imagenSeleccionada->setVariedad($this);
-        }
-
-        $this->imagenSeleccionada = $imagenSeleccionada;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|CicloYSiembra[]
-     */
-    public function getCicloYSiembras(): Collection
-    {
-        return $this->cicloYSiembras;
-    }
-
-    public function addCicloYSiembra(CicloYSiembra $cicloYSiembra): self
-    {
-        if (!$this->cicloYSiembras->contains($cicloYSiembra)) {
-            $this->cicloYSiembras[] = $cicloYSiembra;
-            $cicloYSiembra->setVariedad($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCicloYSiembra(CicloYSiembra $cicloYSiembra): self
-    {
-        if ($this->cicloYSiembras->removeElement($cicloYSiembra)) {
-            // set the owning side to null (unless already changed)
-            if ($cicloYSiembra->getVariedad() === $this) {
-                $cicloYSiembra->setVariedad(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getEspecie(): ?Taxon
+    public function getEspecie(): ?string
     {
         return $this->especie;
     }
 
-    public function setEspecie(?Taxon $especie): self
+    public function setEspecie(?string $especie): self
     {
         $this->especie = $especie;
+
+        return $this;
+    }
+
+    public function getFamilia(): ?string
+    {
+        return $this->familia;
+    }
+
+    public function setFamilia(?string $familia): self
+    {
+        $this->familia = $familia;
+
+        return $this;
+    }
+
+    public function getGenero(): ?string
+    {
+        return $this->genero;
+    }
+
+    public function setGenero(?string $genero): self
+    {
+        $this->genero = $genero;
 
         return $this;
     }
@@ -566,60 +516,6 @@ class Variedad
     public function setDescripcion(?string $descripcion): self
     {
         $this->descripcion = $descripcion;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|UsoVariedad[]
-     */
-    public function getUsoVariedads(): Collection
-    {
-        return $this->usoVariedads;
-    }
-
-    public function addUsoVariedad(UsoVariedad $usoVariedad): self
-    {
-        if (!$this->usoVariedads->contains($usoVariedad)) {
-            $this->usoVariedads[] = $usoVariedad;
-            $usoVariedad->setVariedad($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUsoVariedad(UsoVariedad $usoVariedad): self
-    {
-        if ($this->usoVariedads->removeElement($usoVariedad)) {
-            // set the owning side to null (unless already changed)
-            if ($usoVariedad->getVariedad() === $this) {
-                $usoVariedad->setVariedad(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getCodigo(): ?int
-    {
-        return $this->codigo;
-    }
-
-    public function setCodigo(?int $codigo): self
-    {
-        $this->codigo = $codigo;
-
-        return $this;
-    }
-
-    public function getBreveDescrPlantaCultivo(): ?string
-    {
-        return $this->breve_descr_planta_cultivo;
-    }
-
-    public function setBreveDescrPlantaCultivo(?string $breve_descr_planta_cultivo): self
-    {
-        $this->breve_descr_planta_cultivo = $breve_descr_planta_cultivo;
 
         return $this;
     }

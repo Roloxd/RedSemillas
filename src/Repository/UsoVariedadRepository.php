@@ -47,4 +47,20 @@ class UsoVariedadRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @return UsoVariedad[]
+     */
+    public function findUsoVareidad(int $uso, int $variedad): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT us.id, us.uso_id, us.variedad_id
+            FROM App\Entity\UsoVariedad us
+            WHERE us.uso_id = :uso AND us.variedad_id = :variedad'
+        )->setParameter('uso', $uso)->setParameter('variedad', $variedad);
+
+        return $query->getResult();
+    }
 }

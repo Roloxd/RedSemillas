@@ -59,7 +59,7 @@ class Variedad1Type extends AbstractType
                 'required' => false,
             ])
             ->add('breveDescrPlantaCultivo')
-            //->add('usoVariedad')
+            ->add('codigo')
             //->add('cicloYSiembras')
             // ->add('especie')
         ;
