@@ -177,7 +177,8 @@ class VariedadController extends AbstractController
                 if($variedad2 == null){
                     $variedad->setCodigo($datos["codigo"]);
                 } else {
-                    //Si existe una variedad mostrar error.
+                    //Si existe ya una Variedad con ese Codigo, mostrar error
+
                 }
             } else if (empty($datos["codigo"])) {
                 $variedades = $this->getDoctrine()
@@ -269,8 +270,7 @@ class VariedadController extends AbstractController
                         $usoVariedad->setVariedad($variedad);
                         $usoVariedad->setUso($uso);
 
-                        
-                        if(preg_match('/Otro usos/', $uso->getTipo())) { 
+                        if(preg_match('/Otro uso/', $uso->getTipo())) { 
                             for($i = 0; $i < count($descripcionUsos); $i++) {
                                 if($value == $usos[$i]){
                                     if( isset($datos[$descripcionUsos[$i]]) ) {
@@ -428,7 +428,11 @@ class VariedadController extends AbstractController
 
         $usos = null;
         foreach($variedad->getUsoVariedads()->getValues() as $usoVariedad){
-            $usos[$usoVariedad->getUso()->getUso()][] = $usoVariedad->getUso()->getId();
+            $usos[$usoVariedad->getUso()->getUso()]['id'][] = $usoVariedad->getUso()->getId();
+            
+            if(!empty($usoVariedad->getDescripcion())) {
+                $usos[$usoVariedad->getUso()->getUso()]['descripcion'] = $usoVariedad->getDescripcion();
+            }
         }
 
         $response = new Response();
@@ -571,6 +575,7 @@ class VariedadController extends AbstractController
             $decimal = ['marcoA', 'marcoB', 'densidad'];
             $entity = ['especie'];
             $usos = ['usoAlimenHumana', 'usoAlimenAnimal', 'usoMedicinales', 'usoVeterinarios', 'usoToxicNocivo', 'usoCombustible', 'usoConstruccion', 'usoArtesania', 'usoMedioambientales', 'usoOrnamentales', 'usoSociales'];
+            $descripcionUsos = ['variedad1_usoAlimenHumana_descripcion', 'variedad1_usoAlimenAnimal_descripcion', 'variedad1_usoMedicinales_descripcion', 'variedad1_usoVeterinarios_descripcion', 'variedad1_usoToxicNocivo_descripcion', 'variedad1_usoCombustible_descripcion', 'variedad1_usoConstruccion_descripcion', 'variedad1_usoArtesania_descripcion', 'variedad1_usoMedioambientales_descripcion', 'variedad1_usoOrnamentales_descripcion', 'variedad1_usoSociales_descripcion'];
             
             foreach($entero as $value){
                 if($datos[$value] == "" || empty($datos[$value])){
@@ -666,6 +671,15 @@ class VariedadController extends AbstractController
                 $usoVariedad->setVariedad($variedad);
                 $usoVariedad->setUso($uso);
 
+                if(preg_match('/Otro uso/', $uso->getTipo())) { 
+                    for($i = 0; $i < count($descripcionUsos); $i++) {
+                        if( isset($datos[$descripcionUsos[$i]]) ) {
+                            dump($descripcionUsos[$i]);
+                            $usoVariedad->setDescripcion($datos[$descripcionUsos[$i]]);
+                        }
+                    }
+                }
+
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($usoVariedad);
                 $entityManager->flush();
@@ -677,17 +691,19 @@ class VariedadController extends AbstractController
             foreach ($arrayIdUsoVariedades as $id) {
                 if(!in_array($id, $arrayIdUsos)) {
 
-                    $uso = $this->getDoctrine()
+                    $idUsoVariedad = $this->getDoctrine()
                         ->getRepository(UsoVariedad::class)
                         ->findUsoVareidad($id, $variedad->getId());
 
 
-                    //Eliminar UsoVariedad y no Uso
-                    dump($uso); exit;
+                    //Obtenemos el registro y lo eliminamos
+                    $usoVariedad = $this->getDoctrine()
+                        ->getRepository(UsoVariedad::class)
+                        ->find($idUsoVariedad[0]['id']);
 
-                    // $entityManager = $this->getDoctrine()->getManager();
-                    // $entityManager->remove($uso);
-                    // $entityManager->flush();
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->remove($usoVariedad);
+                    $entityManager->flush();
                 }
             }
 

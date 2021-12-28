@@ -56,9 +56,10 @@ class UsoVariedadRepository extends ServiceEntityRepository
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQuery(
-            'SELECT us.id, us.uso_id, us.variedad_id
+            'SELECT us.id
             FROM App\Entity\UsoVariedad us
-            WHERE us.uso_id = :uso AND us.variedad_id = :variedad'
+            WHERE us.uso = :uso 
+            AND us.variedad = :variedad'
         )->setParameter('uso', $uso)->setParameter('variedad', $variedad);
 
         return $query->getResult();

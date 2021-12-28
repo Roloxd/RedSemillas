@@ -562,43 +562,86 @@ function selectUsos(){
             var respuesta = JSON.parse(this.response);
 
             Object.values(respuesta).forEach(usos => {
-
                 if(usos != null) {
                     for(const [key, value] of Object.entries(usos)) {
 
                         switch (key) {
                             case 'Alimentación humana':
-                                seleccionarUsos(listaAlimenHumana.children, value);
+                                if(value['descripcion'] === undefined) {
+                                    seleccionarUsos(listaAlimenHumana.children, value['id']);
+                                } else {
+                                    seleccionarUsos(listaAlimenHumana.children, value['id'], value['descripcion']);
+                                }
                                 break;
                             case 'Alimentación animal':
-                                seleccionarUsos(listaAlimenAnimal.children, value);
+                                if(value['descripcion'] === undefined) {
+                                    seleccionarUsos(listaAlimenAnimal.children, value['id']);
+                                } else {
+                                    seleccionarUsos(listaAlimenAnimal.children, value['id'], value['descripcion']);
+                                }
                                 break;
                             case 'Medicinales':
-                                seleccionarUsos(listaMedicinales.children, value);
+                                if(value['descripcion'] === undefined) {
+                                    seleccionarUsos(listaMedicinales.children, value['id']);
+                                } else {
+                                    seleccionarUsos(listaMedicinales.children, value['id'], value['descripcion']);
+                                }
                                 break;
-                            case 'Veterinarios':
-                                seleccionarUsos(listaVeterinarios.children, value);
+                            case 'Veterinarios': //añadir cambios
+                                if(value['descripcion'] === undefined) {
+                                    seleccionarUsos(listaVeterinarios.children, value['id']);
+                                } else {
+                                    seleccionarUsos(listaVeterinarios.children, value['id'], value['descripcion']);
+                                }
                                 break;
                             case 'Tóxico y nocivo':
-                                seleccionarUsos(listaToxicNocivo.children, value);
+                                if(value['descripcion'] === undefined) {
+                                    seleccionarUsos(listaToxicNocivo.children, value['id']);
+                                } else {
+                                    seleccionarUsos(listaToxicNocivo.children, value['id'], value['descripcion']);
+                                }
                                 break;
                             case 'Combustible':
-                                seleccionarUsos(listaCombustible.children, value);
+                                if(value['descripcion'] === undefined) {
+                                    seleccionarUsos(listaCombustible.children, value['id']);
+                                } else {
+                                    seleccionarUsos(listaCombustible.children, value['id'], value['descripcion']);
+                                }
                                 break;
                             case 'Construcción':
-                                seleccionarUsos(listaConstruccion.children, value);
+                                if(value['descripcion'] === undefined) {
+                                    seleccionarUsos(listaConstruccion.children, value['id']);
+                                } else {
+                                    seleccionarUsos(listaConstruccion.children, value['id'], value['descripcion']);
+                                }
                                 break;
                             case 'Artesanía o industria':
-                                seleccionarUsos(listaArtesania.children, value);
+                                if(value['descripcion'] === undefined) {
+                                    seleccionarUsos(listaArtesania.children, value['id']);
+                                } else {
+                                    seleccionarUsos(listaArtesania.children, value['id'], value['descripcion']);
+                                }
                                 break;
                             case 'Medioambientales':
-                                seleccionarUsos(listaMedioambientales.children, value);
+                                if(value['descripcion'] === undefined) {
+                                    seleccionarUsos(listaMedioambientales.children, value['id']);
+                                } else {
+                                    seleccionarUsos(listaMedioambientales.children, value['id'], value['descripcion']);
+                                }
                                 break;
                             case 'Ornamentales':
-                                seleccionarUsos(listaOrnamentales.children, value);
+                                if(value['descripcion'] === undefined) {
+                                    seleccionarUsos(listaOrnamentales.children, value['id']);
+                                } else {
+                                    seleccionarUsos(listaOrnamentales.children, value['id'], value['descripcion']);
+                                }
                                 break;
                             case 'Sociales, simbólicos y rituales':
-                                seleccionarUsos(listaSociales.children, value);
+                                if(value['descripcion'] === undefined) {
+                                    seleccionarUsos(listaSociales.children, value['id']);
+                                } else {
+                                    seleccionarUsos(listaSociales.children, value['id'], value['descripcion']);
+                                }
                                 break;
                             default:
                                 break;
@@ -618,12 +661,27 @@ function selectUsos(){
     return false;
 }
 
-function seleccionarUsos(childrens, value) {
+function seleccionarUsos(childrens, value, descripcion = null) {
     Object.values(childrens).forEach( option => {
-
         value.forEach( id => { 
             if(option.value == id) { 
                 option.selected = 1;
+
+                if(option.text.includes('Otro')){
+                    label = document.createElement('LABEL');
+                    label.setAttribute('for', option.parentNode.id + '_descripcion');
+                    label.setAttribute('id', option.parentNode.id + '_label');
+                    label.innerText = 'Otros tipos de usos';
+
+                    option.parentNode.parentNode.appendChild(label);
+
+                    textarea = document.createElement('TEXTAREA');
+                    textarea.setAttribute('id', option.parentNode.id + '_descripcion');
+                    textarea.setAttribute('class', 'form-control');
+                    textarea.setAttribute('name', 'variedad1[' + option.parentNode.id + '_descripcion]');
+                    textarea.innerText = descripcion;
+                    option.parentNode.parentNode.appendChild(textarea);
+                }
             }
         });
         
