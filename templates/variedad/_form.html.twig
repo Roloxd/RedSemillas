@@ -87,16 +87,6 @@
                     {{ form_widget(form.conocimientosTradicionales, {'attr': {'class': 'form-control'}}) }}
                   </div>
                   <div class="form-group">
-                    <label for="variedad1_propagacion">Propagación, selección y mejora</label>
-                    <a href="#" data-toggle="tooltip" title="Descripción del manejo para la propagación, selección y mejora del cultivo.">?</a>
-                    {{ form_widget(form.propagacion, {'attr': {'class': 'form-control'}}) }}
-                  </div>
-                  <div class="form-group">
-                    <label for="variedad1_otros">Otros aspectos</label>
-                    <a href="#" data-toggle="tooltip" title="Descripción de los aspectos más significativos para la propagación, selección y mejora del cultivo.">?</a>
-                    {{ form_widget(form.otros, {'attr': {'class': 'form-control'}}) }}
-                  </div>
-                  <div class="form-group">
                     <label for="variedad1_observaciones">Observaciones</label>
                     <a href="#" data-toggle="tooltip" title="Para añadir notas o para completar datos.">?</a>
                     {{ form_widget(form.observaciones, {'attr': {'class': 'form-control'}}) }}
@@ -121,45 +111,66 @@
           <!-- right column -->
           <div id="columna-right" class="col-md-6">
             <!-- general form elements -->
-            <div class="card card-info">
+            <!-- card -->
+            <div class="card card-purple collapsed-card">
               <div class="card-header">
-                <h3 id="ancla-generico" class="card-title">Genérico</h3>
+                <h3 id="ancla-agroOrga" class="card-title">Agronómica y Organolépticas</h3>
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                    <i class="fas fa-minus"></i>
+                    <i class="fas fa-plus"></i>
                   </button>
                 </div>
               </div>
               <!-- /.card-header -->
-              <div class="card-body">
+              <div class="card-body" style="display: none;">
                 <div class="form-group">
-                  <label for="variedad1_tipoSiembra">Tipo de siembra</label>
-                  <a href="#" data-toggle="tooltip" title="Tipo de siembra.">?</a>
-                  {{ form_widget(form.tipoSiembra, {'attr': {'class': 'form-control'}}) }}
+                  <label for="variedad1_cArgonomicas">Características Agronómicas</label>
+                  <a href="#" data-toggle="tooltip" title="Descripción de las características agronómicas más notables.">?</a>
+                  {{ form_widget(form.cArgonomicas, {'attr': {'class': 'form-control'}}) }}
                 </div>
                 <div class="form-group">
-                  <label for="variedad1_diasSemillero">Tiempo de semillero</label>
-                  <a href="#" data-toggle="tooltip" title="Tiempo de semillero. Expresado en días.">?</a>
-                  {{ form_widget(form.diasSemillero, {'attr': {'class': 'form-control'}}) }}
+                  <label for="variedad1_cOrganolepticas">Características Organolépticas</label>
+                  <a href="#" data-toggle="tooltip" title="Descripción de las características orgnolépticas más notables.">?</a>
+                  {{ form_widget(form.cOrganolepticas, {'attr': {'class': 'form-control'}}) }}
                 </div>
-                <div class="form-group">
-                  <label for="variedad1_polinizacion">Tipo de polinización</label>
-                  <a href="#" data-toggle="tooltip" title="Tipo de polinización más frecuente.">?</a>
-                  {{ form_widget(form.polinizacion, {'attr': {'class': 'form-control'}}) }}
-                </div>
-                <div class="form-group">
-                  <label for="variedad1_viabilidadMin">Viabilidad Min (Años)</label>
-                  <a href="#" data-toggle="tooltip" title="Tiempo mínimo que pueden vivir las semillas en condiciones ambientales de 25 ºC.">?</a>
-                  {{ form_widget(form.viabilidadMin, {'attr': {'class': 'form-control'}}) }}
-                </div>
-                <div class="form-group">
-                  <label for="variedad1_viabilidadMax">Viabilidad Max (Años)</label>
-                  <a href="#" data-toggle="tooltip" title="Tiempo máximo que pueden vivir las semillas en condiciones ambientales de 25 ºC.">?</a>
-                  {{ form_widget(form.viabilidadMax, {'attr': {'class': 'form-control'}}) }}
+              </div>
+            </div>
+            <!-- /.card -->
+            <!-- card -->
+            <div class="card card-success collapsed-card">
+              <div class="card-header">
+                <h3 id="ancla-caracteristicas" class="card-title">Descripción morfológica</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-plus"></i>
+                  </button>
                 </div>
               </div>
               <!-- /.card-header -->
+              <div class="card-body" style="display: none;">
+                <div class="form-group">
+                  <label for="variedad1_cmPlanta">Características morfológicas Planta</label>
+                  <a href="#" data-toggle="tooltip" title="Descripción de las características más notables de la planta.">?</a>
+                  {{ form_widget(form.cmPlanta, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="variedad1_cmFlor">Características morfológicas Flor</label>
+                  <a href="#" data-toggle="tooltip" title="Descripción de las características más notables de la flor.">?</a>
+                  {{ form_widget(form.cmFlor, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="variedad1_cmFruto">Características morfológicas Fruto</label>
+                  <a href="#" data-toggle="tooltip" title="Descripción de las características más notables del fruto.">?</a>
+                  {{ form_widget(form.cmFruto, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="variedad1_cmSemilla">Características morfológicas Semilla</label>
+                  <a href="#" data-toggle="tooltip" title="Descripción de las características más notables de la semilla.">?</a>
+                  {{ form_widget(form.cmSemilla, {'attr': {'class': 'form-control'}}) }}
+                </div>
+              </div>
             </div>
+            <!-- /.card -->
             <div class="card card-secondary collapsed-card">
               <div class="card-header">
                 <h3 id="ancla-especifico" class="card-title">Específico</h3>
@@ -199,10 +210,9 @@
               </div>
               <!-- /.card-header -->
             </div>
-            <!-- card -->
-            <div class="card card-success collapsed-card">
+            <div class="card card-info collapsed-card">
               <div class="card-header">
-                <h3 id="ancla-caracteristicas" class="card-title">Descripción morfológica</h3>
+                <h3 id="ancla-generico" class="card-title">Genérico</h3>
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                     <i class="fas fa-plus"></i>
@@ -210,34 +220,39 @@
                 </div>
               </div>
               <!-- /.card-header -->
-              <div class="card-body" style="display: none;">
+              <div class="card-body">
                 <div class="form-group">
-                  <label for="variedad1_cmPlanta">Características morfológicas Planta</label>
-                  <a href="#" data-toggle="tooltip" title="Descripción de las características más notables de la planta.">?</a>
-                  {{ form_widget(form.cmPlanta, {'attr': {'class': 'form-control'}}) }}
+                  <label for="variedad1_tipoSiembra">Tipo de siembra</label>
+                  <a href="#" data-toggle="tooltip" title="Tipo de siembra.">?</a>
+                  {{ form_widget(form.tipoSiembra, {'attr': {'class': 'form-control'}}) }}
                 </div>
                 <div class="form-group">
-                  <label for="variedad1_cmFlor">Características morfológicas Flor</label>
-                  <a href="#" data-toggle="tooltip" title="Descripción de las características más notables de la flor.">?</a>
-                  {{ form_widget(form.cmFlor, {'attr': {'class': 'form-control'}}) }}
+                  <label for="variedad1_diasSemillero">Tiempo de semillero</label>
+                  <a href="#" data-toggle="tooltip" title="Tiempo de semillero. Expresado en días.">?</a>
+                  {{ form_widget(form.diasSemillero, {'attr': {'class': 'form-control'}}) }}
                 </div>
                 <div class="form-group">
-                  <label for="variedad1_cmFruto">Características morfológicas Fruto</label>
-                  <a href="#" data-toggle="tooltip" title="Descripción de las características más notables del fruto.">?</a>
-                  {{ form_widget(form.cmFruto, {'attr': {'class': 'form-control'}}) }}
+                  <label for="variedad1_polinizacion">Tipo de polinización</label>
+                  <a href="#" data-toggle="tooltip" title="Tipo de polinización más frecuente.">?</a>
+                  {{ form_widget(form.polinizacion, {'attr': {'class': 'form-control'}}) }}
                 </div>
                 <div class="form-group">
-                  <label for="variedad1_cmSemilla">Características morfológicas Semilla</label>
-                  <a href="#" data-toggle="tooltip" title="Descripción de las características más notables de la semilla.">?</a>
-                  {{ form_widget(form.cmSemilla, {'attr': {'class': 'form-control'}}) }}
+                  <label for="variedad1_viabilidadMin">Viabilidad Min (Años)</label>
+                  <a href="#" data-toggle="tooltip" title="Tiempo mínimo que pueden vivir las semillas en condiciones ambientales de 25 ºC.">?</a>
+                  {{ form_widget(form.viabilidadMin, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="variedad1_viabilidadMax">Viabilidad Max (Años)</label>
+                  <a href="#" data-toggle="tooltip" title="Tiempo máximo que pueden vivir las semillas en condiciones ambientales de 25 ºC.">?</a>
+                  {{ form_widget(form.viabilidadMax, {'attr': {'class': 'form-control'}}) }}
                 </div>
               </div>
+              <!-- /.card-header -->
             </div>
-            <!-- /.card -->
             <!-- card -->
-            <div class="card card-purple collapsed-card">
+            <div class="card card-warning collapsed-card">
               <div class="card-header">
-                <h3 id="ancla-agroOrga" class="card-title">Agronómica y Organolépticas</h3>
+                <h3 id="ancla-usos" class="card-title">Manejo</h3>
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                     <i class="fas fa-plus"></i>
@@ -246,16 +261,56 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body" style="display: none;">
-                <div class="form-group">
-                  <label for="variedad1_cArgonomicas">Características Agronómicas</label>
-                  <a href="#" data-toggle="tooltip" title="Descripción de las características agronómicas más notables.">?</a>
-                  {{ form_widget(form.cArgonomicas, {'attr': {'class': 'form-control'}}) }}
-                </div>
-                <div class="form-group">
-                  <label for="variedad1_cOrganolepticas">Características Organolépticas</label>
-                  <a href="#" data-toggle="tooltip" title="Descripción de las características orgnolépticas más notables.">?</a>
-                  {{ form_widget(form.cOrganolepticas, {'attr': {'class': 'form-control'}}) }}
-                </div>
+                  <div class="form-group">
+                    <label for="variedad1_manejoCultivo">Manejo del cultivo</label>
+                    <a href="#" data-toggle="tooltip" title="Descripción manejo del cultivo.">?</a>
+                    {{ form_widget(form.manejoCultivo, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="variedad1_manejoSiembraPlantacion">Manejo de siembra o plantación</label>
+                    <a href="#" data-toggle="tooltip" title="Descripción manejo siembra o plantación.">?</a>
+                    {{ form_widget(form.manejoSiembraPlantacion, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="variedad1_manejoSueloDesherbado">Manejo del suelo y desherbado</label>
+                    <a href="#" data-toggle="tooltip" title="Descripción manejo del suelo y desherbado.">?</a>
+                    {{ form_widget(form.manejoSueloDesherbado, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="variedad1_manejoAsociacionRotacionCultivos">Manejo de asociación y rotación de cultivos</label>
+                    <a href="#" data-toggle="tooltip" title="Descripción manejo del cultivo.">?</a>
+                    {{ form_widget(form.manejoAsociacionRotacionCultivos, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="variedad1_manejoPodaEntutorado">Manejo de poda y entutorado</label>
+                    <a href="#" data-toggle="tooltip" title="Descripción manejo de poda y entutorado.">?</a>
+                    {{ form_widget(form.manejoPodaEntutorado, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="variedad1_manejoAbonadoRiego">Manejo de abonado y riego</label>
+                    <a href="#" data-toggle="tooltip" title="Descripción manejo de abonado y riego.">?</a>
+                    {{ form_widget(form.manejoAbonadoRiego, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="variedad1_manejoPlagasEnfermedades">Manejo de plagas y enfermedades</label>
+                    <a href="#" data-toggle="tooltip" title="Descripción manejo de plagas y enfermedades.">?</a>
+                    {{ form_widget(form.manejoPlagasEnfermedades, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="variedad1_manejoCosechaConservacion">Manejo de cosecha y conservación</label>
+                    <a href="#" data-toggle="tooltip" title="Descripción manejo de cosecha y conservación.">?</a>
+                    {{ form_widget(form.manejoCosechaConservacion, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="variedad1_propagacion">Propagación, selección y mejora</label>
+                    <a href="#" data-toggle="tooltip" title="Descripción del manejo para la propagación, selección y mejora del cultivo.">?</a>
+                    {{ form_widget(form.propagacion, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    <label for="variedad1_otros">Otros aspectos</label>
+                    <a href="#" data-toggle="tooltip" title="Descripción de los aspectos más significativos para la propagación, selección y mejora del cultivo.">?</a>
+                    {{ form_widget(form.otros, {'attr': {'class': 'form-control'}}) }}
+                  </div>
               </div>
             </div>
             <!-- /.card -->

@@ -707,6 +707,36 @@ class VariedadController extends AbstractController
                 }
             }
 
+            //Editar descripcion Otro usos
+            foreach($arrayIdUsos as $idUso){
+
+                $uso = $this->getDoctrine()
+                    ->getRepository(Uso::class)
+                    ->find($idUso);
+
+                if(preg_match('/Otro uso/', $uso->getTipo())) {
+
+                    $idUsoVariedad = $this->getDoctrine()
+                        ->getRepository(UsoVariedad::class)
+                        ->findUsoVareidad($idUso, $variedad->getId());
+                    
+                    $usoVariedad = $this->getDoctrine()
+                        ->getRepository(UsoVariedad::class)
+                        ->find($idUsoVariedad[0]['id']);
+
+                    for($i = 0; $i < count($descripcionUsos); $i++) {
+                        if(isset($datos[$descripcionUsos[$i]]) && !empty($datos[$descripcionUsos[$i]])){
+                            $usoVariedad->setDescripcion($datos[$descripcionUsos[$i]]);
+                        }
+                    }
+
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->persist($usoVariedad);
+                    $entityManager->flush();
+                }
+            }
+
+
             $this->getDoctrine()->getManager()->flush();
 
             $datosCiclosYSiembras = $request->request->get('ciclo_y_siembra');

@@ -80,7 +80,8 @@ class SearchType extends AbstractType
                 'mapped' => true,
                 'row_attr' => ['class'=>$row],
 				'required'=>false
-            ])    
+            ])
+            //Añadir mas campos, y que funcionen
             /*
             ->add('polinizacion', TextType::class,
                 [   'label' => false,
@@ -111,8 +112,7 @@ class SearchType extends AbstractType
                 ['label'=> 'Buscar',
                     'row_attr' => ['class'=>$row]
             ]
-            )
-                
+            )  
         ;
     }
 

@@ -60,6 +60,39 @@ class Variedad1Type extends AbstractType
             ])
             ->add('breveDescrPlantaCultivo')
             ->add('codigo')
+            ->add('manejoCultivo', TextareaType::class, [
+                'attr' => ['class' => 'tinymce'],
+                'required' => false,
+            ])
+            ->add('manejoSiembraPlantacion', TextareaType::class, [
+                'attr' => ['class' => 'tinymce'],
+                'required' => false,
+            ])
+            ->add('manejoSueloDesherbado', TextareaType::class, [
+                'attr' => ['class' => 'tinymce'],
+                'required' => false,
+            ])
+            ->add('manejoAsociacionRotacionCultivos', TextareaType::class, [
+                'attr' => ['class' => 'tinymce'],
+                'required' => false,
+            ])
+            ->add('manejoPodaEntutorado', TextareaType::class, [
+                'attr' => ['class' => 'tinymce'],
+                'required' => false,
+            ])
+            ->add('manejoAbonadoRiego', TextareaType::class, [
+                'attr' => ['class' => 'tinymce'],
+                'required' => false,
+            ])
+            ->add('manejoPlagasEnfermedades', TextareaType::class, [
+                'attr' => ['class' => 'tinymce'],
+                'required' => false,
+            ])
+            ->add('manejoCosechaConservacion', TextareaType::class, [
+                'attr' => ['class' => 'tinymce'],
+                'required' => false,
+            ])
+            
             //->add('cicloYSiembras')
             // ->add('especie')
         ;

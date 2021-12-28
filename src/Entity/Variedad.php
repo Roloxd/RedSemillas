@@ -207,6 +207,46 @@ class Variedad
      */
     private $breve_descr_planta_cultivo;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $manejo_cultivo;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $manejo_siembra_plantacion;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $manejo_suelo_desherbado;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $manejo_asociacion_rotacion_cultivos;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $manejo_poda_entutorado;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $manejo_abonado_riego;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $manejo_plagas_enfermedades;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $manejo_cosecha_conservacion;
+
     public function __construct()
     {
         $this->cicloYSiembras = new ArrayCollection();
@@ -620,6 +660,102 @@ class Variedad
     public function setBreveDescrPlantaCultivo(?string $breve_descr_planta_cultivo): self
     {
         $this->breve_descr_planta_cultivo = $breve_descr_planta_cultivo;
+
+        return $this;
+    }
+
+    public function getManejoCultivo(): ?string
+    {
+        return $this->manejo_cultivo;
+    }
+
+    public function setManejoCultivo(?string $manejo_cultivo): self
+    {
+        $this->manejo_cultivo = $manejo_cultivo;
+
+        return $this;
+    }
+
+    public function getManejoSiembraPlantacion(): ?string
+    {
+        return $this->manejo_siembra_plantacion;
+    }
+
+    public function setManejoSiembraPlantacion(?string $manejo_siembra_plantacion): self
+    {
+        $this->manejo_siembra_plantacion = $manejo_siembra_plantacion;
+
+        return $this;
+    }
+
+    public function getManejoSueloDesherbado(): ?string
+    {
+        return $this->manejo_suelo_desherbado;
+    }
+
+    public function setManejoSueloDesherbado(?string $manejo_suelo_desherbado): self
+    {
+        $this->manejo_suelo_desherbado = $manejo_suelo_desherbado;
+
+        return $this;
+    }
+
+    public function getManejoAsociacionRotacionCultivos(): ?string
+    {
+        return $this->manejo_asociacion_rotacion_cultivos;
+    }
+
+    public function setManejoAsociacionRotacionCultivos(?string $manejo_asociacion_rotacion_cultivos): self
+    {
+        $this->manejo_asociacion_rotacion_cultivos = $manejo_asociacion_rotacion_cultivos;
+
+        return $this;
+    }
+
+    public function getManejoPodaEntutorado(): ?string
+    {
+        return $this->manejo_poda_entutorado;
+    }
+
+    public function setManejoPodaEntutorado(?string $manejo_poda_entutorado): self
+    {
+        $this->manejo_poda_entutorado = $manejo_poda_entutorado;
+
+        return $this;
+    }
+
+    public function getManejoAbonadoRiego(): ?string
+    {
+        return $this->manejo_abonado_riego;
+    }
+
+    public function setManejoAbonadoRiego(?string $manejo_abonado_riego): self
+    {
+        $this->manejo_abonado_riego = $manejo_abonado_riego;
+
+        return $this;
+    }
+
+    public function getManejoPlagasEnfermedades(): ?string
+    {
+        return $this->manejo_plagas_enfermedades;
+    }
+
+    public function setManejoPlagasEnfermedades(?string $manejo_plagas_enfermedades): self
+    {
+        $this->manejo_plagas_enfermedades = $manejo_plagas_enfermedades;
+
+        return $this;
+    }
+
+    public function getManejoCosechaConservacion(): ?string
+    {
+        return $this->manejo_cosecha_conservacion;
+    }
+
+    public function setManejoCosechaConservacion(?string $manejo_cosecha_conservacion): self
+    {
+        $this->manejo_cosecha_conservacion = $manejo_cosecha_conservacion;
 
         return $this;
     }
