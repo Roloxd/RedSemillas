@@ -63,4 +63,25 @@ class VariedadRepository extends ServiceEntityRepository
 
         return $query->getResult();
     }
+
+    /**
+     * @return Variedad[]
+     */
+    public function whereEspecies(array $idEspecies): array
+    {
+        $arrayIdsVariedades = [];
+        $entityManager = $this->getEntityManager();
+
+        foreach($idEspecies as $idEspecie){
+            $query = $entityManager->createQuery(
+                'SELECT v.id
+                FROM App\Entity\Variedad v
+                WHERE v.especie = :especie'
+            )->setParameter('especie', $idEspecie);
+
+            $arrayIdsVariedades[] = $query->getResult();
+        }
+
+        return $arrayIdsVariedades;
+    }
 }

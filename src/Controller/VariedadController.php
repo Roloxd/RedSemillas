@@ -36,6 +36,7 @@ class VariedadController extends AbstractController
         $generos = null;
         $familias = null;
         $cicloysiembra = null;
+        $arrayCicloysiembra = null;
 
         foreach($variedadesDB as $variedadDB){
             if(!empty($variedadDB->getEspecie())){
@@ -192,6 +193,8 @@ class VariedadController extends AbstractController
                     }
 
                     $codigo = max($codigos) + 1;
+                } else {
+                    $codigo = 1;
                 }
                 
                 $variedad->setCodigo($codigo);

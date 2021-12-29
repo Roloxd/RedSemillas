@@ -22,7 +22,9 @@
           <a class="btn btn-success" href="#ancla-caracteristicas">Descripción morfológica</a>
           <a class="btn bg-gradient-purple bg-purple" href="#ancla-agroOrga">Agronómica y Organolépticas</a>
           <a class="btn bg-gradient-olive bg-olive" href="#ancla-usos">Usos</a>
-          
+          {% if text_form == 'Editar Variedad' %}
+            {{ include('variedad/_delete_form.html.twig') }}
+          {% endif %}
         </div> <!-- /Anclas -->
       </div><!-- /.container-fluid -->
     </section>

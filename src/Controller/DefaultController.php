@@ -39,6 +39,11 @@ class DefaultController extends AbstractController
      */
     public function catalogo(string $imgDir): Response
     {
+        $especies = null;
+        $familias = null;
+        $generos = null;
+        $subtaxons = null;
+        
         $variedadesDB = $this->getDoctrine()
             ->getRepository(Variedad::class)
             ->findAll();

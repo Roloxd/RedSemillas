@@ -167,4 +167,20 @@ class TaxonRepository extends ServiceEntityRepository
 
         return $query->getResult();
     }
+
+    /**
+     * @return Taxon[]
+     */
+    public function findIdWherePadre(int $id): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT t.id
+            FROM App\Entity\Taxon t
+            WHERE t.padre = :padre'
+        )->setParameter('padre', $id);
+
+        return $query->getResult();
+    }
 }
