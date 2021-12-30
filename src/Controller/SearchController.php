@@ -156,6 +156,9 @@ class SearchController extends AbstractController
 				}
 				
 				if(!empty($idTaxons)) {
+					//Obtenemos un array, con valores unicos
+					$idTaxons = array_unique($idTaxons);
+
 					$arrayIdsVariedades = $this->getDoctrine()
 						->getRepository(Variedad::class)
 						->whereEspecies($idTaxons);
@@ -170,7 +173,6 @@ class SearchController extends AbstractController
 						}
 					}
 				}
-				//Arreglas busquedas, se duplican los resultados
 			}
 			
 			// if($post['familia']){
