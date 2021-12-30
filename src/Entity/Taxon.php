@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TaxonRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -14,6 +16,7 @@ class Taxon
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @ORM\OneToMany(targetEntity=Taxon::class, mappedBy="padre")
      */
     private $id;
 
@@ -26,11 +29,6 @@ class Taxon
      * @ORM\Column(type="string", length=60, nullable=true)
      */
     private $nombre;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $padre;
 
     /**
      * @ORM\Column(type="string", length=60, nullable=true)
@@ -62,6 +60,16 @@ class Taxon
      */
     private $variedad;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Taxon::class, inversedBy="id")
+     */
+    private $padre;
+
+    // public function __construct()
+    // {
+    //     $this->Taxon = new ArrayCollection();
+    // }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -87,18 +95,6 @@ class Taxon
     public function setNombre(?string $nombre): self
     {
         $this->nombre = $nombre;
-
-        return $this;
-    }
-
-    public function getPadre(): ?int
-    {
-        return $this->padre;
-    }
-
-    public function setPadre(?int $padre): self
-    {
-        $this->padre = $padre;
 
         return $this;
     }
@@ -185,9 +181,28 @@ class Taxon
         return $this;
     }
 
-    // public function __toString(): ?string
+    // public function __toString(): string
     // {
     //     return $this->id;
     // }
 
+    public function getPadre(): ?self
+    {
+        return $this->padre;
+    }
+
+    public function setPadre(?self $padre): self
+    {
+        $this->padre = $padre;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|self[]
+     */
+    public function getTaxon(): Collection
+    {
+        return $this->id;
+    }
 }

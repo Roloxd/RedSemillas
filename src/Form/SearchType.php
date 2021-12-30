@@ -37,7 +37,7 @@ class SearchType extends AbstractType
         
             ->add('familia', TextType::class,
                 [   'label' => false,
-                     'attr' =>['placeholder'=> 'familia'],
+                     'attr' =>['placeholder'=> 'Familia'],
                     'row_attr' => ['class'=>$row],
                     // 'help' => 'Esto es una ayuda',
                     'required'=>false]

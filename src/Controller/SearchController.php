@@ -85,95 +85,22 @@ class SearchController extends AbstractController
 			// 	->getRepository(Variedad::class)
 			// 	->findSearch($post);
 
-			// Search Variedad [Nombre Local o Comun]
+			// Search [Nombre Local/Comun o Polinizacion]
 			$qb = $this->getDoctrine()
 				->getRepository(Variedad::class)
 				->createQueryBuilder('v')
+				->join('v.especie', 'e')
+				->join('e.padre', 'g')
+				->join('g.padre', 'f')
 					->where('v.nombreLocal LIKE :busqueda')
 					->orWhere('v.nombreComun LIKE :busqueda')
 					->orWhere('v.polinizacion LIKE :busqueda')
+					->orWhere('e.nombre LIKE :busqueda') //Especie
+					->orWhere('g.nombre LIKE :busqueda') //Genero
+					->orWhere('f.nombre LIKE :busqueda') //Genero
 					->setParameter('busqueda', '%'.$post['search'].'%');
 
 			$variedades = $qb->getQuery()->execute();
-
-			// Search Variedad [Familia, Genero o Especie]
-			if(empty($variedades)) {
-				$qb = $this->getDoctrine()
-					->getRepository(Taxon::class)
-					->createQueryBuilder('t')
-						->where('t.nombre LIKE :busqueda')
-						->setParameter('busqueda', '%'.$post['search'].'%');
-
-				$taxons = $qb->getQuery()->execute();
-
-				$idTaxons = [];
-				foreach($taxons as $taxon){
-					if($taxon->getTipo() == "Especie") {
-
-						$idTaxons[] = $taxon->getId();
-
-					}else {
-						$arrayIds[] = $this->getDoctrine()
-							->getRepository(Taxon::class)
-							->findIdWherePadre($taxon->getId());
-
-						if($taxon->getTipo() == "Genero"){
-							$tipo = "genero";
-						} else if($taxon->getTipo() == "Familia") {
-							$tipo = "familia";
-						}
-					}
-				}
-
-				if(isset($tipo)) {
-					if($tipo == "genero") {
-						if(isset($arrayIds) && !empty($arrayIds)) {
-							foreach($arrayIds as $idsEspecies){
-								foreach($idsEspecies as $id) {
-									$idTaxons[] = $id['id'];
-								}
-							}
-						}
-					}
-	
-					if($tipo == "familia") {
-						if(isset($arrayIds) && !empty($arrayIds)) {
-							foreach($arrayIds as $idsGeneros){
-								foreach($idsGeneros as $id) {
-									$arrayIdsEspecies[] = $this->getDoctrine()
-										->getRepository(Taxon::class)
-										->findIdWherePadre($id['id']);
-								}
-							}
-						}
-						
-						foreach($arrayIdsEspecies as $idsEspecies) {
-							foreach($idsEspecies as $id) {
-								$idTaxons[] = $id['id'];
-							}
-						}
-					}
-				}
-				
-				if(!empty($idTaxons)) {
-					//Obtenemos un array, con valores unicos
-					$idTaxons = array_unique($idTaxons);
-
-					$arrayIdsVariedades = $this->getDoctrine()
-						->getRepository(Variedad::class)
-						->whereEspecies($idTaxons);
-	
-					foreach($arrayIdsVariedades as $idsVariedades){
-						foreach($idsVariedades as $idVariedad) {
-							$variedad = $this->getDoctrine()
-								->getRepository(Variedad::class)
-								->find($idVariedad);
-	
-							$variedades[] = $variedad;
-						}
-					}
-				}
-			}
 			
 			// if($post['familia']){
 			// 	$qb->andWhere('o.familia LIKE :familia')
