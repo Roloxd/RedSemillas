@@ -31,38 +31,11 @@ class VariedadController extends AbstractController
         $variedadesDB = $this->getDoctrine()
             ->getRepository(Variedad::class)
             ->findAll();
-
-        $especies = null;
-        $generos = null;
-        $familias = null;
+            
         $cicloysiembra = null;
         $arrayCicloysiembra = null;
 
         foreach($variedadesDB as $variedadDB){
-            if(!empty($variedadDB->getEspecie())){
-                $especies[$variedadDB->getId()] = $variedadDB->getEspecie()->getNombre();
-
-                if(!empty($variedadDB->getEspecie()->getPadre())){
-                    $generoObject = $this->getDoctrine()
-                        ->getRepository(Taxon::class)
-                        ->find($variedadDB->getEspecie()->getPadre());
-
-                    $generos[$variedadDB->getId()] = $generoObject->getNombre();
-
-                    if(!empty($generoObject->getPadre())){
-                        $familiaObject = $this->getDoctrine()
-                            ->getRepository(Taxon::class)
-                            ->find($generoObject->getPadre());
-                        
-                            $familias[$variedadDB->getId()] = $familiaObject->getNombre();
-                    }
-                }
-            } else {
-                $especies[$variedadDB->getId()] = "";
-                $generos[$variedadDB->getId()] = "";
-                $familias[$variedadDB->getId()] = "";
-                $subtaxons[$variedadDB->getId()] = "";
-            }
 
             //Ciclo y Siembra de la variedad
             if(!empty($variedadDB->getCicloYSiembras()->getValues())){
@@ -148,9 +121,6 @@ class VariedadController extends AbstractController
 
         return $this->render('variedad/index.html.twig', [
             'variedades' => $variedadesDB,
-            'especies' => $especies,
-            'generos' => $generos,
-            'familias' => $familias,
             'cicloysiembra' => $arrayCicloysiembra,
         ]);
     }

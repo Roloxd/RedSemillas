@@ -39,66 +39,13 @@ class DefaultController extends AbstractController
      */
     public function catalogo(string $imgDir): Response
     {
-        $especies = null;
-        $familias = null;
-        $generos = null;
-        $subtaxons = null;
-        
         $variedadesDB = $this->getDoctrine()
             ->getRepository(Variedad::class)
             ->findAll();
 
-        foreach($variedadesDB as $variedadDB){
-
-            if(!empty($variedadDB->getEspecie())){
-                $especies[$variedadDB->getId()] = $variedadDB->getEspecie()->getNombre();
-                
-
-                if(!empty($variedadDB->getEspecie()->getSubtaxon())){
-                    $subtaxons[$variedadDB->getId()] = $variedadDB->getEspecie()->getSubtaxon();
-                } else{
-                    $subtaxons[$variedadDB->getId()] = "";
-                }
-
-                if(!empty($variedadDB->getEspecie()->getPadre())){
-                    $generoObject = $this->getDoctrine()
-                        ->getRepository(Taxon::class)
-                        ->find($variedadDB->getEspecie()->getPadre());
-
-                    $generos[$variedadDB->getId()] = $generoObject->getNombre();
-
-                    if(!empty($generoObject->getPadre())){
-                        $familiaObject = $this->getDoctrine()
-                            ->getRepository(Taxon::class)
-                            ->find($generoObject->getPadre());
-                        
-                            $familias[$variedadDB->getId()] = $familiaObject->getNombre();
-                    }
-                }
-            } else {
-                $especies[$variedadDB->getId()] = "";
-                $generos[$variedadDB->getId()] = "";
-                $familias[$variedadDB->getId()] = "";
-                $subtaxons[$variedadDB->getId()] = "";
-            }
-
-            // if(empty($variedadDB->getImagenSeleccionada())){
-            //     $imagenes[$variedadDB->getId()] = "/images/home_home_rgcs_impression.png";
-            // }else {
-            //     // $imagenes[$variedadDB->getId()] = "/uploads/img/" . $variedadDB->getImagenSeleccionada()->getImagen()->getUrl();
-            //     $imagenes[$variedadDB->getId()] = "/images/home_home_rgcs_impression.png";
-            // }
-
-            
-        }
-
         return $this->render('vista-catalogo.html.twig',[
             'variedades' => $variedadesDB,
             // 'imagenes' => $imagenes,
-            'especies' => $especies,
-            'generos' => $generos,
-            'familias' => $familias,
-            'subtaxons' => $subtaxons,
             'titulo' => 'Catálogo',
         ]);
     }

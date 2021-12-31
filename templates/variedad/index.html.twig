@@ -101,9 +101,9 @@
                         <td>{{ variedad.codigo }}</td>
                         <td data-toggle="tooltip" title="ID: {{id}} | Columna: Nombre Común" >{{ variedad.nombreComun }}</td>
                         <td data-toggle="tooltip" title="ID: {{id}} | Columna: Nombre Local" >{{ variedad.nombreLocal }}</td>
-                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Especie" >{{ especies[id] }}</td>
-                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Genero" >{{ generos[id] }}</td>
-                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Familia" >{{ familias[id] }}</td>
+                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Especie" >{% if variedad.especie is not null %}{{ variedad.especie.nombre }}{% endif %}</td>
+                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Genero" >{% if variedad.especie is not null %}{{ variedad.especie.padre.nombre }}{% endif %}</td>
+                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Familia" >{% if variedad.especie is not null %}{{ variedad.especie.padre.padre.nombre }}{% endif %}</td>
                         <td data-toggle="tooltip" title="ID: {{id}} | Columna: Descripción Planta y/o Cultivo" >{{ variedad.breveDescrPlantaCultivo }}</td>
                         <td data-toggle="tooltip" title="ID: {{id}} | Columna: Descripción" >{{ variedad.descripcion }}</td>
                         <td data-toggle="tooltip" title="ID: {{id}} | Columna: Tipo de Siembra" >{{ variedad.tipoSiembra }}</td>

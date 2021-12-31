@@ -46,12 +46,7 @@
 			{% set codigo = variedad.codigo %}
 			{% set titulo = variedad.nombreComun %}
 			{% set nombre = variedad.nombreLocal %}
-			{# {{dump(variedad)}}  Obtener especie, genero y familia#}
-			{% set imagen = asset('images/home_home_rgcs_impression.png') %}				
-			{# {% set familia = variedad.familia %}
-			{% set genero = variedad.genero %}
-			{% set especie = variedad.especie %} #}
-			{# {% set subtaxon = variedad.subtaxon %} #}
+			{% set imagen = asset('images/home_home_rgcs_impression.png') %}
 			{% set texto = variedad.descripcion %}	
 			<div id="{{id}}" class="variedad">
 			
@@ -95,10 +90,10 @@
 					</div>
 					<div class="col-12 col-md-7">
 						<div class="taxon bg-bubble">
-							<div><span class="propiedad">FAMILIA:</span><span>{{familias[id]}}</span></div>
-							<div><span class="propiedad">GÉNERO:</span><span>{{generos[id]}}</span></div>
-							<div><span class="propiedad">ESPECIE:</span><span class="text-lower">{{ especies[id] }}</span></div>
-							<div><span class="propiedad">SUBTAXÓN:</span><span class="text-lower">{{subtaxons[id]}}</span></div>
+							<div><span class="propiedad">FAMILIA:</span><span>{% if variedad.especie is not null %}{{ variedad.especie.padre.padre.nombre }}{% endif %}</span></div>
+							<div><span class="propiedad">GÉNERO:</span><span>{% if variedad.especie is not null %}{{ variedad.especie.padre.nombre }}{% endif %}</span></div>
+							<div><span class="propiedad">ESPECIE:</span><span class="text-lower">{% if variedad.especie is not null %}{{ variedad.especie.nombre }}{% endif %}</span></div>
+							<div><span class="propiedad">SUBTAXÓN:</span><span class="text-lower">{% if variedad.especie is not null %}{{ variedad.especie.subtaxon }}{% endif %}</span></div>
 						</div>
 						<p>{{texto}}</p>
 					</div>
