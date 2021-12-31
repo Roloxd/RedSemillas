@@ -61,13 +61,10 @@ class SearchController extends AbstractController
 		$post = $request->request->get('search');//['search'];
 
 		$variedades = null;
-		$especies = null;
-		$familias = null;
-		$generos = null;
-		$subtaxons = null;
 		$titulo = 'Catálogo';
 
-        if($post){    
+        if($post){   
+			dump($post); 
 			$titulo = 'Resultado de búsqueda';     
 			// $qb =  $this->getDoctrine()
             // ->getRepository(Variedad::class)
@@ -100,30 +97,113 @@ class SearchController extends AbstractController
 					->orWhere('f.nombre LIKE :busqueda') //Genero
 					->setParameter('busqueda', '%'.$post['search'].'%');
 			
-			if($post['familia']){
+			if(isset($post['familia']) && !empty($post['familia'])){
 				$qb->andWhere('f.nombre LIKE :familia')
 				->setParameter('familia', '%'.$post['familia'].'%');
 			}
 			
-			if($post['especie']){
+			if(isset($post['especie']) && !empty($post['especie'])){
 				$qb->andWhere('e.nombre LIKE :especie')
 				->setParameter('especie', '%'.$post['especie'].'%');
 			}
 			
-			if($post['genero']){
+			if(isset($post['genero']) && !empty($post['genero'])){
 				$qb->andWhere('g.nombre LIKE :genero')
 				->setParameter('genero', '%'.$post['genero'].'%');
 			}
 
-			if($post['polinizacion']){
+			if(isset($post['polinizacion']) && !empty($post['polinizacion'])){
 				$qb->andWhere('v.polinizacion LIKE :polinizacion')
 				->setParameter('polinizacion', '%'.$post['polinizacion'].'%');
 			}
 
-			if($post['nombreComun']){
+			if(isset($post['nombreComun']) && !empty($post['nombreComun'])){
 				$qb->andWhere('v.nombreComun LIKE :nombreComun')
 				->setParameter('nombreComun', '%'.$post['nombreComun'].'%');
 			}
+
+
+			//Tipo Siembra
+			if(isset($post['tipoSiembra']) && !empty($post['tipoSiembra']['directa'])){
+				$qb->andWhere('v.tipoSiembra LIKE :tipoSiembra')
+				->setParameter('tipoSiembra', 'Directa');
+			}
+
+			if(isset($post['tipoSiembra']) && !empty($post['tipoSiembra']['semillero'])){
+				$qb->andWhere('v.tipoSiembra LIKE :tipoSiembra')
+				->setParameter('tipoSiembra', 'Semillero');
+			}
+
+			if(isset($post['tipoSiembra']) && !empty($post['tipoSiembra']['voleo'])){
+				$qb->andWhere('v.tipoSiembra LIKE :tipoSiembra')
+				->setParameter('tipoSiembra', 'Voleo');
+			}
+
+			//Epoca Siembra
+			if(isset($post['epocaSiembra'])) {
+				$qb->join('v.cicloYSiembras', 'c');
+
+				if(!empty($post['epocaSiembra']['ene'])){
+					$qb->andWhere('c.enero LIKE :enero')
+					->setParameter('enero', true);
+				}
+	
+				if(!empty($post['epocaSiembra']['feb'])){
+					$qb->andWhere('c.febrero LIKE :febrero')
+					->setParameter('febrero', true);
+				}
+	
+				if(!empty($post['epocaSiembra']['mar'])){
+					$qb->andWhere('c.marzo LIKE :marzo')
+					->setParameter('marzo', true);
+				}
+	
+				if(!empty($post['epocaSiembra']['abr'])){
+					$qb->andWhere('c.abril LIKE :abril')
+					->setParameter('abril', true);
+				}
+	
+				if(!empty($post['epocaSiembra']['may'])){
+					$qb->andWhere('c.mayo LIKE :mayo')
+					->setParameter('mayo', true);
+				}
+	
+				if(!empty($post['epocaSiembra']['jun'])){
+					$qb->andWhere('c.junio LIKE :junio')
+					->setParameter('junio', true);
+				}
+	
+				if(!empty($post['epocaSiembra']['jul'])){
+					$qb->andWhere('c.julio LIKE :julio')
+					->setParameter('julio', true);
+				}
+	
+				if(!empty($post['epocaSiembra']['ago'])){
+					$qb->andWhere('c.agosto LIKE :agosto')
+					->setParameter('agosto', true);
+				}
+	
+				if(!empty($post['epocaSiembra']['sep'])){
+					$qb->andWhere('c.septiembre LIKE :septiembre')
+					->setParameter('septiembre', true);
+				}
+	
+				if(!empty($post['epocaSiembra']['oct'])){
+					$qb->andWhere('c.octubre LIKE :octubre')
+					->setParameter('octubre', true);
+				}
+	
+				if(!empty($post['epocaSiembra']['nov'])){
+					$qb->andWhere('c.noviembre LIKE :noviembre')
+					->setParameter('noviembre', true);
+				}
+	
+				if(!empty($post['epocaSiembra']['dic'])){
+					$qb->andWhere('c.diciembre LIKE :diciembre')
+					->setParameter('diciembre', true);
+				}
+			}
+			
 			
 			$variedades = $qb->getQuery()->execute();
 

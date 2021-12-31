@@ -26,3 +26,52 @@
     text-transform: uppercase;
     border-radius: 10px;
 }
+
+/* Select checkboxes*/
+.multiselect {
+    user-select: none;
+    margin-right: 12px;
+}
+
+.selectBox {
+position: relative;
+}
+
+.selectBox select {
+width: 100%;
+font-weight: normal;
+}
+
+.overSelect {
+position: absolute;
+left: 0;
+right: 0;
+top: 0;
+bottom: 0;
+}
+
+.checkboxes {
+display: none;
+background-color: rgba(255, 255, 255, 0.924);
+
+padding: 4px 0 4px 0;
+margin-bottom: 10px;
+margin-top: -6px;
+border-radius: 4px;
+}
+
+.checkboxes label {
+display: block;
+color: black;
+cursor: default !important;
+margin-bottom: 0;
+}
+
+.checkboxes label input{
+    width: 14%;
+    margin: 4px 0;
+}
+
+.checkboxes label:hover {
+background-color: #E7AF40;
+}

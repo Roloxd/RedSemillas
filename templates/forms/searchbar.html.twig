@@ -40,30 +40,65 @@
 			</div>
 			<div class="rgcs__form-rows rgcs__form--col">
 				{{ form_row(data.especie) }}
-				{# <div class="rgcs__srch-row">
+				<div class="rgcs__srch-row">
 					<div class="multiselect">
-						<select class="selectBox" onclick="showCheckboxes()">
-							<option selected disabled>Tipo de Siembra</option>
+						<div class="selectBox" onclick="showCheckboxes('boxesTipoSiembra')">
+						<select>
+							<option>Tipo de siembra</option>
 						</select>
 						<div class="overSelect"></div>
-					</div>
-					<div id="checkboxes" style="display: none;">
-						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="one">
-							<label class="form-check-label" for="one">First checkbox</label>
 						</div>
-						
-						<label for="two">
-							<input type="checkbox" id="two">Second checkbox
-						</label>
-						<label for="three">
-							<input type="checkbox" id="three">Third checkbox
-						</label>
+						<div id="boxesTipoSiembra" class="checkboxes">
+						<label for="directa">
+							<input id="directa" type="checkbox" name="search[tipoSiembra][directa]" />Directa</label>
+						<label for="semillero">
+							<input id="semillero" type="checkbox" name="search[tipoSiembra][semillero]"/>Semillero</label>
+						<label for="voleo">
+							<input id="voleo" type="checkbox" name="search[tipoSiembra][voleo]" />Voleo</label>
+						</div>
 					</div>
-				</div> #}
+				</div>
 			</div>
 			<div class="rgcs__form-rows rgcs__form--col">
 				{{ form_row(data.genero) }}
+				<div class="rgcs__srch-row">
+					<div class="multiselect">
+						<div class="selectBox" onclick="showCheckboxes('boxesEpocaSiembra')">
+							<select>
+								<option>Epoco de siembra</option>
+							</select>
+							<div class="overSelect"></div>
+						</div>
+						<div id="boxesEpocaSiembra" class="checkboxes">
+							<label for="ene">
+								<input id="ene" type="checkbox" name="search[epocaSiembra][ene]" />Enero</label>
+							<label for="feb">
+								<input id="feb" type="checkbox" name="search[epocaSiembra][feb]"/>Febrero</label>
+							<label for="mar">
+								<input id="mar" type="checkbox" name="search[epocaSiembra][mar]" />Marzo</label>
+							<label for="abr">
+								<input id="abr" type="checkbox" name="search[epocaSiembra][abr]" />Abril</label>
+							<label for="may">
+								<input id="may" type="checkbox" name="search[epocaSiembra][may]" />Mayo</label>
+							<label for="jun">
+								<input id="jun" type="checkbox" name="search[epocaSiembra][jun]" />Junio</label>
+							<label for="jul">
+								<input id="jul" type="checkbox" name="search[epocaSiembra][jul]" />Julio</label>
+							<label for="ago">
+								<input id="ago" type="checkbox" name="search[epocaSiembra][ago]" />Agosto</label>
+							<label for="sep">
+								<input id="sep" type="checkbox" name="search[epocaSiembra][sep]" />Septiembre</label>
+							<label for="oct">
+								<input id="oct" type="checkbox" name="search[epocaSiembra][oct]" />Octubre</label>
+							<label for="nov">
+								<input id="nov" type="checkbox" name="search[epocaSiembra][nov]" />Noviembre</label>
+							<label for="dic">
+								<input id="dic" type="checkbox" name="search[epocaSiembra][dic]" />Diciembre</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="rgcs__form-rows rgcs__form--col">
 				{{ form_row(data.polinizacion) }}
 			</div>
 		</div>
@@ -73,16 +108,7 @@
 </div>
 
 <script>
-var expanded = false;
-
-function showCheckboxes() {
-	var checkboxes = document.getElementById("checkboxes");
-	if (!expanded) {
-		checkboxes.style.display = "block";
-		expanded = true;
-	} else {
-		checkboxes.style.display = "none";
-		expanded = false;
-	}
+function showCheckboxes(nombreEtiqueta) {
+	$("#"+nombreEtiqueta).toggle();
 }
 </script>
