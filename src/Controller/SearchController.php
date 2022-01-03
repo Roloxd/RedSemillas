@@ -203,7 +203,7 @@ class SearchController extends AbstractController
 			
 			$variedades = $qb->getQuery()->execute();
 
-			if(empty($variedades)) {
+			if(empty($variedades) && !empty($post['search'])) {
 				$qb = $this->getDoctrine()
 				->getRepository(Variedad::class)
 				->createQueryBuilder('v')
@@ -216,10 +216,10 @@ class SearchController extends AbstractController
 				->setParameter('busqueda', '%'.$post['search'].'%');
 
 				$variedades = $qb->getQuery()->execute();
+			}
 
-				if(empty($variedades)){
-					$titulo = 'No hay resultados';
-				}
+			if(empty($variedades)){
+				$titulo = 'No hay resultados';
 			}
         }
         
