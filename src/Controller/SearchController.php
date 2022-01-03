@@ -63,8 +63,7 @@ class SearchController extends AbstractController
 		$variedades = null;
 		$titulo = 'Catálogo';
 
-        if($post){   
-			dump($post); 
+        if($post){ 
 			$titulo = 'Resultado de búsqueda';     
 			// $qb =  $this->getDoctrine()
             // ->getRepository(Variedad::class)
@@ -86,32 +85,30 @@ class SearchController extends AbstractController
 			$qb = $this->getDoctrine()
 				->getRepository(Variedad::class)
 				->createQueryBuilder('v')
-				->join('v.especie', 'e')
-				->join('e.padre', 'g')
-				->join('g.padre', 'f')
 					->where('v.nombreLocal LIKE :busqueda')
 					->orWhere('v.nombreComun LIKE :busqueda')
 					->orWhere('v.polinizacion LIKE :busqueda')
-					->orWhere('e.nombre LIKE :busqueda') //Especie
-					->orWhere('g.nombre LIKE :busqueda') //Genero
-					->orWhere('f.nombre LIKE :busqueda') //Genero
 					->setParameter('busqueda', '%'.$post['search'].'%');
 			
-			if(isset($post['familia']) && !empty($post['familia'])){
-				$qb->andWhere('f.nombre LIKE :familia')
-				->setParameter('familia', '%'.$post['familia'].'%');
-			}
-			
-			if(isset($post['especie']) && !empty($post['especie'])){
-				$qb->andWhere('e.nombre LIKE :especie')
-				->setParameter('especie', '%'.$post['especie'].'%');
-			}
-			
-			if(isset($post['genero']) && !empty($post['genero'])){
-				$qb->andWhere('g.nombre LIKE :genero')
-				->setParameter('genero', '%'.$post['genero'].'%');
-			}
+			if(!empty($post['familia']) || !empty($post['especie']) || !empty($post['genero'])) {
+				$qb->join('v.especie', 'e')
+				->join('e.padre', 'g')
+				->join('g.padre', 'f');
 
+				if(!empty($post['familia'])) {
+					$qb->andWhere('f.nombre LIKE :familia')
+					->setParameter('familia', '%'.$post['familia'].'%');
+				}
+				if(!empty($post['especie'])){
+					$qb->andWhere('e.nombre LIKE :especie')
+					->setParameter('especie', '%'.$post['especie'].'%');
+				}
+				if(!empty($post['genero'])){
+					$qb->andWhere('g.nombre LIKE :genero')
+					->setParameter('genero', '%'.$post['genero'].'%');
+				}
+			}
+			
 			if(isset($post['polinizacion']) && !empty($post['polinizacion'])){
 				$qb->andWhere('v.polinizacion LIKE :polinizacion')
 				->setParameter('polinizacion', '%'.$post['polinizacion'].'%');
@@ -204,11 +201,25 @@ class SearchController extends AbstractController
 				}
 			}
 			
-			
 			$variedades = $qb->getQuery()->execute();
 
-			if(empty($variedades)){
-				$titulo = 'No hay resultados';
+			if(empty($variedades)) {
+				$qb = $this->getDoctrine()
+				->getRepository(Variedad::class)
+				->createQueryBuilder('v')
+				->join('v.especie', 'e')
+				->join('e.padre', 'g')
+				->join('g.padre', 'f')
+				->orWhere('e.nombre LIKE :busqueda') //Especie
+				->orWhere('g.nombre LIKE :busqueda') //Genero
+				->orWhere('f.nombre LIKE :busqueda') //Genero
+				->setParameter('busqueda', '%'.$post['search'].'%');
+
+				$variedades = $qb->getQuery()->execute();
+
+				if(empty($variedades)){
+					$titulo = 'No hay resultados';
+				}
 			}
         }
         

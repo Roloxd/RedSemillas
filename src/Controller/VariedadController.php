@@ -897,7 +897,7 @@ class VariedadController extends AbstractController
             return $this->redirectToRoute('variedad_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        $text = 'Editar Variedad';
+        $text = 'Editar Variedad: ' . $variedad->getNombreComun() . " | ID: " .$variedad->getCodigo();
 
         $idVariedad = $request->get('id');
         

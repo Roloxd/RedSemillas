@@ -77,15 +77,11 @@ class TaxonRepository extends ServiceEntityRepository
      */
     public function findAllEspecie(): array
     {
-        $entityManager = $this->getEntityManager();
+        $qb = $this->createQueryBuilder('t')
+            ->where('t.tipo LIKE :tipo')
+            ->setParameter('tipo', 'Especie');
 
-        $query = $entityManager->createQuery(
-            'SELECT t.nombre, t.padre
-            FROM App\Entity\Taxon t
-            WHERE t.tipo = :especie'
-        )->setParameter('especie', "Especie");
-
-        return $query->getResult();
+        return $qb->getQuery()->execute();
     }
 
     /**

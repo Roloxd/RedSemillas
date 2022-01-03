@@ -87,20 +87,9 @@ class TaxonController extends AbstractController
             ->findAllEspecie();
 
         foreach($especies as $especie){
-            $especieName = $especie['nombre'];
-             //Añadir especie, familia, genero, y enviar a la  vista
-
-            $genero = $this->getDoctrine()
-                ->getRepository(Taxon::class)
-                ->find($especie['padre']);
-
-            $generoName = $genero->getNombre();
-
-            $familia = $this->getDoctrine()
-                ->getRepository(Taxon::class)
-                ->find($genero->getPadre());
-
-            $familiaName = $familia->getNombre();
+            $especieName = $especie->getNombre();
+            $generoName = $especie->getPadre()->getNombre();
+            $familiaName = $especie->getPadre()->getPadre()->getNombre();
 
             $array[$especieName] = $familiaName . " - " . $generoName . " - " . $especieName;
         }

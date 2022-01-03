@@ -98,35 +98,35 @@
                             <a href="{{ path('variedad_img', {'id': variedad.id}) }}">Añadir imagen</a>
                         </td>
                         {# <td>{{ variedad.id }}</td> #}
-                        <td>{{ variedad.codigo }}</td>
-                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Nombre Común" >{{ variedad.nombreComun }}</td>
-                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Nombre Local" >{{ variedad.nombreLocal }}</td>
-                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Especie" >{% if variedad.especie is not null %}{{ variedad.especie.nombre }}{% endif %}</td>
-                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Genero" >{% if variedad.especie is not null %}{{ variedad.especie.padre.nombre }}{% endif %}</td>
-                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Familia" >{% if variedad.especie is not null %}{{ variedad.especie.padre.padre.nombre }}{% endif %}</td>
-                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Descripción Planta y/o Cultivo" >{{ variedad.breveDescrPlantaCultivo }}</td>
-                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Descripción" >{{ variedad.descripcion }}</td>
-                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Tipo de Siembra" >{{ variedad.tipoSiembra }}</td>
-                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Días de Semillero" >{{ variedad.diasSemillero }}</td>
-                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Distancia entre Planta" >{{ variedad.marcoA }}</td>
-                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Distancia entre Lineas" >{{ variedad.marcoB }}</td>
-                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Densidad" >{{ variedad.densidad }}</td>
-                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Ciclo Cultivo" >{{ variedad.cicloCultivo }}</td>
-                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Tipo de Polinización" >{{ variedad.polinizacion }}</td>
-                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Caracterización" >{{ variedad.caracterizacion }}</td>
-                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Viabilidad Min" >{{ variedad.viabilidadMin }}</td>
-                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Viabilidad Max" >{{ variedad.viabilidadMax }}</td>
-                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Conocimientos Tradicionales" >{{ variedad.conocimientosTradicionales }}</td>
-                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Características Morfológicas de la Planta" >{{ variedad.cmPlanta }}</td>
-                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Características Morfológicas de la Flor" >{{ variedad.cmFlor }}</td>
-                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Características Morfológicas del Fruto" >{{ variedad.cmFruto }}</td>
-                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Características Morfológicas de la Semilla" >{{ variedad.cmSemilla }}</td>
-                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Características Agronómicas" >{{ variedad.cArgonomicas }}</td>
-                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Características Organolépticas" >{{ variedad.cOrganolepticas }}</td>
-                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Propagación, Selección y Mejora" >{{ variedad.propagacion }}</td>
-                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Otros Aspectos" >{{ variedad.otros }}</td>
-                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Observaciones" >{{ variedad.observaciones }}</td>
-                        <td data-toggle="tooltip" title="ID: {{id}} | Columna: Ciclo Y Siembra Altitud" >
+                        <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: ID">{{ variedad.codigo }}</td>
+                        <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: Nombre Común" >{{ variedad.nombreComun }}</td>
+                        <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: Nombre Local" >{{ variedad.nombreLocal }}</td>
+                        <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: Especie" >{% if variedad.especie is not null %}{{ variedad.especie.nombre }}{% endif %}</td>
+                        <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: Genero" >{% if variedad.especie is not null %}{{ variedad.especie.padre.nombre }}{% endif %}</td>
+                        <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: Familia" >{% if variedad.especie is not null %}{{ variedad.especie.padre.padre.nombre }}{% endif %}</td>
+                        <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: Descripción Planta y/o Cultivo" >{{ variedad.breveDescrPlantaCultivo }}</td>
+                        <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: Descripción" >{{ variedad.descripcion }}</td>
+                        <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: Tipo de Siembra" >{{ variedad.tipoSiembra }}</td>
+                        <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: Días de Semillero" >{{ variedad.diasSemillero }}</td>
+                        <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: Distancia entre Planta" >{{ variedad.marcoA }}</td>
+                        <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: Distancia entre Lineas" >{{ variedad.marcoB }}</td>
+                        <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: Densidad" >{{ variedad.densidad }}</td>
+                        <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: Ciclo Cultivo" >{{ variedad.cicloCultivo }}</td>
+                        <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: Tipo de Polinización" >{{ variedad.polinizacion }}</td>
+                        <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: Caracterización" >{{ variedad.caracterizacion }}</td>
+                        <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: Viabilidad Min" >{{ variedad.viabilidadMin }}</td>
+                        <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: Viabilidad Max" >{{ variedad.viabilidadMax }}</td>
+                        <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: Conocimientos Tradicionales" >{{ variedad.conocimientosTradicionales }}</td>
+                        <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: Características Morfológicas de la Planta" >{{ variedad.cmPlanta }}</td>
+                        <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: Características Morfológicas de la Flor" >{{ variedad.cmFlor }}</td>
+                        <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: Características Morfológicas del Fruto" >{{ variedad.cmFruto }}</td>
+                        <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: Características Morfológicas de la Semilla" >{{ variedad.cmSemilla }}</td>
+                        <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: Características Agronómicas" >{{ variedad.cArgonomicas }}</td>
+                        <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: Características Organolépticas" >{{ variedad.cOrganolepticas }}</td>
+                        <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: Propagación, Selección y Mejora" >{{ variedad.propagacion }}</td>
+                        <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: Otros Aspectos" >{{ variedad.otros }}</td>
+                        <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: Observaciones" >{{ variedad.observaciones }}</td>
+                        <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: Ciclo Y Siembra Altitud" >
                         {% for element in cicloysiembra[id] %}
                           <p>{{ element['altitud'] }}</p>
                         {% endfor %}
