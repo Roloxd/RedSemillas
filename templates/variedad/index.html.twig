@@ -93,9 +93,19 @@
                   {% set id = variedad.id %}
                     <tr>
                         <td>
-                            <a href="{{ path('variedad_show', {'id': variedad.id}) }}">Ver</a>
-                            <a href="{{ path('variedad_edit', {'id': variedad.id}) }}">Editar</a>
-                            <a href="{{ path('variedad_img', {'id': variedad.id}) }}">Añadir imagen</a>
+                          <div class="btn-group-vertical w-100">
+                            <a class="btn btn-default" href="{{ path('variedad_show', {'id': variedad.id}) }}">Ver</a>
+                            <a class="btn btn-default" href="{{ path('variedad_edit', {'id': variedad.id}) }}">Editar</a>
+
+                            <div class="btn-group">
+                              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                              </button>
+                              <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ path('variedad_img', {'id': variedad.id}) }}">Añadir imagen</a></li>
+                                <li><a class="dropdown-item" href="{{ path('imagen_ver', {'id': variedad.id}) }}">Imagenes</a> </li>
+                              </ul>
+                            </div>
+                          </div>
                         </td>
                         {# <td>{{ variedad.id }}</td> #}
                         <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: ID">{{ variedad.codigo }}</td>
@@ -147,9 +157,19 @@
                         {% endfor %}
                         </td>
                         <td>
-                            <a href="{{ path('variedad_show', {'id': variedad.id}) }}">Ver</a>
-                            <a href="{{ path('variedad_edit', {'id': variedad.id}) }}">Editar</a>
-                            <a href="{{ path('variedad_img', {'id': variedad.id}) }}">Añadir imagen</a>
+                          <div class="btn-group-vertical w-100">
+                            <a class="btn btn-default" href="{{ path('variedad_show', {'id': variedad.id}) }}">Ver</a>
+                            <a class="btn btn-default" href="{{ path('variedad_edit', {'id': variedad.id}) }}">Editar</a>
+
+                            <div class="btn-group">
+                              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                              </button>
+                              <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ path('variedad_img', {'id': variedad.id}) }}">Añadir imagen</a></li>
+                                <li><a class="dropdown-item" href="{{ path('imagen_ver', {'id': variedad.id}) }}">Imagenes</a> </li>
+                              </ul>
+                            </div>
+                          </div>
                         </td>
                     </tr>
                 {% else %}

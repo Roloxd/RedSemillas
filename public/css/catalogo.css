@@ -22,7 +22,8 @@
     height: auto;
 }
 .medio{
-	padding: 20px;
+	/* padding: 20px; */
+    padding: 40px 40px 65px 40px;
 }
 
 .number{

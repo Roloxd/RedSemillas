@@ -32,7 +32,7 @@
               <div class="card-body">
                 <div class="form-group">
                   <label for="titulo">Titulo</label>
-                  {{ form_widget(form.titulo, {'attr': {'class': 'form-control'}}) }}
+                  {{ form_widget(form.titulo, {'attr': {'class': 'form-control', 'required': 'required'}}) }}
                 </div>
                 <div class="form-group">
                   <label for="url">Subir Imagen</label>
@@ -44,7 +44,17 @@
                 </div>
                 <div class="form-group">
                   <label for="principal">Principal</label>
-                  {{ form_widget(form.principal, {'attr': {'class': 'form-control'}}) }}
+                  <div class="form-check">
+                    {{ form_widget(form.principal, {'attr': {'class': 'form-check-input'}}) }}
+                    <label class="form-check-label" for="imagen_principal">Añadir como imagen principal</label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="principal">Condiciones</label>
+                  <div class="form-check">
+                    {{ form_widget(form.aceptarUso, {'attr': {'class': 'form-check-input'}}) }}
+                    <label class="form-check-label" for="imagen_aceptarUso">Al subir la imagen se acepta su uso por parte de la RGCS con reconocimiento del autor</label>
+                  </div>
                 </div>
               </div>
               <div class="card-footer">

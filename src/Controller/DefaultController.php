@@ -43,9 +43,28 @@ class DefaultController extends AbstractController
             ->getRepository(Variedad::class)
             ->findAll();
 
+        foreach($variedadesDB as $variedadDB){
+            if(!empty($variedadDB->getimagenSeleccionadas()->getValues())) {
+                foreach($variedadDB->getimagenSeleccionadas()->getValues() as $imagenesDB) {
+                    //Si la imagen es principal
+                    if($imagenesDB->getImagen()->getPrincipal() === true){
+                        $imagenes[$variedadDB->getId()]['img'] = "/uploads/img/" . $imagenesDB->getImagen()->getUrl();
+                        $imagenes[$variedadDB->getId()]['autor'] = $imagenesDB->getImagen()->getCredito();
+                        break;
+                    } else {
+                        $imagenes[$variedadDB->getId()]['img'] = "/images/home_home_rgcs_impression.png";
+                        $imagenes[$variedadDB->getId()]['autor'] = "";
+                    }
+                }
+            } else {
+                $imagenes[$variedadDB->getId()]['img'] = "/images/home_home_rgcs_impression.png";
+                $imagenes[$variedadDB->getId()]['autor'] = "";
+            }
+        }
+
         return $this->render('vista-catalogo.html.twig',[
             'variedades' => $variedadesDB,
-            // 'imagenes' => $imagenes,
+            'imagenes' => $imagenes,
             'titulo' => 'Catálogo',
         ]);
     }

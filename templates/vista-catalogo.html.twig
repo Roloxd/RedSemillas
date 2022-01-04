@@ -64,8 +64,7 @@
 							<span class="text">{{nombre}}</span>
 					</div>
 					<div class="d-none d-sm-block col-sm-1 img-div">
-						<img src="{{ imagen }}" class="images img-fluid rounded" />
-						{# <img src="{{ asset(imagenes[id]) }}" class="images img-fluid rounded" /> #}
+						<img src="{{ imagenes[id]['img'] }}" class="images img-fluid rounded" />
 					</div>
 					<div class="col-2 img-div expand">                        
 						<img src={{ asset("images/img/theme_light/but/but_expand.png")}} class="icono-more img-fluid" />
@@ -89,7 +88,12 @@
 						</div>
 					</div>
 					<div class="col-12 col-md-5">
-						<img src="{{imagen}}" class="img-fluid rounded" />
+						<img src="{{ imagenes[id]['img'] }}" class="img-fluid rounded" />
+
+						{% if imagenes[id]['autor'] is not empty %}
+						<p><span class="font-bold">Autor: </span>{{ imagenes[id]['autor'] }}</p>
+						{% endif %}
+
 					</div>
 					<div class="col-12 col-md-7">
 						<div class="taxon bg-bubble">

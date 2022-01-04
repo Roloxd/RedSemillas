@@ -178,9 +178,9 @@ class Variedad
     private $observaciones;
 
     /**
-     * @ORM\OneToOne(targetEntity=ImagenSeleccionada::class, mappedBy="variedad", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=ImagenSeleccionada::class, mappedBy="variedad")
      */
-    private $imagenSeleccionada;
+    private $imagenSeleccionadas;
 
     /**
      * @ORM\OneToMany(targetEntity=CicloYSiembra::class, mappedBy="variedad")
@@ -251,6 +251,8 @@ class Variedad
     {
         $this->cicloYSiembras = new ArrayCollection();
         $this->usoVariedads = new ArrayCollection();
+        $this->imagenSeleccionadas = new ArrayCollection();
+    
     }
 
     public function getId(): ?int
@@ -539,24 +541,32 @@ class Variedad
         return $this;
     }
 
-    public function getImagenSeleccionada(): ?ImagenSeleccionada
+    /**
+     * @return Collection|ImagenSeleccionada[]
+     */
+    public function getImagenSeleccionadas(): Collection
     {
-        return $this->imagenSeleccionada;
+        return $this->imagenSeleccionadas;
     }
 
-    public function setImagenSeleccionada(?ImagenSeleccionada $imagenSeleccionada): self
+    public function addImagenSeleccionada(ImagenSeleccionada $imagenSeleccionada): self
     {
-        // unset the owning side of the relation if necessary
-        if ($imagenSeleccionada === null && $this->imagenSeleccionada !== null) {
-            $this->imagenSeleccionada->setVariedad(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($imagenSeleccionada !== null && $imagenSeleccionada->getVariedad() !== $this) {
+        if (!$this->imagenSeleccionadas->contains($imagenSeleccionada)) {
+            $this->imagenSeleccionadas[] = $imagenSeleccionada;
             $imagenSeleccionada->setVariedad($this);
         }
 
-        $this->imagenSeleccionada = $imagenSeleccionada;
+        return $this;
+    }
+
+    public function removeImagenSeleccionada(ImagenSeleccionada $imagenSeleccionada): self
+    {
+        if ($this->imagenSeleccionadas->removeElement($imagenSeleccionada)) {
+            // set the owning side to null (unless already changed)
+            if ($imagenSeleccionada->setVariedad() === $this) {
+                $imagenSeleccionada->setVariedad(null);
+            }
+        }
 
         return $this;
     }

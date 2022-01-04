@@ -25,7 +25,7 @@ class ImagenSeleccionada
     private $tipo;
 
     /**
-     * @ORM\OneToOne(targetEntity=Variedad::class, inversedBy="imagenSeleccionada", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Variedad::class, inversedBy="imagenSeleccionadas")
      */
     private $variedad;
 

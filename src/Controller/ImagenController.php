@@ -267,6 +267,32 @@ class ImagenController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/ver", name="imagen_ver", methods={"GET"})
+     */
+    public function ver(Request $request, ImagenRepository $imagenRepository): Response
+    {
+        $id = $request->attributes->get('id');
+
+        $variedad = $this->getDoctrine()
+            ->getRepository(Variedad::class)
+            ->find($id);
+        
+        $imagenSeleccionadas = $variedad->getImagenSeleccionadas()->getValues();
+        
+        if(!empty($imagenSeleccionadas)) {
+            foreach($imagenSeleccionadas as $imagenSeleccionada) {
+                $imagenes[] = $imagenSeleccionada->getImagen();
+            }
+        } else {
+            $imagenes = [];
+        }
+
+        return $this->render('imagen/index.html.twig', [
+            'imagens' => $imagenes,
+        ]);
+    }
+
+    /**
      * @Route("/{id}", name="imagen_delete", methods={"POST"})
      */
     public function delete(Request $request, Imagen $imagen, string $imgDir): Response
