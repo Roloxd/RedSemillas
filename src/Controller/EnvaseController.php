@@ -332,6 +332,24 @@ class EnvaseController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/ver", name="envase_ver", methods={"GET"})
+     */
+    public function ver(Request $request): Response
+    {
+        $id = $request->attributes->get('id');
+
+        $entrada = $this->getDoctrine()
+            ->getRepository(Entrada::class)
+            ->find($id);
+
+        $envases = $entrada->getNumEnvase()->getValues();
+
+        return $this->render('envase/index.html.twig', [
+            'envases' => $envases,
+        ]);
+    }
+
+    /**
      * @Route("/{id}", name="envase_delete", methods={"POST"})
      */
     public function delete(Request $request, Envase $envase): Response

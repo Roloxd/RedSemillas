@@ -53,25 +53,50 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                         <tr>
+                            <th>Acciones</th>
                             <th>ID</th>
                             <th>Cantidad en gramos</th>
                             <th>Fecha entrada</th>
                             <th>Tipo entrada</th>
                             <th>Observaciones</th>
-                            <th>actions</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                   <tbody>
         {% for entrada in entradas %}
             <tr>
+                <td>
+                  <div class="btn-group-vertical w-100">
+                    <a class="btn btn-default" href="{{ path('entrada_show', {'id': entrada.id}) }}">Ver</a>
+                    <a class="btn btn-default" href="{{ path('entrada_edit', {'id': entrada.id}) }}">Editar</a>
+
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{ path('envase_ver', {'id': entrada.id}) }}">Envases</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </td>
                 <td>{{ entrada.id }}</td>
                 <td>{{ entrada.cantidad }}</td>
                 <td>{{ entrada.fechaEntrada ? entrada.fechaEntrada|date('Y-m-d') : '' }}</td>
                 <td>{{ entrada.tipoEntrada }}</td>
                 <td>{{ entrada.observaciones }}</td>
                 <td>
-                    <a href="{{ path('entrada_show', {'id': entrada.id}) }}">show</a>
-                    <a href="{{ path('entrada_edit', {'id': entrada.id}) }}">edit</a>
+                  <div class="btn-group-vertical w-100">
+                    <a class="btn btn-default" href="{{ path('entrada_show', {'id': entrada.id}) }}">Ver</a>
+                    <a class="btn btn-default" href="{{ path('entrada_edit', {'id': entrada.id}) }}">Editar</a>
+
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{ path('envase_ver', {'id': entrada.id}) }}">Envases</a></li>
+                      </ul>
+                    </div>
+                  </div>
                 </td>
             </tr>
         {% else %}
@@ -82,12 +107,13 @@
                 </tbody>
                   <tfoot>
                       <tr>
+                          <th>Acciones</th>
                           <th>ID</th>
                           <th>Cantidad en gramos</th>
                           <th>Fecha entrada</th>
                           <th>Tipo entrada</th>
                           <th>Observaciones</th>
-                          <th>actions</th>
+                          <th>Acciones</th>
                       </tr>  
                   </tfoot>
                 </table>
@@ -144,7 +170,8 @@
   $(function () {
     $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+      "order": [[ 1, "asc" ]]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({
       "paging": true,

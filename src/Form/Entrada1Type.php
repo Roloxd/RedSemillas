@@ -20,9 +20,9 @@ class Entrada1Type extends AbstractType
             ])
             ->add('tipo_entrada', ChoiceType::class, [
                 'choices'  => [
-                    'Nueva' => 1,
-                    'Devolución' => 2,
-                    'Renovación' => 3,
+                    'Nueva' => 'Nueva',
+                    'Devolución' => 'Devolución',
+                    'Renovación' => 'Renovación',
                 ],
             ])
             ->add('observaciones')

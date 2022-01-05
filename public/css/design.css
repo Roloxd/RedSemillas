@@ -1713,7 +1713,7 @@ ul.menu-mod-ul li.active-prev {
 
 body {
   background: #E7AF40;
-  color: #7E4637;
+  color: #7E4637 !important;
 }
 
 #app .section-body { color: #ffffff; }
@@ -1721,6 +1721,9 @@ body {
 
 .link-color{
   color: #000000;
+}
+.link-color:hover{
+  color: #5f5f5f;
 }
 
 #menu-footer a {text-transform: uppercase;}
@@ -2886,6 +2889,12 @@ body.layout-mode-fullscreen .do-sizing-explicit {
 }
 
 .more_button a{
+  
+  color: #ffffff;
+  
+}
+
+.more_button a:hover{
   
   color: #ffffff;
   

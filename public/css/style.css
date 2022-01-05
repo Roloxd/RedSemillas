@@ -3,6 +3,10 @@
     width: 97.4%;
 }
 
+.mh-150{
+    max-height: 150px;
+}
+
 .font-bold {
     font-weight: bold;
 }

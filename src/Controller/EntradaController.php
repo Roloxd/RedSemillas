@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Entrada;
+use App\Entity\Envase;
 use App\Entity\Terreno;
 use App\Form\Entrada1Type;
 use App\Repository\EntradaRepository;
@@ -164,7 +165,7 @@ class EntradaController extends AbstractController
             $datos = $request->request->get('entrada1');
 
             if(!empty($datos['cantidad'])){
-                $entrada->setCantidad($datos['cantidad'][0]);
+                $entrada->setCantidad($datos['cantidad']);
             }
             
             if(!empty($datos['fecha_entrada'])){
@@ -229,6 +230,28 @@ class EntradaController extends AbstractController
             'entrada' => $entrada,
             'form' => $form,
             'text_form' => $text,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/ver", name="entrada_ver", methods={"GET"})
+     */
+    public function ver(Request $request): Response
+    {
+        $id = $request->attributes->get('id');
+
+        $envase = $this->getDoctrine()
+            ->getRepository(Envase::class)
+            ->find($id);
+
+        if(!empty($envase->getEntrada())) {
+            $entradas[] = $envase->getEntrada();
+        } else {
+            $entradas = [];
+        }
+
+        return $this->render('entrada/index.html.twig', [
+            'entradas' => $entradas,
         ]);
     }
 

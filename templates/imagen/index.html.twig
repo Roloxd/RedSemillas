@@ -59,7 +59,7 @@
                 {% for imagen in imagens %}
                     <tr>
                         <td>{{ imagen.id }}</td>
-                        <td>{{ imagen.url }}</td>
+                        <td><img src="/uploads/img/{{ imagen.url }}" class="img-fluid rounded mh-150" /></td>
                         <td>{{ imagen.titulo }}</td>
                         <td>{{ imagen.credito }}</td>
                         <td>{{ imagen.principal }}</td>
