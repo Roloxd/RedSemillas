@@ -247,11 +247,17 @@ class Variedad
      */
     private $manejo_cosecha_conservacion;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Envase::class, inversedBy="variedads")
+     */
+    private $envases;
+
     public function __construct()
     {
         $this->cicloYSiembras = new ArrayCollection();
         $this->usoVariedads = new ArrayCollection();
         $this->imagenSeleccionadas = new ArrayCollection();
+        $this->envases = new ArrayCollection();
     
     }
 
@@ -766,6 +772,30 @@ class Variedad
     public function setManejoCosechaConservacion(?string $manejo_cosecha_conservacion): self
     {
         $this->manejo_cosecha_conservacion = $manejo_cosecha_conservacion;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Envase[]
+     */
+    public function getEnvases(): Collection
+    {
+        return $this->envases;
+    }
+
+    public function addEnvase(Envase $envase): self
+    {
+        if (!$this->envases->contains($envase)) {
+            $this->envases[] = $envase;
+        }
+
+        return $this;
+    }
+
+    public function removeEnvase(Envase $envase): self
+    {
+        $this->envases->removeElement($envase);
 
         return $this;
     }

@@ -1711,9 +1711,9 @@ ul.menu-mod-ul li.active-prev {
 }
 
 
-body {
+body.rgcs {
   background: #E7AF40;
-  color: #7E4637 !important;
+  color: #7E4637;
 }
 
 #app .section-body { color: #ffffff; }

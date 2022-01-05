@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EnvaseRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -126,6 +128,16 @@ class Envase
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $estado_accesion_mls;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Variedad::class, mappedBy="envases")
+     */
+    private $variedads;
+
+    public function __construct()
+    {
+        $this->variedads = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -399,5 +411,32 @@ class Envase
     public function __toString()
     {
         return $this->id;
+    }
+
+    /**
+     * @return Collection|Variedad[]
+     */
+    public function getVariedads(): Collection
+    {
+        return $this->variedads;
+    }
+
+    public function addVariedad(Variedad $variedad): self
+    {
+        if (!$this->variedads->contains($variedad)) {
+            $this->variedads[] = $variedad;
+            $variedad->addEnvase($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVariedad(Variedad $variedad): self
+    {
+        if ($this->variedads->removeElement($variedad)) {
+            $variedad->removeEnvase($this);
+        }
+
+        return $this;
     }
 }
