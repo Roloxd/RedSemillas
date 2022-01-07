@@ -47,4 +47,20 @@ class EnvaseRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @return Envase[]
+     */
+    public function findCodigo(string $codigo): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT e.codigo
+            FROM App\Entity\Variedad e
+            WHERE e.codigo = :codigo'
+        )->setParameter('codigo', $codigo);
+
+        return $query->getResult();
+    }
 }

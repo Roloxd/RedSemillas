@@ -149,7 +149,22 @@ class VariedadController extends AbstractController
                     $variedad->setCodigo($datos["codigo"]);
                 } else {
                     //Si existe ya una Variedad con ese Codigo, mostrar error
+                    $variedades = $this->getDoctrine()
+                    ->getRepository(Variedad::class)
+                    ->findAll();
 
+                    $codigos = null;
+                    if(!empty($variedades)){
+                        foreach($variedades as $variedadCodigo){
+                            $codigos[] = $variedadCodigo->getCodigo();
+                        }
+
+                        $codigo = max($codigos) + 1;
+                    } else {
+                        $codigo = 1;
+                    }
+                    
+                    $variedad->setCodigo($codigo);
                 }
             } else if (empty($datos["codigo"])) {
                 $variedades = $this->getDoctrine()

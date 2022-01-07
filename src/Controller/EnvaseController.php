@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Entrada;
 use App\Entity\Envase;
+use App\Entity\Variedad;
 use App\Form\EnvaseType;
 use App\Repository\EnvaseRepository;
 use DateTime;
@@ -50,7 +51,61 @@ class EnvaseController extends AbstractController
 
         if ($form->isSubmitted()) {
             $datos = $request->request->get('envase');
-            //dump($datos); exit;
+
+            if(isset($datos["codigo"]) && !empty($datos["codigo"])) {
+                
+                $envase2 = $this->getDoctrine()
+                    ->getRepository(Envase::class)
+                    ->findCodigo($datos["codigo"]);
+
+                if($envase2 == null){
+                    $envase->setCodigo($datos["codigo"]);
+                } else {
+                    //Si existe ya una Envase con ese Codigo, mostrar error
+                    $envases = $this->getDoctrine()
+                    ->getRepository(Envase::class)
+                    ->findAll();
+
+                    if(!empty($envases)){
+                        foreach($envases as $envaseCodigo){
+                            $codigos[] = $envaseCodigo->getCodigo();
+                        }
+    
+                        $codigo = max($codigos) + 1;
+                    } else {
+                        $codigo = 1;
+                    }
+
+                    $envase->setCodigo($codigo);
+                }
+            } else if (empty($datos["codigo"])) {
+                $envases = $this->getDoctrine()
+                    ->getRepository(Envase::class)
+                    ->findAll();
+
+                $codigos = null;
+                if(!empty($envases)){
+                    foreach($envases as $envaseCodigo){
+                        $codigos[] = $envaseCodigo->getCodigo();
+                    }
+
+                    $codigo = max($codigos) + 1;
+                } else {
+                    $codigo = 1;
+                }
+                
+                $envase->setCodigo($codigo);
+            }
+
+            if(!empty($datos['variedads'])){
+                foreach($datos['variedads'] as $idVariedad) {
+                    $variedad = $this->getDoctrine()
+                        ->getRepository(Variedad::class)
+                        ->find($idVariedad);
+
+                    $envase->addVariedad($variedad);
+                }
+            }
 
             if(!empty($datos['tipo_almacenamiento'])){
                 $envase->setTipoAlmacenamiento($datos['tipo_almacenamiento']);
@@ -183,6 +238,7 @@ class EnvaseController extends AbstractController
      */
     public function edit(Request $request, Envase $envase): Response
     {
+        
         $form = $this->createForm(EnvaseType::class, $envase, [
             'attr' => ['class' => 'formEditEnvase' ]
         ]);
@@ -214,10 +270,25 @@ class EnvaseController extends AbstractController
             $estadoMLS = $envase->getEstadoAccesionMls();
         }
 
-        //dump($envase->getTipoAlmacenamiento()); exit;
-
         if ($form->isSubmitted()) {
             $datos = $request->request->get('envase');
+
+            if(isset($datos["codigo"]) && empty($datos["codigo"])) {
+                $envases = $this->getDoctrine()
+                    ->getRepository(Envase::class)
+                    ->findAll();
+
+                $codigos = null;
+                if(!empty($envases)){
+                    foreach($envases as $envaseCodigo){
+                        $codigos[] = $envaseCodigo->getCodigo();
+                    }
+
+                    $codigo = max($codigos) + 1;
+                }
+                
+                $envase->setCodigo($codigo);
+            }
             
             if(!empty($datos['tipo_almacenamiento'])){
                 $envase->setTipoAlmacenamiento($datos['tipo_almacenamiento']);

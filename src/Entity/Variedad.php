@@ -198,7 +198,7 @@ class Variedad
     private $usoVariedads;
 
     /**
-     * @ORM\Column(type="integer", length=9, nullable=true)
+     * @ORM\Column(type="integer", length=11, nullable=true)
      */
     private $codigo;
 
@@ -530,10 +530,10 @@ class Variedad
         return $this;
     }
 
-    // public function __toString(): ?string
-    // {
-    //     return $this->id;
-    // }
+    public function __toString(): string
+    {
+        return $this->getNombreComun();
+    }
 
     public function getObservaciones(): ?string
     {

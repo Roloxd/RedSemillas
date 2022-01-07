@@ -113,7 +113,7 @@
           <div id="columna-right" class="col-md-6">
             <!-- general form elements -->
             <!-- card -->
-            <div class="card card-purple collapsed-card">
+            <div class="card card-primary collapsed-card">
               <div class="card-header">
                 <h3 id="ancla-agroOrga" class="card-title">Envases</h3>
                 <div class="card-tools">
@@ -125,10 +125,10 @@
               <!-- /.card-header -->
               <div class="card-body" style="display: none;">
                 <div class="form-group">
-                  <select class="js-example-basic-single" name="state">
-                    <option value="AL">Alabama</option>
-                    <option value="WY">Wyoming</option>
-                  </select>
+                  <label for="variedad1_cArgonomicas">Selecciona los envases</label>
+                  <a href="#" data-toggle="tooltip" title="Con Ctrl + Click Izquierdo, puedes seleccionar más de uno.">?</a>
+                  {{ form_widget(form.envases, {'attr': {'class': 'form-control'}}) }}
+                  {# <datalist id="envases_list"></datalist> #}
                 </div>
               </div>
             </div>

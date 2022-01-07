@@ -92,7 +92,7 @@ class Variedad1Type extends AbstractType
                 'attr' => ['class' => 'tinymce'],
                 'required' => false,
             ])
-            //->add('cicloYSiembras')
+            ->add('envases')
             // ->add('especie')
         ;
     }

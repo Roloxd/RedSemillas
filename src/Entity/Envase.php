@@ -134,6 +134,11 @@ class Envase
      */
     private $variedads;
 
+    /**
+     * @ORM\Column(type="integer", length=11, nullable=true)
+     */
+    private $codigo;
+
     public function __construct()
     {
         $this->variedads = new ArrayCollection();
@@ -436,6 +441,18 @@ class Envase
         if ($this->variedads->removeElement($variedad)) {
             $variedad->removeEnvase($this);
         }
+
+        return $this;
+    }
+
+    public function getCodigo(): ?int
+    {
+        return $this->codigo;
+    }
+
+    public function setCodigo(?int $codigo): self
+    {
+        $this->codigo = $codigo;
 
         return $this;
     }
