@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Entrada;
 use App\Entity\Envase;
+use App\Entity\Entrada;
 use App\Entity\Variedad;
 use App\Form\EnvaseType;
 use App\Repository\EnvaseRepository;
@@ -38,6 +38,7 @@ class EnvaseController extends AbstractController
         $condicionBiologica = null;
         $fuenteRecoleccion = null;
         $estadoMLS = null;
+        $error = null;
 
         if(empty($idEntrada)){
             $idEntrada = null;
@@ -62,12 +63,12 @@ class EnvaseController extends AbstractController
                     $envase->setCodigo($datos["codigo"]);
                 } else {
                     //Si existe ya una Envase con ese Codigo, mostrar error
-                    $envases = $this->getDoctrine()
+                    $envasesDB = $this->getDoctrine()
                     ->getRepository(Envase::class)
                     ->findAll();
 
-                    if(!empty($envases)){
-                        foreach($envases as $envaseCodigo){
+                    if(!empty($envasesDB)){
+                        foreach($envasesDB as $envaseCodigo){
                             $codigos[] = $envaseCodigo->getCodigo();
                         }
     
@@ -79,13 +80,13 @@ class EnvaseController extends AbstractController
                     $envase->setCodigo($codigo);
                 }
             } else if (empty($datos["codigo"])) {
-                $envases = $this->getDoctrine()
+                $envasesDB = $this->getDoctrine()
                     ->getRepository(Envase::class)
                     ->findAll();
 
                 $codigos = null;
-                if(!empty($envases)){
-                    foreach($envases as $envaseCodigo){
+                if(!empty($envasesDB)){
+                    foreach($envasesDB as $envaseCodigo){
                         $codigos[] = $envaseCodigo->getCodigo();
                     }
 
@@ -95,16 +96,6 @@ class EnvaseController extends AbstractController
                 }
                 
                 $envase->setCodigo($codigo);
-            }
-
-            if(!empty($datos['variedads'])){
-                foreach($datos['variedads'] as $idVariedad) {
-                    $variedad = $this->getDoctrine()
-                        ->getRepository(Variedad::class)
-                        ->find($idVariedad);
-
-                    $envase->addVariedad($variedad);
-                }
             }
 
             if(!empty($datos['tipo_almacenamiento'])){
@@ -200,6 +191,18 @@ class EnvaseController extends AbstractController
                 $envase->setEstadoAccesionMls($datos['estado_accesion_mls']);
             }
 
+            if( isset($datos['variedads']) && !empty($datos['variedads']) ) {
+                foreach( $datos['variedads'] as $variedadDB ) {
+                    
+                    $variedad = $this->getDoctrine()
+                        ->getRepository(Variedad::class)
+                        ->find( intval($variedadDB) );
+
+                    $envase->addVariedad($variedad);
+                    $variedad->addEnvase($envase);
+                }
+            }
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($envase);
             $entityManager->flush();
@@ -220,6 +223,7 @@ class EnvaseController extends AbstractController
             'envase' => $envase,
             'form' => $form,
             'text_form' => $text,
+            'error' => $error,
         ]);
     }
 
@@ -249,6 +253,7 @@ class EnvaseController extends AbstractController
         $condicionBiologica = null;
         $fuenteRecoleccion = null;
         $estadoMLS = null;
+        $error = null;
 
         if($envase->getEntrada()){
             $idEntrada = $envase->getEntrada()->getId();
@@ -288,6 +293,25 @@ class EnvaseController extends AbstractController
                 }
                 
                 $envase->setCodigo($codigo);
+            } else if (isset($datos["codigo"]) && !empty($datos["codigo"])) {
+
+                $qb = $this->getDoctrine()
+                    ->getRepository(Envase::class)
+                    ->findCodigoID($envase->getId()); //Obtenemos el Codigo, desde la DB
+
+                if( $datos["codigo"] != $qb[0]['codigo'] ) {
+                    $qb = $this->getDoctrine()
+                        ->getRepository(Envase::class)
+                        ->createQueryBuilder('e')
+                            ->where('e.codigo LIKE :busqueda')
+                            ->setParameter('busqueda', '%'.$datos["codigo"].'%');
+                    
+                    $envaseDB = $qb->getQuery()->execute();
+                    
+                    if(count($envaseDB) >= 1) {
+                        $error['codigo'] = 'Ya existe un registro con este ID';
+                    }
+                }
             }
             
             if(!empty($datos['tipo_almacenamiento'])){
@@ -383,9 +407,42 @@ class EnvaseController extends AbstractController
                 $envase->setEstadoAccesionMls($datos['estado_accesion_mls']);
             }
 
-            $this->getDoctrine()->getManager()->flush();
+            // Relación Variedad
+            if( isset($datos['variedads']) && !empty($datos['variedads']) ) {
+                foreach( $datos['variedads'] as $variedadDB ) {
+                    
+                    $variedad = $this->getDoctrine()
+                        ->getRepository(Variedad::class)
+                        ->find( intval($variedadDB) );
 
-            return $this->redirectToRoute('envase_index', [], Response::HTTP_SEE_OTHER);
+                    $envase->addVariedad($variedad);
+                    $variedad->addEnvase($envase);
+                }
+            }
+
+            // Elimina los desmarcados
+            if(!empty($datos['variedads'])) {
+                $qb = $this->getDoctrine()
+                    ->getRepository(Variedad::class)
+                    ->createQueryBuilder('v')
+                    ->innerJoin('v.envases', 'e')
+                        ->where('e.id LIKE :busqueda')
+                        ->setParameter('busqueda', '%'.$envase->getId().'%');
+
+                $variedadesDB = $qb->getQuery()->execute(); // Obtenemos las variedades relacionadas con el envase
+                
+                foreach($variedadesDB as $variedadDB) {
+                    if(!in_array($variedadDB->getId(), $datos['variedads'])) {
+                        $envase->removeVariedad($variedadDB);
+                        $variedadDB->removeEnvase($envase);
+                    }
+                }
+            }
+
+            if(empty($error)) {
+                $this->getDoctrine()->getManager()->flush();
+                return $this->redirectToRoute('envase_index', [], Response::HTTP_SEE_OTHER);
+            }
         }
 
         $text = 'Editar Envase';
@@ -399,6 +456,7 @@ class EnvaseController extends AbstractController
             'envase' => $envase,
             'form' => $form,
             'text_form' => $text,
+            'error' => $error,
         ]);
     }
 
@@ -414,6 +472,24 @@ class EnvaseController extends AbstractController
             ->find($id);
 
         $envases = $entrada->getNumEnvase()->getValues();
+
+        return $this->render('envase/index.html.twig', [
+            'envases' => $envases,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/verEnvases", name="envaseVariedad_ver", methods={"GET"})
+     */
+    public function verVariedades(Request $request): Response
+    {
+        $id = $request->attributes->get('id');
+
+        $variedad = $this->getDoctrine()
+            ->getRepository(Variedad::class)
+            ->find($id);
+
+        $envases = $variedad->getEnvases()->getValues();
 
         return $this->render('envase/index.html.twig', [
             'envases' => $envases,

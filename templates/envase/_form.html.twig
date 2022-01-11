@@ -53,6 +53,13 @@
                       {{ form_widget(form.codigo, {'attr': {'class': 'form-control', 'placeholder': '00000'}}) }}
                     </div>
                   </div>
+                  {% if error is not empty %}
+                  <div class="form-group">
+                    <div class="alerta">
+                      <div class="error">{{ error['codigo'] }}</div>
+                    </div>
+                  </div>
+                  {% endif %}
                   <div class="form-group">
                     <label for="envase_entrada">Entrada</label>
                     <a href="#" data-toggle="tooltip" title="Escribe 'E' o el numero de entrada. Seleccione la entrada.">?</a>

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\CicloYSiembra;
+use App\Entity\Envase;
 use App\Entity\Imagen;
 use App\Entity\ImagenSeleccionada;
 use App\Entity\Taxon;
@@ -519,6 +520,25 @@ class VariedadController extends AbstractController
     }
 
     /**
+     * @Route("/findCodigo", name="variedad_codigo", methods={"POST"})
+     */
+    public function cod(Request $request): Response
+    {
+        $codigo = $request->request->get('codigo');
+
+        dump($codigo); //Obtenemos el codigo editado, cambiar solo si se modifico, y si no esta vacio.
+
+        $response = new Response();
+        $response->setContent(json_encode([
+            // 'ArrayCicloYSiembra' => $arrayCicloYSiembra,
+        ]));
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response; 
+    }
+
+
+    /**
      * @Route("/{id}", name="variedad_show", methods={"GET"})
      */
     public function show(Variedad $variedad): Response
@@ -723,7 +743,6 @@ class VariedadController extends AbstractController
                     $entityManager->flush();
                 }
             }
-
 
             $this->getDoctrine()->getManager()->flush();
 
@@ -930,6 +949,113 @@ class VariedadController extends AbstractController
             'form' => $form,
             'text_form' => $text,
             'span_form' => $spanVariedad,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/verVariedades", name="variedadEnvases_ver", methods={"GET"})
+     */
+    public function verVariedades(Request $request): Response
+    {
+        $id = $request->attributes->get('id');
+
+        $envase = $this->getDoctrine()
+            ->getRepository(Envase::class)
+            ->find($id);
+
+        $variedadesDB = $envase->getVariedads()->getValues();
+
+        $cicloysiembra = null;
+        $arrayCicloysiembra = null;
+
+        foreach($variedadesDB as $variedadDB){
+
+            //Ciclo y Siembra de la variedad
+            if(!empty($variedadDB->getCicloYSiembras()->getValues())){
+                foreach($variedadDB->getCicloYSiembras()->getValues() as $cicloysiembra){
+                    $arrayCicloysiembra[$variedadDB->getId()][$cicloysiembra->getId()]['altitud'] = $cicloysiembra->getAltitud();
+                    $arrayCicloysiembra[$variedadDB->getId()][$cicloysiembra->getId()]['zona'] = $cicloysiembra->getZona();
+    
+                    if(!empty($cicloysiembra->getCiclo())){
+                        $texto = "";
+                        $ciclos = explode(";", $cicloysiembra->getCiclo());
+    
+                        for($i = 0; $i < count($ciclos); $i++){
+    
+                            if($i > 0 && count($ciclos) > 1 && $ciclos[$i] != ""){
+                                $texto .= "-";
+                            }
+                            $texto .= $ciclos[$i];
+                        }
+    
+                        $arrayCicloysiembra[$variedadDB->getId()][$cicloysiembra->getId()]['ciclo'] = $texto;
+                    }
+                    
+                    $meses = [];
+                    if($cicloysiembra->getEnero() != null){
+                        $meses[] = "Enero";
+                    }
+                    if($cicloysiembra->getFebrero() != null){
+                        $meses[] = "Febrero";
+                    }
+                    if($cicloysiembra->getMarzo() != null){
+                        $meses[] = "Marzo";
+                    }
+                    if($cicloysiembra->getAbril() != null){
+                        $meses[] = "Abril";
+                    }
+                    if($cicloysiembra->getMayo() != null){
+                        $meses[] = "Mayo";
+                    }
+                    if($cicloysiembra->getJunio() != null){
+                        $meses[] = "Junio";
+                    }
+                    if($cicloysiembra->getJulio() != null){
+                        $meses[] = "Julio";
+                    }
+                    if($cicloysiembra->getAgosto() != null){
+                        $meses[] = "Agosto";
+                    }
+                    if($cicloysiembra->getSeptiembre() != null){
+                        $meses[] = "Septiembre";
+                    }
+                    if($cicloysiembra->getOctubre() != null){
+                        $meses[] = "Octubre";
+                    }
+                    if($cicloysiembra->getNoviembre() != null){
+                        $meses[] = "Noviembre";
+                    }
+                    if($cicloysiembra->getDiciembre() != null){
+                        $meses[] = "Diciembre";
+                    }
+                    
+                    if(!empty($meses)){
+                        $texto = "";
+    
+                        for($i = 0; $i < count($meses); $i++){
+    
+                            if($i > 0 && count($meses) > 1 && $meses[$i] != ""){
+                                $texto .= "-";
+                            }
+                            $texto .= $meses[$i];
+                        }
+    
+                        $arrayCicloysiembra[$variedadDB->getId()][$cicloysiembra->getId()]['meses'] = $texto;
+                    }
+                }
+            } else {
+                $arrayCicloysiembra[$variedadDB->getId()][0]['altitud'] = "";
+                $arrayCicloysiembra[$variedadDB->getId()][0]['zona'] = "";
+                $arrayCicloysiembra[$variedadDB->getId()][0]['ciclo'] = "";
+                $arrayCicloysiembra[$variedadDB->getId()][0]['meses'] = "";
+            }
+            
+        }
+
+        return $this->render('variedad/index.html.twig', [
+            'variedades' => $variedadesDB,
+            'cicloysiembra' => $arrayCicloysiembra,
+
         ]);
     }
 

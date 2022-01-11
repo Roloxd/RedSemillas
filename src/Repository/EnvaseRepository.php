@@ -57,9 +57,25 @@ class EnvaseRepository extends ServiceEntityRepository
 
         $query = $entityManager->createQuery(
             'SELECT e.codigo
-            FROM App\Entity\Variedad e
+            FROM App\Entity\Envase e
             WHERE e.codigo = :codigo'
         )->setParameter('codigo', $codigo);
+
+        return $query->getResult();
+    }
+
+    /**
+     * @return Envase[]
+     */
+    public function findCodigoID(string $id): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT e.codigo
+            FROM App\Entity\Envase e
+            WHERE e.id = :id'
+        )->setParameter('id', $id);
 
         return $query->getResult();
     }

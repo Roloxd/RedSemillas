@@ -983,7 +983,7 @@ function validarFormularioVariedad(){
     const propagacion = document.querySelector('#variedad1_propagacion');
     const otros = document.querySelector('#variedad1_otros');
     const observaciones = document.querySelector('#variedad1_observaciones');
-    // const cicloYSiembras = document.querySelector('#variedad1_cicloYSiembras');
+    const codigo = document.querySelector('#variedad1_codigo');
 
     //Eventos
     nombreComun.addEventListener('input', leerValor);
@@ -1010,7 +1010,7 @@ function validarFormularioVariedad(){
     propagacion.addEventListener('input', leerValor);
     otros.addEventListener('input', leerValor);
     observaciones.addEventListener('input', leerValor);
-    // cicloYSiembras.addEventListener('input', leerValor);
+    codigo.addEventListener('input', leerValor);
 }
 
 function validarFormularioImagen(){
@@ -1106,9 +1106,10 @@ if(formVariedad != null) {
         var error = false;
 
         //Validar Formulario
-        const {variedad1_marcoA, variedad1_marcoB, variedad1_densidad} = datos;
+        const {variedad1_marcoA, variedad1_marcoB, variedad1_densidad, variedad1_codigo} = datos;
 
         const patron = /^[0-9]{1}[.]{1}[0-9]{3}$/i;
+        const patronCodigo = /^[0-9]$/;
         // const lengthCodigo = variedad1_codigo.toString().length;
 
         const comparacionMarcoA = patron.test(variedad1_marcoA);
@@ -1130,7 +1131,25 @@ if(formVariedad != null) {
         if(!variedad1_densidad == '' && !comparacionDensidad) {
             mostrarAlerta('Densidad, error de formato. | Formato: 0.000', true);
             error = true;
-        } 
+        }
+        if(!variedad1_codigo == '') {
+            $.ajax({
+                url:"/admin/variedades/findCodigo",
+                data:{codigo : variedad1_codigo},
+                type:"post",
+                error:function(err){
+                        console.error(err);
+                },
+                success:function(data){
+                    console.log(data);
+                    
+                },
+                complete:function(){
+                    //console.log("Solicitud finalizada.");
+                }
+            });
+        }
+        
         
         if(error === false) {
             updateVariedad();

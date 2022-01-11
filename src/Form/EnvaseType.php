@@ -13,7 +13,6 @@ class EnvaseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            //->add('tipo_almacenamiento')
             ->add('fecha_envasado', DateType::class, [
                 'widget' => 'single_text',
             ])
