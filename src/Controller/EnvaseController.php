@@ -33,16 +33,12 @@ class EnvaseController extends AbstractController
      */
     public function new(Request $request): Response
     {
-        $idEntrada = $request->query->get('entrada');
-        $tipoAlmacenamiento = null;
-        $condicionBiologica = null;
-        $fuenteRecoleccion = null;
-        $estadoMLS = null;
+        // $idEntrada = $request->query->get('entrada');
         $error = null;
 
-        if(empty($idEntrada)){
-            $idEntrada = null;
-        }
+        // if(empty($idEntrada)){
+        //     $idEntrada = null;
+        // }
         
         $envase = new Envase();
         $form = $this->createForm(EnvaseType::class, $envase, [
@@ -50,153 +46,32 @@ class EnvaseController extends AbstractController
         ]);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $datos = $request->request->get('envase');
 
-            if(isset($datos["codigo"]) && !empty($datos["codigo"])) {
-                
-                $envase2 = $this->getDoctrine()
-                    ->getRepository(Envase::class)
-                    ->findCodigo($datos["codigo"]);
-
-                if($envase2 == null){
-                    $envase->setCodigo($datos["codigo"]);
-                } else {
-                    //Si existe ya una Envase con ese Codigo, mostrar error
-                    $envasesDB = $this->getDoctrine()
-                    ->getRepository(Envase::class)
-                    ->findAll();
-
-                    if(!empty($envasesDB)){
-                        foreach($envasesDB as $envaseCodigo){
-                            $codigos[] = $envaseCodigo->getCodigo();
-                        }
-    
-                        $codigo = max($codigos) + 1;
-                    } else {
-                        $codigo = 1;
-                    }
-
-                    $envase->setCodigo($codigo);
-                }
-            } else if (empty($datos["codigo"])) {
-                $envasesDB = $this->getDoctrine()
+            if(isset($datos["codigo"]) && empty($datos["codigo"])) {
+                $envases = $this->getDoctrine()
                     ->getRepository(Envase::class)
                     ->findAll();
 
                 $codigos = null;
-                if(!empty($envasesDB)){
-                    foreach($envasesDB as $envaseCodigo){
+                if(!empty($envases)){
+                    foreach($envases as $envaseCodigo){
                         $codigos[] = $envaseCodigo->getCodigo();
                     }
 
                     $codigo = max($codigos) + 1;
-                } else {
-                    $codigo = 1;
                 }
                 
                 $envase->setCodigo($codigo);
             }
 
-            if(!empty($datos['tipo_almacenamiento'])){
-                $envase->setTipoAlmacenamiento($datos['tipo_almacenamiento']);
-            }
-            
-            if(!empty($datos['fecha_envasado'])){
-                $fecha = new DateTime($datos['fecha_envasado']);
-                $envase->setFechaEnvasado($fecha);
-            }
-
-            if(!empty($datos['ubicacion_envase'])){
-                $envase->setUbicacionEnvase($datos['ubicacion_envase']);
-            }
-
-            if(!empty($datos['temperatura_envasado'])){
-                $envase->setTemperaturaEnvasado($datos['temperatura_envasado']);
-            }
-
-            if(!empty($datos['humedad_relativa_envasar'])){
-                $envase->setHumedadRelativaEnvasar($datos['humedad_relativa_envasar']);
-            }
-
-            if(!empty($datos['humedad_relativa_semilla'])){
-                $envase->setHumedadRelativaSemilla($datos['humedad_relativa_semilla']);
-            }
-
-            if(!empty($datos['cantidad_min_seguridad'])){
-                $envase->setCantidadMinSeguridad($datos['cantidad_min_seguridad']);
-            }
-
-            if(!empty($datos['cantidad_min_unidades'])){
-                $envase->setCantidadMinUnidades($datos['cantidad_min_unidades']);
-            }
-
-            if(!empty($datos['unidades_gramo'])){
-                $envase->setUnidadesGramo($datos['unidades_gramo']);
-            }
-
-            if(!empty($datos['disponibilidad_red'])){
-                $envase->setDisponibilidadRed($datos['disponibilidad_red']);
-            }
-
-            if(!empty($datos['conservacion'])){
-                $envase->setConservacion($datos['conservacion']);
-            }
-
-            if(!empty($datos['observaciones'])){
-                $envase->setObservaciones($datos['observaciones']);
-            }
-
-            if(!empty($datos['entrada'])){
-                $entrada = $this->getDoctrine()
-                    ->getRepository(Entrada::class)
-                    ->find($datos['entrada']);
-
-                $envase->setEntrada($entrada);
-            }
-
-            if(!empty($datos['cantidad_gramos'])){
-                $envase->setCantidadGramos($datos['cantidad_gramos']);
-            }
-
-            if(!empty($datos['cantidad_unidades'])){
-                $envase->setCantidadUnidades($datos['cantidad_unidades']);
-            }
-
-            if(!empty($datos['unidades_viables'])){
-                $envase->setUnidadesViables($datos['unidades_viables']);
-            }
-
-            if(!empty($datos['condicion_biologica'])){
-                $envase->setCondicionBiologica($datos['condicion_biologica']);
-            }
-
-            if(!empty($datos['datos_ancestrales'])){
-                $envase->setDatosAncestrales($datos['datos_ancestrales']);
-            }
-
-            if(!empty($datos['codigo_instituto'])){
-                $envase->setCodigoInstituto($datos['codigo_instituto']);
-            }
-
-            if(!empty($datos['nombre_instituto'])){
-                $envase->setNombreInstituto($datos['nombre_instituto']);
-            }
-
-            if(!empty($datos['fuente_recoleccion'])){
-                $envase->setFuenteRecoleccion($datos['fuente_recoleccion']);
-            }
-
-            if(!empty($datos['estado_accesion_mls'])){
-                $envase->setEstadoAccesionMls($datos['estado_accesion_mls']);
-            }
-
             if( isset($datos['variedads']) && !empty($datos['variedads']) ) {
-                foreach( $datos['variedads'] as $variedadDB ) {
+                foreach( $datos['variedads'] as $variedadPOST ) {
                     
                     $variedad = $this->getDoctrine()
                         ->getRepository(Variedad::class)
-                        ->find( intval($variedadDB) );
+                        ->find( intval($variedadPOST) );
 
                     $envase->addVariedad($variedad);
                     $variedad->addEnvase($envase);
@@ -207,19 +82,16 @@ class EnvaseController extends AbstractController
             $entityManager->persist($envase);
             $entityManager->flush();
 
-            return $this->redirectToRoute('envase_new', [
-                'entrada' => $idEntrada,
-            ], Response::HTTP_SEE_OTHER);
+            // return $this->redirectToRoute('envase_new', [
+            //     'entrada' => $idEntrada,
+            // ], Response::HTTP_SEE_OTHER);
+
+            return $this->redirectToRoute('envase_new', [], Response::HTTP_SEE_OTHER);
         }
 
         $text = 'Nuevo Envase';
 
         return $this->renderForm('envase/new.html.twig', [
-            'idEntrada' => $idEntrada,
-            'tipoAlmacenamiento' => $tipoAlmacenamiento,
-            'condicionBiologica' => $condicionBiologica,
-            'fuenteRecoleccion' => $fuenteRecoleccion,
-            'estadoMLS' => $estadoMLS,
             'envase' => $envase,
             'form' => $form,
             'text_form' => $text,
@@ -248,34 +120,9 @@ class EnvaseController extends AbstractController
         ]);
         $form->handleRequest($request);
 
-        $idEntrada = null;
-        $tipoAlmacenamiento = null;
-        $condicionBiologica = null;
-        $fuenteRecoleccion = null;
-        $estadoMLS = null;
         $error = null;
 
-        if($envase->getEntrada()){
-            $idEntrada = $envase->getEntrada()->getId();
-        }
-
-        if($envase->getTipoAlmacenamiento()){
-            $tipoAlmacenamiento = $envase->getTipoAlmacenamiento();
-        }
-
-        if($envase->getCondicionBiologica()){
-            $condicionBiologica = $envase->getCondicionBiologica();
-        }
-
-        if($envase->getFuenteRecoleccion()){
-            $fuenteRecoleccion = $envase->getFuenteRecoleccion();
-        }
-
-        if($envase->getEstadoAccesionMls()){
-            $estadoMLS = $envase->getEstadoAccesionMls();
-        }
-
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $datos = $request->request->get('envase');
 
             if(isset($datos["codigo"]) && empty($datos["codigo"])) {
@@ -293,129 +140,16 @@ class EnvaseController extends AbstractController
                 }
                 
                 $envase->setCodigo($codigo);
-            } else if (isset($datos["codigo"]) && !empty($datos["codigo"])) {
-
-                $qb = $this->getDoctrine()
-                    ->getRepository(Envase::class)
-                    ->findCodigoID($envase->getId()); //Obtenemos el Codigo, desde la DB
-
-                if( $datos["codigo"] != $qb[0]['codigo'] ) {
-                    $qb = $this->getDoctrine()
-                        ->getRepository(Envase::class)
-                        ->createQueryBuilder('e')
-                            ->where('e.codigo LIKE :busqueda')
-                            ->setParameter('busqueda', '%'.$datos["codigo"].'%');
-                    
-                    $envaseDB = $qb->getQuery()->execute();
-                    
-                    if(count($envaseDB) >= 1) {
-                        $error['codigo'] = 'Ya existe un registro con este ID';
-                    }
-                }
-            }
-            
-            if(!empty($datos['tipo_almacenamiento'])){
-                $envase->setTipoAlmacenamiento($datos['tipo_almacenamiento']);
-            }
-            
-            if(!empty($datos['fecha_envasado'])){
-                $fecha = new DateTime($datos['fecha_envasado']);
-                $envase->setFechaEnvasado($fecha);
-            }
-
-            if(!empty($datos['ubicacion_envase'])){
-                $envase->setUbicacionEnvase($datos['ubicacion_envase']);
-            }
-
-            if(!empty($datos['temperatura_envasado'])){
-                $envase->setTemperaturaEnvasado($datos['temperatura_envasado']);
-            }
-
-            if(!empty($datos['humedad_relativa_envasar'])){
-                $envase->setHumedadRelativaEnvasar($datos['humedad_relativa_envasar']);
-            }
-
-            if(!empty($datos['humedad_relativa_semilla'])){
-                $envase->setHumedadRelativaSemilla($datos['humedad_relativa_semilla']);
-            }
-
-            if(!empty($datos['cantidad_min_seguridad'])){
-                $envase->setCantidadMinSeguridad($datos['cantidad_min_seguridad']);
-            }
-
-            if(!empty($datos['cantidad_min_unidades'])){
-                $envase->setCantidadMinUnidades($datos['cantidad_min_unidades']);
-            }
-
-            if(!empty($datos['unidades_gramo'])){
-                $envase->setUnidadesGramo($datos['unidades_gramo']);
-            }
-
-            if(!empty($datos['disponibilidad_red'])){
-                $envase->setDisponibilidadRed($datos['disponibilidad_red']);
-            }
-
-            if(!empty($datos['conservacion'])){
-                $envase->setConservacion($datos['conservacion']);
-            }
-
-            if(!empty($datos['observaciones'])){
-                $envase->setObservaciones($datos['observaciones']);
-            }
-
-            if(!empty($datos['entrada'])){
-                $entrada = $this->getDoctrine()
-                    ->getRepository(Entrada::class)
-                    ->find($datos['entrada']);
-
-                $envase->setEntrada($entrada);
-            }
-
-            if(!empty($datos['cantidad_gramos'])){
-                $envase->setCantidadGramos($datos['cantidad_gramos']);
-            }
-
-            if(!empty($datos['cantidad_unidades'])){
-                $envase->setCantidadUnidades($datos['cantidad_unidades']);
-            }
-
-            if(!empty($datos['unidades_viables"'])){
-                $envase->setUnidadesViables($datos['unidades_viables']);
-            }
-
-            if(!empty($datos['condicion_biologica'])){
-                $envase->setCondicionBiologica($datos['condicion_biologica']);
-            }
-
-            if(!empty($datos['datos_ancestrales'])){
-                $envase->setDatosAncestrales($datos['datos_ancestrales']);
-            }
-
-            if(!empty($datos['codigo_instituto'])){
-                $envase->setCodigoInstituto($datos['codigo_instituto']);
-            }
-
-            if(!empty($datos['nombre_instituto'])){
-                $envase->setNombreInstituto($datos['nombre_instituto']);
-            }
-
-            if(!empty($datos['fuente_recoleccion'])){
-                $envase->setFuenteRecoleccion($datos['fuente_recoleccion']);
-            }
-
-            if(!empty($datos['estado_accesion_mls'])){
-                $envase->setEstadoAccesionMls($datos['estado_accesion_mls']);
             }
 
             // Relación Variedad
             if( isset($datos['variedads']) && !empty($datos['variedads']) ) {
-                foreach( $datos['variedads'] as $variedadDB ) {
+                foreach( $datos['variedads'] as $variedadPOST ) {
                     
                     $variedad = $this->getDoctrine()
                         ->getRepository(Variedad::class)
-                        ->find( intval($variedadDB) );
+                        ->find( intval($variedadPOST) );
 
-                    $envase->addVariedad($variedad);
                     $variedad->addEnvase($envase);
                 }
             }
@@ -439,20 +173,15 @@ class EnvaseController extends AbstractController
                 }
             }
 
-            if(empty($error)) {
+            // if(empty($error)) {
                 $this->getDoctrine()->getManager()->flush();
                 return $this->redirectToRoute('envase_index', [], Response::HTTP_SEE_OTHER);
-            }
+            // }
         }
 
         $text = 'Editar Envase';
 
         return $this->renderForm('envase/edit.html.twig', [
-            'idEntrada' => $idEntrada,
-            'tipoAlmacenamiento' => $tipoAlmacenamiento,
-            'condicionBiologica' => $condicionBiologica,
-            'fuenteRecoleccion' => $fuenteRecoleccion,
-            'estadoMLS' => $estadoMLS,
             'envase' => $envase,
             'form' => $form,
             'text_form' => $text,

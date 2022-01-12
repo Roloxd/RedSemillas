@@ -149,7 +149,6 @@ class VariedadController extends AbstractController
                 if($variedad2 == null){
                     $variedad->setCodigo($datos["codigo"]);
                 } else {
-                    //Si existe ya una Variedad con ese Codigo, mostrar error
                     $variedades = $this->getDoctrine()
                     ->getRepository(Variedad::class)
                     ->findAll();
@@ -524,13 +523,29 @@ class VariedadController extends AbstractController
      */
     public function cod(Request $request): Response
     {
+        $error = null;
         $codigo = $request->request->get('codigo');
+        $idVariedad = $request->request->get('variedadID')[0];
 
-        dump($codigo); //Obtenemos el codigo editado, cambiar solo si se modifico, y si no esta vacio.
+        if(!empty($codigo)) {
+            if($codigo != $idVariedad) {
+                $qb = $this->getDoctrine()
+                    ->getRepository(Variedad::class)
+                    ->createQueryBuilder('v')
+                        ->where('v.codigo LIKE :busqueda')
+                        ->setParameter('busqueda', '%'.$codigo.'%');
+                
+                $variedadDB = $qb->getQuery()->execute();
+
+                if(count($variedadDB) >= 1) {
+                    $error = 'Ya existe un registro con este ID';
+                }
+            }
+        }
 
         $response = new Response();
         $response->setContent(json_encode([
-            // 'ArrayCicloYSiembra' => $arrayCicloYSiembra,
+            'error' => $error,
         ]));
         $response->headers->set('Content-Type', 'application/json');
 

@@ -43,23 +43,6 @@ class EntradaController extends AbstractController
 
             $datos = $request->request->get('entrada1');
 
-            if(!empty($datos['cantidad'])){
-                $entrada->setCantidad($datos['cantidad'][0]);
-            }
-            
-            if(!empty($datos['fecha_entrada'])){
-                $fecha = new DateTime($datos['fecha_entrada']);
-                $entrada->setFechaEntrada($fecha);
-            }
-
-            if(!empty($datos['tipo_entrada'])){
-                $entrada->setTipoEntrada($datos['tipo_entrada']);
-            }
-
-            if(!empty($datos['observaciones'])){
-                $entrada->setObservaciones($datos['observaciones']);
-            }
-
             if(!empty($datos['id_terreno'])){
                 foreach ($datos['id_terreno'] as $numTerreno){
                     $terreno = $this->getDoctrine()
@@ -74,9 +57,11 @@ class EntradaController extends AbstractController
             $entityManager->persist($entrada);
             $entityManager->flush();
 
-            return $this->redirectToRoute('envase_new', [
-                'entrada' => $entrada->getId(),
-            ], Response::HTTP_SEE_OTHER);
+            // return $this->redirectToRoute('envase_new', [
+            //     'entrada' => $entrada->getId(),
+            // ], Response::HTTP_SEE_OTHER);
+
+            return $this->redirectToRoute('entrada_index', [], Response::HTTP_SEE_OTHER);
         }
 
         $text = 'Nueva Entrada';
@@ -163,23 +148,6 @@ class EntradaController extends AbstractController
         if ($form->isSubmitted()) {
             
             $datos = $request->request->get('entrada1');
-
-            if(!empty($datos['cantidad'])){
-                $entrada->setCantidad($datos['cantidad']);
-            }
-            
-            if(!empty($datos['fecha_entrada'])){
-                $fecha = new DateTime($datos['fecha_entrada']);
-                $entrada->setFechaEntrada($fecha);
-            }
-
-            if(!empty($datos['tipo_entrada'])){
-                $entrada->setTipoEntrada($datos['tipo_entrada']);
-            }
-
-            if(!empty($datos['observaciones'])){
-                $entrada->setObservaciones($datos['observaciones']);
-            }
 
             if(!empty($datos['id_terreno'])){
                 

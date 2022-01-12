@@ -49,7 +49,7 @@
                   <div class="form-group">
                     <p><b>Código ID</b></p>
                     <div class="flex">
-                      <label for="codigo" class="lavel-centrado">VAR-</label>
+                      <label for="codigo" class="lavel-centrado">E-</label>
                       {{ form_widget(form.codigo, {'attr': {'class': 'form-control', 'placeholder': '00000'}}) }}
                     </div>
                   </div>
@@ -63,13 +63,14 @@
                   <div class="form-group">
                     <label for="envase_entrada">Entrada</label>
                     <a href="#" data-toggle="tooltip" title="Escribe 'E' o el numero de entrada. Seleccione la entrada.">?</a>
-                    <input id ="envase_entrada" class="form-control" type="text" name="envase[entrada]" list="entradas_list" value="{{ idEntrada }}" />
-                    <datalist id="entradas_list"></datalist>
+                    {# <input id ="envase_entrada" class="form-control" type="text" name="envase[entrada]" list="entradas_list" value="{{ idEntrada }}" /> #}
+                    {{ form_widget(form.entrada, {'attr': {'class': 'form-control' }}) }}
+                    {# <datalist id="entradas_list"></datalist> #}
                   </div>
                   <div class="form-group">
                     <label for="envase_tipo_almacenamiento">Tipo de almacenamiento</label>
                     <a href="#" data-toggle="tooltip" title="Escribe código o texto del tipo de almacenamiento.">?</a>
-                    <input id ="envase_tipo_almacenamiento" class="form-control" type="text" name="envase[tipo_almacenamiento]" list="almacenamiento_list" value="{{ tipoAlmacenamiento }}" />
+                    {{ form_widget(form.tipo_almacenamiento, {'attr': {'class': 'form-control', 'list': 'almacenamiento_list'}}) }}
                     <datalist id="almacenamiento_list">
                       <option value="10. Colección de semillas">10. Colección de semillas</option>
                       <option value="11. Corto plazo">11. Corto plazo</option>
@@ -148,7 +149,6 @@
                   <label for="envase_variedads">Selecciona las Variedades</label>
                   <a href="#" data-toggle="tooltip" title="Con Ctrl + Click Izquierdo, puedes seleccionar más de uno.">?</a>
                   {{ form_widget(form.variedads, {'attr': {'class': 'form-control'}}) }}
-                  {# <datalist id="envases_list"></datalist> #}
                 </div>
               </div>
             </div>
@@ -210,7 +210,7 @@
                 <div class="form-group">
                     <label for="envase_condicion_biologica">Condición Biologica</label>
                     <a href="#" data-toggle="tooltip" title="Escribe código o texto de la condición biologica.">?</a>
-                    <input id ="envase_condicion_biologica" class="form-control" type="text" name="envase[condicion_biologica]" list="condicion_biologica_list" value="{{ condicionBiologica }}" />
+                    {{ form_widget(form.condicion_biologica, {'attr': {'class': 'form-control', 'list': 'condicion_biologica_list'}}) }}
                     <datalist id="condicion_biologica_list">
                       <option value="100. Silvestre">100. Silvestre</option>
                       <option value="110. Natural">110. Natural</option>
@@ -244,7 +244,7 @@ Por ejemplo, un pedigrí ‘Hanna/7*Atlas/Turk/8*Atlas’; o una descripción co
                   <div class="form-group">
                     <label for="envase_fuente_recoleccion">Fuente de recolección o adquisición</label>
                     <a href="#" data-toggle="tooltip" title="Escribe código o texto de la fuente de recolección">?</a>
-                    <input id ="envase_fuente_recoleccion" class="form-control" type="text" name="envase[fuente_recoleccion]" list="fuente_recoleccion_list" value="{{ fuenteRecoleccion }}" />
+                    {{ form_widget(form.fuente_recoleccion, {'attr': {'class': 'form-control', 'list': 'fuente_recoleccion_list'}}) }}
                     <datalist id="fuente_recoleccion_list">
                       <option value="10. Hábitat silvestre">10. Hábitat silvestre</option>
                       <option value="11. Bosque (selva) o paraje boscoso">11. Bosque (selva) o paraje boscoso</option>
@@ -273,7 +273,7 @@ Por ejemplo, un pedigrí ‘Hanna/7*Atlas/Turk/8*Atlas’; o una descripción co
                   <div class="form-group">
                     <label for="envase_estado_accesion_mls">Estado accesión con respecto al MLS</label>
                     <a href="#" data-toggle="tooltip" title="El estado de la accesión con respecto al Sistema Multilateral (MLS, en inglés) del Tratado Internacional de los Recursos Fitogenéticos para la Alimentación y la Agricultura.">?</a>
-                    <input id ="envase_estado_accesion_mls" class="form-control" type="text" name="envase[estado_accesion_mls]" list="estado_accesion_mls_list" value="{{ estadoMLS }}" />
+                    {{ form_widget(form.estado_accesion_mls, {'attr': {'class': 'form-control', 'list': 'estado_accesion_mls_list'}}) }}
                     <datalist id="estado_accesion_mls_list">
                       <option value="No">No (no está incluido)</option>
                       <option value="Si">Si (está incluido)</option>

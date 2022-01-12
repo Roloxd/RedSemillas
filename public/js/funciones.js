@@ -1133,16 +1133,21 @@ if(formVariedad != null) {
             error = true;
         }
         if(!variedad1_codigo == '') {
+            const patron = /(\d+)/g;
+            const idVariedad = window.location.pathname.match(patron);
+
             $.ajax({
                 url:"/admin/variedades/findCodigo",
-                data:{codigo : variedad1_codigo},
+                data:{codigo : variedad1_codigo, variedadID : idVariedad},
                 type:"post",
                 error:function(err){
                         console.error(err);
                 },
                 success:function(data){
-                    console.log(data);
-                    
+                    const contenedor = document.querySelector();
+                    Object.values(data).forEach(element => {
+                        
+                    });
                 },
                 complete:function(){
                     //console.log("Solicitud finalizada.");

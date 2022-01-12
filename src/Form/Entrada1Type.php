@@ -14,19 +14,19 @@ class Entrada1Type extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('cantidad')
-            ->add('fecha_entrada', DateType::class, [
-                'widget' => 'single_text',
-            ])
-            ->add('tipo_entrada', ChoiceType::class, [
-                'choices'  => [
-                    'Nueva' => 'Nueva',
-                    'Devolución' => 'Devolución',
-                    'Renovación' => 'Renovación',
-                ],
-            ])
-            ->add('observaciones')
-            //->add('id_terreno')
+        ->add('cantidad')
+        ->add('fecha_entrada', DateType::class, [
+            'widget' => 'single_text',
+        ])
+        ->add('tipo_entrada', ChoiceType::class, [
+            'choices'  => [
+                'Nueva' => 'Nueva',
+                'Devolución' => 'Devolución',
+                'Renovación' => 'Renovación',
+            ],
+        ])
+        ->add('observaciones')
+        //->add('id_terreno')
         ;
     }
 

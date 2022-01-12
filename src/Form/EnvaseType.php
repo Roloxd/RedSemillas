@@ -32,9 +32,11 @@ class EnvaseType extends AbstractType
             ->add('variedads')
             ->add('datos_ancestrales')
             ->add('codigo')
-            // ->add('nombre_instituto')
-            // ->add('codigo_instituto')
-            //->add('estado_accesion_mls')
+            ->add('tipo_almacenamiento')
+            ->add('entrada')
+            ->add('condicion_biologica')
+            ->add('fuente_recoleccion')
+            ->add('estado_accesion_mls')
         ;
     }
 
