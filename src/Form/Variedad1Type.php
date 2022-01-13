@@ -93,7 +93,6 @@ class Variedad1Type extends AbstractType
                 'required' => false,
             ])
             ->add('envases')
-            // ->add('especie')
         ;
     }
 

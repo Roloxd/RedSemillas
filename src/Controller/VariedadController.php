@@ -761,6 +761,17 @@ class VariedadController extends AbstractController
 
             $this->getDoctrine()->getManager()->flush();
 
+            // try {
+            //     $this->getDoctrine()->getManager()->flush();
+            //     return $this->redirectToRoute('envase_index', [], Response::HTTP_SEE_OTHER);
+            // } catch (\Exception $e) {
+            //     if(strpos($e->getMessage(), 'codigo_envase')) {
+            //         $error['codigo'] = "Existe un envase con este código, prueba con otro código";
+            //     } else {
+            //         $error['codigo'] = $e->getMessage();
+            //     }
+            // }
+
             $datosCiclosYSiembras = $request->request->get('ciclo_y_siembra');
             $meses = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
             

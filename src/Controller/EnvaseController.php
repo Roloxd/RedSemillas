@@ -7,7 +7,6 @@ use App\Entity\Entrada;
 use App\Entity\Variedad;
 use App\Form\EnvaseType;
 use App\Repository\EnvaseRepository;
-use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -73,20 +72,27 @@ class EnvaseController extends AbstractController
                         ->getRepository(Variedad::class)
                         ->find( intval($variedadPOST) );
 
-                    $envase->addVariedad($variedad);
                     $variedad->addEnvase($envase);
                 }
             }
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($envase);
-            $entityManager->flush();
 
+            try {
+                $entityManager->flush();
+                return $this->redirectToRoute('envase_new', [], Response::HTTP_SEE_OTHER);
+            } catch (\Exception $e) {
+                if(strpos($e->getMessage(), 'codigo_envase')) {
+                    $error['codigo'] = "Existe un envase con este código, prueba con otro código";
+                } else {
+                    $error['codigo'] = $e->getMessage();
+                }
+            }
+            
             // return $this->redirectToRoute('envase_new', [
             //     'entrada' => $idEntrada,
             // ], Response::HTTP_SEE_OTHER);
-
-            return $this->redirectToRoute('envase_new', [], Response::HTTP_SEE_OTHER);
         }
 
         $text = 'Nuevo Envase';
@@ -173,10 +179,16 @@ class EnvaseController extends AbstractController
                 }
             }
 
-            // if(empty($error)) {
+            try {
                 $this->getDoctrine()->getManager()->flush();
                 return $this->redirectToRoute('envase_index', [], Response::HTTP_SEE_OTHER);
-            // }
+            } catch (\Exception $e) {
+                if(strpos($e->getMessage(), 'codigo_envase')) {
+                    $error['codigo'] = "Existe un envase con este código, prueba con otro código";
+                } else {
+                    $error['codigo'] = $e->getMessage();
+                }
+            }
         }
 
         $text = 'Editar Envase';
