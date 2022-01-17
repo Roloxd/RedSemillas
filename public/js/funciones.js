@@ -1069,7 +1069,7 @@ if(formVariedad != null) {
         var error = false;
 
         //Validar Formulario
-        const {variedad1_marcoA, variedad1_marcoB, variedad1_densidad} = datos;
+        const {variedad1_marcoA, variedad1_marcoB, variedad1_densidad, variedad1_codigo} = datos;
 
         const patron = /^[0-9]{1}[.]{1}[0-9]{3}$/i;
         // const lengthCodigo = variedad1_codigo.toString().length;
@@ -1093,7 +1093,7 @@ if(formVariedad != null) {
         if(!variedad1_densidad == '' && !comparacionDensidad) {
             mostrarAlerta('Densidad, error de formato. | Formato: 0.000', true);
             error = true;
-        } 
+        }
         
         if(error === false) {
             newVariedad();
@@ -1144,18 +1144,28 @@ if(formVariedad != null) {
                         console.error(err);
                 },
                 success:function(data){
-                    const contenedor = document.querySelector();
-                    Object.values(data).forEach(element => {
-                        
-                    });
+                    const contenedor = document.querySelector('#alerta-codigo');
+
+                    if(data != null) {
+                        Object.values(data).forEach(element => {
+                            const etiqueta = document.createElement('DIV');
+                            etiqueta.classList = 'error';
+                            etiqueta.innerText = element;
+                            contenedor.appendChild(etiqueta);
+
+                            setTimeout(()=>{
+                                etiqueta.remove();
+                            }, 5000);
+                        });
+                    }
+                    
                 },
                 complete:function(){
                     //console.log("Solicitud finalizada.");
                 }
             });
         }
-        
-        
+         
         if(error === false) {
             updateVariedad();
         }

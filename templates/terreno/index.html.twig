@@ -53,6 +53,7 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                         <tr>
+                            <th>Acciones</th>
                             <th>Id</th>
                             <th>Nombre</th>
                             <th>Dirección</th>
@@ -68,12 +69,18 @@
                             <th>Manejo_cultivo</th>
                             <th>Tipo_cultivos</th>
                             <th>Observaciones</th>
-                            <th>actions</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                   <tbody>
         {% for terreno in terrenos %}
             <tr>
+                <td>
+                  <div class="btn-group-vertical w-100">
+                    <a class="btn btn-default" href="{{ path('terreno_show', {'id': terreno.id}) }}">Ver</a>
+                    <a class="btn btn-default" href="{{ path('terreno_edit', {'id': terreno.id}) }}">Editar</a>
+                  </div>
+                </td>
                 <td>{{ terreno.id }}</td>
                 <td>{{ terreno.nombre }}</td>
                 <td>{{ terreno.direccion }}</td>
@@ -90,8 +97,10 @@
                 <td>{{ terreno.tipoCultivos }}</td>
                 <td>{{ terreno.observaciones }}</td>
                 <td>
-                    <a href="{{ path('terreno_show', {'id': terreno.id}) }}">show</a>
-                    <a href="{{ path('terreno_edit', {'id': terreno.id}) }}">edit</a>
+                  <div class="btn-group-vertical w-100">
+                    <a class="btn btn-default" href="{{ path('terreno_show', {'id': terreno.id}) }}">Ver</a>
+                    <a class="btn btn-default" href="{{ path('terreno_edit', {'id': terreno.id}) }}">Editar</a>
+                  </div>
                 </td>
             </tr>
         {% else %}
@@ -102,6 +111,7 @@
         </tbody>
                   <tfoot>
                     <tr>
+                        <th>Acciones</th>
                         <th>Id</th>
                         <th>Nombre</th>
                         <th>Dirección</th>
@@ -117,7 +127,7 @@
                         <th>Manejo_cultivo</th>
                         <th>Tipo_cultivos</th>
                         <th>Observaciones</th>
-                        <th>actions</th>
+                        <th>Acciones</th>
                     </tr>  
                   </tfoot>
                 </table>
@@ -174,7 +184,8 @@
   $(function () {
     $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+      "order": [[ 1, "asc" ]]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({
       "paging": true,

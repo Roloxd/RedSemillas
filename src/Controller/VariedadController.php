@@ -521,7 +521,7 @@ class VariedadController extends AbstractController
     /**
      * @Route("/findCodigo", name="variedad_codigo", methods={"POST"})
      */
-    public function cod(Request $request): Response
+    public function alertaCodigo(Request $request): Response
     {
         $error = null;
         $codigo = $request->request->get('codigo');
@@ -538,7 +538,7 @@ class VariedadController extends AbstractController
                 $variedadDB = $qb->getQuery()->execute();
 
                 if(count($variedadDB) >= 1) {
-                    $error = 'Ya existe un registro con este ID';
+                    $error = 'Existe una variedad con este código, prueba con otro código';
                 }
             }
         }
@@ -760,17 +760,6 @@ class VariedadController extends AbstractController
             }
 
             $this->getDoctrine()->getManager()->flush();
-
-            // try {
-            //     $this->getDoctrine()->getManager()->flush();
-            //     return $this->redirectToRoute('envase_index', [], Response::HTTP_SEE_OTHER);
-            // } catch (\Exception $e) {
-            //     if(strpos($e->getMessage(), 'codigo_envase')) {
-            //         $error['codigo'] = "Existe un envase con este código, prueba con otro código";
-            //     } else {
-            //         $error['codigo'] = $e->getMessage();
-            //     }
-            // }
 
             $datosCiclosYSiembras = $request->request->get('ciclo_y_siembra');
             $meses = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];

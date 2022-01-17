@@ -108,6 +108,8 @@ class ImagenController extends AbstractController
             
         }
 
+        ImagenController::marcaAgua($imgDir, $filename);
+
         $Imagen->setTitulo($titulo);
         $Imagen->setCredito($credito);
 
@@ -134,7 +136,6 @@ class ImagenController extends AbstractController
             }
         }
         
-
         $Imagen->setPrincipal($principal);
 
 
@@ -146,8 +147,6 @@ class ImagenController extends AbstractController
 
         
         $idImagen = $Imagen->getId();
-        
-        
 
         //}
     
@@ -158,6 +157,56 @@ class ImagenController extends AbstractController
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;     
+    }
+
+    public function marcaAgua(string $imgDir, string $nombreImagen) {
+        
+        // $imagenOriginal = basename($file['url']);
+        $watermarkImagePath = __DIR__ . '/../../public/images/cropped-LogoTierraFertil_WEB180X102.webp';
+        $targetFilePath = $imgDir . $nombreImagen;
+        $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
+
+        $allowTypes = array('jpg','png','jpeg');
+        
+        if(in_array($fileType, $allowTypes)){
+            // if(move_uploaded_file($nombreImagen, $targetFilePath)){
+                $watermarkImg = imagecreatefromwebp($watermarkImagePath); 
+                switch($fileType){ 
+                    case 'jpg': 
+                        $im = imagecreatefromjpeg($targetFilePath); 
+                        break; 
+                    case 'jpeg': 
+                        $im = imagecreatefromjpeg($targetFilePath); 
+                        break; 
+                    case 'png': 
+                        $im = imagecreatefrompng($targetFilePath); 
+                        break;
+                    default: 
+                        $im = imagecreatefromjpeg($targetFilePath); 
+                }
+
+                $marge_right = 10; 
+                $marge_bottom = 10; 
+                 
+                $sx = imagesx($watermarkImg); 
+                $sy = imagesy($watermarkImg); 
+                 
+                imagecopy($im, $watermarkImg, imagesx($im) - $sx - $marge_right, imagesy($im) - $sy - $marge_bottom, 0, 0, imagesx($watermarkImg), imagesy($watermarkImg));
+
+                imagepng($im, $targetFilePath); 
+                imagedestroy($im); 
+     
+                if(file_exists($targetFilePath)){ 
+                    dump("La imagen con marca de agua se ha subido satisfactoriamente"); 
+                }else{ 
+                    dump("Imagen subida fallida. Prueba otra vez."); 
+                } 
+            // } else {
+            //     dump("Lo siento. Ha ocurrido un error subiendo el archivo.");
+            // }
+        } else {
+            dump('Lo siento. Solo se permiten archivo JPG, JPEG y PNG');
+        }
     }
 
     /**
