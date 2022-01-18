@@ -64,8 +64,10 @@
                         <td>{{ imagen.credito }}</td>
                         <td>{{ imagen.principal }}</td>
                         <td>
-                            <a href="{{ path('imagen_show', {'id': imagen.id}) }}">show</a>
-                            <a href="{{ path('imagen_edit', {'id': imagen.id}) }}">edit</a>
+                          <div class="btn-group-vertical w-100">
+                            <a class="btn btn-default" href="{{ path('imagen_show', {'id': imagen.id}) }}">Ver</a>
+                            {# <a class="btn btn-default" href="{{ path('imagen_edit', {'id': imagen.id}) }}">Editar</a> #}
+                          </div>
                         </td>
                     </tr>
                 {% else %}
@@ -81,7 +83,7 @@
                                 <th>Titulo</th>
                                 <th>Credito</th>
                                 <th>Principal</th>
-                                <th>actions</th>
+                                <th>Acciones</th>
                             </tr>   
                         </tfoot>
                     </table>

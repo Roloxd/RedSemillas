@@ -51,6 +51,7 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                     <tr>
+                        <th>Acciones</th>
                         <th>Id</th>
                         <th>Num_socio</th>
                         <th>Fecha_inscripcion_rgcs</th>
@@ -79,12 +80,18 @@
                         <th>Otras_cuestiones</th>
                         <th>Documento</th>
                         <th>Observaciones</th>
-                        <th>actions</th>
+                        <th>Acciones</th>
                     </tr>   
                   </thead>
                 <tbody>
                 {% for persona in personas %}
                     <tr>
+                        <td>
+                          <div class="btn-group-vertical w-100">
+                            <a class="btn btn-default" href="{{ path('persona_show', {'id': persona.id}) }}">Ver</a>
+                            <a class="btn btn-default" href="{{ path('persona_edit', {'id': persona.id}) }}">Editar</a>
+                          </div>
+                        </td>
                         <td>{{ persona.id }}</td>
                         <td>{{ persona.numSocio }}</td>
                         <td>{{ persona.fechaInscripcionRgcs ? persona.fechaInscripcionRgcs|date('Y-m-d') : '' }}</td>
@@ -114,8 +121,10 @@
                         <td>{{ persona.documento }}</td>
                         <td>{{ persona.observaciones }}</td>
                         <td>
-                            <a href="{{ path('persona_show', {'id': persona.id}) }}">show</a>
-                            <a href="{{ path('persona_edit', {'id': persona.id}) }}">edit</a>
+                          <div class="btn-group-vertical w-100">
+                            <a class="btn btn-default" href="{{ path('persona_show', {'id': persona.id}) }}">Ver</a>
+                            <a class="btn btn-default" href="{{ path('persona_edit', {'id': persona.id}) }}">Editar</a>
+                          </div>
                         </td>
                     </tr>
                 {% else %}
@@ -126,6 +135,7 @@
                     </tbody>
                         <tfoot>
                             <tr>
+                                <th>Acciones</th>
                                 <th>Id</th>
                                 <th>Num_socio</th>
                                 <th>Fecha_inscripcion_rgcs</th>
@@ -154,7 +164,7 @@
                                 <th>Otras_cuestiones</th>
                                 <th>Documento</th>
                                 <th>Observaciones</th>
-                                <th>actions</th>
+                                <th>Acciones</th>
                             </tr>   
                         </tfoot>
                     </table>
@@ -211,7 +221,8 @@
   $(function () {
     $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+      "order": [[ 1, "asc" ]]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({
       "paging": true,

@@ -14,17 +14,16 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <h1>Imagen</h1>
+        <div class="d-flex justify-content-between pt-3">
+            <h1>Imagen</h1>
+            {{ include('imagen/_delete_form.html.twig') }}
+        </div>
 
         <table class="table">
             <tbody>
                 <tr>
                     <th>Id</th>
                     <td>{{ imagen.id }}</td>
-                </tr>
-                <tr>
-                    <th>Url</th>
-                    <td>{{ imagen.url }}</td>
                 </tr>
                 <tr>
                     <th>Titulo</th>
@@ -34,14 +33,18 @@
                     <th>Credito</th>
                     <td>{{ imagen.credito }}</td>
                 </tr>
+                <tr>
+                    <th>Imagen</th>
+                    <td><img src="/uploads/img/{{ imagen.url }}" class="img-fluid rounded mh-400" /></td>
+                </tr>
             </tbody>
         </table>
 
-        <a href="{{ path('imagen_index') }}">Volver a la lista</a>
-
-        <a href="{{ path('imagen_edit', {'id': imagen.id}) }}">Editar</a>
-
-        {{ include('imagen/_delete_form.html.twig') }}
+        <div class="d-flex justify-content-between">
+            <a class="btn btn-secondary" href="{{ path('imagen_index') }}">Volver a la lista</a>
+            {# <a href="{{ path('imagen_edit', {'id': imagen.id}) }}">Editar</a> #}
+        </div>
+        
     </div>
 
     {{ include('be-layout/footer.html', sandboxed = true) }}

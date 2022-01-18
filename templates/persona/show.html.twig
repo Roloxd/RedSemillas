@@ -14,7 +14,10 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <h1>Persona</h1>
+        <div class="d-flex justify-content-between pt-3">
+            <h1>Persona</h1>
+            {{ include('persona/_delete_form.html.twig') }}
+        </div>
 
         <table class="table">
             <tbody>
@@ -133,11 +136,10 @@
             </tbody>
         </table>
 
-        <a href="{{ path('persona_index') }}">Volver a la lista</a>
-
-        <a href="{{ path('persona_edit', {'id': persona.id}) }}">Editar</a>
-
-        {{ include('persona/_delete_form.html.twig') }}
+        <div class="d-flex justify-content-between">
+            <a class="btn btn-secondary" href="{{ path('persona_index') }}">Volver a la lista</a>
+            <a class="btn btn-primary" href="{{ path('persona_edit', {'id': persona.id}) }}">Editar</a>
+        </div>
     </div>
     
     {{ include('be-layout/footer.html', sandboxed = true) }}

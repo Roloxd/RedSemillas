@@ -14,7 +14,10 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <h1>Envase</h1>
+        <div class="d-flex justify-content-between pt-3">
+            <h1>Envase</h1>
+            {{ include('envase/_delete_form.html.twig') }}
+        </div>
 
         <table class="table">
             <tbody>
@@ -101,11 +104,11 @@
             </tbody>
         </table>
 
-        <a href="{{ path('envase_index') }}">Volver a la lista</a>
-
-        <a href="{{ path('envase_edit', {'id': envase.id}) }}">Editar</a>
-
-        {{ include('envase/_delete_form.html.twig') }}
+        <div class="d-flex justify-content-between">
+            <a class="btn btn-secondary" href="{{ path('envase_index') }}">Volver a la lista</a>
+            <a class="btn btn-primary" href="{{ path('envase_edit', {'id': envase.id}) }}">Editar</a>
+        </div>
+        
     </div>
 
     {{ include('be-layout/footer.html', sandboxed = true) }}
