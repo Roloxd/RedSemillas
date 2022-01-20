@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=TaxonRepository::class)
+ * @ORM\Table(name="taxon_wfo")
  */
 class Taxon
 {

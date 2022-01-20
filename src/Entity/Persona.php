@@ -164,9 +164,35 @@ class Persona
      */
     private $donante;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Pago::class, mappedBy="persona")
+     */
+    private $pagos;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $numerario;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $numero_cuenta_corriente;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $fecha_inscripcion_numerario;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $domiciliario;
+
     public function __construct()
     {
         $this->terrenos = new ArrayCollection();
+        $this->pagos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -541,6 +567,84 @@ class Persona
     public function setDonante(?Donante $donante): self
     {
         $this->donante = $donante;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Pago[]
+     */
+    public function getPagos(): Collection
+    {
+        return $this->pagos;
+    }
+
+    public function addPago(Pago $pago): self
+    {
+        if (!$this->pagos->contains($pago)) {
+            $this->pagos[] = $pago;
+            $pago->setPersona($this);
+        }
+
+        return $this;
+    }
+
+    public function removePago(Pago $pago): self
+    {
+        if ($this->pagos->removeElement($pago)) {
+            // set the owning side to null (unless already changed)
+            if ($pago->getPersona() === $this) {
+                $pago->setPersona(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getNumerario(): ?bool
+    {
+        return $this->numerario;
+    }
+
+    public function setNumerario(bool $numerario): self
+    {
+        $this->numerario = $numerario;
+
+        return $this;
+    }
+
+    public function getNumeroCuentaCorriente(): ?string
+    {
+        return $this->numero_cuenta_corriente;
+    }
+
+    public function setNumeroCuentaCorriente(?string $numero_cuenta_corriente): self
+    {
+        $this->numero_cuenta_corriente = $numero_cuenta_corriente;
+
+        return $this;
+    }
+
+    public function getFechaInscripcionNumerario(): ?\DateTimeInterface
+    {
+        return $this->fecha_inscripcion_numerario;
+    }
+
+    public function setFechaInscripcionNumerario(?\DateTimeInterface $fecha_inscripcion_numerario): self
+    {
+        $this->fecha_inscripcion_numerario = $fecha_inscripcion_numerario;
+
+        return $this;
+    }
+
+    public function getDomiciliario(): ?bool
+    {
+        return $this->domiciliario;
+    }
+
+    public function setDomiciliario(bool $domiciliario): self
+    {
+        $this->domiciliario = $domiciliario;
 
         return $this;
     }

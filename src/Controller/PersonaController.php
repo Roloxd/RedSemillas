@@ -37,79 +37,9 @@ class PersonaController extends AbstractController
             'attr' => ['class' => 'formPersona' ]
         ]);
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted()) {
             $datos = $request->request->get('persona2');
-
-            $fechaIncripcionRgcs = new DateTime($datos['fecha_inscripcion_rgcs']);
-            $fechaCuota = new DateTime($datos['fecha_cuota']);
-            $fechaInformacion = new DateTime($datos['fecha_informacion']);
-
-            $persona->setFechaInscripcionRgcs($fechaIncripcionRgcs);
-            $persona->setFechaCuota($fechaCuota);
-            $persona->setFechaInformacion($fechaInformacion);
-
-            if(!empty($datos['num_socio'])){
-                $persona->setNumSocio($datos['num_socio']);
-            }
-
-            $persona->setNif($datos['nif']);
-            $persona->setNombre($datos['nombre']);
-            $persona->setApellidos($datos['apellidos']);
-
-            if(!empty($datos['telefono'])){
-                $persona->setTelefono($datos['telefono']);
-            }
-
-            if(!empty($datos['telefono2'])){
-                $persona->setTelefono($datos['telefono2']);
-            }
-
-            if(!empty($datos['correo'])){
-                $persona->setCorreo($datos['correo']);
-            }
-
-            if(!empty($datos['tipo_socio'])){
-                $persona->setTipoSocio($datos['tipo_socio']);
-            }
-
-            if(isset($datos['acepta_condiciones'])){
-                $persona->setAceptaCondiciones($datos['acepta_condiciones']);
-            } else {
-                $persona->setAceptaCondiciones(0);
-            }
-
-            if(isset($datos['terreno_cultivo'])){
-                $persona->setTerrenoCultivo($datos['terreno_cultivo']);
-            } else {
-                $persona->setTerrenoCultivo(0);
-            }
-
-            if(isset($datos['inscripcion_rope'])){
-                $persona->setInscripcionRope($datos['inscripcion_rope']);
-            } else {
-                $persona->setInscripcionRope(0);
-            }
-
-            if(isset($datos['ampliacion_cuota'])){
-                $persona->setAmpliacionCuota($datos['ampliacion_cuota']);
-            } else {
-                $persona->setAmpliacionCuota(0);
-            }
-
-            if(isset($datos['recibir_informacion'])){
-                $persona->setRecibirInformacion($datos['recibir_informacion']);
-            } else {
-                $persona->setRecibirInformacion(0);
-            }
-
-            if(!empty($datos['otras_cuestiones'])){
-                $persona->setOtrasCuestiones($datos['otras_cuestiones']);
-            }
-
-            if(!empty($datos['observaciones'])){
-                $persona->setObservaciones($datos['observaciones']);
-            }
 
             if(!empty($datos['donante'])){
                 $donante = $this->getDoctrine()
@@ -119,41 +49,7 @@ class PersonaController extends AbstractController
                 $persona->setDonante($donante);
             }
 
-            if(!empty($datos['direccion'])){
-                $persona->setDireccion($datos['direccion']);
-            }
 
-            if(!empty($datos['localidad'])){
-                $persona->setLocalidad($datos['localidad']);
-            }
-
-            if(!empty($datos['municipio'])){
-                $persona->setMunicipio($datos['municipio']);
-            }
-
-            if(!empty($datos['provincia'])){
-                $persona->setProvincia($datos['provincia']);
-            }
-
-            if(!empty($datos['region'])){
-                $persona->setRegion($datos['region']);
-            }
-
-            if(!empty($datos['pais_origen'])){
-                $persona->setPaisOrigen($datos['pais_origen']);
-            }
-
-            if(!empty($datos['relacion_agricultura'])){
-                $persona->setRelacionAgricultura($datos['relacion_agricultura']);
-            }
-
-            if(!empty($datos['relacion_agricultura'])){
-                $persona->setRelacionAgricultura($datos['relacion_agricultura']);
-            }
-
-            if(!empty($datos['codigo_rope'])){
-                $persona->setCodigoRope($datos['codigo_rope']);
-            }
             
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($persona);
@@ -247,118 +143,12 @@ class PersonaController extends AbstractController
         if ($form->isSubmitted()) {
             $datos = $request->request->get('persona2');
 
-            $fechaIncripcionRgcs = new DateTime($datos['fecha_inscripcion_rgcs']);
-            $fechaCuota = new DateTime($datos['fecha_cuota']);
-            $fechaInformacion = new DateTime($datos['fecha_informacion']);
-
-            $persona->setFechaInscripcionRgcs($fechaIncripcionRgcs);
-            $persona->setFechaCuota($fechaCuota);
-            $persona->setFechaInformacion($fechaInformacion);
-
-            if(!empty($datos['num_socio'])){
-                $persona->setNumSocio($datos['num_socio']);
-            }
-
-            $persona->setNif($datos['nif']);
-            $persona->setNombre($datos['nombre']);
-            $persona->setApellidos($datos['apellidos']);
-
-            if(!empty($datos['telefono'])){
-                $persona->setTelefono($datos['telefono']);
-            }
-
-            if(!empty($datos['telefono2'])){
-                $persona->setTelefono($datos['telefono2']);
-            }
-
-            if(!empty($datos['correo'])){
-                $persona->setCorreo($datos['correo']);
-            }
-
-            if(!empty($datos['tipo_socio'])){
-                $persona->setTipoSocio($datos['tipo_socio']);
-            }
-
-            if(isset($datos['acepta_condiciones'])){
-                $persona->setAceptaCondiciones($datos['acepta_condiciones']);
-            } else {
-                $persona->setAceptaCondiciones(0);
-            }
-
-            if(isset($datos['terreno_cultivo'])){
-                $persona->setTerrenoCultivo($datos['terreno_cultivo']);
-            } else {
-                $persona->setTerrenoCultivo(0);
-            }
-
-            if(isset($datos['inscripcion_rope'])){
-                $persona->setInscripcionRope($datos['inscripcion_rope']);
-            } else {
-                $persona->setInscripcionRope(0);
-            }
-
-            if(isset($datos['ampliacion_cuota'])){
-                $persona->setAmpliacionCuota($datos['ampliacion_cuota']);
-            } else {
-                $persona->setAmpliacionCuota(0);
-            }
-
-            if(isset($datos['recibir_informacion'])){
-                $persona->setRecibirInformacion($datos['recibir_informacion']);
-            } else {
-                $persona->setRecibirInformacion(0);
-            }
-
-            if(!empty($datos['otras_cuestiones'])){
-                $persona->setOtrasCuestiones($datos['otras_cuestiones']);
-            }
-
-            if(!empty($datos['observaciones'])){
-                $persona->setObservaciones($datos['observaciones']);
-            }
-
             if(!empty($datos['donante'])){
                 $donante = $this->getDoctrine()
                     ->getRepository(Donante::class)
                     ->find($datos['donante']);
 
                 $persona->setDonante($donante);
-            }
-
-            if(!empty($datos['direccion'])){
-                $persona->setDireccion($datos['direccion']);
-            }
-
-            if(!empty($datos['localidad'])){
-                $persona->setLocalidad($datos['localidad']);
-            }
-
-            if(!empty($datos['municipio'])){
-                $persona->setMunicipio($datos['municipio']);
-            }
-
-            if(!empty($datos['provincia'])){
-                $persona->setProvincia($datos['provincia']);
-            }
-
-            if(!empty($datos['region'])){
-                $persona->setRegion($datos['region']);
-            }
-
-            if(!empty($datos['pais_origen'])){
-                $persona->setPaisOrigen($datos['pais_origen']);
-            }
-
-            if(!empty($datos['relacion_agricultura'])){
-                $persona->setRelacionAgricultura($datos['relacion_agricultura']);
-            }
-
-            if(!empty($datos['relacion_agricultura'])){
-                $persona->setRelacionAgricultura($datos['relacion_agricultura']);
-            }
-
-            if(!empty($datos['codigo_rope'])){
-                $persona->setCodigoRope($datos['codigo_rope']);
             }
 
             $this->getDoctrine()->getManager()->flush();

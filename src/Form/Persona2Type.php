@@ -4,7 +4,9 @@ namespace App\Form;
 
 use App\Entity\Persona;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -22,10 +24,12 @@ class Persona2Type extends AbstractType
             ->add('ampliacion_cuota')
             ->add('fecha_cuota', DateType::class, [
                 'widget' => 'single_text',
+                'required' => false,
             ])
             ->add('recibir_informacion')
             ->add('fecha_informacion', DateType::class, [
                 'widget' => 'single_text',
+                'required' => false,
             ])
             ->add('nif')
             ->add('nombre')
@@ -46,6 +50,16 @@ class Persona2Type extends AbstractType
             ->add('otras_cuestiones')
             ->add('documento')
             ->add('observaciones')
+            ->add('numerario')
+            ->add('numero_cuenta_corriente')
+            ->add('fecha_inscripcion_numerario', DateType::class, [
+                'widget' => 'single_text',
+                'required' => false,
+            ])
+            ->add('domiciliario')
+            ->add('donante', HiddenType::class, [
+                'required' => false,
+            ])
         ;
     }
 

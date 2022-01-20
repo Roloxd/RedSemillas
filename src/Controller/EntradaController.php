@@ -57,11 +57,11 @@ class EntradaController extends AbstractController
             $entityManager->persist($entrada);
             $entityManager->flush();
 
-            // return $this->redirectToRoute('envase_new', [
-            //     'entrada' => $entrada->getId(),
-            // ], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('envase_new', [
+                'entrada' => $entrada->getId(),
+            ], Response::HTTP_SEE_OTHER);
 
-            return $this->redirectToRoute('entrada_index', [], Response::HTTP_SEE_OTHER);
+            // return $this->redirectToRoute('entrada_index', [], Response::HTTP_SEE_OTHER);
         }
 
         $text = 'Nueva Entrada';

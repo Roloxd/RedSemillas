@@ -21,8 +21,9 @@
               Añadir como donante
             </button>
             <a class="btn btn-primary" href="#ancla-persona">Persona</a>
-            <a class="btn btn-secondary" href="#ancla-direccion">Dirección</a>
+            <a class="btn bg-gradient-purple bg-purple" href="#ancla-direccion">Dirección</a>
             <a class="btn btn-success" href="#ancla-info">Información y condiciones</a>
+            <a class="btn btn-info" href="#ancla-numerario">Numerario</a>
           </div>
           {% if text_form == 'Editar Persona' %}
             {{ include('persona/_delete_form.html.twig') }}
@@ -167,7 +168,6 @@ Separa estos con punto y coma (;) sin espacios.">?</a>
                     <label for="observaciones">Observaciones</label>
                     {{ form_widget(form.observaciones, {'attr': {'class': 'form-control'}}) }}
                   </div>
-                  <input id="persona_donante" type="hidden" name="persona2[donante]">
                 </div>
                 <!-- /.card-body -->
             </div>
@@ -176,7 +176,7 @@ Separa estos con punto y coma (;) sin espacios.">?</a>
           <!-- right column -->
           <div class="col-md-6">
             <!-- general form elements -->
-            <div class="card card-secondary collapsed-card">
+            <div class="card card-purple collapsed-card">
               <div class="card-header">
                 <h3 id="ancla-direccion" class="card-title">Dirección</h3>
                 <div class="card-tools">
@@ -188,47 +188,44 @@ Separa estos con punto y coma (;) sin espacios.">?</a>
               <!-- /.card-header -->
               <div class="card-body" style="display: none;">
                 <div class="form-group">
-                  <div class="form-group">
                   <label for="direccion">Dirección</label>
-                    {{ form_widget(form.direccion, {'attr': {'class': 'form-control'}}) }}
-                  </div>
-                  <div class="form-group">
-                    <label for="localidad">Localidad</label>
-                    {{ form_widget(form.localidad, {'attr': {'class': 'form-control'}}) }}
-                  </div>
-                  <div class="form-group">
-                    <label for="municipio">Municipio</label>
-                    {{ form_widget(form.municipio, {'attr': {'class': 'form-control'}}) }}
-                  </div>
-                  <div class="form-group">
-                    <label for="provincia">Provincia</label>
-                    {{ form_widget(form.provincia, {'attr': {'class': 'form-control'}}) }}
-                  </div>
-                  <div class="form-group">
-                    <label for="region">Región</label>
-                    {{ form_widget(form.region, {'attr': {'class': 'form-control'}}) }}
-                  </div>
-                  <div class="form-group">
-                    <label for="pais_origen">País de Origen</label>
-                    {{ form_widget(form.pais_origen, {'attr': {'class': 'form-control'}}) }}
-                  </div>
-                  
+                  {{ form_widget(form.direccion, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="localidad">Localidad</label>
+                  {{ form_widget(form.localidad, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="municipio">Municipio</label>
+                  {{ form_widget(form.municipio, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="provincia">Provincia</label>
+                  {{ form_widget(form.provincia, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="region">Región</label>
+                  {{ form_widget(form.region, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="pais_origen">País de Origen</label>
+                  {{ form_widget(form.pais_origen, {'attr': {'class': 'form-control'}}) }}
                 </div>
               </div>
               <!-- /.card-header -->
             </div>
             <!-- .card-header -->
-            <div class="card card-green">
+            <div class="card card-success collapsed-card">
               <div class="card-header">
                 <h3 id="ancla-info" class="card-title">Información y condiciones</h3>
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                    <i class="fas fa-minus"></i>
+                    <i class="fas fa-plus"></i>
                   </button>
                 </div>
               </div>
               <!-- /.card-header -->
-              <div class="card-body">
+              <div class="card-body" style="display: none;">
                 <div class="form-group">
                   <label for="relacion_agricultura">Relación con la agricultura</label>
                   {{ form_widget(form.relacion_agricultura, {'attr': {'class': 'form-control'}}) }}
@@ -264,7 +261,59 @@ Separa estos con punto y coma (;) sin espacios.">?</a>
                 
               </div>
             </div>
-            <!--/.col (right) -->
+            <!-- card -->
+            <div class="card card-info collapsed-card">
+              <div class="card-header">
+                <h3 id="ancla-numerario" class="card-title">Numerario</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body" style="display: none;">
+                <div class="form-group">
+                  <label>Marca la casilla si es numerario</label>
+                  <div class="form-check">
+                    {{ form_widget(form.numerario, {'attr': {'class': 'form-check-input'}}) }}
+                    <label class="form-check-label" for="persona2_numerario">Si</label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="persona2_numero_cuenta_corriente">Número de cuenta corriente</label>
+                  {{ form_widget(form.numero_cuenta_corriente, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  <label for="persona2_fecha_inscripcion_numerario">Fecha de inscripción como numerario</label>
+                  {% if text_form == 'Editar Persona' %}
+                  {{ form_widget(form.fecha_inscripcion_numerario, {'attr': {'class': 'form-control', 'disabled': ''}}) }}
+                  {% else %}
+                  {{ form_widget(form.fecha_inscripcion_numerario, {'attr': {'class': 'form-control'}}) }}
+                  {% endif %}
+                </div>
+                <div class="form-group">
+                  <label>¿Desea domicilar su cuota?</label>
+                  <div class="form-check">
+                    {{ form_widget(form.domiciliario, {'attr': {'class': 'form-check-input'}}) }}
+                    <label class="form-check-label" for="persona2_domiciliario">Si</label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>¿La persona ha pagado este año?</label>
+                  <div class="form-check">
+                    <input type="checkbox" id="persona2_pagado" name="persona2[pagado]" class="form-check-input" value="1">
+                    <label class="form-check-label" for="persona2_pagado">Si</label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="persona2_fecha_renovacion">Fecha de renovación</label>
+                  <input type="date" id="persona2_fecha_renovacion" name="persona2[fecha_renovacion]" class="form-control">
+                </div>
+              </div>
+              <!-- /.card-header -->
+            </div>
+            <!-- /card -->
           </div>
         </div>
         <!-- /.row -->
@@ -274,7 +323,6 @@ Separa estos con punto y coma (;) sin espacios.">?</a>
         <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
       </div>
       {{ form_end(form) }}  
-
     </section>
     <!-- /.content -->
   </div>

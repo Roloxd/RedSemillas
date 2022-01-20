@@ -32,19 +32,25 @@ class EnvaseController extends AbstractController
      */
     public function new(Request $request): Response
     {
-        // $idEntrada = $request->query->get('entrada');
+        $idEntrada = $request->query->get('entrada');
         $error = null;
 
-        // if(empty($idEntrada)){
-        //     $idEntrada = null;
-        // }
-        
         $envase = new Envase();
         $form = $this->createForm(EnvaseType::class, $envase, [
             'attr' => ['class' => 'formEnvase' ]
         ]);
         $form->handleRequest($request);
 
+        if(empty($idEntrada)){
+            $idEntrada = null;
+        } else {
+            $entrada = $this->getDoctrine()
+                ->getRepository(Entrada::class)
+                ->find( intval($idEntrada) );
+
+            $form->get('entrada')->setData($entrada);
+        }
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $datos = $request->request->get('envase');
 
