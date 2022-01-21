@@ -90,6 +90,14 @@
                           <div class="btn-group-vertical w-100">
                             <a class="btn btn-default" href="{{ path('persona_show', {'id': persona.id}) }}">Ver</a>
                             <a class="btn btn-default" href="{{ path('persona_edit', {'id': persona.id}) }}">Editar</a>
+
+                            <div class="btn-group">
+                              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                              </button>
+                              <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ path('pago_ver', {'id': persona.id}) }}">Ver Pagos</a></li>
+                              </ul>
+                            </div>
                           </div>
                         </td>
                         <td>{{ persona.id }}</td>
@@ -124,6 +132,14 @@
                           <div class="btn-group-vertical w-100">
                             <a class="btn btn-default" href="{{ path('persona_show', {'id': persona.id}) }}">Ver</a>
                             <a class="btn btn-default" href="{{ path('persona_edit', {'id': persona.id}) }}">Editar</a>
+
+                            <div class="btn-group">
+                              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                              </button>
+                              <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ path('pago_ver', {'id': persona.id}) }}">Ver Pagos</a></li>
+                              </ul>
+                            </div>
                           </div>
                         </td>
                     </tr>

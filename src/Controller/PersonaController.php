@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Donante;
+use App\Entity\Pago;
 use App\Entity\Persona;
 use App\Form\Persona2Type;
 use App\Repository\PersonaRepository;
@@ -11,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\VarDumper\Cloner\Data;
 
 /**
  * @Route("/admin/persona")
@@ -40,6 +42,7 @@ class PersonaController extends AbstractController
         
         if ($form->isSubmitted()) {
             $datos = $request->request->get('persona2');
+            // dump($datos); exit;
 
             if(!empty($datos['donante'])){
                 $donante = $this->getDoctrine()
@@ -49,19 +52,15 @@ class PersonaController extends AbstractController
                 $persona->setDonante($donante);
             }
 
-
-            
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($persona);
-            $entityManager->flush();
-
             return $this->redirectToRoute('persona_index', [], Response::HTTP_SEE_OTHER);
         }
 
         $text = 'Nueva Persona';
+        $pagado = false;
 
         return $this->renderForm('persona/new.html.twig', [
             'persona' => $persona,
+            'pagado' => $pagado,
             'form' => $form,
             'text_form' => $text,
         ]);
@@ -140,6 +139,18 @@ class PersonaController extends AbstractController
         ]);
         $form->handleRequest($request);
 
+        //Comprobar si pago este año
+        $pagado = false;
+        $pagos = $persona->getPagos()->getValues();
+        if($pagos){
+            foreach($pagos as $pago) {
+                $years[] = $pago->getFechaPago()->format('Y');
+            }
+            if(in_array(date('Y'), $years)){
+                $pagado = true;
+            }
+        }
+        
         if ($form->isSubmitted()) {
             $datos = $request->request->get('persona2');
 
@@ -160,6 +171,7 @@ class PersonaController extends AbstractController
 
         return $this->renderForm('persona/edit.html.twig', [
             'persona' => $persona,
+            'pagado' => $pagado,
             'form' => $form,
             'text_form' => $text,
         ]);

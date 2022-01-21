@@ -10,7 +10,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Administración</a></li>
-              <li class="breadcrumb-item active">Nueva persona</li>
+              <li class="breadcrumb-item active">Persona</li>
             </ol>
           </div>
         </div>
@@ -301,14 +301,16 @@ Separa estos con punto y coma (;) sin espacios.">?</a>
                 </div>
                 <div class="form-group">
                   <label>¿La persona ha pagado este año?</label>
-                  <div class="form-check">
-                    <input type="checkbox" id="persona2_pagado" name="persona2[pagado]" class="form-check-input" value="1">
-                    <label class="form-check-label" for="persona2_pagado">Si</label>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <p class="ml-2">{{ pagado ? 'Si' : 'No' }}</p>
+                    </div>
+                    {% if text_form == 'Editar Persona' %}
+                    <div class="col-md-6">
+                      <a class="btn btn-outline-info btn-block btn-flat" href="{{ path('pago_ver', {'id': persona.id}) }}"><i class="far fa-credit-card"></i> Ver Pagos</a>
+                    </div>
+                    {% endif %}
                   </div>
-                </div>
-                <div class="form-group">
-                  <label for="persona2_fecha_renovacion">Fecha de renovación</label>
-                  <input type="date" id="persona2_fecha_renovacion" name="persona2[fecha_renovacion]" class="form-control">
                 </div>
               </div>
               <!-- /.card-header -->
