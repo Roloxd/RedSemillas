@@ -19,7 +19,8 @@ class PagoType extends AbstractType
             ])
             ->add('fechaPago', DateType::class, [
                 'widget' => 'single_text',
-                'required' => true,
+                'required' => false,
+                'empty_data' => '01-01-0001',
             ])
             ->add('persona')
         ;

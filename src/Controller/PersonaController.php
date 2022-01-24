@@ -9,6 +9,7 @@ use App\Form\Persona2Type;
 use App\Repository\PersonaRepository;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -37,12 +38,11 @@ class PersonaController extends AbstractController
         $persona = new Persona();
         $form = $this->createForm(Persona2Type::class, $persona, [
             'attr' => ['class' => 'formPersona' ]
-        ]);
+        ])->add('saveAndAdd', SubmitType::class, ['label' => 'Guardar y crear pago']);
         $form->handleRequest($request);
         
         if ($form->isSubmitted()) {
             $datos = $request->request->get('persona2');
-            // dump($datos); exit;
 
             if(!empty($datos['donante'])){
                 $donante = $this->getDoctrine()
@@ -52,7 +52,15 @@ class PersonaController extends AbstractController
                 $persona->setDonante($donante);
             }
 
-            return $this->redirectToRoute('persona_index', [], Response::HTTP_SEE_OTHER);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($persona);
+            $entityManager->flush();
+
+            if($form->get('saveAndAdd')->isClicked()) {
+                return $this->redirectToRoute('pago_new', ['persona' => $persona->getId()], Response::HTTP_SEE_OTHER);
+            } else {
+                return $this->redirectToRoute('persona_index', [], Response::HTTP_SEE_OTHER);
+            }
         }
 
         $text = 'Nueva Persona';
@@ -136,7 +144,7 @@ class PersonaController extends AbstractController
     {
         $form = $this->createForm(Persona2Type::class, $persona, [
             'attr' => ['class' => 'formEditPersona' ]
-        ]);
+        ])->add('saveAndAdd', SubmitType::class, ['label' => 'Actualizar y crear pago']);
         $form->handleRequest($request);
 
         //Comprobar si pago este año
@@ -144,9 +152,12 @@ class PersonaController extends AbstractController
         $pagos = $persona->getPagos()->getValues();
         if($pagos){
             foreach($pagos as $pago) {
-                $years[] = $pago->getFechaPago()->format('Y');
+                $yearsPago[] = $pago->getFechaPago()->format('Y');
+                $yearsRenovacion[] = $pago->getFechaRenovacion()->format('Y');
             }
-            if(in_array(date('Y'), $years)){
+
+            //Si pago año actual, y su renovacion es el año que viene
+            if(in_array(date('Y'), $yearsPago) && in_array(date('Y')+1, $yearsRenovacion)){
                 $pagado = true;
             }
         }
@@ -164,7 +175,11 @@ class PersonaController extends AbstractController
 
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('persona_index', [], Response::HTTP_SEE_OTHER);
+            if($form->get('saveAndAdd')->isClicked()) {
+                return $this->redirectToRoute('pago_new', ['persona' => $persona->getId()], Response::HTTP_SEE_OTHER);
+            } else {
+                return $this->redirectToRoute('persona_index', [], Response::HTTP_SEE_OTHER);
+            }
         }
 
         $text = 'Editar Persona';

@@ -189,6 +189,11 @@ class Persona
      */
     private $domiciliario;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $codigo_bic;
+
     public function __construct()
     {
         $this->terrenos = new ArrayCollection();
@@ -556,7 +561,7 @@ class Persona
 
     public function __toString()
     {
-        return $this->nombre;
+        return $this->getNombre();
     }
 
     public function getDonante(): ?Donante
@@ -645,6 +650,18 @@ class Persona
     public function setDomiciliario(bool $domiciliario): self
     {
         $this->domiciliario = $domiciliario;
+
+        return $this;
+    }
+
+    public function getCodigoBic(): ?string
+    {
+        return $this->codigo_bic;
+    }
+
+    public function setCodigoBic(?string $codigo_bic): self
+    {
+        $this->codigo_bic = $codigo_bic;
 
         return $this;
     }

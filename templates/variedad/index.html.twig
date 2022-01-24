@@ -112,9 +112,9 @@
                         <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: ID">{{ variedad.codigo }}</td>
                         <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: Nombre Común" >{{ variedad.nombreComun }}</td>
                         <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: Nombre Local" >{{ variedad.nombreLocal }}</td>
-                        <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: Especie" >{% if variedad.especie is not null %}{{ variedad.especie.nombre }}{% endif %}</td>
-                        <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: Genero" >{% if variedad.especie is not null %}{{ variedad.especie.padre.nombre }}{% endif %}</td>
-                        <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: Familia" >{% if variedad.especie is not null %}{{ variedad.especie.padre.padre.nombre }}{% endif %}</td>
+                        <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: Especie" >{#{% if variedad.especie is not null %}{{ variedad.especie.nombre }}{% endif %}#}</td>
+                        <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: Genero" >{#{% if variedad.especie is not null %}{{ variedad.especie.padre.nombre }}{% endif %}#}</td>
+                        <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: Familia" >{#{% if variedad.especie is not null %}{{ variedad.especie.padre.padre.nombre }}{% endif %}#}</td>
                         <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: Descripción Planta y/o Cultivo" >{{ variedad.breveDescrPlantaCultivo }}</td>
                         <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: Descripción" >{{ variedad.descripcion }}</td>
                         <td data-toggle="tooltip" title="Variedad: {{variedad.nombreComun}} | Columna: Tipo de Siembra" >{{ variedad.tipoSiembra }}</td>

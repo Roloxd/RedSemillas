@@ -266,13 +266,6 @@ class Variedad
         return $this->id;
     }
 
-    // public function setId(?int $id): self
-    // {
-    //     $this->id = $id;
-
-    //     return $this;
-    // }
-
     public function getNombreComun(): ?string
     {
         return $this->nombreComun;
@@ -532,7 +525,7 @@ class Variedad
 
     public function __toString(): string
     {
-        return $this->getNombreComun();
+        return "[VAR-" . $this->getId() . "] " .$this->getNombreComun();
     }
 
     public function getObservaciones(): ?string

@@ -947,7 +947,7 @@ class VariedadController extends AbstractController
         }
 
         $text = 'Editar Variedad: ';
-        $spanVariedad = $variedad->getNombreComun() . " | ID: " .$variedad->getCodigo();
+        $spanVariedad = $variedad->getNombreComun() . " | ID: " . $variedad->getCodigo();
 
         $idVariedad = $request->get('id');
         

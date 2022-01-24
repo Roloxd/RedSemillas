@@ -285,17 +285,17 @@ Separa estos con punto y coma (;) sin espacios.">?</a>
                   {{ form_widget(form.numero_cuenta_corriente, {'attr': {'class': 'form-control'}}) }}
                 </div>
                 <div class="form-group">
+                  <label for="persona2_numero_cuenta_corriente">Código BIC</label>
+                  {{ form_widget(form.codigoBic, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
                   <label for="persona2_fecha_inscripcion_numerario">Fecha de inscripción como numerario</label>
-                  {% if text_form == 'Editar Persona' %}
-                  {{ form_widget(form.fecha_inscripcion_numerario, {'attr': {'class': 'form-control', 'disabled': ''}}) }}
-                  {% else %}
                   {{ form_widget(form.fecha_inscripcion_numerario, {'attr': {'class': 'form-control'}}) }}
-                  {% endif %}
                 </div>
                 <div class="form-group">
                   <label>¿Desea domicilar su cuota?</label>
                   <div class="form-check">
-                    {{ form_widget(form.domiciliario, {'attr': {'class': 'form-check-input'}}) }}
+                    {{ form_widget(form.domiciliario, {'attr': {'class': 'form-check-input', 'onclick': 'alertDomiciliar(this);'}}) }}
                     <label class="form-check-label" for="persona2_domiciliario">Si</label>
                   </div>
                 </div>
@@ -307,7 +307,7 @@ Separa estos con punto y coma (;) sin espacios.">?</a>
                     </div>
                     {% if text_form == 'Editar Persona' %}
                     <div class="col-md-6">
-                      <a class="btn btn-outline-info btn-block btn-flat" href="{{ path('pago_ver', {'id': persona.id}) }}"><i class="far fa-credit-card"></i> Ver Pagos</a>
+                      <a class="btn btn-outline-info btn-block btn-flat" href="{{ path('pago_ver', {'id': persona.id}) }}" target="_blank"><i class="far fa-credit-card"></i> Ver Pagos</a>
                     </div>
                     {% endif %}
                   </div>
@@ -322,7 +322,10 @@ Separa estos con punto y coma (;) sin espacios.">?</a>
       </div><!-- /.container-fluid -->
       <div class="d-flex justify-content-between">
         <a class="btn btn-secondary" href="{{ path('persona_index') }}">Volver a la lista</a>
-        <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
+        <div>
+          {{ form_widget(form.saveAndAdd, {'attr': {'class': 'btn bg-gradient-olive bg-olive'}}) }}
+          <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
+        </div>
       </div>
       {{ form_end(form) }}  
     </section>

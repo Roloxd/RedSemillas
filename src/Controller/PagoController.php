@@ -21,7 +21,6 @@ class PagoController extends AbstractController
      */
     public function index(PagoRepository $pagoRepository): Response
     {
-        dump($pagoRepository->findAll());
         return $this->render('pago/index.html.twig', [
             'pagos' => $pagoRepository->findAll(),
         ]);
@@ -37,6 +36,15 @@ class PagoController extends AbstractController
         $form->handleRequest($request);
 
         $text_form = "Nuevo Pago";
+
+        $idPersona = $request->query->get('persona');
+        if(!empty($idPersona)) {
+            $persona = $this->getDoctrine()
+                ->getRepository(Persona::class)
+                ->find( intval($idPersona) );
+
+            $form->get('persona')->setData($persona);
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
@@ -98,6 +106,18 @@ class PagoController extends AbstractController
             ->find($id);
 
         $pagos = $persona->getPagos()->getValues();
+        $color = [];
+
+        //Plantear estructura
+        foreach($pagos as $pago) {
+            if($pago->getFechaPago()->format('Y-m-d') === "0000-12-30") {
+                $color[$pago->getId()] = "red";
+            } else {
+                if($pago->getFechaPago()->format('Y') === date('Y')) {
+
+                }
+            }
+        }
 
         return $this->render('pago/index.html.twig', [
             'pagos' => $pagos,

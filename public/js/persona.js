@@ -26,6 +26,12 @@ if(formPersona != null && formDonante != null) {
     });
 }
 
+function alertDomiciliar(etiqueta) {
+    if( $(etiqueta).prop('checked') ) {
+        alert('Informamos que la devolución del recibo tendrá un coste adicional de 1€');
+    }
+}
+
 function newDonante(){
     $.ajax({
         url:"/admin/donante/add",
