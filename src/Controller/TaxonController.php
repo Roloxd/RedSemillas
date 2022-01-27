@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/taxon')]
 /**
  * @Route("/admin/taxon")
  */
@@ -21,9 +20,9 @@ class TaxonController extends AbstractController
      * @Route("/", name="taxon_index", methods={"GET"})
      */
     public function index(TaxonRepository $taxonRepository): Response
-    {
+    {   
         return $this->render('taxon/index.html.twig', [
-            'taxa' => $taxonRepository->findAll(),
+            'taxa' => null,
         ]);
     }
 
@@ -74,7 +73,7 @@ class TaxonController extends AbstractController
     }
 
     /**
-     * @Route("/especie", name="taxon_especie", methods={"POST"})
+     * @Route("/search", name="taxon_search", methods={"POST"})
      */
     public function especie(Request $request): Response
     {
@@ -82,27 +81,33 @@ class TaxonController extends AbstractController
         $array = [];
         $especieDefault = null;
 
+        // $especies = $this->getDoctrine()
+        //     ->getRepository(Taxon::class)
+        //     ->findAllEspecie();
+        
         $especies = $this->getDoctrine()
-            ->getRepository(Taxon::class)
-            ->findAllEspecie();
+				->getRepository(Taxon::class)
+				->findAllEspecie();
 
-        foreach($especies as $especie){
-            $especieName = $especie->getNombre();
-            $generoName = $especie->getPadre()->getNombre();
-            $familiaName = $especie->getPadre()->getPadre()->getNombre();
+        dump($especies); exit;
 
-            $array[$especieName] = $familiaName . " - " . $generoName . " - " . $especieName;
-        }
+        // foreach($especies as $especie){
+        //     $especieName = $especie->getNombre();
+        //     $generoName = $especie->getPadre()->getNombre();
+        //     $familiaName = $especie->getPadre()->getPadre()->getNombre();
 
-        if($idVariedad){
-            $variedad = $this->getDoctrine()
-                ->getRepository(Variedad::class)
-                ->find($idVariedad);
+        //     $array[$especieName] = $familiaName . " - " . $generoName . " - " . $especieName;
+        // }
 
-            if(!empty($variedad->getEspecie())){
-                $especieDefault = $variedad->getEspecie()->getNombre();
-            }
-        }
+        // if($idVariedad){
+        //     $variedad = $this->getDoctrine()
+        //         ->getRepository(Variedad::class)
+        //         ->find($idVariedad);
+
+        //     if(!empty($variedad->getEspecie())){
+        //         $especieDefault = $variedad->getEspecie()->getNombre();
+        //     }
+        // }
 
         $response = new Response();
         $response->setContent(json_encode([

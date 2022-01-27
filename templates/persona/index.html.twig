@@ -52,32 +52,32 @@
                   <thead>
                     <tr>
                         <th>Acciones</th>
-                        <th>Id</th>
-                        <th>Num_socio</th>
-                        <th>Fecha_inscripcion_rgcs</th>
-                        <th>Acepta_condiciones</th>
-                        <th>Tipo_socio</th>
-                        <th>Ampliacion_cuota</th>
-                        <th>Fecha_cuota</th>
-                        <th>Recibir_informacion</th>
-                        <th>Fecha_informacion</th>
-                        <th>Nif</th>
+                        <th>ID</th>
+                        <th>Número de socio</th>
+                        <th>Fecha inscripcion rgcs</th>
+                        <th>Acepta condiciones</th>
+                        <th>Numerario</th>
+                        <th>Ampliación de cuota</th>
+                        <th>Fecha de cuota</th>
+                        <th>Recibir información</th>
+                        <th>Fecha información</th>
+                        <th>DNI, CIF o pasaporte</th>
                         <th>Nombre</th>
                         <th>Apellidos</th>
-                        <th>Direccion</th>
+                        <th>Dirección</th>
                         <th>Localidad</th>
                         <th>Municipio</th>
                         <th>Provincia</th>
-                        <th>Region</th>
-                        <th>Pais_origen</th>
-                        <th>Telefono</th>
-                        <th>Telefono2</th>
+                        <th>Región</th>
+                        <th>Pais de origen</th>
+                        <th>Teléfono</th>
+                        <th>Teléfono2</th>
                         <th>Correo</th>
-                        <th>Relacion_agricultura</th>
-                        <th>Terreno_cultivo</th>
-                        <th>Inscripcion_rope</th>
-                        <th>Codigo_rope</th>
-                        <th>Otras_cuestiones</th>
+                        <th>Relación con la agricultura</th>
+                        <th>Terreno de cultivo</th>
+                        <th>Inscripción ROPE</th>
+                        <th>Código ROPE</th>
+                        <th>Otras cuestiones</th>
                         <th>Documento</th>
                         <th>Observaciones</th>
                         <th>Acciones</th>
@@ -104,7 +104,7 @@
                         <td>{{ persona.numSocio }}</td>
                         <td>{{ persona.fechaInscripcionRgcs ? persona.fechaInscripcionRgcs|date('Y-m-d') : '' }}</td>
                         <td>{{ persona.aceptaCondiciones ? 'Yes' : 'No' }}</td>
-                        <td>{{ persona.tipoSocio }}</td>
+                        <td>{{ persona.numerario ? 'Si' : 'No' }}</td>
                         <td>{{ persona.ampliacionCuota ? 'Yes' : 'No' }}</td>
                         <td>{{ persona.fechaCuota ? persona.fechaCuota|date('Y-m-d') : '' }}</td>
                         <td>{{ persona.recibirInformacion ? 'Yes' : 'No' }}</td>
@@ -151,36 +151,36 @@
                     </tbody>
                         <tfoot>
                             <tr>
-                                <th>Acciones</th>
-                                <th>Id</th>
-                                <th>Num_socio</th>
-                                <th>Fecha_inscripcion_rgcs</th>
-                                <th>Acepta_condiciones</th>
-                                <th>Tipo_socio</th>
-                                <th>Ampliacion_cuota</th>
-                                <th>Fecha_cuota</th>
-                                <th>Recibir_informacion</th>
-                                <th>Fecha_informacion</th>
-                                <th>Nif</th>
-                                <th>Nombre</th>
-                                <th>Apellidos</th>
-                                <th>Direccion</th>
-                                <th>Localidad</th>
-                                <th>Municipio</th>
-                                <th>Provincia</th>
-                                <th>Region</th>
-                                <th>Pais_origen</th>
-                                <th>Telefono</th>
-                                <th>Telefono2</th>
-                                <th>Correo</th>
-                                <th>Relacion_agricultura</th>
-                                <th>Terreno_cultivo</th>
-                                <th>Inscripcion_rope</th>
-                                <th>Codigo_rope</th>
-                                <th>Otras_cuestiones</th>
-                                <th>Documento</th>
-                                <th>Observaciones</th>
-                                <th>Acciones</th>
+                              <th>Acciones</th>
+                              <th>ID</th>
+                              <th>Número de socio</th>
+                              <th>Fecha inscripcion rgcs</th>
+                              <th>Acepta condiciones</th>
+                              <th>Numerario</th>
+                              <th>Ampliación de cuota</th>
+                              <th>Fecha de cuota</th>
+                              <th>Recibir información</th>
+                              <th>Fecha información</th>
+                              <th>DNI, CIF o pasaporte</th>
+                              <th>Nombre</th>
+                              <th>Apellidos</th>
+                              <th>Dirección</th>
+                              <th>Localidad</th>
+                              <th>Municipio</th>
+                              <th>Provincia</th>
+                              <th>Región</th>
+                              <th>Pais de origen</th>
+                              <th>Teléfono</th>
+                              <th>Teléfono2</th>
+                              <th>Correo</th>
+                              <th>Relación con la agricultura</th>
+                              <th>Terreno de cultivo</th>
+                              <th>Inscripción ROPE</th>
+                              <th>Código ROPE</th>
+                              <th>Otras cuestiones</th>
+                              <th>Documento</th>
+                              <th>Observaciones</th>
+                              <th>Acciones</th>
                             </tr>   
                         </tfoot>
                     </table>

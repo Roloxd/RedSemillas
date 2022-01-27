@@ -21,8 +21,32 @@ class PagoController extends AbstractController
      */
     public function index(PagoRepository $pagoRepository): Response
     {
+        $pagos = $pagoRepository->findAll();
+        $color = [];
+
+        foreach($pagos as $pago) {
+            $fechaPago = $pago->getFechaPago()->format('Y-m-d');
+
+            if($fechaPago === "0000-12-30") {
+                $color[$pago->getId()] = "red";
+            } else {
+                $color[$pago->getId()] = "green"; //green
+
+                // Obtener los años de renovacion de cada persona
+                $yearRenovacion[$pago->getPersona()->getId()][$pago->getid()] = intval( $pago->getFechaRenovacion()->format('Y') );
+            }
+        }
+        foreach($yearRenovacion as $years) {
+            if( isset($years) ) {
+                $yearMax = max($years);
+                $key = array_search($yearMax, $years);
+                $color[$key] = "white";
+            }
+        }
+
         return $this->render('pago/index.html.twig', [
-            'pagos' => $pagoRepository->findAll(),
+            'pagos' => $pagos,
+            'color' => $color,
         ]);
     }
 
@@ -105,22 +129,30 @@ class PagoController extends AbstractController
             ->getRepository(Persona::class)
             ->find($id);
 
+        //Colores
         $pagos = $persona->getPagos()->getValues();
         $color = [];
 
-        //Plantear estructura
         foreach($pagos as $pago) {
-            if($pago->getFechaPago()->format('Y-m-d') === "0000-12-30") {
+            $fechaPago = $pago->getFechaPago()->format('Y-m-d');
+
+            if($fechaPago === "0000-12-30") {
                 $color[$pago->getId()] = "red";
             } else {
-                if($pago->getFechaPago()->format('Y') === date('Y')) {
-
-                }
+                $color[$pago->getId()] = "green";
+                $yearRenovacion[$pago->getid()] = intval( $pago->getFechaRenovacion()->format('Y') );
             }
+        }
+
+        if( isset($yearRenovacion) ) {
+            $yearMax = max($yearRenovacion);
+            $key = array_search($yearMax, $yearRenovacion);
+            $color[$key] = "white";
         }
 
         return $this->render('pago/index.html.twig', [
             'pagos' => $pagos,
+            'color' => $color,
         ]);
     }
 

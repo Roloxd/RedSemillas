@@ -21,7 +21,7 @@ class Persona2Type extends AbstractType
                 'widget' => 'single_text',
             ])
             ->add('acepta_condiciones')
-            ->add('tipo_socio')
+            // ->add('tipo_socio')
             ->add('ampliacion_cuota')
             ->add('fecha_cuota', DateType::class, [
                 'widget' => 'single_text',

@@ -933,7 +933,7 @@ function consultarEspecie(){
     const patron = /(\d+)/g;
     const idVariedad = window.location.pathname.match(patron);
 
-    xhttp.open("POST", "/admin/taxon/especie", true);
+    xhttp.open("POST", "/admin/taxon/search", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
     if(idVariedad){

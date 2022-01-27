@@ -118,54 +118,67 @@ Separa estos con punto y coma (;) sin espacios.">?</a>
                 <div class="card-body">
                   <div class="form-group">
                     <label for="fecha_inscripcion_rgcs">Fecha Inscripción</label>
+                    <a href="#" data-toggle="tooltip" title="Fecha en la que se inscribió por primera vez como socio/a e la RGCS por primea vez, desde que se inició el formato de Sostemas de Obtención de Semillas (SOS) en el año 2019">?</a>
                     {{ form_widget(form.fecha_inscripcion_rgcs, {'attr': {'class': 'form-control'}}) }}
                   </div>
                   <div class="form-group">
                     <label for="num_socio">Número Socio</label>
+                    <a href="#" data-toggle="tooltip" title="Número carnet de socio/a">?</a>
                     {{ form_widget(form.num_socio, {'attr': {'class': 'form-control'}}) }}
                   </div>
                   <div class="form-group">
                     <label for="nif">DNI, CIF o Pasaporte</label>
+                    <a href="#" data-toggle="tooltip" title="DNI, CIF o Pasaporte">?</a>
                     {{ form_widget(form.nif, {'attr': {'class': 'form-control', 'required': ''}}) }}
                   </div>
                   <div class="form-group">
                     <label for="nombre">Nombre</label>
+                    <a href="#" data-toggle="tooltip" title="Nombre de la persona">?</a>
                     {{ form_widget(form.nombre, {'attr': {'class': 'form-control'}}) }}
                   </div>
                   <div class="form-group">
                     <label for="apellidos">Apellidos</label>
+                    <a href="#" data-toggle="tooltip" title="Apellidos de la persona">?</a>
                     {{ form_widget(form.apellidos, {'attr': {'class': 'form-control'}}) }}
                   </div>
                   <div class="form-group">
                     <label for="telefono">Teléfono</label>
+                    <a href="#" data-toggle="tooltip" title="Número de télefono">?</a>
                     {{ form_widget(form.telefono, {'attr': {'class': 'form-control'}}) }}
                   </div>
                   <div class="form-group">
                     <label for="telefono2">Teléfono secundario</label>
+                    <a href="#" data-toggle="tooltip" title="Número de télefono opcional">?</a>
                     {{ form_widget(form.telefono2, {'attr': {'class': 'form-control'}}) }}
                   </div>
                   <div class="form-group">
                     <label for="correo">Correo</label>
+                    <a href="#" data-toggle="tooltip" title="Correo eléctrinico de la persona">?</a>
                     {{ form_widget(form.correo, {'attr': {'class': 'form-control'}}) }}
                   </div>
-                  <div class="form-group">
+                  {# <div class="form-group">
                     <label for="tipo_socio">Tipo Socio</label>
+                    <a href="#" data-toggle="tooltip" title="Tipo de Socio">?</a>
                     {{ form_widget(form.tipo_socio, {'attr': {'class': 'form-control'}}) }}
-                  </div>
+                  </div> #}
                   <div class="form-group">
                     <label for="acepta_condiciones">Aceptar condiciones</label>
+                    <a href="#" data-toggle="tooltip" title="Aceptación de requisitos y compromisos">?</a>
                     {{ form_widget(form.acepta_condiciones, {'attr': {'class': 'form-control'}}) }}
                   </div>
                   <div class="form-group">
                     <label for="otras_cuestiones">Otras Cuestiones</label>
+                    <a href="#" data-toggle="tooltip" title="Otras Cuestiones">?</a>
                     {{ form_widget(form.otras_cuestiones, {'attr': {'class': 'form-control'}}) }}
                   </div>
                   <div class="form-group">
                     <label for="documento">Documento</label>
+                    <a href="#" data-toggle="tooltip" title="">?</a>
                     {{ form_widget(form.documento, {'attr': {'class': 'form-control'}}) }}
                   </div>
                   <div class="form-group">
                     <label for="observaciones">Observaciones</label>
+                    <a href="#" data-toggle="tooltip" title="Obsevaciones">?</a>
                     {{ form_widget(form.observaciones, {'attr': {'class': 'form-control'}}) }}
                   </div>
                 </div>
@@ -189,26 +202,32 @@ Separa estos con punto y coma (;) sin espacios.">?</a>
               <div class="card-body" style="display: none;">
                 <div class="form-group">
                   <label for="direccion">Dirección</label>
+                  <a href="#" data-toggle="tooltip" title="Tipo de via + nombre de la vía, número, bloque, portal, planta, puerta, etc...">?</a>
                   {{ form_widget(form.direccion, {'attr': {'class': 'form-control'}}) }}
                 </div>
                 <div class="form-group">
                   <label for="localidad">Localidad</label>
+                  <a href="#" data-toggle="tooltip" title="Localidad">?</a>
                   {{ form_widget(form.localidad, {'attr': {'class': 'form-control'}}) }}
                 </div>
                 <div class="form-group">
                   <label for="municipio">Municipio</label>
+                  <a href="#" data-toggle="tooltip" title="Municipio">?</a>
                   {{ form_widget(form.municipio, {'attr': {'class': 'form-control'}}) }}
                 </div>
                 <div class="form-group">
                   <label for="provincia">Provincia</label>
+                  <a href="#" data-toggle="tooltip" title="Provincia">?</a>
                   {{ form_widget(form.provincia, {'attr': {'class': 'form-control'}}) }}
                 </div>
                 <div class="form-group">
-                  <label for="region">Región</label>
+                  <label for="region">Comunidad Autónoma, estado o región</label>
+                  <a href="#" data-toggle="tooltip" title="Comunidad Autónoma, estado o región">?</a>
                   {{ form_widget(form.region, {'attr': {'class': 'form-control'}}) }}
                 </div>
                 <div class="form-group">
                   <label for="pais_origen">País de Origen</label>
+                  <a href="#" data-toggle="tooltip" title="País de origen">?</a>
                   {{ form_widget(form.pais_origen, {'attr': {'class': 'form-control'}}) }}
                 </div>
               </div>
@@ -228,34 +247,42 @@ Separa estos con punto y coma (;) sin espacios.">?</a>
               <div class="card-body" style="display: none;">
                 <div class="form-group">
                   <label for="relacion_agricultura">Relación con la agricultura</label>
+                  <a href="#" data-toggle="tooltip" title="Relación con la agricultura">?</a>
                   {{ form_widget(form.relacion_agricultura, {'attr': {'class': 'form-control'}}) }}
                 </div>
                 <div class="form-group">
                   <label for="terreno_cultivo">¿Tiene terreno de cultivo?</label>
+                  <a href="#" data-toggle="tooltip" title="Marca si tiene terreno de cultivo">?</a>
                   {{ form_widget(form.terreno_cultivo, {'attr': {'class': 'form-control'}}) }}
                 </div>
                 <div class="form-group">
                   <label for="inscripcion_rope">Inscripto en ROPE</label>
+                  <a href="#" data-toggle="tooltip" title="">?</a>
                   {{ form_widget(form.inscripcion_rope, {'attr': {'class': 'form-control'}}) }}
                 </div>
                 <div class="form-group">
                   <label for="codigo_rope">Codigo ROPE</label>
+                  <a href="#" data-toggle="tooltip" title="¿Está registrado/a como Operador Ecológico? Número Registro de Operadores Ecológico">?</a>
                   {{ form_widget(form.codigo_rope, {'attr': {'class': 'form-control'}}) }}
                 </div>
                 <div class="form-group">
                   <label for="ampliacion_cuota">Amplicación Cuota</label>
+                  <a href="#" data-toggle="tooltip" title="[2 sobres = 4€] [5 sobres = 10€] [10 sobres = 20€] [25 sobres = 50€] [50 sobres = 100€]">?</a>
                   {{ form_widget(form.ampliacion_cuota, {'attr': {'class': 'form-control'}}) }}
                 </div>
                 <div class="form-group">
                   <label for="fecha_cuota">Fecha Cuota</label>
+                  <a href="#" data-toggle="tooltip" title="Fecha de la Cuota">?</a>
                   {{ form_widget(form.fecha_cuota, {'attr': {'class': 'form-control'}}) }}
                 </div>
                 <div class="form-group">
-                  <label for="recibir_informacion">Recibir Información</label>
+                  <label for="recibir_informacion">¿Desea recibir información de Tierra Fértil?</label>
+                  <a href="#" data-toggle="tooltip" title="Recibir informacón">?</a>
                   {{ form_widget(form.recibir_informacion, {'attr': {'class': 'form-control'}}) }}
                 </div>
                 <div class="form-group">
                   <label for="fecha_informacion">Fecha Información</label>
+                  <a href="#" data-toggle="tooltip" title="Fecha informacón">?</a>
                   {{ form_widget(form.fecha_informacion, {'attr': {'class': 'form-control'}}) }}
                 </div>
                 

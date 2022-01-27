@@ -16,7 +16,7 @@ class Taxon
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      * @ORM\OneToMany(targetEntity=Taxon::class, mappedBy="padre")
      */
     private $id;
@@ -32,7 +32,7 @@ class Taxon
     private $nombre;
 
     /**
-     * @ORM\Column(type="string", length=60, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $autoridad;
 
@@ -42,7 +42,7 @@ class Taxon
     private $subtaxon;
 
     /**
-     * @ORM\Column(type="string", length=60, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $autoridad_subtaxon;
 
@@ -65,6 +65,11 @@ class Taxon
      * @ORM\ManyToOne(targetEntity=Taxon::class, inversedBy="id")
      */
     private $padre;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $no_wfo;
 
     // public function __construct()
     // {
@@ -205,5 +210,17 @@ class Taxon
     public function getTaxon(): Collection
     {
         return $this->id;
+    }
+
+    public function getNoWfo(): ?bool
+    {
+        return $this->no_wfo;
+    }
+
+    public function setNoWfo(bool $no_wfo): self
+    {
+        $this->no_wfo = $no_wfo;
+
+        return $this;
     }
 }

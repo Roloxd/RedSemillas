@@ -34,10 +34,10 @@ class Persona
      */
     private $acepta_condiciones;
 
-    /**
-     * @ORM\Column(type="string", length=40, nullable=true)
-     */
-    private $tipo_socio;
+    // /**
+    //  * @ORM\Column(type="string", length=40, nullable=true)
+    //  */
+    // private $tipo_socio;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
@@ -241,17 +241,17 @@ class Persona
         return $this;
     }
 
-    public function getTipoSocio(): ?string
-    {
-        return $this->tipo_socio;
-    }
+    // public function getTipoSocio(): ?string
+    // {
+    //     return $this->tipo_socio;
+    // }
 
-    public function setTipoSocio(?string $tipo_socio): self
-    {
-        $this->tipo_socio = $tipo_socio;
+    // public function setTipoSocio(?string $tipo_socio): self
+    // {
+    //     $this->tipo_socio = $tipo_socio;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getAmpliacionCuota(): ?bool
     {

@@ -15,6 +15,20 @@
     font-weight: bold;
 }
 
+/* Colores Pagos */
+.red td {
+    background-color: #961010;
+    color: white;
+}
+.green td {
+    background-color: #108918;
+    color: white;
+}
+.white td {
+    background-color: white;
+    color: black;
+}
+
 /*Form Variedad: Codigo VAR-*/
 .flex{
     display: flex;

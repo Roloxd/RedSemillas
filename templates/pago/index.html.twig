@@ -60,7 +60,7 @@
                   </thead>
                 <tbody>
                 {% for pago in pagos %}
-                    <tr>
+                    <tr {% if color is not null %} class="{{ color[pago.id] }}" {% endif %}>
                         <td>
                             <div class="btn-group-vertical w-100">
                                 <a class="btn btn-default" href="{{ path('pago_show', {'id': pago.id}) }}">Ver</a>
@@ -148,7 +148,8 @@
   $(function () {
     $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+      "order": [[ 1, "asc" ]]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({
       "paging": true,

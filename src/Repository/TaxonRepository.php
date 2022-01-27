@@ -75,12 +75,12 @@ class TaxonRepository extends ServiceEntityRepository
     /**
      * @return Taxon[]
      */
-    public function findAllEspecie(): array
+    public function findAllEspecie()
     {
         $qb = $this->createQueryBuilder('t')
-            ->where('t.tipo LIKE :tipo')
-            ->setParameter('tipo', 'Especie');
+            ->where('t.tipo = "SPECIES"');
 
+        dump($qb->getQuery()->execute());
         return $qb->getQuery()->execute();
     }
 
