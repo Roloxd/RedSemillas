@@ -65,19 +65,22 @@ function mostrarCodigoInstituto() {
 }
 
 function EventosClick() {
-    checkboxInscriptoROPE = document.querySelector('#persona2_inscripcion_rope');
+    const checkboxInscriptoROPE = document.querySelector('#persona2_inscripcion_rope');
     checkboxInscriptoROPE.addEventListener('change', validarCheckbox, false);
+    mostrarInput(checkboxInscriptoROPE.checked, checkboxInscriptoROPE.dataset.campo);
 
-    checkboxAmpliacionCuota = document.querySelector('#persona2_ampliacion_cuota');
+    const checkboxAmpliacionCuota = document.querySelector('#persona2_ampliacion_cuota');
     checkboxAmpliacionCuota.addEventListener('change', validarCheckbox, false);
+    mostrarInput(checkboxAmpliacionCuota.checked, checkboxAmpliacionCuota.dataset.campo);
 
-    checkboxRecibirInformacion = document.querySelector('#persona2_recibir_informacion');
+    const checkboxRecibirInformacion = document.querySelector('#persona2_recibir_informacion');
     checkboxRecibirInformacion.addEventListener('change', validarCheckbox, false);
+    mostrarInput(checkboxRecibirInformacion.checked, checkboxRecibirInformacion.dataset.campo);
 }
 
 // Comprueba si el Checkbox se marco o no
-function validarCheckbox(e) {
-    checked = e.target.checked;
+function validarCheckbox(e = null) {
+    const checked = e.target.checked;
     mostrarInput(checked ,e.target.dataset.campo); 
 }
 
@@ -86,9 +89,7 @@ function mostrarInput(checked, campo) {
     campo = document.querySelector(`#${campo}`);
     if(checked){
         campo.classList.remove('d-none');
-        campo.classList.add('d-block');
     } else {
-        campo.classList.remove('d-block');
         campo.classList.add('d-none');
     }
 }
