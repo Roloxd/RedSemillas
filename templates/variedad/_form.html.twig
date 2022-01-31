@@ -66,11 +66,18 @@
                     <a href="#" data-toggle="tooltip" title="La designación registrada u otra designación que se da al material recibido. Si hay varios nombres, se separan con punto y coma sin dejar espacio entre ellos. Ejemplo: Nombre de la accesión: Bogatyr;Symphony;Emma.">?</a>
                     {{ form_widget(form.nombreLocal, {'attr': {'class': 'form-control'}}) }}
                   </div>
-                  <div class="form-group">
+                  {# <div class="form-group">
                     <label for="variedad1_especie">Especie: </label>
                     <a href="#" data-toggle="tooltip" title="La parte específica del nombre científico.">?</a>
                     <input id ="variedad1_especie" class="form-control" type="text" name="variedad1[especie]" list="especie_list"  />
                     <datalist id="especie_list"></datalist>
+                  </div> #}
+                  <div class="form-group">
+                    <label for="variedad1_especie">Especie: </label>
+                    <a href="#" data-toggle="tooltip" title="La parte específica del nombre científico.">?</a>
+                    <select id ="variedad1_especie" class="form-control select-especie" name="variedad1[especie]">
+                      <option></option>
+                    </select>
                   </div>
                   <div class="form-group">
                     <label for="variedad1_densidad">Densidad</label>
@@ -545,4 +552,3 @@ Pulsar 'Ctrl + Click Izquierdo' para seleccionar más de una opción.">?</a>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-

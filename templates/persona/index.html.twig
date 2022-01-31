@@ -122,7 +122,18 @@
                         <td>{{ persona.telefono2 }}</td>
                         <td>{{ persona.correo }}</td>
                         <td>{{ persona.relacionAgricultura }}</td>
-                        <td>{{ persona.terrenoCultivo ? 'Yes' : 'No' }}</td>
+                        {# <td>{{ persona.terrenoCultivo ? 'Yes' : 'No' }}</td> #}
+                        <td>
+                          {% if terrenos[persona.id] is empty %}
+                            No
+                          {% else %}
+                            <div class="d-flex flex-column">
+                              {% for key, terreno in terrenos[persona.id] %}
+                                <a href="{{ path('terreno_mostrar', {'id' : key}) }}">{{ terreno }}</a>
+                              {% endfor %}
+                            </div>
+                          {% endif %}
+                        </td>
                         <td>{{ persona.inscripcionRope ? 'Yes' : 'No' }}</td>
                         <td>{{ persona.codigoRope }}</td>
                         <td>{{ persona.otrasCuestiones }}</td>

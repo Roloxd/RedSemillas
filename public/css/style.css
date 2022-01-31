@@ -1,4 +1,8 @@
 /* Utilidades */
+.flex{
+    display: flex;
+}
+
 .width-97 {
     width: 97.4%;
 }
@@ -29,9 +33,14 @@
     color: black;
 }
 
-/*Form Variedad: Codigo VAR-*/
-.flex{
-    display: flex;
+/*Form Variedad*/
+.select2-container .selection .select2-selection--single {
+    border: 1px solid #ced4da;
+    height: calc(2.25rem + 2px);
+}
+.select2-container--default .selection .select2-selection--single .select2-selection__arrow {
+    height: 31px;
+    right: 6px;
 }
 
 .lavel-centrado{

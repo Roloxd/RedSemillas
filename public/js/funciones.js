@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if(formVariedad || formVariedadUpdate){
         // consultaFamilia();
-        consultarEspecie();
+        //getEspecies();
         consultarUsos();
         crearCampoDescripcionUsos();
         validarFormularioVariedad();
@@ -906,44 +906,50 @@ function consultaFamilia(){
     return false;
 }
 
-function consultarEspecie(){
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if(this.readyState == 4 && this.status == 200){
-            var respuesta = JSON.parse(this.response);
-
-            for(const [key, value] of Object.entries(respuesta['especies'])) {
-                const lista = document.querySelector('#especie_list');
-                const option = document.createElement('OPTION');
-
-                option.value = key;
-                option.innerText = value;
+async function getEspecies(){
+    try {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if(this.readyState == 4 && this.status == 200){
+                var respuesta = JSON.parse(this.response);
+    
+                console.log(respuesta);
+                // for(const [key, value] of Object.entries(respuesta['especies'])) {
+                //     const lista = document.querySelector('#especie_list');
+                //     const option = document.createElement('OPTION');
+    
+                //     option.value = key;
+                //     option.innerText = value;
+                    
+                //     lista.appendChild(option);
+                // }
                 
-                lista.appendChild(option);
+                // //Añade Especie en el Input
+                // if(respuesta['especieDefault']){
+                //     const inputEspecie = document.querySelector('#variedad1_especie');
+                //     inputEspecie.value = respuesta['especieDefault'];
+                // }
             }
-            
-            //Añade Especie en el Input
-            if(respuesta['especieDefault']){
-                const inputEspecie = document.querySelector('#variedad1_especie');
-                inputEspecie.value = respuesta['especieDefault'];
-            }
+        };
+    
+        const patron = /(\d+)/g;
+        const idVariedad = window.location.pathname.match(patron);
+    
+        xhttp.open("POST", "/admin/variedades/getEspecies", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    
+        if(idVariedad){
+            var params = 'idVariedad=' + idVariedad;
+            xhttp.send(params);
+        } else {
+            xhttp.send();
         }
-    };
-
-    const patron = /(\d+)/g;
-    const idVariedad = window.location.pathname.match(patron);
-
-    xhttp.open("POST", "/admin/taxon/search", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-    if(idVariedad){
-        var params = 'idVariedad=' + idVariedad;
-        xhttp.send(params);
-    } else {
-        xhttp.send();
+    
+        return false;
+    } catch (error) {
+        console.log(error);
     }
-
-    return false;
+   
 }
 
 function validarFormularioPersona(){

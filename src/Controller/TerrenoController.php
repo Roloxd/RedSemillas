@@ -125,6 +125,22 @@ class TerrenoController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/mostrar", name="terreno_mostrar", methods={"GET"})
+     */
+    public function mostrar(Request $request): Response
+    {
+        $id = $request->attributes->get('id');
+
+        $terrenos[] = $this->getDoctrine()
+            ->getRepository(Terreno::class)
+            ->find($id);
+
+        return $this->render('terreno/index.html.twig', [
+            'terrenos' => $terrenos,
+        ]);
+    }
+
+    /**
      * @Route("/{id}/edit", name="terreno_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Terreno $terreno): Response

@@ -25,8 +25,39 @@ class PersonaController extends AbstractController
      */
     public function index(PersonaRepository $personaRepository): Response
     {
+        $personas = $personaRepository->findAll();
+
+        // Obtenemos los Terrenos de la Persona
+        foreach( $personas as $persona ) {
+            $terrenos = $persona->getTerrenos()->getValues();
+            
+            if(!empty($terrenos)) {
+                foreach( $terrenos as $terreno ) {
+                    $nombreTerreno = $terreno->getNombre();
+                    $direccionTerreno = $terreno->getDireccion();
+                    $localidadTerreno = $terreno->getLocalidad();
+
+                    $texto = "";
+                    if(!empty($nombreTerreno)) {
+                        $texto .= $nombreTerreno;
+                    }
+                    if(!empty($direccionTerreno)) {
+                        $texto .= " | Dirección: " . $direccionTerreno;
+                    }
+                    if(!empty($localidadTerreno)) {
+                        $texto .= ", " . $localidadTerreno;
+                    }
+
+                    $arrayTerrenos[$persona->getId()][$terreno->getId()] = $texto;
+                }
+            } else {
+                $arrayTerrenos[$persona->getId()] = null;
+            }
+        }
+
         return $this->render('persona/index.html.twig', [
-            'personas' => $personaRepository->findAll(),
+            'personas' => $personas,
+            'terrenos' => $arrayTerrenos,
         ]);
     }
 

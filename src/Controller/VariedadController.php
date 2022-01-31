@@ -37,7 +37,6 @@ class VariedadController extends AbstractController
         $arrayCicloysiembra = null;
 
         foreach($variedadesDB as $variedadDB){
-
             //Ciclo y Siembra de la variedad
             if(!empty($variedadDB->getCicloYSiembras()->getValues())){
                 foreach($variedadDB->getCicloYSiembras()->getValues() as $cicloysiembra){
@@ -552,6 +551,54 @@ class VariedadController extends AbstractController
         return $response; 
     }
 
+    /**
+     * @Route("/getEspecies", name="taxon_getEspecies", methods={"POST"})
+     */
+    public function getEspecie(Request $request): Response
+    {
+        // Consulta Taxon Tipo "ESPECIES", con rango en el nombre de la A-M, ordenado ASC
+        $taxons = $this->getDoctrine()
+            ->getRepository(Taxon::class)
+            ->whereTipo("SPECIES", "A", "B");
+
+        //dump($taxons[1]); exit;
+
+        $nombreGenero = NULL;
+        $nombreFamilia = NULL;
+        $options = [];
+
+        foreach($taxons as $taxon) {
+            $value = $taxon->getId();
+            $nombre = $taxon->getNombre();
+            $genero = $taxon->getPadre();
+
+            if(!empty($genero)) {
+                $nombreGenero = $genero->getNombre();
+                $familia = $genero->getPadre();
+
+                if(!empty($familia)) {
+                    $nombreFamilia = $familia->getNombre();
+                }
+            }
+
+            $options[$value] = $nombre;
+            if(!empty($nombreGenero)) {
+                $options[$value] .= " - " . $nombreGenero;
+
+                if(!empty($nombreFamilia)) {
+                    $options[$value] .= " - " . $nombreFamilia;
+                }
+            }
+        }
+
+        $response = new Response();
+        $response->setContent(json_encode([
+            'especies' => $options,
+        ]));
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;  
+    }
 
     /**
      * @Route("/{id}", name="variedad_show", methods={"GET"})
@@ -569,6 +616,8 @@ class VariedadController extends AbstractController
      */
     public function edit(Request $request, Variedad $variedad): Response
     {
+        $taxon = $variedad->getEspecie();
+
         $form = $this->createForm(Variedad1Type::class, $variedad, [
             'attr' => ['class' => 'formVariedadUpdate' ]
         ]);

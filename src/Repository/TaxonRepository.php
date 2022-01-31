@@ -75,12 +75,16 @@ class TaxonRepository extends ServiceEntityRepository
     /**
      * @return Taxon[]
      */
-    public function findAllEspecie()
+    public function whereTipo(string $tipo /*, string $desde, string $hasta*/): array
     {
         $qb = $this->createQueryBuilder('t')
-            ->where('t.tipo = "SPECIES"');
-
-        dump($qb->getQuery()->execute());
+            ->where('t.tipo = :tipo')
+            // ->andWhere('t.nombre BETWEEN :desde AND :hasta')
+            ->orderBy('t.nombre', 'ASC')
+            ->setParameter('tipo', $tipo);
+            // ->setParameter('desde', $desde)
+            // ->setParameter('hasta', $hasta);
+            
         return $qb->getQuery()->execute();
     }
 
