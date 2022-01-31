@@ -79,7 +79,7 @@ function EventosClick() {
 }
 
 // Comprueba si el Checkbox se marco o no
-function validarCheckbox(e = null) {
+function validarCheckbox(e) {
     const checked = e.target.checked;
     mostrarInput(checked ,e.target.dataset.campo); 
 }
