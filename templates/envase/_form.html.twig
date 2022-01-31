@@ -116,7 +116,11 @@
                   <div class="form-group">
                     <label for="envase_conservacion">Conservación</label>
                     <a href="#" data-toggle="tooltip" title="Necesidad de conservación para el envase.">?</a>
-                    {{ form_widget(form.conservacion, {'attr': {'class': 'form-control'}}) }}
+                    
+                    <div class="form-check">
+                      {{ form_widget(form.conservacion, {'attr': {'class': 'form-check-input'}}) }}
+                      <label class="form-check-label" for="envase_conservacion">Si</label>
+                    </div>                    
                   </div>
                   
                   <div class="form-group">

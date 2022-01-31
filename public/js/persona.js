@@ -3,20 +3,8 @@ const formPersona = document.querySelector(".formPersona");
 const formEditPersona = document.querySelector(".formEditPersona");
 
 document.addEventListener('DOMContentLoaded', function() {
-    if(formPersona && formDonante){
-        const inputInstCode = document.querySelector('#donante_tipo_donante');
-        inputInstCode.addEventListener('change', function(evento){
-            if(evento.target.value == 'Instituto de germoplasma'){
-                $('#instcode').show();
-            } else {
-                $('#instcode').hide();
-            }
-        });
-    } else if (formEditPersona) {
-        const btnDonante = document.querySelector('#btn-donante');
-        btnDonante.innerText = "Añadir como donante (En construcción)"
-        btnDonante.disabled = true;
-    }
+    mostrarCodigoInstituto();
+    EventosClick(); // Eventos de los Checkbox
 });
 
 if(formPersona != null && formDonante != null) {
@@ -57,4 +45,50 @@ function newDonante(){
             //console.log("Solicitud finalizada.");
         }
     });
+}
+
+function mostrarCodigoInstituto() {
+    if(formPersona && formDonante){
+        const inputInstCode = document.querySelector('#donante_tipo_donante');
+        inputInstCode.addEventListener('change', function(evento){
+            if(evento.target.value == 'Instituto de germoplasma'){
+                $('#instcode').show();
+            } else {
+                $('#instcode').hide();
+            }
+        });
+    } else if (formEditPersona) {
+        const btnDonante = document.querySelector('#btn-donante');
+        btnDonante.innerText = "Añadir como donante (En construcción)"
+        btnDonante.disabled = true;
+    }
+}
+
+function EventosClick() {
+    checkboxInscriptoROPE = document.querySelector('#persona2_inscripcion_rope');
+    checkboxInscriptoROPE.addEventListener('change', validarCheckbox, false);
+
+    checkboxAmpliacionCuota = document.querySelector('#persona2_ampliacion_cuota');
+    checkboxAmpliacionCuota.addEventListener('change', validarCheckbox, false);
+
+    checkboxRecibirInformacion = document.querySelector('#persona2_recibir_informacion');
+    checkboxRecibirInformacion.addEventListener('change', validarCheckbox, false);
+}
+
+// Comprueba si el Checkbox se marco o no
+function validarCheckbox(e) {
+    checked = e.target.checked;
+    mostrarInput(checked ,e.target.dataset.campo); 
+}
+
+// Muestra y oculta input
+function mostrarInput(checked, campo) {
+    campo = document.querySelector(`#${campo}`);
+    if(checked){
+        campo.classList.remove('d-none');
+        campo.classList.add('d-block');
+    } else {
+        campo.classList.remove('d-block');
+        campo.classList.add('d-none');
+    }
 }

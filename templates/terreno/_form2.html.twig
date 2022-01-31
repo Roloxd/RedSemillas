@@ -100,7 +100,11 @@
                   </div>
                   <div class="form-group">
                     <label for="persona_propietaria">¿Es propietario del terreno?</label>
-                    {{ form_widget(form.persona_propietaria, {'attr': {'class': 'form-control'}}) }}
+                    
+                    <div class="form-check">
+                      {{ form_widget(form.persona_propietaria, {'attr': {'class': 'form-check-input'}}) }}
+                      <label class="form-check-label" for="terreno_persona_propietaria">Si</label>
+                    </div>
                   </div>
                 </div>
                 <!-- /.card-body -->

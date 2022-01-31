@@ -164,7 +164,11 @@ Separa estos con punto y coma (;) sin espacios.">?</a>
                   <div class="form-group">
                     <label for="acepta_condiciones">Aceptar condiciones</label>
                     <a href="#" data-toggle="tooltip" title="Aceptación de requisitos y compromisos">?</a>
-                    {{ form_widget(form.acepta_condiciones, {'attr': {'class': 'form-control'}}) }}
+
+                    <div class="form-check">
+                      {{ form_widget(form.acepta_condiciones, {'attr': {'class': 'form-check-input'}}) }}
+                      <label class="form-check-label" for="persona2_acepta_condiciones">Acepta las condiciones y compromisos</label>
+                    </div>
                   </div>
                   <div class="form-group">
                     <label for="otras_cuestiones">Otras Cuestiones</label>
@@ -250,17 +254,21 @@ Separa estos con punto y coma (;) sin espacios.">?</a>
                   <a href="#" data-toggle="tooltip" title="Relación con la agricultura">?</a>
                   {{ form_widget(form.relacion_agricultura, {'attr': {'class': 'form-control'}}) }}
                 </div>
-                <div class="form-group">
+                {# <div class="form-group">
                   <label for="terreno_cultivo">¿Tiene terreno de cultivo?</label>
                   <a href="#" data-toggle="tooltip" title="Marca si tiene terreno de cultivo">?</a>
                   {{ form_widget(form.terreno_cultivo, {'attr': {'class': 'form-control'}}) }}
-                </div>
+                </div> #}
                 <div class="form-group">
                   <label for="inscripcion_rope">Inscripto en ROPE</label>
                   <a href="#" data-toggle="tooltip" title="">?</a>
-                  {{ form_widget(form.inscripcion_rope, {'attr': {'class': 'form-control'}}) }}
+
+                  <div class="form-check">
+                    {{ form_widget(form.inscripcion_rope, {'attr': {'class': 'form-check-input', 'data-campo': 'codigo-rope'}}) }}
+                    <label class="form-check-label" for="persona2_inscripcion_rope">Si</label>
+                  </div>
                 </div>
-                <div class="form-group">
+                <div id="codigo-rope" class="form-group d-none">
                   <label for="codigo_rope">Codigo ROPE</label>
                   <a href="#" data-toggle="tooltip" title="¿Está registrado/a como Operador Ecológico? Número Registro de Operadores Ecológico">?</a>
                   {{ form_widget(form.codigo_rope, {'attr': {'class': 'form-control'}}) }}
@@ -268,19 +276,27 @@ Separa estos con punto y coma (;) sin espacios.">?</a>
                 <div class="form-group">
                   <label for="ampliacion_cuota">Amplicación Cuota</label>
                   <a href="#" data-toggle="tooltip" title="[2 sobres = 4€] [5 sobres = 10€] [10 sobres = 20€] [25 sobres = 50€] [50 sobres = 100€]">?</a>
-                  {{ form_widget(form.ampliacion_cuota, {'attr': {'class': 'form-control'}}) }}
+
+                  <div class="form-check">
+                    {{ form_widget(form.ampliacion_cuota, {'attr': {'class': 'form-check-input', 'data-campo': 'fecha-cuota'}}) }}
+                    <label class="form-check-label" for="persona2_ampliacion_cuota">Si</label>
+                  </div>
                 </div>
-                <div class="form-group">
+                <div id="fecha-cuota" class="form-group d-none">
                   <label for="fecha_cuota">Fecha Cuota</label>
                   <a href="#" data-toggle="tooltip" title="Fecha de la Cuota">?</a>
                   {{ form_widget(form.fecha_cuota, {'attr': {'class': 'form-control'}}) }}
                 </div>
                 <div class="form-group">
-                  <label for="recibir_informacion">¿Desea recibir información de Tierra Fértil?</label>
+                  <label>¿Desea recibir información de Tierra Fértil?</label>
                   <a href="#" data-toggle="tooltip" title="Recibir informacón">?</a>
-                  {{ form_widget(form.recibir_informacion, {'attr': {'class': 'form-control'}}) }}
+
+                  <div class="form-check">
+                    {{ form_widget(form.recibir_informacion, {'attr': {'class': 'form-check-input', 'data-campo': 'fecha-info'}}) }}
+                    <label class="form-check-label" for="persona2_recibir_informacion">Si</label>
+                  </div>
                 </div>
-                <div class="form-group">
+                <div id="fecha-info" class="form-group d-none">
                   <label for="fecha_informacion">Fecha Información</label>
                   <a href="#" data-toggle="tooltip" title="Fecha informacón">?</a>
                   {{ form_widget(form.fecha_informacion, {'attr': {'class': 'form-control'}}) }}

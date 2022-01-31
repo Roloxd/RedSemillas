@@ -45,7 +45,7 @@ class Persona2Type extends AbstractType
             ->add('telefono2')
             ->add('correo')
             ->add('relacion_agricultura')
-            ->add('terreno_cultivo')
+            // ->add('terreno_cultivo')
             ->add('inscripcion_rope')
             ->add('codigo_rope')
             ->add('otras_cuestiones')
