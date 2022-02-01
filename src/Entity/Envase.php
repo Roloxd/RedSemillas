@@ -139,9 +139,15 @@ class Envase
      */
     private $codigo;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Germinacion::class, mappedBy="envase")
+     */
+    private $germinaciones;
+
     public function __construct()
     {
         $this->variedads = new ArrayCollection();
+        $this->germinaciones = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -415,7 +421,7 @@ class Envase
 
     public function __toString() : string
     {
-        return $this->getCodigo();
+        return "E-" . $this->getCodigo();
     }
 
     /**
@@ -453,6 +459,36 @@ class Envase
     public function setCodigo(?int $codigo): self
     {
         $this->codigo = $codigo;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Germinacion[]
+     */
+    public function getGerminaciones(): Collection
+    {
+        return $this->germinaciones;
+    }
+
+    public function addGerminacione(Germinacion $germinacione): self
+    {
+        if (!$this->germinaciones->contains($germinacione)) {
+            $this->germinaciones[] = $germinacione;
+            $germinacione->setEnvase($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGerminacione(Germinacion $germinacione): self
+    {
+        if ($this->germinaciones->removeElement($germinacione)) {
+            // set the owning side to null (unless already changed)
+            if ($germinacione->getEnvase() === $this) {
+                $germinacione->setEnvase(null);
+            }
+        }
 
         return $this;
     }

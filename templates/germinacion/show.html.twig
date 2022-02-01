@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Germinacion{% endblock %}
+
+{% block body %}
+    <h1>Germinacion</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ germinacion.id }}</td>
+            </tr>
+            <tr>
+                <th>Fecha_inicio</th>
+                <td>{{ germinacion.fechaInicio ? germinacion.fechaInicio|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Num_semillas_para_prueba</th>
+                <td>{{ germinacion.numSemillasParaPrueba }}</td>
+            </tr>
+            <tr>
+                <th>Fecha_final</th>
+                <td>{{ germinacion.fechaFinal ? germinacion.fechaFinal|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Num_dias_en_germinar</th>
+                <td>{{ germinacion.numDiasEnGerminar }}</td>
+            </tr>
+            <tr>
+                <th>Observaciones</th>
+                <td>{{ germinacion.observaciones }}</td>
+            </tr>
+            <tr>
+                <th>Porcentaje_germinacion_muestra</th>
+                <td>{{ germinacion.porcentajeGerminacionMuestra }}</td>
+            </tr>
+            <tr>
+                <th>Porcentaje_semillas_no_germinadas_muestra</th>
+                <td>{{ germinacion.porcentajeSemillasNoGerminadasMuestra }}</td>
+            </tr>
+            <tr>
+                <th>Porcentaje_semillas_germinacion_anomala_muestra</th>
+                <td>{{ germinacion.porcentajeSemillasGerminacionAnomalaMuestra }}</td>
+            </tr>
+            <tr>
+                <th>Porcentaje_semillas_germinacion_enfermas_muestra</th>
+                <td>{{ germinacion.porcentajeSemillasGerminacionEnfermasMuestra }}</td>
+            </tr>
+            <tr>
+                <th>Temperatura_prueba_germinacion_max</th>
+                <td>{{ germinacion.temperaturaPruebaGerminacionMax }}</td>
+            </tr>
+            <tr>
+                <th>Temperatura_prueba_germinacion_min</th>
+                <td>{{ germinacion.temperaturaPruebaGerminacionMin }}</td>
+            </tr>
+            <tr>
+                <th>Temperatura_prueba_germinacion_media</th>
+                <td>{{ germinacion.temperaturaPruebaGerminacionMedia }}</td>
+            </tr>
+            <tr>
+                <th>Humedad_relativa_prueba_germinacion_max</th>
+                <td>{{ germinacion.humedadRelativaPruebaGerminacionMax }}</td>
+            </tr>
+            <tr>
+                <th>Humedad_relativa_prueba_germinacion_min</th>
+                <td>{{ germinacion.humedadRelativaPruebaGerminacionMin }}</td>
+            </tr>
+            <tr>
+                <th>Humedad_relativa_prueba_germinacion_media</th>
+                <td>{{ germinacion.humedadRelativaPruebaGerminacionMedia }}</td>
+            </tr>
+            <tr>
+                <th>Metodo_empleado_para_germinar</th>
+                <td>{{ germinacion.metodoEmpleadoParaGerminar }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('germinacion_index') }}">back to list</a>
+
+    <a href="{{ path('germinacion_edit', {'id': germinacion.id}) }}">edit</a>
+
+    {{ include('germinacion/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,130 @@
+
+<!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        {# <h1>{{ text_form }}</h1> #}
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Administración</a></li>
+                        <li class="breadcrumb-item active">Germinación</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <!-- left column -->
+                        <div class="col-md-6">
+                            <!-- general form elements -->
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h3 class="card-title">Nueva Germinación</h3>
+                                </div>
+                                <!-- /.card-header -->
+
+                                <!-- form start -->
+                                {{ form_start(form) }}
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="germinacion_fecha_inicio">Fecha inicio</label>
+                                            <a href="#" data-toggle="tooltip" title="Fecha de inicio de la prueba de germinación.">?</a>
+                                            {{ form_widget(form.fecha_inicio, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Marcar si la germinación finalizó</label>
+                                            
+                                        </div>
+                                        {# <div class="form-group">  //AÑADIR CHECK
+                                            <label for="germinacion_fecha_final">Fecha finalización</label>
+                                            <a href="#" data-toggle="tooltip" title="Fecha de finalización de la prueba de germinación.">?</a>
+                                            {{ form_widget(form.fecha_final, {'attr': {'class': 'form-control'}}) }}
+                                        </div> #}
+                                        <div class="form-group">
+                                            <label for="germinacion_num_semillas_para_prueba">Número de semillas empleadas para la prueba</label>
+                                            <a href="#" data-toggle="tooltip" title="Número de semillas que se emplean para la realización de la prueba de germinación.">?</a>
+                                            {{ form_widget(form.num_semillas_para_prueba, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                        {# <div class="form-group">  //Se rellena automaticamente con las fecha inicio y fin
+                                            <label for="germinacion_fecha_final">Numero de días en germinar</label>
+                                            <a href="#" data-toggle="tooltip" title="Fecha de finalización de la prueba de germinación.">?</a>
+                                            {{ form_widget(form.num_dias_en_germinar, {'attr': {'class': 'form-control'}}) }}
+                                        </div> #}
+                                        <div class="form-group">
+                                            <label for="germinacion_temperatura_prueba_germinacion_max">Temperatura máxima</label>
+                                            <a href="#" data-toggle="tooltip" title="Temperatura máxima de la prueba de germinación.">?</a>
+                                            {{ form_widget(form.temperatura_prueba_germinacion_max, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="germinacion_temperatura_prueba_germinacion_min">Temperatura mínima</label>
+                                            <a href="#" data-toggle="tooltip" title="Temperatura mínima de la prueba de germinación.">?</a>
+                                            {{ form_widget(form.temperatura_prueba_germinacion_min, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="germinacion_temperatura_prueba_germinacion_media">Temperatura media</label>
+                                            <a href="#" data-toggle="tooltip" title="Temperatura media de la prueba de germinación.">?</a>
+                                            {{ form_widget(form.temperatura_prueba_germinacion_media, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="germinacion_humedad_relativa_prueba_germinacion_max">Humedad máxima</label>
+                                            <a href="#" data-toggle="tooltip" title="Humedad máxima de la prueba de germinación.">?</a>
+                                            {{ form_widget(form.humedad_relativa_prueba_germinacion_max, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="germinacion_humedad_relativa_prueba_germinacion_min">Humedad mínima</label>
+                                            <a href="#" data-toggle="tooltip" title="Humedad mínima de la prueba de germinación.">?</a>
+                                            {{ form_widget(form.humedad_relativa_prueba_germinacion_min, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="germinacion_humedad_relativa_prueba_germinacion_media">Humedad media</label>
+                                            <a href="#" data-toggle="tooltip" title="Humedad media de la prueba de germinación.">?</a>
+                                            {{ form_widget(form.humedad_relativa_prueba_germinacion_media, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="germinacion_metodo_empleado_para_germinar">Método empleado para germinar</label>
+                                            <a href="#" data-toggle="tooltip" title="Metodo por el que se realiza la prueba.">?</a>
+                                            {{ form_widget(form.metodo_empleado_para_germinar, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="germinacion_observaciones">Observaciones</label>
+                                            <a href="#" data-toggle="tooltip" title="Este campo se utiliza para añadir notas o para completar datos.">?</a>
+                                            {{ form_widget(form.observaciones, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                        <div class="form-group"> {# Si Envase tiene más de una variedad, permitir seleccionar variedad, para relacionarla con la germinacion#}
+                                            <label for="germinacion_envase">Envase</label>
+                                            <a href="#" data-toggle="tooltip" title="Selecciona el envase relacionado.">?</a>
+                                            {{ form_widget(form.envase, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                    </div>
+                                    <!-- /.card-body -->
+
+                                    <div class="card-footer">
+                                        <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
+                                    </div>
+                                {{ form_end(form) }}
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <!--/.col (left) -->
+                    </div>
+                    <!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </section>
+
+            <a class="btn btn-secondary" href="{{ path('entrada_index') }}">Volver a la lista</a>
+
+            {# {% if text_form == 'Editar Entrada' %}
+                {{ include('entrada/_delete_form.html.twig') }}
+            {% endif %} #}
+        </section>
+        <!-- /.content -->
+    </div>
+<!-- /.content-wrapper -->

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Germinacion{% endblock %}
+
+{% block body %}
+    <h1>Edit Germinacion</h1>
+
+    {{ include('germinacion/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('germinacion_index') }}">back to list</a>
+
+    {{ include('germinacion/_delete_form.html.twig') }}
+{% endblock %}

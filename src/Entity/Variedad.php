@@ -252,12 +252,18 @@ class Variedad
      */
     private $envases;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Germinacion::class, mappedBy="variedad")
+     */
+    private $germinaciones;
+
     public function __construct()
     {
         $this->cicloYSiembras = new ArrayCollection();
         $this->usoVariedads = new ArrayCollection();
         $this->imagenSeleccionadas = new ArrayCollection();
         $this->envases = new ArrayCollection();
+        $this->germinaciones = new ArrayCollection();
     
     }
 
@@ -789,6 +795,36 @@ class Variedad
     public function removeEnvase(Envase $envase): self
     {
         $this->envases->removeElement($envase);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Germinacion[]
+     */
+    public function getGerminaciones(): Collection
+    {
+        return $this->germinaciones;
+    }
+
+    public function addGerminacione(Germinacion $germinacione): self
+    {
+        if (!$this->germinaciones->contains($germinacione)) {
+            $this->germinaciones[] = $germinacione;
+            $germinacione->setVariedad($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGerminacione(Germinacion $germinacione): self
+    {
+        if ($this->germinaciones->removeElement($germinacione)) {
+            // set the owning side to null (unless already changed)
+            if ($germinacione->getVariedad() === $this) {
+                $germinacione->setVariedad(null);
+            }
+        }
 
         return $this;
     }
