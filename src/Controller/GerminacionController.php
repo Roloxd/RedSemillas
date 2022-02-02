@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Germinacion;
+use App\Entity\Variedad;
 use App\Form\GerminacionType;
 use App\Repository\GerminacionRepository;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,7 +36,34 @@ class GerminacionController extends AbstractController
         $form = $this->createForm(GerminacionType::class, $germinacion);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
+            $datos = $request->request->get('germinacion');
+
+            // Fecha finalizacion
+            if( isset($datos['prueba_finalizada']) && !empty($datos['prueba_finalizada']) ){
+                if($datos['prueba_finalizada'] === "1") {
+                    $germinacion->setFechaFinal(new DateTime());
+                }
+
+                // Número de días en germinar
+                if( isset($datos['fecha_inicio']) && !empty($datos['fecha_inicio']) ){
+                    $fechaInicio = new DateTime($datos['fecha_inicio']);
+                    $fechaFinal = $germinacion->getFechaFinal();
+                    
+                    $diff = $fechaInicio->diff($fechaFinal);
+                    $germinacion->setNumDiasEnGerminar($diff->days);
+                }
+            }
+
+            // Variedades
+            if( isset($datos['variedad']) && !empty($datos['variedad'])) {
+                $variedad = $this->getDoctrine()
+                    ->getRepository(Variedad::class)
+                    ->find( intval($datos['variedad']) );
+
+                $germinacion->setVariedad($variedad);
+            }
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($germinacion);
             $entityManager->flush();

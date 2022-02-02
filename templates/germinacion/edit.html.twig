@@ -1,13 +1,43 @@
-{% extends 'base.html.twig' %}
+{% extends 'backend-base.html.twig' %}
 
-{% block title %}Edit Germinacion{% endblock %}
+{% block title %}Germinación{% endblock %}
+
+{% block stylesheets %}
+      {{ include('be-layout/stylesheet.html', sandboxed = true) }}
+{% endblock %}
 
 {% block body %}
-    <h1>Edit Germinacion</h1>
+<div class="wrapper">
+ {{ include('be-layout/preloader.html', sandboxed = true) }}
 
-    {{ include('germinacion/_form.html.twig', {'button_label': 'Update'}) }}
+  {{ include('be-layout/navbar.html', sandboxed = true) }}
+  
+  {{ include('be-layout/sidebar.html', sandboxed = true) }}
+  
+  {{ include('germinacion/_form.html.twig', {'button_label': 'Actualizar'}) }}  
+  
+  {{ include('be-layout/footer.html', sandboxed = true) }}
 
-    <a href="{{ path('germinacion_index') }}">back to list</a>
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
 
-    {{ include('germinacion/_delete_form.html.twig') }}
+{{ include('be-layout/js.html', sandboxed = true) }}
+
+<script>
+  $(document).ready(function() {
+    $('.select-variedades').select2({
+      language: 'es',
+      width: '100%',
+      placeholder: "Seleccione Variedades",
+      allowClear: true,
+      tags: true,
+    });
+  });
+</script>
+<script type = "text/javascript" src ="{{ asset('/js/germinacion.js') }}"></script>
 {% endblock %}

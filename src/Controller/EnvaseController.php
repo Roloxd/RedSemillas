@@ -112,6 +112,46 @@ class EnvaseController extends AbstractController
     }
 
     /**
+     * @Route("/findEnvase", name="envase_find", methods={"POST"})
+     */
+    public function find(Request $request): Response
+    {
+        $datos = null;
+
+        $idEnvase = intval($request->request->get('idEnvase'));
+        $funcion = $request->request->get('funcion');
+        
+        $envase = $this->getDoctrine()
+            ->getRepository(Envase::class)
+            ->find($idEnvase);
+
+        if($funcion === "obtenerVariedades") {
+            $datos = $this->obtenerVariedades($envase);
+        }
+
+        $response = new Response();
+        $response->setContent(json_encode($datos));
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response; 
+    }
+
+    // Obtener las Variedades de un Envase, en caso de tener más de 1 variedad, retorna su nombre y id
+    public function obtenerVariedades($envase): array
+    {
+        $variedades = $envase->getVariedads()->getValues();
+        $arrayVariedades = [];
+
+        if($variedades) {
+            foreach($variedades as $variedad) {
+                $arrayVariedades[$variedad->getId()] = $variedad->__toString();
+            }
+        }
+
+        return $arrayVariedades;
+    }
+
+    /**
      * @Route("/{id}", name="envase_show", methods={"GET"})
      */
     public function show(Envase $envase): Response

@@ -35,19 +35,32 @@
                                 {{ form_start(form) }}
                                     <div class="card-body">
                                         <div class="form-group">
+                                            <label for="germinacion_envase">Envase</label>
+                                            <a href="#" data-toggle="tooltip" title="Selecciona el envase relacionado.">?</a>
+                                            {{ form_widget(form.envase, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                        <div id="contenedor-variedades" class="form-group d-none">
+                                            <label for="variedad1_especie">Variedades</label>
+                                            <a href="#" data-toggle="tooltip" title="Seleccionar las variedades relacionadas con la prueba de germinación.">?</a>
+
+                                            <select id ="germinacion_variedades" class="form-control select-variedades" name="germinacion[variedad]">
+                                                <option></option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
                                             <label for="germinacion_fecha_inicio">Fecha inicio</label>
                                             <a href="#" data-toggle="tooltip" title="Fecha de inicio de la prueba de germinación.">?</a>
                                             {{ form_widget(form.fecha_inicio, {'attr': {'class': 'form-control'}}) }}
                                         </div>
                                         <div class="form-group">
-                                            <label>Marcar si la germinación finalizó</label>
-                                            
+                                            <label>¿La prueba ha terminado?</label>
+                                            <a href="#" data-toggle="tooltip" title="Marcar si la prueba de germinación ha finalizado.">?</a>
+
+                                            <div class="form-check">
+                                                <input type="checkbox" id="germinacion_prueba_finalizada" name="germinacion[prueba_finalizada]" class="form-check-input" value="1">
+                                                <label class="form-check-label" for="germinacion_prueba_finalizada">Si</label>
+                                            </div>
                                         </div>
-                                        {# <div class="form-group">  //AÑADIR CHECK
-                                            <label for="germinacion_fecha_final">Fecha finalización</label>
-                                            <a href="#" data-toggle="tooltip" title="Fecha de finalización de la prueba de germinación.">?</a>
-                                            {{ form_widget(form.fecha_final, {'attr': {'class': 'form-control'}}) }}
-                                        </div> #}
                                         <div class="form-group">
                                             <label for="germinacion_num_semillas_para_prueba">Número de semillas empleadas para la prueba</label>
                                             <a href="#" data-toggle="tooltip" title="Número de semillas que se emplean para la realización de la prueba de germinación.">?</a>
@@ -97,11 +110,6 @@
                                             <label for="germinacion_observaciones">Observaciones</label>
                                             <a href="#" data-toggle="tooltip" title="Este campo se utiliza para añadir notas o para completar datos.">?</a>
                                             {{ form_widget(form.observaciones, {'attr': {'class': 'form-control'}}) }}
-                                        </div>
-                                        <div class="form-group"> {# Si Envase tiene más de una variedad, permitir seleccionar variedad, para relacionarla con la germinacion#}
-                                            <label for="germinacion_envase">Envase</label>
-                                            <a href="#" data-toggle="tooltip" title="Selecciona el envase relacionado.">?</a>
-                                            {{ form_widget(form.envase, {'attr': {'class': 'form-control'}}) }}
                                         </div>
                                     </div>
                                     <!-- /.card-body -->

@@ -27,4 +27,17 @@
 <!-- ./wrapper -->
 
 {{ include('be-layout/js.html', sandboxed = true) }}
+
+<script>
+  $(document).ready(function() {
+    $('.select-variedades').select2({
+      language: 'es',
+      width: '100%',
+      placeholder: "Seleccione Variedades",
+      allowClear: true,
+      tags: true,
+    });
+  });
+</script>
+<script type = "text/javascript" src ="{{ asset('/js/germinacion.js') }}"></script>
 {% endblock %}

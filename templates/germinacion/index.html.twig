@@ -77,8 +77,10 @@
                                 {% for germinacion in germinacions %}
                                     <tr>
                                         <td>
-                                            <a href="{{ path('germinacion_show', {'id': germinacion.id}) }}">show</a>
-                                            <a href="{{ path('germinacion_edit', {'id': germinacion.id}) }}">edit</a>
+                                            <div class="btn-group-vertical w-100">
+                                                <a class="btn btn-default" href="{{ path('germinacion_show', {'id': germinacion.id}) }}">Ver</a>
+                                                <a class="btn btn-default" href="{{ path('germinacion_edit', {'id': germinacion.id}) }}">Editar</a>
+                                            </div>
                                         </td>
                                         <td>{{ germinacion.id }}</td>
                                         <td>{{ germinacion.fechaInicio ? germinacion.fechaInicio|date('Y-m-d') : '' }}</td>
@@ -98,8 +100,10 @@
                                         <td>{{ germinacion.metodoEmpleadoParaGerminar }}</td>
                                         <td>{{ germinacion.observaciones }}</td>
                                         <td>
-                                            <a href="{{ path('germinacion_show', {'id': germinacion.id}) }}">show</a>
-                                            <a href="{{ path('germinacion_edit', {'id': germinacion.id}) }}">edit</a>
+                                            <div class="btn-group-vertical w-100">
+                                                <a class="btn btn-default" href="{{ path('germinacion_show', {'id': germinacion.id}) }}">Ver</a>
+                                                <a class="btn btn-default" href="{{ path('germinacion_edit', {'id': germinacion.id}) }}">Editar</a>
+                                            </div>
                                         </td>
                                     </tr>
                                 {% else %}
