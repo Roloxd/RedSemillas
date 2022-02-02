@@ -69,6 +69,8 @@
                                         <th>Humedad relativa de la prueba de germinación (min)</th>
                                         <th>Humedad relativa de la prueba de germinación (media)</th>
                                         <th>Método empleado para germinar</th>
+                                        <th>Envase</th>
+                                        <th>Variedad (No terminado)</th>
                                         <th>Observaciones</th>
                                         <th>Acciones</th>
                                     </tr>
@@ -98,6 +100,28 @@
                                         <td>{{ germinacion.humedadRelativaPruebaGerminacionMin }}</td>
                                         <td>{{ germinacion.humedadRelativaPruebaGerminacionMedia }}</td>
                                         <td>{{ germinacion.metodoEmpleadoParaGerminar }}</td>
+                                        <td>
+                                            {% if envases is empty %}
+                                                Sin envase
+                                            {% else %}
+                                                <div class="d-flex flex-column">
+                                                    {% for key, envase in envases[germinacion.id] %}
+                                                        <a href="{{ path('envase_mostrar', {'id' : key}) }}">{{envase}}</a>
+                                                    {% endfor %}
+                                                </div>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if variedades is empty %}
+                                                Sin envase
+                                            {% else %}
+                                                <div class="d-flex flex-column">
+                                                    {% for key, variedad in variedades[germinacion.id] %}
+                                                        <a href="{# {{ path('variedad_mostrar', {'id' : key}) }} #}">{{variedad}}</a>
+                                                    {% endfor %}
+                                                </div>
+                                            {% endif %}
+                                        </td>
                                         <td>{{ germinacion.observaciones }}</td>
                                         <td>
                                             <div class="btn-group-vertical w-100">
@@ -131,6 +155,8 @@
                                         <th>Humedad relativa de la prueba de germinación (min)</th>
                                         <th>Humedad relativa de la prueba de germinación (media)</th>
                                         <th>Método empleado para germinar</th>
+                                        <th>Envase</th>
+                                        <th>Variedad</th>
                                         <th>Observaciones</th>
                                         <th>Acciones</th>
                                     </tr>  

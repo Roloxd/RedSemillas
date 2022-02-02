@@ -1153,6 +1153,22 @@ class VariedadController extends AbstractController
             'idVariedad' => $idVariedad,
         ]);
     }
+
+    /**
+     * @Route("/{id}/mostrar", name="variedad_mostrar", methods={"GET"})
+     */
+    public function mostrar(Request $request): Response
+    {
+        $id = $request->attributes->get('id');
+
+        $variedades[] = $this->getDoctrine()
+            ->getRepository(Variedad::class)
+            ->find($id);
+
+        return $this->render('variedad/index.html.twig', [
+            'variedades' => $variedades,
+        ]);
+    }
     
     /**
      * @Route("/{id}", name="variedad_delete", methods={"POST"})

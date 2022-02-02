@@ -266,6 +266,22 @@ class EnvaseController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/mostrar", name="envase_mostrar", methods={"GET"})
+     */
+    public function mostrar(Request $request): Response
+    {
+        $id = $request->attributes->get('id');
+
+        $envases[] = $this->getDoctrine()
+            ->getRepository(Envase::class)
+            ->find($id);
+
+        return $this->render('envase/index.html.twig', [
+            'envases' => $envases,
+        ]);
+    }
+
+    /**
      * @Route("/{id}/verEnvases", name="envaseVariedad_ver", methods={"GET"})
      */
     public function verVariedades(Request $request): Response

@@ -22,8 +22,29 @@ class GerminacionController extends AbstractController
      */
     public function index(GerminacionRepository $germinacionRepository): Response
     {
+        $germinaciones = $germinacionRepository->findAll();
+
+        foreach($germinaciones as $germinacion) {
+            $envase = $germinacion->getEnvase();
+            if(!empty($envase)) {
+                $arrayEnvases[$germinacion->getId()][$envase->getId()] = $envase->__toString();
+            } else {
+                $arrayEnvases[$germinacion->getId()] = null;
+            }
+
+            $variedad = $germinacion->getVariedad();
+            if(!empty($variedad)) {
+                $arrayVariedades[$germinacion->getId()][$variedad->getId()] = $variedad->__toString();
+            } else {
+                $arrayVariedades[$germinacion->getId()] = null;
+            }
+        }
+
+        dump($arrayEnvases);
         return $this->render('germinacion/index.html.twig', [
             'germinacions' => $germinacionRepository->findAll(),
+            'envases' => $arrayEnvases,
+            'variedades' => $arrayVariedades,
         ]);
     }
 
