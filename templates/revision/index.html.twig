@@ -1,0 +1,177 @@
+{% extends 'backend-base.html.twig' %}
+
+{% block title %}Revision{% endblock %}
+
+{% block stylesheets %}
+      {{ include('be-layout/stylesheet-tabla.html', sandboxed = true) }}
+{% endblock %}
+
+{% block body %}
+<div class="wrapper">
+ {{ include('be-layout/preloader.html', sandboxed = true) }}
+
+  {{ include('be-layout/navbar.html', sandboxed = true) }}
+  
+  {{ include('be-layout/sidebar.html', sandboxed = true) }}
+
+  <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Tabla de las Revisiones</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Revision</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                {# <h3 class="card-title">Tabla de envases</h3> #}
+                                <a class="btn btn-app" href="{{ path('revision_new') }}" style="margin: 0px;">
+                                <i class="fas fa-edit"></i>
+                                Crear Revision
+                                </a>
+                            </div>
+
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Acciones</th>
+                                            <th>ID</th>
+                                            <th>Fecha de revision</th>
+                                            <th>Semillar muertas</th>
+                                            <th>Semillas germinadas</th>
+                                            <th>Semillas no germinadas</th>
+                                            <th>Semillas anomalas</th>
+                                            <th>Semillas enfermas</th>
+                                            <th>Fecha de finalizacion</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for revision in revisions %}
+                                        <tr>
+                                            <td>
+                                                <div class="btn-group-vertical w-100">
+                                                    <a class="btn btn-default" href="{{ path('revision_show', {'id': revision.id}) }}">Ver</a>
+                                                    <a class="btn btn-default" href="{{ path('revision_edit', {'id': revision.id}) }}">Editar</a>
+                                                </div>
+                                            </td>
+                                            <td>{{ revision.id }}</td>
+                                            <td>{{ revision.fechaRevision ? revision.fechaRevision|date('Y-m-d') : '' }}</td>
+                                            <td>{{ revision.semillasMuertas }}</td>
+                                            <td>{{ revision.semillasGerminadas }}</td>
+                                            <td>{{ revision.semillasNoGerminadas }}</td>
+                                            <td>{{ revision.semillasAnomalas }}</td>
+                                            <td>{{ revision.semillasEnfermas }}</td>
+                                            <td>{{ revision.fechaRevisionFinalizacion ? revision.fechaRevisionFinalizacion|date('Y-m-d') : '' }}</td>
+                                            <td>
+                                                <div class="btn-group-vertical w-100">
+                                                    <a class="btn btn-default" href="{{ path('revision_show', {'id': revision.id}) }}">Ver</a>
+                                                    <a class="btn btn-default" href="{{ path('revision_edit', {'id': revision.id}) }}">Editar</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="8">Sin datos</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Acciones</th>
+                                            <th>ID</th>
+                                            <th>Fecha de revision</th>
+                                            <th>Semillar muertas</th>
+                                            <th>Semillas germinadas</th>
+                                            <th>Semillas no germinadas</th>
+                                            <th>Semillas anomalas</th>
+                                            <th>Semillas enfermas</th>
+                                            <th>Fecha de finalizacion</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                             </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </section>
+    <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    {{ include('be-layout/footer.html', sandboxed = true) }}
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<!-- DataTables  & Plugins -->
+<script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('plugins/jszip/jszip.min.js') }}"></script>
+<script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script>
+<script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+<!-- AdminLTE App -->
+<script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{{ asset('dist/js/demo.js') }}"></script>
+<!-- Page specific script -->
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+      "order": [[ 1, "asc" ]]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+{% endblock %}

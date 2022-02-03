@@ -531,7 +531,7 @@ class Variedad
 
     public function __toString(): string
     {
-        return "[VAR-" . $this->getId() . "] " .$this->getNombreComun();
+        return "[VAR-" . $this->getCodigo() . "] " .$this->getNombreComun();
     }
 
     public function getObservaciones(): ?string

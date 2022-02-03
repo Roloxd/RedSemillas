@@ -1,86 +1,119 @@
-{% extends 'base.html.twig' %}
+{% extends 'backend-base.html.twig' %}
 
-{% block title %}Germinacion{% endblock %}
+{% block title %}Germinación{% endblock %}
+
+{% block stylesheets %}
+      {{ include('be-layout/stylesheet.html', sandboxed = true) }}
+{% endblock %}
 
 {% block body %}
-    <h1>Germinacion</h1>
+<div class="wrapper">
+    {{ include('be-layout/preloader.html', sandboxed = true) }}
+    {{ include('be-layout/navbar.html', sandboxed = true) }}
+    {{ include('be-layout/sidebar.html', sandboxed = true) }}
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ germinacion.id }}</td>
-            </tr>
-            <tr>
-                <th>Fecha_inicio</th>
-                <td>{{ germinacion.fechaInicio ? germinacion.fechaInicio|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Num_semillas_para_prueba</th>
-                <td>{{ germinacion.numSemillasParaPrueba }}</td>
-            </tr>
-            <tr>
-                <th>Fecha_final</th>
-                <td>{{ germinacion.fechaFinal ? germinacion.fechaFinal|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Num_dias_en_germinar</th>
-                <td>{{ germinacion.numDiasEnGerminar }}</td>
-            </tr>
-            <tr>
-                <th>Observaciones</th>
-                <td>{{ germinacion.observaciones }}</td>
-            </tr>
-            <tr>
-                <th>Porcentaje_germinacion_muestra</th>
-                <td>{{ germinacion.porcentajeGerminacionMuestra }}</td>
-            </tr>
-            <tr>
-                <th>Porcentaje_semillas_no_germinadas_muestra</th>
-                <td>{{ germinacion.porcentajeSemillasNoGerminadasMuestra }}</td>
-            </tr>
-            <tr>
-                <th>Porcentaje_semillas_germinacion_anomala_muestra</th>
-                <td>{{ germinacion.porcentajeSemillasGerminacionAnomalaMuestra }}</td>
-            </tr>
-            <tr>
-                <th>Porcentaje_semillas_germinacion_enfermas_muestra</th>
-                <td>{{ germinacion.porcentajeSemillasGerminacionEnfermasMuestra }}</td>
-            </tr>
-            <tr>
-                <th>Temperatura_prueba_germinacion_max</th>
-                <td>{{ germinacion.temperaturaPruebaGerminacionMax }}</td>
-            </tr>
-            <tr>
-                <th>Temperatura_prueba_germinacion_min</th>
-                <td>{{ germinacion.temperaturaPruebaGerminacionMin }}</td>
-            </tr>
-            <tr>
-                <th>Temperatura_prueba_germinacion_media</th>
-                <td>{{ germinacion.temperaturaPruebaGerminacionMedia }}</td>
-            </tr>
-            <tr>
-                <th>Humedad_relativa_prueba_germinacion_max</th>
-                <td>{{ germinacion.humedadRelativaPruebaGerminacionMax }}</td>
-            </tr>
-            <tr>
-                <th>Humedad_relativa_prueba_germinacion_min</th>
-                <td>{{ germinacion.humedadRelativaPruebaGerminacionMin }}</td>
-            </tr>
-            <tr>
-                <th>Humedad_relativa_prueba_germinacion_media</th>
-                <td>{{ germinacion.humedadRelativaPruebaGerminacionMedia }}</td>
-            </tr>
-            <tr>
-                <th>Metodo_empleado_para_germinar</th>
-                <td>{{ germinacion.metodoEmpleadoParaGerminar }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <div class="d-flex justify-content-between pt-3">
+            <h1>Germinación</h1>
+            {{ include('germinacion/_delete_form.html.twig') }}
+        </div>
 
-    <a href="{{ path('germinacion_index') }}">back to list</a>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>ID</th>
+                    <td>{{ germinacion.id }}</td>
+                </tr>
+                <tr>
+                    <th>Fecha inicio</th>
+                    <td>{{ germinacion.fechaInicio ? germinacion.fechaInicio|date('Y-m-d') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>Número de semillas</th>
+                    <td>{{ germinacion.numSemillasParaPrueba }}</td>
+                </tr>
+                <tr>
+                    <th>Fecha finalización</th>
+                    <td>{{ germinacion.fechaFinal ? germinacion.fechaFinal|date('Y-m-d') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>Número de días en germinar</th>
+                    <td>{{ germinacion.numDiasEnGerminar }}</td>
+                </tr>
+                <tr>
+                    <th>Observaciones</th>
+                    <td>{{ germinacion.observaciones }}</td>
+                </tr>
+                <tr>
+                    <th>Porcentaje germinación de la muestra</th>
+                    <td>{{ germinacion.porcentajeGerminacionMuestra }}</td>
+                </tr>
+                <tr>
+                    <th>Porcentaje semillas no germinadas de la muestra</th>
+                    <td>{{ germinacion.porcentajeSemillasNoGerminadasMuestra }}</td>
+                </tr>
+                <tr>
+                    <th>Porcentaje semillas con germinación anómala de la muestra</th>
+                    <td>{{ germinacion.porcentajeSemillasGerminacionAnomalaMuestra }}</td>
+                </tr>
+                <tr>
+                    <th>Porcentaje semillas con germinacion enfermas de la muestra</th>
+                    <td>{{ germinacion.porcentajeSemillasGerminacionEnfermasMuestra }}</td>
+                </tr>
+                <tr>
+                    <th>Temperatura de la prueba de germinación (máx)</th>
+                    <td>{{ germinacion.temperaturaPruebaGerminacionMax }}</td>
+                </tr>
+                <tr>
+                    <th>Temperatura de la prueba de germinación (min)</th>
+                    <td>{{ germinacion.temperaturaPruebaGerminacionMin }}</td>
+                </tr>
+                <tr>
+                    <th>Temperatura de la prueba de germinación (media)</th>
+                    <td>{{ germinacion.temperaturaPruebaGerminacionMedia }}</td>
+                </tr>
+                <tr>
+                    <th>Humedad relativa de la prueba de germinación (máx)</th>
+                    <td>{{ germinacion.humedadRelativaPruebaGerminacionMax }}</td>
+                </tr>
+                <tr>
+                    <th>Humedad relativa de la prueba de germinación (min)</th>
+                    <td>{{ germinacion.humedadRelativaPruebaGerminacionMin }}</td>
+                </tr>
+                <tr>
+                    <th>Humedad relativa de la prueba de germinación (media)</th>
+                    <td>{{ germinacion.humedadRelativaPruebaGerminacionMedia }}</td>
+                </tr>
+                <tr>
+                    <th>Método empleado para germinar</th>
+                    <td>{{ germinacion.metodoEmpleadoParaGerminar }}</td>
+                </tr>
+                <tr>
+                    <th>Envase</th>
+                    <td><a href="{{ path('envase_mostrar', {'id' : germinacion.envase.id}) }}">{{germinacion.envase}}</a></td>
+                </tr>
+                <tr>
+                    <th>Variedad</th>
+                    <td><a href="{{ path('variedad_mostrar', {'id' : germinacion.variedad.id}) }}">{{germinacion.variedad}}</a></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-between">
+            <a class="btn btn-secondary" href="{{ path('germinacion_index') }}">Volver a la lista</a>
+            <a class="btn btn-primary" href="{{ path('germinacion_edit', {'id': germinacion.id}) }}">Editar</a>
+        </div>
+    </div>
+    
+    {{ include('be-layout/footer.html', sandboxed = true) }}
 
-    <a href="{{ path('germinacion_edit', {'id': germinacion.id}) }}">edit</a>
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
 
-    {{ include('germinacion/_delete_form.html.twig') }}
+{{ include('be-layout/js.html', sandboxed = true) }}
 {% endblock %}

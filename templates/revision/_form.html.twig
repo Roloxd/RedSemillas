@@ -1,0 +1,107 @@
+<!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>{{ text_form }}</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Administración</a></li>
+                        <li class="breadcrumb-item active">Germinación</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between">
+                        <div></div>
+                        {% if text_form == 'Editar Revision' %}
+                            {{ include('revision/_delete_form.html.twig') }}
+                        {% endif %}
+                    </div>
+            </div><!-- /.container-fluid -->
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <!-- left column -->
+                        <div class="col-md-6">
+                            <!-- general form elements -->
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h3 class="card-title">Revision</h3>
+                                </div>
+                                <!-- /.card-header -->
+
+                                <!-- form start -->
+                                {{ form_start(form) }}
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="revision_fecha_revision_month">Fecha inicio</label>
+                                            <a href="#" data-toggle="tooltip" title="Fecha inicio de la revision.">?</a>
+                                            {{ form_widget(form.fecha_revision, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label>¿La revision ha terminado?</label>
+                                            <a href="#" data-toggle="tooltip" title="Marcar si la revision ha finalizado.">?</a>
+
+                                            <div class="form-check">
+                                                <input type="checkbox" id="germinacion_prueba_finalizada" name="revision[revision_finalizada]" class="form-check-input" value="1" {% if checkboxMarcado is defined and checkboxMarcado == true %} checked {% endif %}>
+                                                <label class="form-check-label" for="germinacion_prueba_finalizada">Si</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="revision_semillas_muertas">Semillas muertas</label>
+                                            <a href="#" data-toggle="tooltip" title="Revision de las semillas muertas.">?</a>
+                                            {{ form_widget(form.semillas_muertas, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="revision_semillas_germinadas">Semillas germinadas</label>
+                                            <a href="#" data-toggle="tooltip" title="Revision de las semillas germinadas.">?</a>
+                                            {{ form_widget(form.semillas_germinadas, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="revision_semillas_no_germinadas">Semillas no germinadas</label>
+                                            <a href="#" data-toggle="tooltip" title="Revision de las semillas no germinadas.">?</a>
+                                            {{ form_widget(form.semillas_no_germinadas, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="revision_semillas_anomalas">Semillas anómalas</label>
+                                            <a href="#" data-toggle="tooltip" title="Revision de las semillas anómalas.">?</a>
+                                            {{ form_widget(form.semillas_anomalas, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="revision_semillas_enfermas">Semillas enfermas</label>
+                                            <a href="#" data-toggle="tooltip" title="Revision de las semillas enfermas.">?</a>
+                                            {{ form_widget(form.semillas_enfermas, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="revision_germinacion">Germinacion</label>
+                                            <a href="#" data-toggle="tooltip" title="Añade la germinación relacionada con esta revision.">?</a>
+                                            {{ form_widget(form.germinacion, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                    </div>
+                                    <!-- /.card-body -->
+
+                                    <div class="card-footer">
+                                        <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
+                                    </div>
+                                {{ form_end(form) }}
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <!--/.col (left) -->
+                    </div>
+                    <!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </section>
+
+            <a class="btn btn-secondary" href="{{ path('revision_index') }}">Volver a la lista</a>
+
+        </section>
+        <!-- /.content -->
+    </div>
+<!-- /.content-wrapper -->

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Germinacion;
+use App\Entity\Revision;
 use App\Entity\Variedad;
 use App\Form\GerminacionType;
 use App\Repository\GerminacionRepository;
@@ -22,29 +23,8 @@ class GerminacionController extends AbstractController
      */
     public function index(GerminacionRepository $germinacionRepository): Response
     {
-        $germinaciones = $germinacionRepository->findAll();
-
-        foreach($germinaciones as $germinacion) {
-            $envase = $germinacion->getEnvase();
-            if(!empty($envase)) {
-                $arrayEnvases[$germinacion->getId()][$envase->getId()] = $envase->__toString();
-            } else {
-                $arrayEnvases[$germinacion->getId()] = null;
-            }
-
-            $variedad = $germinacion->getVariedad();
-            if(!empty($variedad)) {
-                $arrayVariedades[$germinacion->getId()][$variedad->getId()] = $variedad->__toString();
-            } else {
-                $arrayVariedades[$germinacion->getId()] = null;
-            }
-        }
-
-        dump($arrayEnvases);
         return $this->render('germinacion/index.html.twig', [
             'germinacions' => $germinacionRepository->findAll(),
-            'envases' => $arrayEnvases,
-            'variedades' => $arrayVariedades,
         ]);
     }
 
@@ -92,9 +72,12 @@ class GerminacionController extends AbstractController
             return $this->redirectToRoute('germinacion_index', [], Response::HTTP_SEE_OTHER);
         }
 
+        $text_form = "Nueva Germinación";
+
         return $this->renderForm('germinacion/new.html.twig', [
             'germinacion' => $germinacion,
             'form' => $form,
+            'text_form' => $text_form,
         ]);
     }
 
@@ -115,17 +98,79 @@ class GerminacionController extends AbstractController
     {
         $form = $this->createForm(GerminacionType::class, $germinacion);
         $form->handleRequest($request);
+        
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        // Comprobar si existe fecha final, para marcar el checbox
+        $fecha_final = $germinacion->getFechaFinal();
+        $checkboxMarcado = false;
+        if(!empty($fecha_final)) {
+            $checkboxMarcado = true;
+        }
+
+        if ($form->isSubmitted()) {
+            $datos = $request->request->get('germinacion');
+
+            // Fecha finalizacion
+            if(empty($fecha_final)) {
+                if( isset($datos['prueba_finalizada']) && !empty($datos['prueba_finalizada']) ){
+                    if($datos['prueba_finalizada'] === "1") {
+                        $germinacion->setFechaFinal(new DateTime());
+                    }
+
+                    // Número de días en germinar
+                    if( isset($datos['fecha_inicio']) && !empty($datos['fecha_inicio']) ){
+                        $fechaInicio = new DateTime($datos['fecha_inicio']);
+                        $fechaFinal = $germinacion->getFechaFinal();
+                        
+                        $diff = $fechaInicio->diff($fechaFinal);
+                        $germinacion->setNumDiasEnGerminar($diff->days);
+                    }
+                }
+            }
+
+            // Variedades
+            if( isset($datos['variedad']) && !empty($datos['variedad'])) {
+                $variedad = $this->getDoctrine()
+                    ->getRepository(Variedad::class)
+                    ->find( intval($datos['variedad']) );
+
+                $germinacion->setVariedad($variedad);
+            }
+
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('germinacion_index', [], Response::HTTP_SEE_OTHER);
         }
 
+        $text_form = "Editar Germinación";
+
         return $this->renderForm('germinacion/edit.html.twig', [
             'germinacion' => $germinacion,
+            'checkboxMarcado' => $checkboxMarcado,
             'form' => $form,
+            'text_form' => $text_form,
         ]);
+    }
+
+    public static function actualizarPorcentajes(Revision $revision) {
+
+        $germinacion = $revision->getGerminacion();
+        $numTotalSemillas = $germinacion->getNumSemillasParaPrueba();
+
+        $porcentajeGerminadas = ($revision->getSemillasGerminadas() * 100) / $numTotalSemillas;
+        $porcentajeNoGerminadas = ($revision->getSemillasNoGerminadas() * 100) / $numTotalSemillas;
+        $porcentajeAnomalas = ($revision->getSemillasAnomalas() * 100) / $numTotalSemillas;
+        $porcentajeEnfermas = ($revision->getSemillasEnfermas() * 100) / $numTotalSemillas;
+
+        $germinacion->getPorcentajeGerminacionMuestra($porcentajeGerminadas);
+        $germinacion->getPorcentajeSemillasNoGerminadasMuestra($porcentajeNoGerminadas);
+        $germinacion->getPorcentajeSemillasGerminacionAnomalaMuestra($porcentajeAnomalas);
+        $germinacion->getPorcentajeSemillasGerminacionEnfermasMuestra($porcentajeEnfermas);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($germinacion);
+        $entityManager->flush();
     }
 
     /**

@@ -1,0 +1,74 @@
+{% extends 'backend-base.html.twig' %}
+
+{% block title %}Germinación{% endblock %}
+
+{% block stylesheets %}
+      {{ include('be-layout/stylesheet.html', sandboxed = true) }}
+{% endblock %}
+
+{% block body %}
+<div class="wrapper">
+    {{ include('be-layout/preloader.html', sandboxed = true) }}
+    {{ include('be-layout/navbar.html', sandboxed = true) }}
+    {{ include('be-layout/sidebar.html', sandboxed = true) }}
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <div class="d-flex justify-content-between pt-3">
+            <h1>Revision</h1>
+            {{ include('revision/_delete_form.html.twig') }}
+        </div>
+
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>ID</th>
+                    <td>{{ revision.id }}</td>
+                </tr>
+                <tr>
+                    <th>Fecha inicial</th>
+                    <td>{{ revision.fechaRevision ? revision.fechaRevision|date('Y-m-d') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>Semillas muertas</th>
+                    <td>{{ revision.semillasMuertas }}</td>
+                </tr>
+                <tr>
+                    <th>Semilla germinadas</th>
+                    <td>{{ revision.semillasGerminadas }}</td>
+                </tr>
+                <tr>
+                    <th>Semilla no germinadas</th>
+                    <td>{{ revision.semillasNoGerminadas }}</td>
+                </tr>
+                <tr>
+                    <th>Semillas anómalas</th>
+                    <td>{{ revision.semillasAnomalas }}</td>
+                </tr>
+                <tr>
+                    <th>Semillas enfermas</th>
+                    <td>{{ revision.semillasEnfermas }}</td>
+                </tr>
+                <tr>
+                    <th>Fecha de finalizacion</th>
+                    <td>{{ revision.fechaRevisionFinalizacion ? revision.fechaRevisionFinalizacion|date('Y-m-d') : '' }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-between">
+            <a class="btn btn-secondary" href="{{ path('revision_index') }}">Volver a la lista</a>
+            <a class="btn btn-primary" href="{{ path('revision_edit', {'id': revision.id}) }}">Editar</a>
+        </div>
+
+    {{ include('be-layout/footer.html', sandboxed = true) }}
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+{{ include('be-layout/js.html', sandboxed = true) }}
+{% endblock %}

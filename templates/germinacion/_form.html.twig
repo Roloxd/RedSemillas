@@ -6,7 +6,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        {# <h1>{{ text_form }}</h1> #}
+                        <h1>{{ text_form }}</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -14,6 +14,12 @@
                         <li class="breadcrumb-item active">Germinación</li>
                         </ol>
                     </div>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <div></div>
+                    {% if text_form == 'Editar Germinación' %}
+                        {{ include('germinacion/_delete_form.html.twig') }}
+                    {% endif %}
                 </div>
             </div><!-- /.container-fluid -->
             </section>
@@ -27,7 +33,7 @@
                             <!-- general form elements -->
                             <div class="card card-primary">
                                 <div class="card-header">
-                                    <h3 class="card-title">Nueva Germinación</h3>
+                                    <h3 class="card-title">Germinación</h3>
                                 </div>
                                 <!-- /.card-header -->
 
@@ -57,7 +63,7 @@
                                             <a href="#" data-toggle="tooltip" title="Marcar si la prueba de germinación ha finalizado.">?</a>
 
                                             <div class="form-check">
-                                                <input type="checkbox" id="germinacion_prueba_finalizada" name="germinacion[prueba_finalizada]" class="form-check-input" value="1">
+                                                <input type="checkbox" id="germinacion_prueba_finalizada" name="germinacion[prueba_finalizada]" class="form-check-input" value="1" {% if checkboxMarcado is defined and checkboxMarcado == true %} checked {% endif %}>
                                                 <label class="form-check-label" for="germinacion_prueba_finalizada">Si</label>
                                             </div>
                                         </div>
@@ -66,11 +72,6 @@
                                             <a href="#" data-toggle="tooltip" title="Número de semillas que se emplean para la realización de la prueba de germinación.">?</a>
                                             {{ form_widget(form.num_semillas_para_prueba, {'attr': {'class': 'form-control'}}) }}
                                         </div>
-                                        {# <div class="form-group">  //Se rellena automaticamente con las fecha inicio y fin
-                                            <label for="germinacion_fecha_final">Numero de días en germinar</label>
-                                            <a href="#" data-toggle="tooltip" title="Fecha de finalización de la prueba de germinación.">?</a>
-                                            {{ form_widget(form.num_dias_en_germinar, {'attr': {'class': 'form-control'}}) }}
-                                        </div> #}
                                         <div class="form-group">
                                             <label for="germinacion_temperatura_prueba_germinacion_max">Temperatura máxima</label>
                                             <a href="#" data-toggle="tooltip" title="Temperatura máxima de la prueba de germinación.">?</a>

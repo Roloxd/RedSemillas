@@ -25,12 +25,17 @@ class Revision
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $semillar_muertas;
+    private $semillas_muertas;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
     private $semillas_germinadas;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $semillas_no_germinadas;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -69,14 +74,14 @@ class Revision
         return $this;
     }
 
-    public function getSemillarMuertas(): ?int
+    public function getSemillasMuertas(): ?int
     {
-        return $this->semillar_muertas;
+        return $this->semillas_muertas;
     }
 
-    public function setSemillarMuertas(?int $semillar_muertas): self
+    public function setSemillasMuertas(?int $semillas_muertas): self
     {
-        $this->semillar_muertas = $semillar_muertas;
+        $this->semillas_muertas = $semillas_muertas;
 
         return $this;
     }
@@ -89,6 +94,18 @@ class Revision
     public function setSemillasGerminadas(?int $semillas_germinadas): self
     {
         $this->semillas_germinadas = $semillas_germinadas;
+
+        return $this;
+    }
+
+    public function getSemillasNoGerminadas(): ?int
+    {
+        return $this->semillas_no_germinadas;
+    }
+
+    public function setSemillasNoGerminadas(?int $semillas_no_germinadas): self
+    {
+        $this->semillas_no_germinadas = $semillas_no_germinadas;
 
         return $this;
     }
@@ -139,5 +156,10 @@ class Revision
         $this->germinacion = $germinacion;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getId();
     }
 }

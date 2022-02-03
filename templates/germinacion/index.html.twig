@@ -19,159 +19,200 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1>Tabla de Germinaciones</h1>
-            </div>
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Germinación</li>
-                </ol>
-            </div>
-            </div>
-        </div><!-- /.container-fluid -->
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Tabla de Germinaciones</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Germinación</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
         </section>
 
         <!-- Main content -->
         <section class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            {# <h3 class="card-title">Tabla de envases</h3> #}
-                            <a class="btn btn-app" href="{{ path('germinacion_new') }}" style="margin: 0px;">
-                            <i class="fas fa-edit"></i>
-                            Crear Germinación
-                            </a>
-                        </div>
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                            <table id="example1" class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Acciones</th>
-                                        <th>ID</th>
-                                        <th>Fecha inicio</th>
-                                        <th>Número de semillas</th>
-                                        <th>Fecha finalización</th>
-                                        <th>Número de días en germinar</th>
-                                        <th>Porcentaje germinación de la muestra</th>
-                                        <th>Porcentaje semillas no germinadas de lamuestra</th>
-                                        <th>Porcentaje semillas con germinación anómala de la muestra</th>
-                                        <th>Porcentaje semillas con germinacion enfermas de la muestra</th>
-                                        <th>Temperatura de la prueba de germinación (máx)</th>
-                                        <th>Temperatura de la prueba de germinación (min)</th>
-                                        <th>Temperatura de la prueba de germinación (media)</th>
-                                        <th>Humedad relativa de la prueba de germinación (máx)</th>
-                                        <th>Humedad relativa de la prueba de germinación (min)</th>
-                                        <th>Humedad relativa de la prueba de germinación (media)</th>
-                                        <th>Método empleado para germinar</th>
-                                        <th>Envase</th>
-                                        <th>Variedad (No terminado)</th>
-                                        <th>Observaciones</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                {% for germinacion in germinacions %}
-                                    <tr>
-                                        <td>
-                                            <div class="btn-group-vertical w-100">
-                                                <a class="btn btn-default" href="{{ path('germinacion_show', {'id': germinacion.id}) }}">Ver</a>
-                                                <a class="btn btn-default" href="{{ path('germinacion_edit', {'id': germinacion.id}) }}">Editar</a>
-                                            </div>
-                                        </td>
-                                        <td>{{ germinacion.id }}</td>
-                                        <td>{{ germinacion.fechaInicio ? germinacion.fechaInicio|date('Y-m-d') : '' }}</td>
-                                        <td>{{ germinacion.numSemillasParaPrueba }}</td>
-                                        <td>{{ germinacion.fechaFinal ? germinacion.fechaFinal|date('Y-m-d') : '' }}</td>
-                                        <td>{{ germinacion.numDiasEnGerminar }}</td>
-                                        <td>{{ germinacion.porcentajeGerminacionMuestra }}</td>
-                                        <td>{{ germinacion.porcentajeSemillasNoGerminadasMuestra }}</td>
-                                        <td>{{ germinacion.porcentajeSemillasGerminacionAnomalaMuestra }}</td>
-                                        <td>{{ germinacion.porcentajeSemillasGerminacionEnfermasMuestra }}</td>
-                                        <td>{{ germinacion.temperaturaPruebaGerminacionMax }}</td>
-                                        <td>{{ germinacion.temperaturaPruebaGerminacionMin }}</td>
-                                        <td>{{ germinacion.temperaturaPruebaGerminacionMedia }}</td>
-                                        <td>{{ germinacion.humedadRelativaPruebaGerminacionMax }}</td>
-                                        <td>{{ germinacion.humedadRelativaPruebaGerminacionMin }}</td>
-                                        <td>{{ germinacion.humedadRelativaPruebaGerminacionMedia }}</td>
-                                        <td>{{ germinacion.metodoEmpleadoParaGerminar }}</td>
-                                        <td>
-                                            {% if envases is empty %}
-                                                Sin envase
-                                            {% else %}
-                                                <div class="d-flex flex-column">
-                                                    {% for key, envase in envases[germinacion.id] %}
-                                                        <a href="{{ path('envase_mostrar', {'id' : key}) }}">{{envase}}</a>
-                                                    {% endfor %}
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                {# <h3 class="card-title">Tabla de envases</h3> #}
+                                <a class="btn btn-app" href="{{ path('germinacion_new') }}" style="margin: 0px;">
+                                <i class="fas fa-edit"></i>
+                                Crear Germinación
+                                </a>
+                            </div>
+
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Acciones</th>
+                                            <th>ID</th>
+                                            <th>Fecha inicio</th>
+                                            <th>Número de semillas</th>
+                                            <th>Fecha finalización</th>
+                                            <th>Número de días en germinar</th>
+                                            <th>Porcentaje germinación de la muestra</th>
+                                            <th>Porcentaje semillas no germinadas de la muestra</th>
+                                            <th>Porcentaje semillas con germinación anómala de la muestra</th>
+                                            <th>Porcentaje semillas con germinacion enfermas de la muestra</th>
+                                            <th>Temperatura de la prueba de germinación (máx)</th>
+                                            <th>Temperatura de la prueba de germinación (min)</th>
+                                            <th>Temperatura de la prueba de germinación (media)</th>
+                                            <th>Humedad relativa de la prueba de germinación (máx)</th>
+                                            <th>Humedad relativa de la prueba de germinación (min)</th>
+                                            <th>Humedad relativa de la prueba de germinación (media)</th>
+                                            <th>Método empleado para germinar</th>
+                                            <th>Envase</th>
+                                            <th>Variedad</th>
+                                            <th>Especie de la variedad</th>
+                                            <th>Genero de la variedad</th>
+                                            <th>Época de siembra</th>
+                                            <th>Ubicación envase</th>
+                                            <th>Observaciones</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for germinacion in germinacions %}
+                                        {% if germinacion.variedad is not empty %}
+                                            {% set cicloysiembras = germinacion.variedad.cicloYSiembras.getValues() %}
+                                        {% endif %}
+                                        <tr>
+                                            <td>
+                                                <div class="btn-group-vertical w-100">
+                                                    <a class="btn btn-default" href="{{ path('germinacion_show', {'id': germinacion.id}) }}">Ver</a>
+                                                    <a class="btn btn-default" href="{{ path('germinacion_edit', {'id': germinacion.id}) }}">Editar</a>
                                                 </div>
-                                            {% endif %}
-                                        </td>
-                                        <td>
-                                            {% if variedades is empty %}
-                                                Sin envase
-                                            {% else %}
-                                                <div class="d-flex flex-column">
-                                                    {% for key, variedad in variedades[germinacion.id] %}
-                                                        <a href="{# {{ path('variedad_mostrar', {'id' : key}) }} #}">{{variedad}}</a>
+                                            </td>
+                                            <td>{{ germinacion.id }}</td>
+                                            <td>{{ germinacion.fechaInicio ? germinacion.fechaInicio|date('Y-m-d') : '' }}</td>
+                                            <td>{{ germinacion.numSemillasParaPrueba }}</td>
+                                            <td>{{ germinacion.fechaFinal ? germinacion.fechaFinal|date('Y-m-d') : '' }}</td>
+                                            <td>{{ germinacion.numDiasEnGerminar }}</td>
+                                            <td>{{ germinacion.porcentajeGerminacionMuestra }}</td>
+                                            <td>{{ germinacion.porcentajeSemillasNoGerminadasMuestra }}</td>
+                                            <td>{{ germinacion.porcentajeSemillasGerminacionAnomalaMuestra }}</td>
+                                            <td>{{ germinacion.porcentajeSemillasGerminacionEnfermasMuestra }}</td>
+                                            <td>{{ germinacion.temperaturaPruebaGerminacionMax }}</td>
+                                            <td>{{ germinacion.temperaturaPruebaGerminacionMin }}</td>
+                                            <td>{{ germinacion.temperaturaPruebaGerminacionMedia }}</td>
+                                            <td>{{ germinacion.humedadRelativaPruebaGerminacionMax }}</td>
+                                            <td>{{ germinacion.humedadRelativaPruebaGerminacionMin }}</td>
+                                            <td>{{ germinacion.humedadRelativaPruebaGerminacionMedia }}</td>
+                                            <td>{{ germinacion.metodoEmpleadoParaGerminar }}</td>
+                                            <td>
+                                                {% if germinacion.envase is not empty %}
+                                                    <div class="d-flex flex-column">
+                                                        <a href="{{ path('envase_mostrar', {'id' : germinacion.envase.id}) }}">{{germinacion.envase}}</a>
+                                                    </div>
+                                                {% else %}
+                                                    Sin Envase
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if germinacion.variedad is not empty %}
+                                                    <div class="d-flex flex-column">
+                                                        <a href="{{ path('variedad_mostrar', {'id' : germinacion.variedad.id}) }}">{{germinacion.variedad}}</a>
+                                                    </div>
+                                                {% else %}
+                                                    Sin Variedad
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if germinacion.variedad is not empty and germinacion.variedad.especie is not empty %}
+                                                    {{germinacion.variedad.especie}}
+                                                {% else %}
+                                                    Sin especie
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if germinacion.variedad is not empty and germinacion.variedad.especie is not empty and germinacion.variedad.especie.padre is not empty %}
+                                                    {{germinacion.variedad.especie.padre}}
+                                                {% else %}
+                                                    Sin Genero
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if cicloysiembras is defined %}
+                                                    {% for element in cicloysiembras %}
+                                                        {% if element.enero is not empty %}<p>{{ element.enero ? "Enero" : "" }}</p>{% endif %}
+                                                        {% if element.febrero is not empty %}<p>{{ element.febrero ? "Febrero" : "" }}</p>{% endif %}
+                                                        {% if element.marzo is not empty %}<p>{{ element.marzo ? "Marzo" : "" }}</p>{% endif %}
+                                                        {% if element.abril is not empty %}<p>{{ element.abril ? "Abril" : "" }}</p>{% endif %}
+                                                        {% if element.mayo is not empty %}<p>{{ element.mayo ? "Mayo" : "" }}</p>{% endif %}
+                                                        {% if element.junio is not empty %}<p>{{ element.junio ? "Junio" : "" }}</p>{% endif %}
+                                                        {% if element.julio is not empty %}<p>{{ element.julio ? "Julio" : "" }}</p>{% endif %}
+                                                        {% if element.agosto is not empty %}<p>{{ element.agosto ? "Agosto" : "" }}</p>{% endif %}
+                                                        {% if element.septiembre is not empty %}<p>{{ element.septiembre ? "Septiembre" : "" }}</p>{% endif %}
+                                                        {% if element.octubre is not empty %}<p>{{ element.octubre ? "Octubre" : "" }}</p>{% endif %}
+                                                        {% if element.noviembre is not empty %}<p>{{ element.noviembre ? "Noviembre" : "" }}</p>{% endif %}
+                                                        {% if element.diciembre is not empty %}<p>{{ element.diciembre ? "Diciembre" : "" }}</p>{% endif %}
                                                     {% endfor %}
+                                                {% endif %}
+                                            </td>
+                                            <td>{{ germinacion.envase.ubicacionEnvase }}</td>
+                                            <td>{{ germinacion.observaciones }}</td>
+                                            <td>
+                                                <div class="btn-group-vertical w-100">
+                                                    <a class="btn btn-default" href="{{ path('germinacion_show', {'id': germinacion.id}) }}">Ver</a>
+                                                    <a class="btn btn-default" href="{{ path('germinacion_edit', {'id': germinacion.id}) }}">Editar</a>
                                                 </div>
-                                            {% endif %}
-                                        </td>
-                                        <td>{{ germinacion.observaciones }}</td>
-                                        <td>
-                                            <div class="btn-group-vertical w-100">
-                                                <a class="btn btn-default" href="{{ path('germinacion_show', {'id': germinacion.id}) }}">Ver</a>
-                                                <a class="btn btn-default" href="{{ path('germinacion_edit', {'id': germinacion.id}) }}">Editar</a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                {% else %}
-                                    <tr>
-                                        <td colspan="5">Sin datos</td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>Acciones</th>
-                                        <th>ID</th>
-                                        <th>Fecha inicio</th>
-                                        <th>Número de semillas</th>
-                                        <th>Fecha finalización</th>
-                                        <th>Número de días en germinar</th>
-                                        <th>Porcentaje germinación de la muestra</th>
-                                        <th>Porcentaje semillas no germinadas de lamuestra</th>
-                                        <th>Porcentaje semillas con germinación anómala de la muestra</th>
-                                        <th>Porcentaje semillas con germinacion enfermas de la muestra</th>
-                                        <th>Temperatura de la prueba de germinación (máx)</th>
-                                        <th>Temperatura de la prueba de germinación (min)</th>
-                                        <th>Temperatura de la prueba de germinación (media)</th>
-                                        <th>Humedad relativa de la prueba de germinación (máx)</th>
-                                        <th>Humedad relativa de la prueba de germinación (min)</th>
-                                        <th>Humedad relativa de la prueba de germinación (media)</th>
-                                        <th>Método empleado para germinar</th>
-                                        <th>Envase</th>
-                                        <th>Variedad</th>
-                                        <th>Observaciones</th>
-                                        <th>Acciones</th>
-                                    </tr>  
-                                </tfoot>
-                            </table>
+                                            </td>
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="8">Sin datos</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Acciones</th>
+                                            <th>ID</th>
+                                            <th>Fecha inicio</th>
+                                            <th>Número de semillas</th>
+                                            <th>Fecha finalización</th>
+                                            <th>Número de días en germinar</th>
+                                            <th>Porcentaje germinación de la muestra</th>
+                                            <th>Porcentaje semillas no germinadas de lamuestra</th>
+                                            <th>Porcentaje semillas con germinación anómala de la muestra</th>
+                                            <th>Porcentaje semillas con germinacion enfermas de la muestra</th>
+                                            <th>Temperatura de la prueba de germinación (máx)</th>
+                                            <th>Temperatura de la prueba de germinación (min)</th>
+                                            <th>Temperatura de la prueba de germinación (media)</th>
+                                            <th>Humedad relativa de la prueba de germinación (máx)</th>
+                                            <th>Humedad relativa de la prueba de germinación (min)</th>
+                                            <th>Humedad relativa de la prueba de germinación (media)</th>
+                                            <th>Método empleado para germinar</th>
+                                            <th>Envase</th>
+                                            <th>Variedad</th>
+                                            <th>Especie de la variedad</th>
+                                            <th>Genero de la variedad</th>
+                                            <th>Época de siembra</th>
+                                            <th>Ubicación envase</th>
+                                            <th>Observaciones</th>
+                                            <th>Acciones</th>
+                                        </tr>  
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
                         </div>
-                        <!-- /.card-body -->
-                        </div>
-                    <!-- /.card -->
+                        <!-- /.card -->
                     </div>
-                <!-- /.col -->
+                    <!-- /.col -->
                 </div>
-            <!-- /.row -->
+                <!-- /.row -->
             </div>
-        <!-- /.container-fluid -->
+            <!-- /.container-fluid -->
         </section>
     <!-- /.content -->
     </div>
