@@ -48,6 +48,7 @@ class RevisionController extends AbstractController
             }
 
             // Guardar Porcentajes en Germinación
+            dump($datos); exit;
             GerminacionController::actualizarPorcentajes($revision);
 
             $entityManager = $this->getDoctrine()->getManager();

@@ -339,6 +339,11 @@ class Germinacion
 
         return $this;
     }
+    
+    public function __toString(): string
+    {
+        return $this->getId();
+    }
 
     /**
      * @return Collection|Revision[]
@@ -348,30 +353,25 @@ class Germinacion
         return $this->revisiones;
     }
 
-    public function addRevisione(Revision $revisione): self
+    public function addRevision(Revision $revision): self
     {
-        if (!$this->revisiones->contains($revisione)) {
-            $this->revisiones[] = $revisione;
-            $revisione->setGerminacion($this);
+        if (!$this->revisiones->contains($revision)) {
+            $this->revisiones[] = $revision;
+            $revision->setGerminacion($this);
         }
 
         return $this;
     }
 
-    public function removeRevisione(Revision $revisione): self
+    public function removeRevision(Revision $revision): self
     {
-        if ($this->revisiones->removeElement($revisione)) {
+        if ($this->revisiones->removeElement($revision)) {
             // set the owning side to null (unless already changed)
-            if ($revisione->getGerminacion() === $this) {
-                $revisione->setGerminacion(null);
+            if ($revision->getGerminacion() === $this) {
+                $revision->setGerminacion(null);
             }
         }
 
         return $this;
-    }
-    
-    public function __toString(): string
-    {
-        return $this->getId();
     }
 }

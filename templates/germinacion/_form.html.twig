@@ -16,7 +16,11 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-between">
-                    <div></div>
+                    <div>
+                        <a id="btn-add-revision" class="btn btn-app">
+                            <i class="fas fa-plus-square"></i> Añadir revision
+                        </a>
+                    </div>
                     {% if text_form == 'Editar Germinación' %}
                         {{ include('germinacion/_delete_form.html.twig') }}
                     {% endif %}
@@ -26,6 +30,7 @@
 
             <!-- Main content -->
             <section class="content">
+                {{ form_start(form) }}
                 <div class="container-fluid">
                     <div class="row">
                         <!-- left column -->
@@ -38,7 +43,6 @@
                                 <!-- /.card-header -->
 
                                 <!-- form start -->
-                                {{ form_start(form) }}
                                     <div class="card-body">
                                         <div class="form-group">
                                             <label for="germinacion_envase">Envase</label>
@@ -72,7 +76,7 @@
                                             <a href="#" data-toggle="tooltip" title="Número de semillas que se emplean para la realización de la prueba de germinación.">?</a>
                                             {{ form_widget(form.num_semillas_para_prueba, {'attr': {'class': 'form-control'}}) }}
                                         </div>
-                                        <div class="form-group">
+                                        {# <div class="form-group">
                                             <label for="germinacion_temperatura_prueba_germinacion_max">Temperatura máxima</label>
                                             <a href="#" data-toggle="tooltip" title="Temperatura máxima de la prueba de germinación.">?</a>
                                             {{ form_widget(form.temperatura_prueba_germinacion_max, {'attr': {'class': 'form-control'}}) }}
@@ -101,7 +105,7 @@
                                             <label for="germinacion_humedad_relativa_prueba_germinacion_media">Humedad media</label>
                                             <a href="#" data-toggle="tooltip" title="Humedad media de la prueba de germinación.">?</a>
                                             {{ form_widget(form.humedad_relativa_prueba_germinacion_media, {'attr': {'class': 'form-control'}}) }}
-                                        </div>
+                                        </div> #}
                                         <div class="form-group">
                                             <label for="germinacion_metodo_empleado_para_germinar">Método empleado para germinar</label>
                                             <a href="#" data-toggle="tooltip" title="Metodo por el que se realiza la prueba.">?</a>
@@ -115,20 +119,25 @@
                                     </div>
                                     <!-- /.card-body -->
 
-                                    <div class="card-footer">
+                                    {# <div class="card-footer">
                                         <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
-                                    </div>
-                                {{ form_end(form) }}
+                                    </div> #}
                             </div>
                             <!-- /.card -->
                         </div>
-                        <!--/.col (left) -->
+                        <!--/.col (left)-->
+                        <!--.col (rigth)-->
+                        <div id="col-rigth" class="col-md-6"></div>
+                        <!--/.col (rigth)-->
                     </div>
                     <!-- /.row -->
                 </div><!-- /.container-fluid -->
+                <div class="d-flex justify-content-between">
+                    <a class="btn btn-secondary" href="{{ path('germinacion_index') }}">Volver a la lista</a>
+                    <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
+                </div>
+                {{ form_end(form) }}
             </section>
-
-            <a class="btn btn-secondary" href="{{ path('entrada_index') }}">Volver a la lista</a>
 
             {# {% if text_form == 'Editar Entrada' %}
                 {{ include('entrada/_delete_form.html.twig') }}

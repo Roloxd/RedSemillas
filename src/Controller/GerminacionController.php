@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * @Route("/admin/germinacion")
@@ -39,6 +40,7 @@ class GerminacionController extends AbstractController
 
         if ($form->isSubmitted()) {
             $datos = $request->request->get('germinacion');
+            $revisionesDatos = $request->request->get('revision');
 
             // Fecha finalizacion
             if( isset($datos['prueba_finalizada']) && !empty($datos['prueba_finalizada']) ){
@@ -69,6 +71,9 @@ class GerminacionController extends AbstractController
             $entityManager->persist($germinacion);
             $entityManager->flush();
 
+            $this->newRevisiones($revisionesDatos, $germinacion); // Registra las revisiones en la DB, los relaciona con la Germinación actual y calcula los datos de Temperatura y Humedad
+
+            dump($germinacion);
             return $this->redirectToRoute('germinacion_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -79,6 +84,78 @@ class GerminacionController extends AbstractController
             'form' => $form,
             'text_form' => $text_form,
         ]);
+    }
+
+    public function newRevisiones(Array $revisionesDatos, Object $germinacion): void {
+        $actualizar = [];
+
+        // Revision
+        foreach( $revisionesDatos as $revisionDatos ) {
+            $revision = new Revision;
+
+            // Fecha inicio
+            $revision->setFechaRevision(new DateTime( $revisionDatos['fecha_revision'] ));
+
+            // Fecha final
+            if( isset($revisionDatos['revision_finalizada']) && !empty($revisionDatos['revision_finalizada']) ){
+                if($revisionDatos['revision_finalizada'] === "1") {
+                    $revision->setFechaRevisionFinalizacion(new DateTime());
+                } else {
+                    $revision->setFechaRevisionFinalizacion(null);
+                }
+            }
+
+            // Semillas muertas
+            $revision->setSemillasMuertas( intval($revisionDatos['semillas_muertas']) );
+
+            // Semillas germinadas
+            $revision->setSemillasGerminadas( intval($revisionDatos['semillas_germinadas']) );
+
+            // Semillas no germinadas
+            $revision->setSemillasNoGerminadas( intval($revisionDatos['semillas_no_germinadas']) );
+
+            // Semillas anómalas
+            $revision->setSemillasAnomalas( intval($revisionDatos['semillas_anomalas']) );
+
+            // Semillas enfermas
+            $revision->setSemillasEnfermas( intval($revisionDatos['semillas_enfermas']) );
+
+            // Temperaturas
+            $revision->setTemperaturaMax( floatval($revisionDatos['temperatura_max']) );
+            $actualizar['temperaturas_max'][] = floatval($revisionDatos['temperatura_max']);
+
+            $revision->setTemperaturaMin( floatval($revisionDatos['temperatura_min']) );
+            $actualizar['temperaturas_min'][] = floatval($revisionDatos['temperatura_min']);
+
+            // Humedades
+            $revision->setHumedadMax( floatval($revisionDatos['humedad_max']) );
+            $actualizar['humedades_max'][] = floatval($revisionDatos['humedad_max']);
+
+            $revision->setHumedadMin( floatval($revisionDatos['humedad_min']) );
+            $actualizar['humedades_min'][] = floatval($revisionDatos['humedad_min']);
+
+            $revision->setGerminacion($germinacion);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($revision);
+            $entityManager->flush();
+
+        }
+
+        // Actulaiza los datos en Germinación
+        $this->actualizarTemperaturas($germinacion, $actualizar);
+
+    }
+
+    public function actualizarTemperaturas(Object $germinacion, Array $actualizar): void {
+        // Si Germinacion tiene una Fecha final
+        if( !empty($germinacion->getFechaFinal()) ) {
+            // Calcular datos (Temperatura y Humedad)
+            $germinacion->setTemperaturaMax( max($actualizar['temperaturas_max']) );
+            $germinacion->setTemperaturaMin( min($actualizar['temperaturas_min']) );
+
+            //Continuar...
+        }
     }
 
     /**
@@ -151,26 +228,6 @@ class GerminacionController extends AbstractController
             'form' => $form,
             'text_form' => $text_form,
         ]);
-    }
-
-    public static function actualizarPorcentajes(Revision $revision) {
-
-        $germinacion = $revision->getGerminacion();
-        $numTotalSemillas = $germinacion->getNumSemillasParaPrueba();
-
-        $porcentajeGerminadas = ($revision->getSemillasGerminadas() * 100) / $numTotalSemillas;
-        $porcentajeNoGerminadas = ($revision->getSemillasNoGerminadas() * 100) / $numTotalSemillas;
-        $porcentajeAnomalas = ($revision->getSemillasAnomalas() * 100) / $numTotalSemillas;
-        $porcentajeEnfermas = ($revision->getSemillasEnfermas() * 100) / $numTotalSemillas;
-
-        $germinacion->getPorcentajeGerminacionMuestra($porcentajeGerminadas);
-        $germinacion->getPorcentajeSemillasNoGerminadasMuestra($porcentajeNoGerminadas);
-        $germinacion->getPorcentajeSemillasGerminacionAnomalaMuestra($porcentajeAnomalas);
-        $germinacion->getPorcentajeSemillasGerminacionEnfermasMuestra($porcentajeEnfermas);
-
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($germinacion);
-        $entityManager->flush();
     }
 
     /**

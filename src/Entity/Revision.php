@@ -53,9 +53,29 @@ class Revision
     private $fecha_revision_finalizacion;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Germinacion::class, inversedBy="revisiones")
+     * @ORM\ManyToOne(targetEntity=Germinacion::class, inversedBy="revision")
      */
     private $germinacion;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $temperatura_max;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $temperatura_min;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $humedad_max;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $humedad_min;
 
     public function getId(): ?int
     {
@@ -146,6 +166,11 @@ class Revision
         return $this;
     }
 
+    public function __toString(): string
+    {
+        return $this->getId();
+    }
+
     public function getGerminacion(): ?Germinacion
     {
         return $this->germinacion;
@@ -158,8 +183,51 @@ class Revision
         return $this;
     }
 
-    public function __toString(): string
+    public function getTemperaturaMax(): ?float
     {
-        return $this->getId();
+        return $this->temperatura_max;
+    }
+
+    public function setTemperaturaMax(?float $temperatura_max): self
+    {
+        $this->temperatura_max = $temperatura_max;
+
+        return $this;
+    }
+
+    public function getTemperaturaMin(): ?float
+    {
+        return $this->temperatura_min;
+    }
+
+    public function setTemperaturaMin(?float $temperatura_min): self
+    {
+        $this->temperatura_min = $temperatura_min;
+
+        return $this;
+    }
+
+    public function getHumedadMax(): ?float
+    {
+        return $this->humedad_max;
+    }
+
+    public function setHumedadMax(?float $humedad_max): self
+    {
+        $this->humedad_max = $humedad_max;
+
+        return $this;
+    }
+
+    public function getHumedadMin(): ?float
+    {
+        return $this->humedad_min;
+    }
+
+    public function setHumedadMin(?float $humedad_min): self
+    {
+        $this->humedad_min = $humedad_min;
+
+        return $this;
     }
 }
