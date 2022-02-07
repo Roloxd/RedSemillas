@@ -22,7 +22,20 @@ function eventListener() {
 
     const btnAddRevision = document.querySelector('#btn-add-revision');
     btnAddRevision.addEventListener('click', generarModuloRevision);
-    //console.log(btnAddRevision);
+
+    const btnShowRevision = document.querySelector('#btn-show-revision');
+    btnShowRevision.addEventListener('click', function() {
+        redireccion(window.location.pathname, 'http://localhost/admin/revision', '/ver');
+    });
+}
+
+function redireccion(pathname, url, direccion) {
+    const patron = /(\d+)/g;
+    const id = pathname.match(patron);
+
+    const enlace = url + '/' + id + direccion;
+    const newWindow = window.open(enlace, '_blank');
+    newWindow.focus();
 }
 
 // Obtener datos de Envase

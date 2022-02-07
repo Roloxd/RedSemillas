@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Germinacion;
 use App\Entity\Revision;
 use App\Form\RevisionType;
 use App\Repository\RevisionRepository;
 use DateTime;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,10 +48,6 @@ class RevisionController extends AbstractController
                     $revision->setFechaRevisionFinalizacion(null);
                 }
             }
-
-            // Guardar Porcentajes en Germinación
-            dump($datos); exit;
-            GerminacionController::actualizarPorcentajes($revision);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($revision);
@@ -92,6 +90,20 @@ class RevisionController extends AbstractController
             $checkboxMarcado = true;
         }
 
+        // Obtener el ultimo registro asociado a Germinación
+        $germinacion = $revision->getGerminacion();
+        $revisionesDB = $germinacion->getRevisiones()->getValues();
+        $revisionId = [];
+        $actualizar = [];
+        foreach($revisionesDB as $revisionDB) {
+            $revisionId[] = $revisionDB->getId();
+            $actualizar['temperaturas_max'][] = $revisionDB->getTemperaturaMax();
+            $actualizar['temperaturas_min'][] = $revisionDB->getTemperaturaMin();
+            $actualizar['humedades_max'][] = $revisionDB->getHumedadMax();
+            $actualizar['humedades_min'][] = $revisionDB->getHumedadMin();
+        }
+        $ultimoRegistro = max($revisionId);
+
         if ($form->isSubmitted()) {
             $datos = $request->request->get('revision');
 
@@ -106,7 +118,19 @@ class RevisionController extends AbstractController
 
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('revision_index', [], Response::HTTP_SEE_OTHER);
+            // Actualizar Porcentajes
+            if($revision->getId() === $ultimoRegistro) {
+                $germinacion = GerminacionController::actualizarPorcentajes($germinacion, $revision);
+            }
+
+            // Actualizar Temperaturas y Humedades
+            $germinacion = GerminacionController::actualizarTemperaturas($germinacion, $actualizar);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($germinacion);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('revision_ver', ['id' => $germinacion->getId()], Response::HTTP_SEE_OTHER);
         }
 
         $text_form = "Editar Revision";
@@ -116,6 +140,24 @@ class RevisionController extends AbstractController
             'form' => $form,
             'text_form' => $text_form,
             'checkboxMarcado' => $checkboxMarcado,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/ver", name="revision_ver", methods={"GET"})
+     */
+    public function ver(Request $request): Response
+    {
+        $id = $request->attributes->get('id');
+
+        $germinacion = $this->getDoctrine()
+            ->getRepository(Germinacion::class)
+            ->find($id);
+
+        $revisions = $germinacion->getRevisiones()->getValues();
+
+        return $this->render('revision/index.html.twig', [
+            'revisions' => $revisions,
         ]);
     }
 

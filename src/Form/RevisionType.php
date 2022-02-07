@@ -22,6 +22,10 @@ class RevisionType extends AbstractType
             ->add('semillas_anomalas')
             ->add('semillas_enfermas')
             ->add('germinacion')
+            ->add('temperatura_max')
+            ->add('temperatura_min')
+            ->add('humedad_max')
+            ->add('humedad_min')
         ;
     }
 

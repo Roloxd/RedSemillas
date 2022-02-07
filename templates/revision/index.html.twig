@@ -39,13 +39,13 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header">
-                                {# <h3 class="card-title">Tabla de envases</h3> #}
+                            {#<div class="card-header">
+                                <h3 class="card-title">Tabla de envases</h3>
                                 <a class="btn btn-app" href="{{ path('revision_new') }}" style="margin: 0px;">
                                 <i class="fas fa-edit"></i>
                                 Crear Revision
                                 </a>
-                            </div>
+                            </div> #}
 
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -61,6 +61,10 @@
                                             <th>Semillas anomalas</th>
                                             <th>Semillas enfermas</th>
                                             <th>Fecha de finalizacion</th>
+                                            <th>Temperatura máxima</th>
+                                            <th>Temperatura mínima</th>
+                                            <th>Humedad máxima</th>
+                                            <th>Humedad mínima</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -81,6 +85,10 @@
                                             <td>{{ revision.semillasAnomalas }}</td>
                                             <td>{{ revision.semillasEnfermas }}</td>
                                             <td>{{ revision.fechaRevisionFinalizacion ? revision.fechaRevisionFinalizacion|date('Y-m-d') : '' }}</td>
+                                            <td>{{ revision.temperaturaMax }}</td>
+                                            <td>{{ revision.temperaturaMin }}</td>
+                                            <td>{{ revision.humedadMax }}</td>
+                                            <td>{{ revision.humedadMin }}</td>
                                             <td>
                                                 <div class="btn-group-vertical w-100">
                                                     <a class="btn btn-default" href="{{ path('revision_show', {'id': revision.id}) }}">Ver</a>
@@ -105,6 +113,10 @@
                                             <th>Semillas anomalas</th>
                                             <th>Semillas enfermas</th>
                                             <th>Fecha de finalizacion</th>
+                                            <th>Temperatura máxima</th>
+                                            <th>Temperatura mínima</th>
+                                            <th>Humedad máxima</th>
+                                            <th>Humedad mínima</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </tfoot>
