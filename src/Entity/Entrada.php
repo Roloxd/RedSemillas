@@ -213,8 +213,8 @@ class Entrada
         return $this;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
-        return (string) $this->id;
+        return "ENT-" . $this->id;
     }
 }

@@ -255,7 +255,10 @@
     $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-      "order": [[ 1, "asc" ]]
+      "order": [[ 5, "desc" ]],
+      "columnDefs": [
+          {"visible": false, "targets": [2,3,4,7,8,9,10,11,12,13,14,15,16,23]}
+      ]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({
       "paging": true,

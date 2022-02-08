@@ -19,13 +19,23 @@
     font-weight: bold;
 }
 
+td.red {
+    background-color: #f37070;
+    color: white;
+}
+td.green {
+    background-color: #4F805D;
+    color: white;
+}
+
+
 /* Colores Pagos */
 .red td {
-    background-color: #961010;
+    background-color: #B0413E;
     color: white;
 }
 .green td {
-    background-color: #108918;
+    background-color: #4F805D;
     color: white;
 }
 .white td {

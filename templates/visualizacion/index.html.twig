@@ -1,0 +1,215 @@
+{% extends 'backend-base.html.twig' %}
+
+{% block title %}Visualización{% endblock %}
+
+{% block stylesheets %}
+      {{ include('be-layout/stylesheet-tabla.html', sandboxed = true) }}
+{% endblock %}
+
+{% block body %}
+<div class="wrapper">
+ {{ include('be-layout/preloader.html', sandboxed = true) }}
+
+  {{ include('be-layout/navbar.html', sandboxed = true) }}
+  
+  {{ include('be-layout/sidebar.html', sandboxed = true) }}
+  
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Visualización</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Visualización</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              {# <div class="card-header">
+                <h3 class="card-title">Tabla de Variedades</h3>
+                <a class="btn btn-app" href="{{ path('variedad_new') }}" style="margin: 0px;">
+                  <i class="fas fa-edit"></i>
+                  Crear Variedad
+                </a>
+              </div> #}
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                        <th>Acciones</th>
+                        <th data-toggle="tooltip" title="Códigos de entradas relacionada con el envase">Código de entradas</th>
+                        <th data-toggle="tooltip" title="Código de identificación de la variedad.">CODID</th>
+                        <th data-toggle="tooltip" title="Descripción completa de la variedad.">Descripción</th>
+                        <th data-toggle="tooltip" title="La parte específica del nombre científico.">Especie</th>
+                        <th data-toggle="tooltip" title="Nombre del género dado al taxó.">Genero</th>
+                        <th data-toggle="tooltip" title="Nombre común del cultivo.">Nombre Común</th>
+                        <th data-toggle="tooltip" title="Código de los envases relacionados con la variedad.">NUMENV</th>
+                        <th data-toggle="tooltip" title="Ubicación de los envases relaciónados.">Ubicación envases</th>
+                        <th>Acciones</th>
+                    </tr>   
+                  </thead>
+                    <tbody>
+                        {% for variedad in variedades %}
+                        {% set id = variedad.id %}
+                        {% set envases = variedad.envases.getValues %}
+                        <tr>
+                            <td>
+                                <div class="btn-group-vertical w-100">
+                                    <a class="btn btn-default" href="{{ path('variedad_show', {'id': variedad.id}) }}">Ver</a>
+                                    <a class="btn btn-default" href="{{ path('variedad_edit', {'id': variedad.id}) }}">Editar</a>
+
+                                    <div class="btn-group">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="{{ path('variedad_img', {'id': variedad.id}) }}">Añadir imagen</a></li>
+                                        <li><a class="dropdown-item" href="{{ path('imagen_ver', {'id': variedad.id}) }}">Imagenes</a> </li>
+                                        <li><a class="dropdown-item" href="{{ path('envaseVariedad_ver', {'id': variedad.id}) }}">Envases</a></li>
+                                    </ul>
+                                    </div>
+                                </div>
+                            </td>
+                            {# <td>{{ variedad.id }}</td> #}
+                            <td data-toggle="tooltip" title="Variedad: {{variedad}} | Columna: Código Entrada">
+                                {% for envase in envases %}
+                                    <p>{{ envase.entrada }}</p>
+                                {% endfor %}
+                            </td>
+                            <td data-toggle="tooltip" title="Variedad: {{variedad}} | Columna: Código">{{ variedad.codigo }}</td>
+                            <td data-toggle="tooltip" title="Variedad: {{variedad}} | Columna: Descripción" class="{% if variedad.descripcion is empty %}red{% endif %}">{{ variedad.descripcion }}</td>
+                            <td data-toggle="tooltip" title="Variedad: {{variedad}} | Columna: Especie" >{% if variedad.especie is not null %}{{ variedad.especie }}{% endif %}</td>
+                            <td data-toggle="tooltip" title="Variedad: {{variedad}} | Columna: Genero" >{% if variedad.especie is not null %}{{ variedad.especie.padre }}{% endif %}</td>
+                            <td data-toggle="tooltip" title="Variedad: {{variedad}} | Columna: Nombre Común" >{{ variedad.nombreComun }}</td>
+                            <td data-toggle="tooltip" title="Variedad: {{variedad}} | Columna: Código Envases" >
+                                {% for envase in envases %}
+                                    <p>{{ envase }}</p>
+                                {% endfor %}
+                            </td>
+                            <td data-toggle="tooltip" title="Variedad: {{variedad}} | Columna: Ubicación envases" >
+                                {% for envase in envases %}
+                                    <p>{{ envase.ubicacionEnvase }}</p>
+                                {% endfor %}
+                            </td>
+                            <td>
+                                <div class="btn-group-vertical w-100">
+                                    <a class="btn btn-default" href="{{ path('variedad_show', {'id': variedad.id}) }}">Ver</a>
+                                    <a class="btn btn-default" href="{{ path('variedad_edit', {'id': variedad.id}) }}">Editar</a>
+
+                                    <div class="btn-group">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="{{ path('variedad_img', {'id': variedad.id}) }}">Añadir imagen</a></li>
+                                        <li><a class="dropdown-item" href="{{ path('imagen_ver', {'id': variedad.id}) }}">Imagenes</a> </li>
+                                        <li><a class="dropdown-item" href="{{ path('envaseVariedad_ver', {'id': variedad.id}) }}">Envases</a> </li>
+                                    </ul>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="4">No hay registros</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Acciones</th>
+                            <th data-toggle="tooltip" title="Códigos de entradas relacionada con el envase">Códigos entradas</th>
+                            <th data-toggle="tooltip" title="Código de identificación de la variedad">CODID</th>
+                            <th data-toggle="tooltip" title="Descripción completa de la variedad.">Descripción</th>
+                            <th data-toggle="tooltip" title="La parte específica del nombre científico">Especie</th>
+                            <th data-toggle="tooltip" title="Nombre del género dado al taxó.">Genero</th>
+                            <th data-toggle="tooltip" title="Nombre común del cultivo">Nombre Común</th>
+                            <th data-toggle="tooltip" title="Código de los envases relacionados con la variedad.">NUMENV</th>
+                            <th data-toggle="tooltip" title="Ubicación de los envases relaciónados">Ubicación envases</th>
+                            <th>Acciones</th>
+                        </tr>   
+                    </tfoot>
+                </table>
+             </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  
+  
+  {{ include('be-layout/footer.html', sandboxed = true) }}
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<!-- DataTables  & Plugins -->
+<script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('plugins/jszip/jszip.min.js') }}"></script>
+<script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script>
+<script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+<!-- AdminLTE App -->
+<script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{{ asset('dist/js/demo.js') }}"></script>
+
+<!-- Page specific script -->
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": true, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+      "order": [[ 1, "asc" ]]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+
+{% endblock %}
