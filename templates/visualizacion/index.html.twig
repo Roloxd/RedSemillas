@@ -52,76 +52,106 @@
                   <thead>
                     <tr>
                         <th>Acciones</th>
-                        <th data-toggle="tooltip" title="Códigos de entradas relacionada con el envase">Código de entradas</th>
-                        <th data-toggle="tooltip" title="Código de identificación de la variedad.">CODID</th>
+                        <th data-toggle="tooltip" title="Código de los envases relacionados con la variedad.">NUMENV</th>
+                        <th data-toggle="tooltip" title="Códigos de entradas relacionada con el envase">Código de entrada</th>
+                        <th data-toggle="tooltip" title="Código de identificación de la variedad.">Código Variedad</th>
                         <th data-toggle="tooltip" title="Descripción completa de la variedad.">Descripción</th>
                         <th data-toggle="tooltip" title="La parte específica del nombre científico.">Especie</th>
                         <th data-toggle="tooltip" title="Nombre del género dado al taxó.">Genero</th>
                         <th data-toggle="tooltip" title="Nombre común del cultivo.">Nombre Común</th>
-                        <th data-toggle="tooltip" title="Código de los envases relacionados con la variedad.">NUMENV</th>
                         <th data-toggle="tooltip" title="Ubicación de los envases relaciónados.">Ubicación envases</th>
-                        <th>Acciones</th>
+                        <th data-toggle="tooltip" title="Antigüedad">Antigüedad</th>
+                        <th data-toggle="tooltip" title="Unidades gramos">Unidades gramos</th>
+                        <th data-toggle="tooltip" title="Cantidad en gramos">Cantidad gramos</th>
+                        <th data-toggle="tooltip" title="Cantidad">Cantidad</th>
+
                     </tr>   
                   </thead>
                     <tbody>
-                        {% for variedad in variedades %}
-                        {% set id = variedad.id %}
-                        {% set envases = variedad.envases.getValues %}
+                        {% for envase in envases %}
+                        {% set variedades = envase.variedads.getValues %}
                         <tr>
                             <td>
                                 <div class="btn-group-vertical w-100">
-                                    <a class="btn btn-default" href="{{ path('variedad_show', {'id': variedad.id}) }}">Ver</a>
-                                    <a class="btn btn-default" href="{{ path('variedad_edit', {'id': variedad.id}) }}">Editar</a>
-
-                                    <div class="btn-group">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="{{ path('variedad_img', {'id': variedad.id}) }}">Añadir imagen</a></li>
-                                        <li><a class="dropdown-item" href="{{ path('imagen_ver', {'id': variedad.id}) }}">Imagenes</a> </li>
-                                        <li><a class="dropdown-item" href="{{ path('envaseVariedad_ver', {'id': variedad.id}) }}">Envases</a></li>
-                                    </ul>
-                                    </div>
+                                    <a class="btn btn-default" href="{{ path('envase_edit', {'id': envase.id}) }}">Editar</a>
                                 </div>
                             </td>
-                            {# <td>{{ variedad.id }}</td> #}
-                            <td data-toggle="tooltip" title="Variedad: {{variedad}} | Columna: Código Entrada">
-                                {% for envase in envases %}
-                                    <p>{{ envase.entrada }}</p>
-                                {% endfor %}
+                            <td data-toggle="tooltip" title="Envase: {{envase}} | Columna: Código Envases" >{{ envase }}</td>
+                            <td data-toggle="tooltip" title="Envase: {{envase}} | Columna: Código Entrada">
+                              <p>{{ envase.entrada }}</p>
                             </td>
-                            <td data-toggle="tooltip" title="Variedad: {{variedad}} | Columna: Código">{{ variedad.codigo }}</td>
-                            <td data-toggle="tooltip" title="Variedad: {{variedad}} | Columna: Descripción" class="{% if variedad.descripcion is empty %}red{% endif %}">{{ variedad.descripcion }}</td>
-                            <td data-toggle="tooltip" title="Variedad: {{variedad}} | Columna: Especie" >{% if variedad.especie is not null %}{{ variedad.especie }}{% endif %}</td>
-                            <td data-toggle="tooltip" title="Variedad: {{variedad}} | Columna: Genero" >{% if variedad.especie is not null %}{{ variedad.especie.padre }}{% endif %}</td>
-                            <td data-toggle="tooltip" title="Variedad: {{variedad}} | Columna: Nombre Común" >{{ variedad.nombreComun }}</td>
-                            <td data-toggle="tooltip" title="Variedad: {{variedad}} | Columna: Código Envases" >
-                                {% for envase in envases %}
-                                    <p>{{ envase }}</p>
-                                {% endfor %}
+                            <td data-toggle="tooltip" title="Envase: {{envase}} | Columna: Código Variedades">
+                              {% for variedad in variedades %}
+                                <p>VAR-{{ variedad.codigo }}</p>
+                              {% endfor %}
                             </td>
-                            <td data-toggle="tooltip" title="Variedad: {{variedad}} | Columna: Ubicación envases" >
-                                {% for envase in envases %}
-                                    <p>{{ envase.ubicacionEnvase }}</p>
-                                {% endfor %}
+                            <td data-toggle="tooltip" title="Envase: {{envase}} | Columna: Descripción">
+                              {% for variedad in variedades %}
+                                  {% if variedad.descripcion is not empty %}
+                                    <p><span>VAR-{{variedad.codigo}}:</span> {{ variedad.descripcion }}</p>
+                                  {% else %}
+                                    <p class="{% if variedad.descripcion is empty %}red{% endif %}"><span>[VAR-{{variedad.codigo}}]:</span> Sin Descripción</p>
+                                  {% endif %}
+                              {% endfor %}
                             </td>
-                            <td>
-                                <div class="btn-group-vertical w-100">
-                                    <a class="btn btn-default" href="{{ path('variedad_show', {'id': variedad.id}) }}">Ver</a>
-                                    <a class="btn btn-default" href="{{ path('variedad_edit', {'id': variedad.id}) }}">Editar</a>
-
-                                    <div class="btn-group">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="{{ path('variedad_img', {'id': variedad.id}) }}">Añadir imagen</a></li>
-                                        <li><a class="dropdown-item" href="{{ path('imagen_ver', {'id': variedad.id}) }}">Imagenes</a> </li>
-                                        <li><a class="dropdown-item" href="{{ path('envaseVariedad_ver', {'id': variedad.id}) }}">Envases</a> </li>
-                                    </ul>
-                                    </div>
-                                </div>
+                            <td data-toggle="tooltip" title="Envase: {{envase}} | Columna: Especie" >
+                              {% for variedad in variedades %}
+                                {% if variedad.especie is not null %}
+                                  <p><span>VAR-{{variedad.codigo}}:</span> {{ variedad.especie }}</p>
+                                {% else %}
+                                  <p class="{% if variedad.especie is empty %}red{% endif %}"><span>[VAR-{{variedad.codigo}}]:</span> Sin Especie</p>
+                                {% endif %}
+                              {% endfor %}
                             </td>
-                        </tr>
+                            <td data-toggle="tooltip" title="Envase: {{envase}} | Columna: Genero" >
+                              {% for variedad in variedades %}
+                                {% if variedad.especie is not null %}
+                                  <p><span>VAR-{{variedad.codigo}}:</span> {{ variedad.especie.padre }}</p>
+                                {% else %}
+                                  <p class="{% if variedad.especie is empty %}red{% endif %}"><span>[VAR-{{variedad.codigo}}]:</span> Sin Genero</p>
+                                {% endif %}
+                              {% endfor %}
+                            </td>
+                            <td data-toggle="tooltip" title="Envase: {{envase}} | Columna: Nombre Común de la variedad" >
+                              {% for variedad in variedades %}
+                                  <p><span>VAR-{{variedad.codigo}}:</span> {{ variedad.nombreComun }}</p>
+                              {% endfor %}
+                            </td>
+                            <td data-toggle="tooltip" title="Envase: {{envase}} | Columna: Ubicación envases" >{{ envase.ubicacionEnvase }}</td>
+                            <td data-toggle="tooltip" title="Envase: {{envase}} | Columna: Antigüedad">
+                              {% for variedad in variedades %}
+                                <p  
+                                  {% if antiguedad[variedad.id] <  0 %}
+                                    class="red"
+                                  {% endif %}
+                                  {% if antiguedad[variedad.id] >  2 %}
+                                    class="green"
+                                  {% endif %}
+                                  {% if antiguedad[variedad.id] >=  0 and antiguedad[variedad.id] <= 2 %}
+                                    class="yellow"
+                                  {% endif %}
+                                ><span>VAR-{{variedad.codigo}}|</span> {{ antiguedad[variedad.id] }}</p>
+                              {% endfor %}
+                            </td>
+                            <td data-toggle="tooltip" title="Envase: {{envase}} | Columna: Unidades gramos">
+                              {{ envase.unidadesGramo }}
+                            </td>
+                            <td data-toggle="tooltip" title="Envase: {{envase}} | Columna: Cantidad gramos">
+                              {{ envase.cantidadGramos }}
+                            </td>
+                            <td data-toggle="tooltip" title="Envase: {{envase}} | Columna: Cantidad">
+                              {% for variedad in variedades %}
+                                {% if variedad.polinizacion == "Autógama" %}
+                                  {% if envase.unidadesGramo < 50 %}
+                                    <p><span>VAR-{{variedad.codigo}}:</span> Insuficiente</p>
+                                  {% endif %}
+                                  {% if envase.unidadesGramo >= 50 and envase.unidadesGramo < 300 %}
+                                    <p><span>VAR-{{variedad.codigo}}:</span> Crítica</p>
+                                  {% endif %}
+                                {% endif %}
+                              {% endfor %}
+                            </td>
+                          </tr>
                         {% else %}
                         <tr>
                             <td colspan="4">No hay registros</td>
@@ -131,15 +161,18 @@
                     <tfoot>
                         <tr>
                             <th>Acciones</th>
-                            <th data-toggle="tooltip" title="Códigos de entradas relacionada con el envase">Códigos entradas</th>
-                            <th data-toggle="tooltip" title="Código de identificación de la variedad">CODID</th>
+                            <th data-toggle="tooltip" title="Códigos de entradas relacionada con el envase">Códigos entrada</th>
+                            <th data-toggle="tooltip" title="Código de identificación de la variedad">Código Variedad</th>
                             <th data-toggle="tooltip" title="Descripción completa de la variedad.">Descripción</th>
                             <th data-toggle="tooltip" title="La parte específica del nombre científico">Especie</th>
                             <th data-toggle="tooltip" title="Nombre del género dado al taxó.">Genero</th>
                             <th data-toggle="tooltip" title="Nombre común del cultivo">Nombre Común</th>
                             <th data-toggle="tooltip" title="Código de los envases relacionados con la variedad.">NUMENV</th>
                             <th data-toggle="tooltip" title="Ubicación de los envases relaciónados">Ubicación envases</th>
-                            <th>Acciones</th>
+                            <th data-toggle="tooltip" title="Antigüedad">Antigüedad</th>
+                            <th data-toggle="tooltip" title="Unidades gramos">Unidades gramos</th>
+                            <th data-toggle="tooltip" title="Cantidad en gramos">Cantidad gramos</th>
+                            <th data-toggle="tooltip" title="Cantidad">Cantidad</th>
                         </tr>   
                     </tfoot>
                 </table>

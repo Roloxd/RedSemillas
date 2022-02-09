@@ -19,13 +19,17 @@
     font-weight: bold;
 }
 
-td.red {
+.red {
     background-color: #f37070;
     color: white;
 }
-td.green {
+.green {
     background-color: #4F805D;
     color: white;
+}
+.yellow {
+    background-color: #f1f389;
+    color: black;
 }
 
 

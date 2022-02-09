@@ -37,6 +37,9 @@ class EnvaseType extends AbstractType
             ->add('condicion_biologica')
             ->add('fuente_recoleccion')
             ->add('estado_accesion_mls')
+            ->add('fecha_recoleccion', DateType::class, [
+                'widget' => 'single_text',
+            ])
         ;
     }
 

@@ -84,8 +84,13 @@
                     </datalist>
                   </div>
                   <div class="form-group">
+                    <label for="envase_fecha_envasado">Fecha de recolección</label>
+                    <a href="#" data-toggle="tooltip" title="Fecha de recolección de la muestra.">?</a>
+                    {{ form_widget(form.fecha_recoleccion, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
                     <label for="envase_fecha_envasado">Fecha de envasado</label>
-                    <a href="#" data-toggle="tooltip" title="Fecha de inventaria de la muestra y envada adecuadamente.">?</a>
+                    <a href="#" data-toggle="tooltip" title="Fecha de inventaria de la muestra y envalada adecuadamente.">?</a>
                     {{ form_widget(form.fecha_envasado, {'attr': {'class': 'form-control'}}) }}
                   </div>
                   <div class="form-group">

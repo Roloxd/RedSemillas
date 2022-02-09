@@ -140,33 +140,41 @@
                         <td data-toggle="tooltip" title="Variedad: {{variedad}} | Columna: Observaciones" >{{ variedad.observaciones }}</td>
                         <td data-toggle="tooltip" title="Variedad: {{variedad}} | Columna: Ciclo Y Siembra Altitud" >
                           {% for element in cicloysiembras %}
-                            <p>{{ element.altitud }}</p>
+                            <div>
+                              <p>{{ element.altitud }}</p>
+                            </div>
                           {% endfor %}
                         </td>
                         <td data-toggle="tooltip" title="Variedad: {{variedad}} | Columna: Ciclo Y Siembra Zona" >
                           {% for element in cicloysiembras %}
-                            <p>{{ element.zona }}</p>
+                            <div>
+                              <p>{{ element.zona }}</p>
+                            </div>
                           {% endfor %}
                         </td>
                         <td data-toggle="tooltip" title="Variedad: {{variedad}} | Columna: Ciclo Y Siembra Ciclos" >
                           {% for element in cicloysiembras %}
-                            <p>{{ element.ciclo }}</p>
+                            <div>
+                              <p>{{ element.ciclo }}</p>
+                            </div>
                           {% endfor %}
                         </td>
                         <td data-toggle="tooltip" title="Variedad: {{variedad}} | Columna: Ciclo Y Siembra Meses" >
                           {% for element in cicloysiembras %}
-                            {% if element.enero is not empty %}<p>{{ element.enero ? "Enero" : "" }}</p>{% endif %}
-                            {% if element.febrero is not empty %}<p>{{ element.febrero ? "Febrero" : "" }}</p>{% endif %}
-                            {% if element.marzo is not empty %}<p>{{ element.marzo ? "Marzo" : "" }}</p>{% endif %}
-                            {% if element.abril is not empty %}<p>{{ element.abril ? "Abril" : "" }}</p>{% endif %}
-                            {% if element.mayo is not empty %}<p>{{ element.mayo ? "Mayo" : "" }}</p>{% endif %}
-                            {% if element.junio is not empty %}<p>{{ element.junio ? "Junio" : "" }}</p>{% endif %}
-                            {% if element.julio is not empty %}<p>{{ element.julio ? "Julio" : "" }}</p>{% endif %}
-                            {% if element.agosto is not empty %}<p>{{ element.agosto ? "Agosto" : "" }}</p>{% endif %}
-                            {% if element.septiembre is not empty %}<p>{{ element.septiembre ? "Septiembre" : "" }}</p>{% endif %}
-                            {% if element.octubre is not empty %}<p>{{ element.octubre ? "Octubre" : "" }}</p>{% endif %}
-                            {% if element.noviembre is not empty %}<p>{{ element.noviembre ? "Noviembre" : "" }}</p>{% endif %}
-                            {% if element.diciembre is not empty %}<p>{{ element.diciembre ? "Diciembre" : "" }}</p>{% endif %}
+                            <div>
+                              {% if element.enero is not empty %}<p>{{ element.enero ? "Enero" : "" }}</p>{% endif %}
+                              {% if element.febrero is not empty %}<p>{{ element.febrero ? "Febrero" : "" }}</p>{% endif %}
+                              {% if element.marzo is not empty %}<p>{{ element.marzo ? "Marzo" : "" }}</p>{% endif %}
+                              {% if element.abril is not empty %}<p>{{ element.abril ? "Abril" : "" }}</p>{% endif %}
+                              {% if element.mayo is not empty %}<p>{{ element.mayo ? "Mayo" : "" }}</p>{% endif %}
+                              {% if element.junio is not empty %}<p>{{ element.junio ? "Junio" : "" }}</p>{% endif %}
+                              {% if element.julio is not empty %}<p>{{ element.julio ? "Julio" : "" }}</p>{% endif %}
+                              {% if element.agosto is not empty %}<p>{{ element.agosto ? "Agosto" : "" }}</p>{% endif %}
+                              {% if element.septiembre is not empty %}<p>{{ element.septiembre ? "Septiembre" : "" }}</p>{% endif %}
+                              {% if element.octubre is not empty %}<p>{{ element.octubre ? "Octubre" : "" }}</p>{% endif %}
+                              {% if element.noviembre is not empty %}<p>{{ element.noviembre ? "Noviembre" : "" }}</p>{% endif %}
+                              {% if element.diciembre is not empty %}<p>{{ element.diciembre ? "Diciembre" : "" }}</p>{% endif %}
+                            </div>
                           {% endfor %}
                         </td>
                         <td>

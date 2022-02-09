@@ -72,7 +72,7 @@ class GerminacionController extends AbstractController
             $entityManager->persist($germinacion);
             $entityManager->flush();
 
-            if(!isNull($revisionesDatos)) { // Si no hay datos falta hacer
+            if(!empty($revisionesDatos)) {
                 $this->newRevisiones($revisionesDatos, $germinacion); // Registra las revisiones en la DB, los relaciona con la Germinación actual y calcula los datos de Temperatura y Humedad
             }
 
@@ -108,7 +108,7 @@ class GerminacionController extends AbstractController
             }
 
             // Obtener valores de las revisiones asociadas
-            dump($germinacion->getRevisiones()->getValues());
+            //$revisionesDB = $germinacion->getRevisiones()->getValues();
 
             // Semillas muertas
             $revision->setSemillasMuertas( intval($revisionDatos['semillas_muertas']) );
@@ -281,8 +281,7 @@ class GerminacionController extends AbstractController
 
             $this->getDoctrine()->getManager()->flush();
 
-            if($revisionDatos != null) {
-                dump('hola');
+            if(!empty($revisionesDatos)) {
                 $this->newRevisiones($revisionesDatos, $germinacion);
             }
 

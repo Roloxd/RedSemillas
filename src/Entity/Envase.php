@@ -144,6 +144,11 @@ class Envase
      */
     private $germinaciones;
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $fecha_recoleccion;
+
     public function __construct()
     {
         $this->variedads = new ArrayCollection();
@@ -489,6 +494,18 @@ class Envase
                 $germinacione->setEnvase(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getFechaRecoleccion(): ?\DateTimeInterface
+    {
+        return $this->fecha_recoleccion;
+    }
+
+    public function setFechaRecoleccion(?\DateTimeInterface $fecha_recoleccion): self
+    {
+        $this->fecha_recoleccion = $fecha_recoleccion;
 
         return $this;
     }
