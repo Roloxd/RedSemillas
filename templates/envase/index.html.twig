@@ -82,7 +82,7 @@
             <tr>
                 <td>
                   <div class="btn-group-vertical w-100">
-                    <a class="btn btn-default" href="{{ path('envase_show', {'id': envase.id}) }}">Ver</a>
+                    {# <a class="btn btn-default" href="{{ path('envase_show', {'id': envase.id}) }}">Ver</a> #}
                     <a class="btn btn-default" href="{{ path('envase_edit', {'id': envase.id}) }}">Editar</a>
 
                     <div class="btn-group">
@@ -118,9 +118,9 @@
                 <td>{{ envase.observaciones }}</td>
                 <td>
                   <div class="btn-group-vertical w-100">
-                    <a class="btn btn-default" href="{{ path('envase_show', {'id': envase.id}) }}">Ver</a>
+                    {# <a class="btn btn-default" href="{{ path('envase_show', {'id': envase.id}) }}">Ver</a> #}
                     <a class="btn btn-default" href="{{ path('envase_edit', {'id': envase.id}) }}">Editar</a>
-
+                    
                     <div class="btn-group">
                       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                       </button>

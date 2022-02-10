@@ -63,7 +63,7 @@
                     <tr {% if color is not null %} class="{{ color[pago.id] }}" {% endif %}>
                         <td>
                             <div class="btn-group-vertical w-100">
-                                <a class="btn btn-default" href="{{ path('pago_show', {'id': pago.id}) }}">Ver</a>
+                                {# <a class="btn btn-default" href="{{ path('pago_show', {'id': pago.id}) }}">Ver</a> #}
                                 <a class="btn btn-default" href="{{ path('pago_edit', {'id': pago.id}) }}">Editar</a>
                             </div>
                         </td>
@@ -73,7 +73,7 @@
                         <td>{{ pago.persona }}</td>
                         <td>
                           <div class="btn-group-vertical w-100">
-                            <a class="btn btn-default" href="{{ path('pago_show', {'id': pago.id}) }}">Ver</a>
+                            {# <a class="btn btn-default" href="{{ path('pago_show', {'id': pago.id}) }}">Ver</a> #}
                             <a class="btn btn-default" href="{{ path('pago_edit', {'id': pago.id}) }}">Editar</a>
                           </div>
                         </td>
