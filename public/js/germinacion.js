@@ -12,8 +12,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function iniciarForm() {
     eventListener(); // Eventos
-
-    //generarModuloRevision(); // Genera un modulo Revision
 }
 
 function eventListener() {
@@ -104,10 +102,11 @@ function mostrarVariedades(selectVariedades) {
     } 
 }
 
+// Genera un modulo Revision
 function generarModuloRevision() {
     const colRigth = document.querySelector('#col-rigth');
 
-    const modulo = crearModulo('Revision');
+    const modulo = crearModulo('Nueva Revision');
     colRigth.appendChild(modulo);
 
     // Gernerar contenido del modulo
@@ -152,7 +151,7 @@ function generarModuloRevision() {
 // Crea un modulo
 function crearModulo(nombreModulo) {
     const modulo = document.createElement('DIV');
-    modulo.classList = "card card-purple collapsed-card";
+    modulo.classList = "card card-teal collapsed-card";
 
     modulo.innerHTML = `
     <div class="card-header">

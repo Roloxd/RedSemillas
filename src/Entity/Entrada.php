@@ -162,7 +162,7 @@ class Entrada
     /**
      * @return Collection|Terreno[]
      */
-    public function getIdTerreno(): Collection
+    public function getTerrenos(): Collection
     {
         return $this->id_terreno;
     }

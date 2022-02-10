@@ -76,6 +76,7 @@
                                             <th>Genero de la variedad</th>
                                             <th>Época de siembra</th>
                                             <th>Ubicación envase</th>
+                                            <th>Municipio</th>
                                             <th>Observaciones</th>
                                             <th>Acciones</th>
                                         </tr>
@@ -88,7 +89,7 @@
                                         <tr>
                                             <td>
                                                 <div class="btn-group-vertical w-100">
-                                                    <a class="btn btn-default" href="{{ path('germinacion_show', {'id': germinacion.id}) }}">Ver</a>
+                                                    {# <a class="btn btn-default" href="{{ path('germinacion_show', {'id': germinacion.id}) }}">Ver</a> #}
                                                     <a class="btn btn-default" href="{{ path('germinacion_edit', {'id': germinacion.id}) }}">Editar</a>
                                                 </div>
                                             </td>
@@ -159,10 +160,20 @@
                                                 {% endif %}
                                             </td>
                                             <td> {% if germinacion.envase is not empty %}{{ germinacion.envase.ubicacionEnvase }}{% endif %}</td>
+                                            <td>
+                                                {% set terrenos = germinacion.envase.entrada.terrenos.getValues() %}
+                                                {% if terrenos is not empty %}
+                                                    <div class="d-flex flex-column">
+                                                        {% for terreno in terrenos %} 
+                                                            <a href="{{ path('terreno_mostrar', {'id' : terreno.id}) }}">{{terreno.municipio}}</a>
+                                                        {% endfor %}
+                                                    </div>
+                                                {% endif %}
+                                            </td>
                                             <td>{{ germinacion.observaciones }}</td>
                                             <td>
                                                 <div class="btn-group-vertical w-100">
-                                                    <a class="btn btn-default" href="{{ path('germinacion_show', {'id': germinacion.id}) }}">Ver</a>
+                                                    {# <a class="btn btn-default" href="{{ path('germinacion_show', {'id': germinacion.id}) }}">Ver</a> #}
                                                     <a class="btn btn-default" href="{{ path('germinacion_edit', {'id': germinacion.id}) }}">Editar</a>
                                                 </div>
                                             </td>
@@ -198,6 +209,7 @@
                                             <th>Genero de la variedad</th>
                                             <th>Época de siembra</th>
                                             <th>Ubicación envase</th>
+                                            <th>Municipio</th>
                                             <th>Observaciones</th>
                                             <th>Acciones</th>
                                         </tr>  
@@ -257,7 +269,7 @@
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
       "order": [[ 5, "desc" ]],
       "columnDefs": [
-          {"visible": false, "targets": [2,3,4,7,8,9,10,11,12,13,14,15,16,23]}
+          {"visible": false, "targets": [2,3,4,7,8,9,10,11,12,13,14,15,16,24]}
       ]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({

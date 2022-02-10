@@ -140,15 +140,15 @@
                               {{ envase.cantidadGramos }}
                             </td>
                             <td data-toggle="tooltip" title="Envase: {{envase}} | Columna: Cantidad">
-                              {% for variedad in variedades %}
-                                {% if variedad.polinizacion == "Autógama" %}
-                                  {% if envase.unidadesGramo < 50 %}
-                                    <p><span>VAR-{{variedad.codigo}}:</span> Insuficiente</p>
-                                  {% endif %}
-                                  {% if envase.unidadesGramo >= 50 and envase.unidadesGramo < 300 %}
-                                    <p><span>VAR-{{variedad.codigo}}:</span> Crítica</p>
-                                  {% endif %}
+                              {% for idVariedad, cantidades in arrayCantidades[envase.id] %}
+                                {% if idVariedad == "sinGerminacion" %}
+                                  {{ cantidades }}
+                                {% else %}
+                                  {% for key, cantidad in cantidades %}
+                                    <p class="{{ key }}">{{idVariedad}}: {{ cantidad }}</p>
+                                  {% endfor %}
                                 {% endif %}
+
                               {% endfor %}
                             </td>
                           </tr>

@@ -247,6 +247,8 @@ class GerminacionController extends AbstractController
             $checkboxMarcado = true;
         }
 
+        // Obtener Reviciones ralacionadas
+
         if ($form->isSubmitted()) {
             $datos = $request->request->get('germinacion');
             $revisionesDatos = $request->request->get('revision');

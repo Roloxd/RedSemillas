@@ -6,7 +6,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>{{ text_form }}</h1>
+                        <h1 id="titulo-pagina">{{ text_form }}</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -132,7 +132,98 @@
                         </div>
                         <!--/.col (left)-->
                         <!--.col (rigth)-->
-                        <div id="col-rigth" class="col-md-6"></div>
+                        <div id="col-rigth" class="col-md-6">
+                            {% set reviciones = germinacion.revisiones.getValues() %}
+                            {% if reviciones is not empty %}
+                                {% for revicion in reviciones %}
+                                    <div class="card card-olive collapsed-card">
+                                        <div class="card-header">
+                                            <h3 id="ancla-direccion" class="card-title">Revision: {{ revicion.id }}</h3>
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                                    <i class="fas fa-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                                <label for="revision_fecha_revision">Fecha inicio</label>
+                                                <a href="#" data-toggle="tooltip" title="Fecha inicio de la revision.">?</a>
+                                                <input type="date" id="revision_fecha_revision" required="required" class="form-control" value="{{ revicion.fechaRevision|date('Y-m-d') }}" disabled>
+                                                
+                                            </div>
+                                            <div class="form-group">
+                                                <label>¿La revision ha terminado?</label>
+                                                <a href="#" data-toggle="tooltip" title="Marcar si la revision ha finalizado.">?</a>
+                                                <div class="form-check">
+                                                    <input type="checkbox" id="revision_prueba_finalizada" class="form-check-input" value="1" disabled
+                                                        {% if revicion.fechaRevisionFinalizacion is not null%}
+                                                            checked
+                                                        {% endif %}
+                                                    >
+                                                    <label class="form-check-label" for="revision_prueba_finalizada">Si</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="revision_semillas_muertas">Semillas muertas</label>
+                                                <a href="#" data-toggle="tooltip" title="Revision de las semillas muertas.">?</a>
+                                                
+                                                <input type="number" id="revision_semillas_muertas" class="form-control" value="{{ revicion.semillasMuertas }}" disabled>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="revision_semillas_germinadas">Semillas germinadas</label>
+                                                <a href="#" data-toggle="tooltip" title="Revision de las semillas germinadas.">?</a>
+                                        
+                                                <input type="number" id="revision_semillas_germinadas" class="form-control" value="{{ revicion.semillasGerminadas }}" disabled>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="revision_semillas_no_germinadas">Semillas no germinadas</label>
+                                                <a href="#" data-toggle="tooltip" title="Revision de las semillas no germinadas.">?</a>
+                                        
+                                                <input type="number" id="revision_semillas_no_germinadas" class="form-control" value="{{ revicion.semillasNoGerminadas }}" disabled>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="revision_semillas_anomalas">Semillas anómalas</label>
+                                                <a href="#" data-toggle="tooltip" title="Revision de las semillas anómalas.">?</a>
+                                        
+                                                <input type="number" id="revision_semillas_anomalas" class="form-control" value="{{ revicion.semillasAnomalas }}" disabled>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="revision_semillas_enfermas">Semillas enfermas</label>
+                                                <a href="#" data-toggle="tooltip" title="Revision de las semillas enfermas.">?</a>
+                                            
+                                                <input type="number" id="revision_semillas_enfermas" class="form-control" value="{{ revicion.semillasEnfermas }}" disabled>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="revision_temperatura_max">Temperatura máxima</label>
+                                                <a href="#" data-toggle="tooltip" title="Temperatura máxima.">?</a>
+                                        
+                                                <input type="number" id="revision_temperatura_max" class="form-control" value="{{ revicion.temperaturaMax }}" disabled step="any">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="revision_temperatura_min">Temperatura minima</label>
+                                                <a href="#" data-toggle="tooltip" title="Temperatura minima.">?</a>
+                                        
+                                                <input type="number" id="revision_temperatura_min" class="form-control" value="{{ revicion.temperaturaMin }}" disabled step="any">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="revision_humedad_max">Humedad máxima</label>
+                                                <a href="#" data-toggle="tooltip" title="Humedad máxima.">?</a>
+                                        
+                                                <input type="number" id="revision_humedad_max" class="form-control" value="{{ revicion.humedadMax }}" disabled step="any">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="revision_humedad_min">Humedad minima</label>
+                                                <a href="#" data-toggle="tooltip" title="Humedad minima.">?</a>
+                                        
+                                                <input type="number" id="revision_humedad_min" class="form-control" value="{{ revicion.humedadMin }}" disabled step="any">
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                
+                            {% endif %}
+                        </div>
                         <!--/.col (rigth)-->
                     </div>
                     <!-- /.row -->

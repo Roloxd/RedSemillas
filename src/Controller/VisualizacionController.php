@@ -22,10 +22,9 @@ class VisualizacionController extends AbstractController {
 
         foreach($envasesDB as $envaseDB){
             $germinacionesDB = $envaseDB->getGerminaciones()->getValues();
-            $UnidadesGramos = $envaseDB->getUnidadesGramo();
+            $unidadesGramos = $envaseDB->getUnidadesGramo();
             $fechaRecoleccion = $envaseDB->getFechaRecoleccion();
 
-            
             if(!empty($fechaRecoleccion)) {
                 $diff = $fechaRecoleccion->diff($yearActual);
             } else {
@@ -42,21 +41,60 @@ class VisualizacionController extends AbstractController {
             foreach($variedadesDB as $variedadDB) {
                 $viabilidad = $variedadDB->getViabilidadMin();
                 $antiguedad[$variedadDB->getId()] = $diff->y - $viabilidad;
+            }
 
-
-                //Alerta Cantidad *Falta hacer los calculos*
+            //Alerta Cantidad *Falta hacer los calculos*
+            if(!empty($germinacionesDB)) {
                 foreach($germinacionesDB as $germinacionDB) {
-                    $porcentajeGerminacion = $germinacionDB->getPorcentajeGerminacionMuestra();
+                    $variedadDB = $germinacionDB->getVariedad();
+                    $codigoVariedad = 'VAR-' . $variedadDB->getCodigo();
 
+                    $porcentajeGerminacion = $germinacionDB->getPorcentajeGerminacionMuestra();
+                    $ud = ($unidadesGramos * $porcentajeGerminacion) / 100;
                     
-                    dump($porcentajeGerminacion);
+                    if($variedadDB->getPolinizacion() === 'Autógama') {
+                        if($ud < 50) {
+                            $arrayCantidades[$envaseDB->getId()][$codigoVariedad]['blue'] = 'Insuficiente';
+                        }
+                        if($ud >= 50 && $ud <= 300) {
+                            $arrayCantidades[$envaseDB->getId()][$codigoVariedad]['red'] = 'Crítica';
+                        }
+                        if($ud >= 300 && $ud <= 5200) {
+                            $arrayCantidades[$envaseDB->getId()][$codigoVariedad]['orange'] = 'Multiplicar/Custodiar';
+                        }
+                        if($ud >= 5201 && $ud <= 6000) {
+                            $arrayCantidades[$envaseDB->getId()][$codigoVariedad]['yellow'] = 'Conservar';
+                        }
+                        if($ud > 6000) {
+                            $arrayCantidades[$envaseDB->getId()][$codigoVariedad]['green'] = 'Distribuir';
+                        }
+                    } else {
+                        if($ud < 300) {
+                            $arrayCantidades[$envaseDB->getId()][$codigoVariedad]['blue'] = 'Insuficiente';
+                        }
+                        if($ud >= 300 && $ud <= 2400) {
+                            $arrayCantidades[$envaseDB->getId()][$codigoVariedad]['red'] = 'Crítica';
+                        }
+                        if($ud >= 2401 && $ud <= 12400) {
+                            $arrayCantidades[$envaseDB->getId()][$codigoVariedad]['orange'] = 'Multiplicar/Custodiar';
+                        }
+                        if($ud >= 12401 && $ud <= 13000) {
+                            $arrayCantidades[$envaseDB->getId()][$codigoVariedad]['yellow'] = 'Conservar';
+                        }
+                        if($ud > 13000) {
+                            $arrayCantidades[$envaseDB->getId()][$codigoVariedad]['green'] = 'Distribuir';
+                        }
+                    }
                 }
+            } else {
+                $arrayCantidades[$envaseDB->getId()]['sinGerminacion'] = 'Sin germinaciones';
             }
         }
 
         return $this->render('visualizacion/index.html.twig', [
             'envases' => $envasesDB,
             'antiguedad' => $antiguedad,
+            'arrayCantidades' => $arrayCantidades,
         ]);
     }
 }
