@@ -55,12 +55,17 @@
                                             {{ form_widget(form.envase, {'attr': {'class': 'form-control'}}) }}
                                         </div>
                                         <div id="contenedor-variedades" class="form-group d-none">
-                                            <label for="variedad1_especie">Variedades</label>
-                                            <a href="#" data-toggle="tooltip" title="Seleccionar las variedades relacionadas con la prueba de germinación.">?</a>
-
-                                            <select id ="germinacion_variedades" class="form-control select-variedades" name="germinacion[variedad]">
-                                                <option></option>
-                                            </select>
+                                            <label for="variedad1_especie">Variedad</label>
+                                            <a href="#" data-toggle="tooltip" title="Seleccionar las variedad relacionada con la prueba de germinación.">?</a>
+                                            
+                                            {# <div class="input-group"> #}
+                                                <select id ="germinacion_variedades" class="form-control select-variedades" name="germinacion[variedad]">
+                                                    <option></option>
+                                                </select>
+                                                {# <div class="input-group-append">
+                                                    <span class="input-group-text">Upload</span>
+                                                </div> #}
+                                            {# </div> #}
                                         </div>
                                         <div class="form-group">
                                             <label for="germinacion_fecha_inicio">Fecha inicio</label>
@@ -114,7 +119,10 @@
                                         <div class="form-group">
                                             <label for="germinacion_metodo_empleado_para_germinar">Método empleado para germinar</label>
                                             <a href="#" data-toggle="tooltip" title="Metodo por el que se realiza la prueba.">?</a>
-                                            {{ form_widget(form.metodo_empleado_para_germinar, {'attr': {'class': 'form-control'}}) }}
+                                            {# {{ form_widget(form.metodo_empleado_para_germinar, {'attr': {'class': 'form-control'}}) }} #}
+                                            <select id ="germinacion_metodo_empleado_para_germinar" class="form-control select-metodoEmpleado" name="germinacion[metodo_empleado_para_germinar]">
+                                                <option></option>
+                                            </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="germinacion_observaciones">Observaciones</label>

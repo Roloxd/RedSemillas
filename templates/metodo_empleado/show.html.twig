@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MetodoEmpleado{% endblock %}
+
+{% block body %}
+    <h1>MetodoEmpleado</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ metodo_empleado.id }}</td>
+            </tr>
+            <tr>
+                <th>Metodo</th>
+                <td>{{ metodo_empleado.metodo }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('metodo_empleado_index') }}">back to list</a>
+
+    <a href="{{ path('metodo_empleado_edit', {'id': metodo_empleado.id}) }}">edit</a>
+
+    {{ include('metodo_empleado/_delete_form.html.twig') }}
+{% endblock %}

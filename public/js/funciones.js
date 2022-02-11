@@ -1271,7 +1271,7 @@ function updateVariedad(){
         processData:false,
         cache:false,
         error:function(err){
-                console.error(err);
+            console.error(err);
         },
         success:function(data){
             //console.log(data);

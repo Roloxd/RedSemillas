@@ -29,11 +29,23 @@
 {{ include('be-layout/js.html', sandboxed = true) }}
 
 <script>
+  // Select Variedad
   $(document).ready(function() {
     $('.select-variedades').select2({
       language: 'es',
       width: '100%',
       placeholder: "Seleccione Variedades",
+      allowClear: true,
+      tags: true,
+    });
+  });
+
+  // Select Metodo Empleado
+  $(document).ready(function() {
+    $('.select-metodoEmpleado').select2({
+      language: 'es',
+      width: '100%',
+      placeholder: "Selecciona Metodo",
       allowClear: true,
       tags: true,
     });

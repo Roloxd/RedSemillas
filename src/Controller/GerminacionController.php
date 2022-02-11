@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-use function PHPUnit\Framework\isNull;
 
 /**
  * @Route("/admin/germinacion")
@@ -90,6 +89,26 @@ class GerminacionController extends AbstractController
 
     public function newRevisiones(Array $revisionesDatos, Object $germinacion): void {
         $actualizar = [];
+            
+        // Revisiones relacionadas
+        $revisionesDB = $germinacion->getRevisiones()->getValues();
+        if(!empty($revisionesDB)) {
+            foreach($revisionesDB as $revisionDB) {
+                
+                // Semillas
+                $actualizar['semillas_germinadas'][] = intval($revisionDB->getSemillasGerminadas());
+                $actualizar['semillas_no_germinadas'][] = intval($revisionDB->getSemillasNoGerminadas());
+                $actualizar['semillas_anomalas'][] = intval($revisionDB->getSemillasAnomalas());
+                $actualizar['semillas_enfermas'][] = intval($revisionDB->getSemillasEnfermas());
+                
+                // Temperaturas y Humedades
+                $actualizar['temperaturas_max'][] = floatval($revisionDB->getTemperaturaMax());
+                $actualizar['temperaturas_min'][] = floatval($revisionDB->getTemperaturaMin());
+                $actualizar['humedades_max'][] = floatval($revisionDB->getHumedadMax());
+                $actualizar['humedades_min'][] = floatval($revisionDB->getHumedadMin());
+
+            }
+        }
 
         // Revision
         foreach( $revisionesDatos as $revisionDatos ) {
@@ -106,9 +125,6 @@ class GerminacionController extends AbstractController
                     $revision->setFechaRevisionFinalizacion(null);
                 }
             }
-
-            // Obtener valores de las revisiones asociadas
-            //$revisionesDB = $germinacion->getRevisiones()->getValues();
 
             // Semillas muertas
             $revision->setSemillasMuertas( intval($revisionDatos['semillas_muertas']) );
@@ -149,8 +165,6 @@ class GerminacionController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($revision);
             $entityManager->flush();
-
-            //$this->actualizarPorcentajes($germinacion, $revision);
         }
 
         // Porcentajes (Se suman todas las semillas de cada tipo)
@@ -246,8 +260,6 @@ class GerminacionController extends AbstractController
         if(!empty($fecha_final)) {
             $checkboxMarcado = true;
         }
-
-        // Obtener Reviciones ralacionadas
 
         if ($form->isSubmitted()) {
             $datos = $request->request->get('germinacion');

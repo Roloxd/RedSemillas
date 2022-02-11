@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MetodoEmpleado index{% endblock %}
+
+{% block body %}
+    <h1>MetodoEmpleado index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Metodo</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for metodo_empleado in metodo_empleados %}
+            <tr>
+                <td>{{ metodo_empleado.id }}</td>
+                <td>{{ metodo_empleado.metodo }}</td>
+                <td>
+                    <a href="{{ path('metodo_empleado_show', {'id': metodo_empleado.id}) }}">show</a>
+                    <a href="{{ path('metodo_empleado_edit', {'id': metodo_empleado.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('metodo_empleado_new') }}">Create new</a>
+{% endblock %}

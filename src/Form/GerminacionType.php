@@ -17,20 +17,8 @@ class GerminacionType extends AbstractType
                 'widget' => 'single_text',
             ])
             ->add('num_semillas_para_prueba')
-            //->add('fecha_final')
-            //->add('num_dias_en_germinar')
             ->add('observaciones')
-            /* VISTA //>add('porcentaje_germinacion_muestra') 
-            //->add('porcentaje_semillas_no_germinadas_muestra')
-            //->add('porcentaje_semillas_germinacion_anomala_muestra')
-            //->add('porcentaje_semillas_germinacion_enfermas_muestra')
-            // ->add('temperatura_prueba_germinacion_max')
-            // ->add('temperatura_prueba_germinacion_min')
-            // ->add('temperatura_prueba_germinacion_media')
-            // ->add('humedad_relativa_prueba_germinacion_max')
-            // ->add('humedad_relativa_prueba_germinacion_min')
-            // ->add('humedad_relativa_prueba_germinacion_media') VISTA */
-            ->add('metodo_empleado_para_germinar')
+            // ->add('metodo_empleado_para_germinar')
             ->add('envase')
         ;
     }

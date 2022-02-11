@@ -1,4 +1,5 @@
 const formGerminacion = document.querySelector('form[name="germinacion"]');
+const tituloPagina = document.querySelector('#titulo-pagina');
 
 const datos = {
     keyRevision: 0,
@@ -12,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function iniciarForm() {
     eventListener(); // Eventos
+    obtenerMetodosEmpleados(); // Obtener Metodos Empleados de la DB
 }
 
 function eventListener() {
@@ -21,10 +23,14 @@ function eventListener() {
     const btnAddRevision = document.querySelector('#btn-add-revision');
     btnAddRevision.addEventListener('click', generarModuloRevision);
 
-    const btnShowRevision = document.querySelector('#btn-show-revision');
-    btnShowRevision.addEventListener('click', function() {
-        redireccion(window.location.pathname, 'http://localhost/admin/revision', '/ver');
-    });
+
+    if(tituloPagina.textContent === "Editar Germinación") {
+        const btnShowRevision = document.querySelector('#btn-show-revision');
+        btnShowRevision.addEventListener('click', function() {
+            redireccion(window.location.pathname, 'http://localhost/admin/revision', '/ver');
+        });
+    }
+    
 }
 
 function redireccion(pathname, url, direccion) {
@@ -41,14 +47,14 @@ function obtenerEnvase(e) {
     const idEnvase = e.target.value;
 
     $.ajax({
-        url:`/admin/envase/findEnvase`,
+        url:'/admin/envase/findEnvase',
         data: {'idEnvase': idEnvase, 'funcion': 'obtenerVariedades'},
         type:"POST",
         error:function(err){
             console.error(err);
         },
         success:function(data) {
-            crearOption(data);
+            crearOption('germinacion_variedades' ,data);
         },
         complete:function(){
             //console.log("Solicitud finalizada.");
@@ -56,8 +62,29 @@ function obtenerEnvase(e) {
     });
 }
 
-function crearOption(data) {
-    const selectVariedades = document.querySelector('#germinacion_variedades');
+// Obtener Metodos Empleados de la DB
+function obtenerMetodosEmpleados() {
+    $.ajax({
+        url:'/admin/metodoEmpleado/all',
+        data:null,
+        type:"POST",
+        contentType:false,
+        processData:false,
+        cache:false,
+        error:function(err){
+            console.error(err);
+        },
+        success:function(data) {
+            crearOption('germinacion_metodo_empleado_para_germinar', data);
+        },
+        complete:function(){
+            //console.log("Solicitud finalizada.");
+        }
+    });
+}
+
+function crearOption(etiqueta, data) {
+    const selectVariedades = document.querySelector(`#${etiqueta}`);
     const length = selectVariedades.options.length;
 
     // Elimina option anteriores
