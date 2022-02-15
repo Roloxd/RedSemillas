@@ -194,10 +194,16 @@ class Persona
      */
     private $codigo_bic;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Entrada::class, mappedBy="persona")
+     */
+    private $entradas;
+
     public function __construct()
     {
         $this->terrenos = new ArrayCollection();
         $this->pagos = new ArrayCollection();
+        $this->entradas = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -662,6 +668,33 @@ class Persona
     public function setCodigoBic(?string $codigo_bic): self
     {
         $this->codigo_bic = $codigo_bic;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Entrada[]
+     */
+    public function getEntradas(): Collection
+    {
+        return $this->entradas;
+    }
+
+    public function addEntrada(Entrada $entrada): self
+    {
+        if (!$this->entradas->contains($entrada)) {
+            $this->entradas[] = $entrada;
+            $entrada->addPersona($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEntrada(Entrada $entrada): self
+    {
+        if ($this->entradas->removeElement($entrada)) {
+            $entrada->removePersona($this);
+        }
 
         return $this;
     }

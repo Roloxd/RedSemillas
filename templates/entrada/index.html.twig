@@ -58,6 +58,7 @@
                             <th>Cantidad en gramos</th>
                             <th>Fecha entrada</th>
                             <th>Tipo entrada</th>
+                            <th>Persona</th>
                             <th>Observaciones</th>
                             <th>Acciones</th>
                         </tr>
@@ -83,6 +84,7 @@
                 <td>{{ entrada.cantidad }}</td>
                 <td>{{ entrada.fechaEntrada ? entrada.fechaEntrada|date('Y-m-d') : '' }}</td>
                 <td>{{ entrada.tipoEntrada }}</td>
+                <td> {{ dump( entrada.persona.getValues )}}</td> {# Falta añadir Persona a la vista #}
                 <td>{{ entrada.observaciones }}</td>
                 <td>
                   <div class="btn-group-vertical w-100">
@@ -112,9 +114,10 @@
                           <th>Cantidad en gramos</th>
                           <th>Fecha entrada</th>
                           <th>Tipo entrada</th>
+                          <th>Persona</th>
                           <th>Observaciones</th>
                           <th>Acciones</th>
-                      </tr>  
+                      </tr>
                   </tfoot>
                 </table>
             </div>

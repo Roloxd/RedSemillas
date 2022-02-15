@@ -73,41 +73,58 @@ class TerrenoController extends AbstractController
      */
     public function getTerrenosPersona(Request $request): Response
     {
-        $dni = $request->request->get('dni');
-        $idEntrada = $request->request->get('idEntrada');
+        $personaId = $request->request->get('personaId');
+        // $idEntrada = $request->request->get('idEntrada');
         
-        $idPersona = $this->getDoctrine()
+        $persona = $this->getDoctrine()
                 ->getRepository(Persona::class)
-                ->findId($dni);
+                ->find( intval($personaId) );
+        
+        $terrenos = $persona->getTerrenos()->getValues();
 
-        if(!empty($idPersona)){
-            $terrenos = $this->getDoctrine()
-                ->getRepository(Terreno::class)
-                ->findTerrenosPersona($idPersona[0]['id']);
+        $args = [];
+        if(!empty($terrenos)) {
+            foreach($terrenos as $terreno) {
+                $terrenoId = $terreno->getId();
+                $nombre = $terreno->getNombre();
+                $municipio = $terreno->getMunicipio();
+                $direccion = $terreno->getDireccion();
 
-            if(empty($terrenos)){
-                $terrenos = "";
+                $args[$terrenoId] = [
+                    'nombre' => $nombre,
+                    'municipio' => $municipio,
+                    'direccion' => $direccion,
+                ];
             }
-        } else {
-            $terrenos = "";
         }
 
-        if(!empty($idEntrada)){
-            $entrada = $this->getDoctrine()
-                ->getRepository(Entrada::class)
-                ->find($idEntrada);
+        // if(!empty($idPersona)){
+        //     $terrenos = $this->getDoctrine()
+        //         ->getRepository(Terreno::class)
+        //         ->findTerrenosPersona($idPersona[0]['id']);
 
-            foreach($entrada->getIdTerreno()->getValues() as $terreno){
-                $arrayIdTerrenos[] = $terreno->getId();
-            }
-        } else {
-            $arrayIdTerrenos = "";
-        }
+        //     if(empty($terrenos)){
+        //         $terrenos = "";
+        //     }
+        // } else {
+        //     $terrenos = "";
+        // }
+
+        // if(!empty($idEntrada)){
+        //     $entrada = $this->getDoctrine()
+        //         ->getRepository(Entrada::class)
+        //         ->find($idEntrada);
+
+        //     foreach($entrada->getIdTerreno()->getValues() as $terreno){
+        //         $arrayIdTerrenos[] = $terreno->getId();
+        //     }
+        // } else {
+        //     $arrayIdTerrenos = "";
+        // }
 
         $response = new Response();
         $response->setContent(json_encode([
-            'terrenos' => $terrenos,
-            'arrayIdTerrenos' => $arrayIdTerrenos,
+            'terrenos' => $args,
         ]));
         $response->headers->set('Content-Type', 'application/json');
 

@@ -1,5 +1,5 @@
 const datos = {};
-const formEntrada = document.querySelector(".formEntrada");
+const formEntrada = document.querySelector('form[name="entrada1"]');
 const formEditEntrada = document.querySelector(".formEditEntrada");
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -11,17 +11,23 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     if(formEntrada){
-        fechaActual();
-        consultarPersonas();
-        getPersona();
+        iniciarForm();
     }
 
-    if(formEditEntrada){
-        consultarPersonas();
-        selectPersona();
-        getPersona();      
-    }
+//     if(formEditEntrada){
+//         selectPersona();     
+//     }
 });
+
+function iniciarForm() {
+    eventListener(); // Eventos
+    fechaActual();
+    consultarPersonas();
+}
+
+function eventListener() {
+    $('.select-personas').on('select2:select', obtenerTerrenos);
+}
 
 function leerValor(evento) {
     datos[evento.target.id] = evento.target.value;
@@ -66,116 +72,207 @@ function fechaActual(){
 }
 
 function consultarPersonas(){
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if(this.readyState == 4 && this.status == 200){
-            var respuesta = JSON.parse(this.response);
-            
-            Object.values(respuesta).forEach(element => {
-                element.forEach(persona => {
-                    const lista = document.querySelector('#personas_list');
-                    array = Object.values(persona);
-
-                    const option = document.createElement('OPTION');
-                    option.value = array[2];
-
-                    if(array[2] === null || array[2] === ""){
-                        option.innerText = array[0];
-                    } else {
-                        option.innerText = array[0] + " " + array[1] + " - " + array[2];
-                    }
-                    
-                    lista.appendChild(option);
-                })
-            });
+    $.ajax({
+        url:'/admin/persona/findAll',
+        data: null,
+        type:"POST",
+        error:function(err){
+            console.error(err);
+        },
+        success:function(data) {
+            crearOptionPersona('entrada1_persona', data);
+        },
+        complete:function(){
+            //console.log("Solicitud finalizada.");
         }
-    };
-
-    xhttp.open("POST", "/admin/persona/findAll", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send();
-    return false;
+    });
 }
 
-function getPersona() {
-    const inputDNI = document.querySelector('#entrada1_persona');
-    inputDNI.addEventListener('input', leerValor);
+function crearOptionPersona(etiqueta, data) {
+    const selectVariedades = document.querySelector(`#${etiqueta}`);
+    const length = selectVariedades.options.length;
 
-    if(formEditEntrada){
-        consultarTerrenos(document.querySelector('#entrada1_persona').value);
-    }
-}
-
-function consultarTerrenos(dni) {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if(this.readyState == 4 && this.status == 200){
-            var respuesta = JSON.parse(this.response);
-
-            if(formEntrada){
-                const divTerreno = document.querySelector('#terreno');
-                const selectTerreno = document.querySelector('#entrada1_id_terreno');
-                
-                Object.values(respuesta).forEach(element => {
-                    if(element != ""){
-                        element.forEach(terrenos => {
-                            // MOSTRAR TERRENOS FORMULARIO ENTRADA
-                            array = Object.values(terrenos);
-
-                            const option = document.createElement('OPTION');
-                            option.value = array[0];
-                            option.innerText = array[1];
-
-                            selectTerreno.appendChild(option);
-
-                            $(divTerreno).show();
-                        });
-                    }
-                });
-            } else if(formEditEntrada) {
-                const divTerreno = document.querySelector('#terreno');
-                const selectTerreno = document.querySelector('#entrada1_id_terreno');
-                
-                arrayTerrenosDeLaPersona = Object.values(respuesta["arrayIdTerrenos"]);
-            
-                contador = 0;
-                Object.values(respuesta["terrenos"]).forEach(element => {
-                    if(element != ""){
-                        array = Object.values(element);
-
-                        const option = document.createElement('OPTION');
-                        option.value = array[0];
-                        option.innerText = array[1];
-
-                        
-                        if(array[0] == arrayTerrenosDeLaPersona[contador]){
-                            option.selected = 1;
-                            contador++;
-                        }
-
-                        selectTerreno.appendChild(option);
-
-                        $(divTerreno).show();
-                    }
-                });
-            }
+    // Elimina option anteriores
+    if(length > 1) {
+        for(let i = length; i >= 1 ; i--) {
+            selectVariedades.remove(i);
         }
-    };
-
-    if(formEntrada) {
-        var params = 'dni=' + dni;
-    } else if(formEditEntrada) {
-        const patron = /(\d+)/g;
-        const idEntrada = window.location.pathname.match(patron);
-        var params = 'dni=' + dni + '&idEntrada=' + idEntrada;
     }
     
+    // Crea los options
+    if (typeof data === 'object') {
+        const inputHidden = document.querySelector('#persona');
 
-    xhttp.open("POST", "/admin/terreno/getTerrenosPersona", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send(params);
-    return false;
+        for( persona of data.personas ) {
+            const option = document.createElement('OPTION');
+            option.value = persona.id;
+            option.textContent = `[${persona.nif}] ${persona.nombre} ${persona.apellidos}`;
+
+            if(inputHidden != null && inputHidden.value == persona.id) {
+                option.setAttribute('selected', 'selected');
+                obtenerTerrenos(null, persona.id);
+            }
+
+            selectVariedades.appendChild(option);
+        }
+    }
 }
+
+function obtenerTerrenos(e, personaId) {
+    
+    if(e != null) {
+        id = e.params.data.id;
+    } else if(personaId != null) {
+        id = personaId;
+    }
+
+    $.ajax({
+        url:'/admin/terreno/getTerrenosPersona',
+        data: {'personaId': id},
+        type:"POST",
+        error:function(err){
+            console.error(err);
+        },
+        success:function(data) {
+            crearOptionTerreno('entrada1_id_terreno', data);
+        },
+        complete:function(){
+            //console.log("Solicitud finalizada.");
+        }
+    });
+}
+
+function crearOptionTerreno(etiqueta, data) {
+    const select = document.querySelector(`#${etiqueta}`);
+    const length = select.options.length;
+
+    // Elimina option anteriores
+    if(length > 0) {
+        for(let i = length; i >= 0 ; i--) {
+            select.remove(i);
+        }
+    }
+    
+    // Crea los options
+    if( typeof data === 'object' ) {
+        
+        // Comprueba si existen terrenos asociados a la persona
+        if( Object.keys(data.terrenos).length > 0) {
+            const inputsHidden = document.querySelectorAll('.terrenos');
+
+            // Pasamos los ids a un array
+            ids = new Array;
+            if(inputsHidden.length > 0) {
+                inputsHidden.forEach( input => {
+                    ids.push(input.value);
+                });
+            }
+            // console.log(ids);
+
+            for( const [id, datos] of Object.entries(data.terrenos) ) {
+                const option = document.createElement('OPTION');
+                option.value = id;
+
+                if( datos.nombre != null) {
+                    option.textContent = `${datos.nombre}`;
+                }
+                if( datos.municipio != null ) {
+
+                    if(datos.nombre != null) {
+                        option.textContent += ", ";
+                    }
+                    option.textContent += `${datos.municipio}`;
+
+                }
+                if( datos.direccion != null ) {
+
+                    if(datos.municipio != null) {
+                        option.textContent += ", ";
+                    }
+                    option.textContent += `${datos.direccion}`;
+
+                }
+                
+                if(inputsHidden.length > 0 && ids.indexOf( id ) >= 0) {
+                    option.setAttribute('selected', 'selected');
+                }
+                
+                select.appendChild(option);
+            }
+        }
+    }
+}
+
+// function consultarTerrenos(dni) {
+//     var xhttp = new XMLHttpRequest();
+//     xhttp.onreadystatechange = function () {
+//         if(this.readyState == 4 && this.status == 200){
+//             var respuesta = JSON.parse(this.response);
+
+//             if(formEntrada){
+//                 const divTerreno = document.querySelector('#terreno');
+//                 const selectTerreno = document.querySelector('#entrada1_id_terreno');
+                
+//                 Object.values(respuesta).forEach(element => {
+//                     if(element != ""){
+//                         element.forEach(terrenos => {
+//                             // MOSTRAR TERRENOS FORMULARIO ENTRADA
+//                             array = Object.values(terrenos);
+
+//                             const option = document.createElement('OPTION');
+//                             option.value = array[0];
+//                             option.innerText = array[1];
+
+//                             selectTerreno.appendChild(option);
+
+//                             $(divTerreno).show();
+//                         });
+//                     }
+//                 });
+//             } else if(formEditEntrada) {
+//                 const divTerreno = document.querySelector('#terreno');
+//                 const selectTerreno = document.querySelector('#entrada1_id_terreno');
+                
+//                 arrayTerrenosDeLaPersona = Object.values(respuesta["arrayIdTerrenos"]);
+            
+//                 contador = 0;
+//                 Object.values(respuesta["terrenos"]).forEach(element => {
+//                     if(element != ""){
+//                         array = Object.values(element);
+
+//                         const option = document.createElement('OPTION');
+//                         option.value = array[0];
+//                         option.innerText = array[1];
+
+                        
+//                         if(array[0] == arrayTerrenosDeLaPersona[contador]){
+//                             option.selected = 1;
+//                             contador++;
+//                         }
+
+//                         selectTerreno.appendChild(option);
+
+//                         $(divTerreno).show();
+//                     }
+//                 });
+//             }
+//         }
+//     };
+
+//     if(formEntrada) {
+//         var params = 'dni=' + dni;
+//     } else if(formEditEntrada) {
+//         const patron = /(\d+)/g;
+//         const idEntrada = window.location.pathname.match(patron);
+//         var params = 'dni=' + dni + '&idEntrada=' + idEntrada;
+//     }
+    
+
+//     xhttp.open("POST", "/admin/terreno/getTerrenosPersona", true);
+//     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+//     xhttp.send(params);
+//     return false;
+// }
 
 function selectPersona(){
 

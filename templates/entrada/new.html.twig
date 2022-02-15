@@ -27,5 +27,27 @@
 <!-- ./wrapper -->
 
 {{ include('be-layout/js.html', sandboxed = true) }}
+<script>
+  $(document).ready(function() {
+    // Select Personas
+    $('.select-personas').select2({
+      language: 'es',
+      width: '100%',
+      placeholder: "Seleccione la persona",
+      allowClear: true,
+      tags: true,
+    });
+
+    // Select Terreno
+    $('.select-terrenos').select2({
+      theme: 'bootstrap4',
+      language: 'es',
+      width: '100%',
+      placeholder: "Seleccione los Terrenos",
+      allowClear: true,
+      tags: true,
+    });
+  });
+</script>
 <script type = "text/javascript" src ="{{ asset('/js/entrada.js') }}"></script>
 {% endblock %}

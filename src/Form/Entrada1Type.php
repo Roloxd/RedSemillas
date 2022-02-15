@@ -26,7 +26,7 @@ class Entrada1Type extends AbstractType
             ],
         ])
         ->add('observaciones')
-        //->add('id_terreno')
+        // ->add('persona')
         ;
     }
 

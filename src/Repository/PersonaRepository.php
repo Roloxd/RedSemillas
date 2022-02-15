@@ -56,7 +56,7 @@ class PersonaRepository extends ServiceEntityRepository
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQuery(
-            'SELECT p.nombre, p.apellidos, p.nif
+            'SELECT p.id, p.nombre, p.apellidos, p.nif
             FROM App\Entity\Persona p'
         );
 

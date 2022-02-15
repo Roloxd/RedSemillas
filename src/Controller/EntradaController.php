@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Entrada;
 use App\Entity\Envase;
+use App\Entity\Persona;
 use App\Entity\Terreno;
 use App\Form\Entrada1Type;
 use App\Repository\EntradaRepository;
@@ -43,11 +44,21 @@ class EntradaController extends AbstractController
 
             $datos = $request->request->get('entrada1');
 
-            if(!empty($datos['id_terreno'])){
-                foreach ($datos['id_terreno'] as $numTerreno){
+            // Añade la persona
+            if(!empty($datos['persona'])) {
+                $persona = $this->getDoctrine()
+                    ->getRepository(Persona::class)
+                    ->find( intval($datos['persona']) );
+
+                $entrada->addPersona($persona);
+            }
+
+            // Añade los terrenos
+            if(!empty($datos['terrenos'])){
+                foreach ($datos['terrenos'] as $terrenoId){
                     $terreno = $this->getDoctrine()
                         ->getRepository(Terreno::class)
-                        ->find($numTerreno);
+                        ->find( intval($terrenoId) );
 
                     $entrada->addIdTerreno($terreno);
                 }
@@ -145,18 +156,35 @@ class EntradaController extends AbstractController
         ]);
         $form->handleRequest($request);
 
+        dump($entrada->getPersona()->getValues());
+
         if ($form->isSubmitted()) {
             
             $datos = $request->request->get('entrada1');
 
-            if(!empty($datos['id_terreno'])){
+            // Añade la persona
+            if(!empty($datos['persona'])) {
+
+                // Eliminamos la persona anterior
+                $personas = $entrada->getPersona()->getValues();
+                $entrada->removePersona($personas[0]);
+
+                $persona = $this->getDoctrine()
+                    ->getRepository(Persona::class)
+                    ->find( intval($datos['persona']) );
+
+                $entrada->addPersona($persona);
+            }
+
+            // Añade el terreno
+            if(!empty($datos['terrenos'])){
                 
                 foreach($entrada->getIdTerreno()->getValues() as $terreno){
                     $arrayIdTerrenos[] = $terreno->getId();
                 }
 
                 $existe = false;
-                foreach ($datos['id_terreno'] as $numTerreno){
+                foreach ($datos['terrenos'] as $numTerreno){
                     $terrenosSeleccionados[] = $numTerreno;
 
                     foreach($arrayIdTerrenos as $idTerreno){
