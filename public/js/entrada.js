@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function iniciarForm() {
     eventListener(); // Eventos
     fechaActual();
-    consultarPersonas();
+    //consultarPersonas('entrada1_persona', 'persona', 'id'); // consultas.js
 }
 
 function eventListener() {
@@ -69,53 +69,6 @@ function fechaActual(){
     }
     
     document.querySelector("#entrada1_fecha_entrada").value = year + "-" + stringMes + "-" + stringDia;
-}
-
-function consultarPersonas(){
-    $.ajax({
-        url:'/admin/persona/findAll',
-        data: null,
-        type:"POST",
-        error:function(err){
-            console.error(err);
-        },
-        success:function(data) {
-            crearOptionPersona('entrada1_persona', data);
-        },
-        complete:function(){
-            //console.log("Solicitud finalizada.");
-        }
-    });
-}
-
-function crearOptionPersona(etiqueta, data) {
-    const selectVariedades = document.querySelector(`#${etiqueta}`);
-    const length = selectVariedades.options.length;
-
-    // Elimina option anteriores
-    if(length > 1) {
-        for(let i = length; i >= 1 ; i--) {
-            selectVariedades.remove(i);
-        }
-    }
-    
-    // Crea los options
-    if (typeof data === 'object') {
-        const inputHidden = document.querySelector('#persona');
-
-        for( persona of data.personas ) {
-            const option = document.createElement('OPTION');
-            option.value = persona.id;
-            option.textContent = `[${persona.nif}] ${persona.nombre} ${persona.apellidos}`;
-
-            if(inputHidden != null && inputHidden.value == persona.id) {
-                option.setAttribute('selected', 'selected');
-                obtenerTerrenos(null, persona.id);
-            }
-
-            selectVariedades.appendChild(option);
-        }
-    }
 }
 
 function obtenerTerrenos(e, personaId) {

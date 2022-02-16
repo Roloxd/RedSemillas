@@ -195,7 +195,12 @@ class Persona
     private $codigo_bic;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Entrada::class, mappedBy="persona")
+     * @ORM\OneToMany(targetEntity=PersonaTerreno::class, mappedBy="persona")
+     */
+    private $personaTerrenos;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Entrada::class, mappedBy="persona")
      */
     private $entradas;
 
@@ -203,6 +208,7 @@ class Persona
     {
         $this->terrenos = new ArrayCollection();
         $this->pagos = new ArrayCollection();
+        $this->personaTerrenos = new ArrayCollection();
         $this->entradas = new ArrayCollection();
     }
 
@@ -673,6 +679,36 @@ class Persona
     }
 
     /**
+     * @return Collection|PersonaTerreno[]
+     */
+    public function getPersonaTerrenos(): Collection
+    {
+        return $this->personaTerrenos;
+    }
+
+    public function addPersonaTerreno(PersonaTerreno $personaTerreno): self
+    {
+        if (!$this->personaTerrenos->contains($personaTerreno)) {
+            $this->personaTerrenos[] = $personaTerreno;
+            $personaTerreno->setPersona($this);
+        }
+
+        return $this;
+    }
+
+    public function removePersonaTerreno(PersonaTerreno $personaTerreno): self
+    {
+        if ($this->personaTerrenos->removeElement($personaTerreno)) {
+            // set the owning side to null (unless already changed)
+            if ($personaTerreno->getPersona() === $this) {
+                $personaTerreno->setPersona(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * @return Collection|Entrada[]
      */
     public function getEntradas(): Collection
@@ -684,7 +720,7 @@ class Persona
     {
         if (!$this->entradas->contains($entrada)) {
             $this->entradas[] = $entrada;
-            $entrada->addPersona($this);
+            $entrada->setPersona($this);
         }
 
         return $this;
@@ -693,7 +729,10 @@ class Persona
     public function removeEntrada(Entrada $entrada): self
     {
         if ($this->entradas->removeElement($entrada)) {
-            $entrada->removePersona($this);
+            // set the owning side to null (unless already changed)
+            if ($entrada->getPersona() === $this) {
+                $entrada->setPersona(null);
+            }
         }
 
         return $this;

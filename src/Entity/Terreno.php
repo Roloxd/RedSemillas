@@ -65,11 +65,6 @@ class Terreno
     private $observaciones;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Persona::class, inversedBy="terrenos")
-     */
-    private $id_persona;
-
-    /**
      * @ORM\ManyToMany(targetEntity=Entrada::class, mappedBy="id_terreno")
      */
     private $entradas;
@@ -104,9 +99,15 @@ class Terreno
      */
     private $persona_propietaria;
 
+    /**
+     * @ORM\OneToMany(targetEntity=PersonaTerreno::class, mappedBy="terreno")
+     */
+    private $personaTerrenos;
+
     public function __construct()
     {
         $this->entradas = new ArrayCollection();
+        $this->personaTerrenos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -222,18 +223,6 @@ class Terreno
         return $this;
     }
 
-    public function getIdPersona(): ?Persona
-    {
-        return $this->id_persona;
-    }
-
-    public function setIdPersona(?Persona $id_persona): self
-    {
-        $this->id_persona = $id_persona;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Entrada[]
      */
@@ -334,6 +323,36 @@ class Terreno
     public function setPersonaPropietaria(bool $persona_propietaria): self
     {
         $this->persona_propietaria = $persona_propietaria;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PersonaTerreno[]
+     */
+    public function getPersonaTerrenos(): Collection
+    {
+        return $this->personaTerrenos;
+    }
+
+    public function addPersonaTerreno(PersonaTerreno $personaTerreno): self
+    {
+        if (!$this->personaTerrenos->contains($personaTerreno)) {
+            $this->personaTerrenos[] = $personaTerreno;
+            $personaTerreno->setTerreno($this);
+        }
+
+        return $this;
+    }
+
+    public function removePersonaTerreno(PersonaTerreno $personaTerreno): self
+    {
+        if ($this->personaTerrenos->removeElement($personaTerreno)) {
+            // set the owning side to null (unless already changed)
+            if ($personaTerreno->getTerreno() === $this) {
+                $personaTerreno->setTerreno(null);
+            }
+        }
 
         return $this;
     }

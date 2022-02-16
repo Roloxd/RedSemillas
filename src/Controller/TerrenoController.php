@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Entrada;
 use App\Entity\Persona;
+use App\Entity\PersonaTerreno;
 use App\Entity\Terreno;
 use App\Form\Persona1Type;
 use App\Form\TerrenoType;
@@ -49,10 +50,41 @@ class TerrenoController extends AbstractController
             $entityManager->flush();
         }
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($terreno);
             $entityManager->flush();
+
+            $datos = $request->request->get('terreno');
+
+            // Agrega las Personas al Terreno
+            if(isset($datos['personas']) && !empty($datos['personas'])) {
+                $personas = $datos['personas'];
+                foreach( $personas as $personaSelect) {
+                    $persona = $this->getDoctrine()
+                        ->getRepository(Persona::class)
+                        ->find( intval($personaSelect) );
+                    
+                    $personaTerreno = new PersonaTerreno;
+                    $personaTerreno->setTerreno($terreno);
+                    $personaTerreno->setPersona($persona);
+
+                    // Asignamos si la Persona es propietaria
+                    if(isset($datos['propietarios']) && !empty($datos['propietarios'])) {
+                        $propietarios = $datos['propietarios'];
+
+                        if(in_array($personaSelect, $propietarios)) {
+                            $personaTerreno->setPropietario(true);
+                        } else {
+                            $personaTerreno->setPropietario(false);
+                        }
+                    }
+
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->persist($personaTerreno);
+                    $entityManager->flush();
+                }
+            }
 
             return $this->redirectToRoute('terreno_index', [], Response::HTTP_SEE_OTHER);
         }

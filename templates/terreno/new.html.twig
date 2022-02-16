@@ -28,6 +28,32 @@
 <!-- ./wrapper -->
 
 {{ include('be-layout/js.html', sandboxed = true) }}
+<script>
+  $(document).ready(function() {
+    // Select Personas
+    $('.select-personas').select2({
+      theme: 'bootstrap4',
+      language: 'es',
+      width: '100%',
+      placeholder: "Seleccione las personas",
+      allowClear: true,
+      tags: true,
+    });
+
+    // Select Terreno
+    $('.select-propietarios').select2({
+      theme: 'bootstrap4',
+      language: 'es',
+      width: '100%',
+      placeholder: "Seleccione los Terrenos",
+      allowClear: true,
+      tags: true,
+    });
+  });
+</script>
 
 <script type = "text/javascript" src ="{{ asset('/js/funciones.js') }}"></script>
+
+<script type = "text/javascript" src ="{{ asset('/js/consultas.js') }}"></script>
+<script type = "text/javascript" src ="{{ asset('/js/terreno.js') }}"></script>
 {% endblock %}

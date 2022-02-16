@@ -65,7 +65,7 @@ class Entrada
     private $num_envase;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Persona::class, inversedBy="entradas")
+     * @ORM\ManyToOne(targetEntity=Persona::class, inversedBy="entradas")
      */
     private $persona;
 
@@ -73,7 +73,6 @@ class Entrada
     {
         $this->id_terreno = new ArrayCollection();
         $this->num_envase = new ArrayCollection();
-        $this->persona = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -224,26 +223,14 @@ class Entrada
         return "ENT-" . $this->id;
     }
 
-    /**
-     * @return Collection|Persona[]
-     */
-    public function getPersona(): Collection
+    public function getPersona(): ?Persona
     {
         return $this->persona;
     }
 
-    public function addPersona(Persona $persona): self
+    public function setPersona(?Persona $persona): self
     {
-        if (!$this->persona->contains($persona)) {
-            $this->persona[] = $persona;
-        }
-
-        return $this;
-    }
-
-    public function removePersona(Persona $persona): self
-    {
-        $this->persona->removeElement($persona);
+        $this->persona = $persona;
 
         return $this;
     }

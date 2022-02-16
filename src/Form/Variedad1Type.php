@@ -24,6 +24,7 @@ class Variedad1Type extends AbstractType
                     'Semillero' => 'Semillero',
                     'Voleo' => 'Voleo',
                 ],
+                'required' => false,
             ])
             ->add('diasSemillero')
             ->add('descripcion', TextareaType::class, [
@@ -41,6 +42,7 @@ class Variedad1Type extends AbstractType
                     'Autógama' => 'Autógama',
                     'Mixta ' => 'Mixta ',
                 ],
+                'required' => false,
             ])
             ->add('caracterizacion')
             ->add('viabilidadMin')

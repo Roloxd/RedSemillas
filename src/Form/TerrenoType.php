@@ -21,7 +21,7 @@ class TerrenoType extends AbstractType
             ->add('manejo_cultivo')
             ->add('tipo_cultivos')
             ->add('observaciones')
-            ->add('id_persona')
+            //->add('id_persona')
             ->add('localidad')
             ->add('municipio')
             ->add('provincia')
