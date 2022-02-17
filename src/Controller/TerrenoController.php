@@ -112,7 +112,11 @@ class TerrenoController extends AbstractController
                 ->getRepository(Persona::class)
                 ->find( intval($personaId) );
         
-        $terrenos = $persona->getTerrenos()->getValues();
+        dump($persona);
+        //$terrenos = $persona->getTerrenos()->getValues();
+        
+        // Arreglar, no se obtienen los terrenos vinculados a la persona
+
 
         $args = [];
         if(!empty($terrenos)) {
@@ -197,8 +201,89 @@ class TerrenoController extends AbstractController
         $form = $this->createForm(TerrenoType::class, $terreno);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
+            
+            $datos = $request->request->get('terreno');
+            dump($datos);
+            
+            // Obtenemos los IDs de las personas relacionados con el Terreno
+            $personaTerrenos = $terreno->getPersonaTerrenos()->getValues();
+
+            foreach($personaTerrenos as $personaTerreno) {
+                $persona = $personaTerreno->getPersona();
+                $idPersona = strval( $persona->getId() );
+
+                if(isset($datos['personas']) && !empty($datos['personas'])) {
+
+                    // Elimina la persona desmarcada
+                    if( !in_array($idPersona, $datos['personas']) ) {
+                        $entityManager = $this->getDoctrine()->getManager();
+                        $entityManager->remove($personaTerreno);
+                        $entityManager->flush();
+                    } else {
+                        
+                        // Elimina el propietario desmarcado
+                        if(isset($datos['propietarios']) && !empty($datos['propietarios'])) {
+                            if( !in_array($idPersona, $datos['propietarios']) )  {
+                                $personaTerreno->setPropietario(false);
+                            } else {
+                                $personaTerreno->setPropietario(true);
+                            }
+
+                        } else if(!isset($datos['propietarios'])) {
+                            $personaTerreno->setPropietario(false);
+                        }
+
+                        $entityManager = $this->getDoctrine()->getManager();
+                        $entityManager->persist($personaTerreno);
+                        $entityManager->flush();
+
+                    }
+
+                }
+            }
+
             $this->getDoctrine()->getManager()->flush();
+
+            // Obtener Personas relacionadas con el Terreno
+            $personaTerrenos = $terreno->getPersonaTerrenos()->getValues();
+            $idPersonas = [];
+            foreach($personaTerrenos as $personaTerreno) {
+                $persona = $personaTerreno->getPersona();
+                $idPersonas[] = strval( $persona->getId() );
+
+            }
+            
+            // Agrega las Personas al Terreno
+            if(isset($datos['personas']) && !empty($datos['personas'])) {
+                $personas = $datos['personas'];
+                foreach( $personas as $personaSelect) {
+                    if( !in_array($personaSelect, $idPersonas) ) { // Si no existe relacion, la crea
+                        $persona = $this->getDoctrine()
+                            ->getRepository(Persona::class)
+                            ->find( intval($personaSelect) );
+                        
+                        $personaTerreno = new PersonaTerreno;
+                        $personaTerreno->setTerreno($terreno);
+                        $personaTerreno->setPersona($persona);
+
+                        // Asignamos si la Persona es propietaria
+                        if(isset($datos['propietarios']) && !empty($datos['propietarios'])) {
+                            $propietarios = $datos['propietarios'];
+
+                            if(in_array($personaSelect, $propietarios)) {
+                                $personaTerreno->setPropietario(true);
+                            } else {
+                                $personaTerreno->setPropietario(false);
+                            }
+                        }
+
+                        $entityManager = $this->getDoctrine()->getManager();
+                        $entityManager->persist($personaTerreno);
+                        $entityManager->flush();
+                    }
+                }
+            }
 
             return $this->redirectToRoute('terreno_index', [], Response::HTTP_SEE_OTHER);
         }

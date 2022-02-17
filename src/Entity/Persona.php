@@ -155,11 +155,6 @@ class Persona
     private $observaciones;
 
     /**
-     * @ORM\OneToMany(targetEntity=Terreno::class, mappedBy="id_persona")
-     */
-    private $terrenos;
-
-    /**
      * @ORM\OneToOne(targetEntity=Donante::class, inversedBy="persona")
      */
     private $donante;
@@ -206,7 +201,6 @@ class Persona
 
     public function __construct()
     {
-        $this->terrenos = new ArrayCollection();
         $this->pagos = new ArrayCollection();
         $this->personaTerrenos = new ArrayCollection();
         $this->entradas = new ArrayCollection();
@@ -537,36 +531,6 @@ class Persona
     public function setObservaciones(?string $observaciones): self
     {
         $this->observaciones = $observaciones;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Terreno[]
-     */
-    public function getTerrenos(): Collection
-    {
-        return $this->terrenos;
-    }
-
-    public function addTerreno(Terreno $terreno): self
-    {
-        if (!$this->terrenos->contains($terreno)) {
-            $this->terrenos[] = $terreno;
-            $terreno->setIdPersona($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTerreno(Terreno $terreno): self
-    {
-        if ($this->terrenos->removeElement($terreno)) {
-            // set the owning side to null (unless already changed)
-            if ($terreno->getIdPersona() === $this) {
-                $terreno->setIdPersona(null);
-            }
-        }
 
         return $this;
     }

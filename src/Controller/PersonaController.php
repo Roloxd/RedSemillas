@@ -25,39 +25,8 @@ class PersonaController extends AbstractController
      */
     public function index(PersonaRepository $personaRepository): Response
     {
-        $personas = $personaRepository->findAll();
-
-        // Obtenemos los Terrenos de la Persona
-        foreach( $personas as $persona ) {
-            $terrenos = $persona->getTerrenos()->getValues();
-            
-            if(!empty($terrenos)) {
-                foreach( $terrenos as $terreno ) {
-                    $nombreTerreno = $terreno->getNombre();
-                    $direccionTerreno = $terreno->getDireccion();
-                    $localidadTerreno = $terreno->getLocalidad();
-
-                    $texto = "";
-                    if(!empty($nombreTerreno)) {
-                        $texto .= $nombreTerreno;
-                    }
-                    if(!empty($direccionTerreno)) {
-                        $texto .= " | Dirección: " . $direccionTerreno;
-                    }
-                    if(!empty($localidadTerreno)) {
-                        $texto .= ", " . $localidadTerreno;
-                    }
-
-                    $arrayTerrenos[$persona->getId()][$terreno->getId()] = $texto;
-                }
-            } else {
-                $arrayTerrenos[$persona->getId()] = null;
-            }
-        }
-
         return $this->render('persona/index.html.twig', [
-            'personas' => $personas,
-            'terrenos' => $arrayTerrenos,
+            'personas' => $personaRepository->findAll(),
         ]);
     }
 
@@ -220,6 +189,22 @@ class PersonaController extends AbstractController
             'pagado' => $pagado,
             'form' => $form,
             'text_form' => $text,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/mostrar", name="persona_mostrar", methods={"GET"})
+     */
+    public function mostrar(Request $request): Response
+    {
+        $id = $request->attributes->get('id');
+
+        $personas[] = $this->getDoctrine()
+            ->getRepository(Persona::class)
+            ->find($id);
+
+        return $this->render('persona/index.html.twig', [
+            'personas' => $personas,
         ]);
     }
 

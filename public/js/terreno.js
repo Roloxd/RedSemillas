@@ -4,12 +4,21 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function iniciarForm() {
-    consultarPersonas('terreno_personas', 'personas', 'class'); // Retona las Persona y las inserta como Options en el Select
+
+    const pagina = document.querySelector('#titulo-pagina');
+    if(pagina.textContent === "Editar Terreno") {
+        consultarPersonas('terreno_personas', 'personas', 'class'); // Retona las Persona y las inserta como Options en el Select
+
+    } else if (pagina.textContent === "Nuevo Terreno") {
+        consultarPersonas('terreno_personas', 'personas');
+    }
+    
     eventListener(); // Eventos
 }
 
 function eventListener() {
     $('.select-personas').on('change', obtenerSeleccionados);
+    
 }
 
 function obtenerSeleccionados(e) {
@@ -25,7 +34,7 @@ function obtenerSeleccionados(e) {
 
     //Crear option
     const options = e.target.selectedOptions;
-
+    
     for( const [key, elemento] of Object.entries(options) ) {
         const option = document.createElement('OPTION');
         option.value = elemento.value;
@@ -35,3 +44,26 @@ function obtenerSeleccionados(e) {
     }
 }
 
+function crearOption(id, textContent) { // consulta.js
+    const option = document.createElement('OPTION');
+    option.value = id;
+    option.textContent = textContent;
+
+    // Seleccionar propietarios
+    const personasSelect = document.querySelectorAll('.personasSelect');
+
+    // Pasamos los ids a un array
+    let ids = new Array;
+    if(personasSelect.length > 0) {
+        personasSelect.forEach( input => {
+            ids.push( parseInt(input.value) );
+        });
+
+        if(ids.indexOf( id ) >= 0) {
+            option.setAttribute('selected', 'selected');
+        }
+    }
+
+    const select = document.querySelector('#terreno_propietarios');
+    select.appendChild(option);
+}

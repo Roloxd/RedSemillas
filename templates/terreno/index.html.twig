@@ -63,6 +63,7 @@
                             <th>Region</th>
                             <th>Pais Origen</th>
                             <th>Datos_sigpac</th>
+                            <th>Propietario</th>
                             <th>Localizacion_mapa</th>
                             <th>Superficie_finca</th>
                             <th>Superficie_cultivo</th>
@@ -90,6 +91,16 @@
                 <td>{{ terreno.region }}</td>
                 <td>{{ terreno.paisOrigen }}</td>
                 <td>{{ terreno.datosSigpac }}</td>
+                <td>
+                  {% set personaTerrenos = terreno.personaTerrenos.getValues %}
+                  <div class="d-flex flex-column">
+                    {% for personaTerreno in personaTerrenos %}
+                      {% if personaTerreno.propietario == true %}
+                        <a href="{{ path('persona_mostrar', {'id' : personaTerreno.persona.id}) }}">{{ personaTerreno.persona.nombre }} {{ personaTerreno.persona.apellidos }}</a>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                </td>
                 <td>{{ terreno.localizacionMapa }}</td>
                 <td>{{ terreno.superficieFinca }}</td>
                 <td>{{ terreno.superficieCultivo }}</td>
@@ -121,6 +132,7 @@
                         <th>Region</th>
                         <th>Pais Origen</th>
                         <th>Datos_sigpac</th>
+                        <th>Propietario</th>
                         <th>Localizacion_mapa</th>
                         <th>Superficie_finca</th>
                         <th>Superficie_cultivo</th>

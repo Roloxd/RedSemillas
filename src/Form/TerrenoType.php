@@ -27,7 +27,7 @@ class TerrenoType extends AbstractType
             ->add('provincia')
             ->add('region')
             ->add('pais_origen')
-            ->add('persona_propietaria')
+            // ->add('persona_propietaria')
         ;
     }
 

@@ -13,16 +13,12 @@ document.addEventListener('DOMContentLoaded', function() {
     if(formEntrada){
         iniciarForm();
     }
-
-//     if(formEditEntrada){
-//         selectPersona();     
-//     }
 });
 
 function iniciarForm() {
     eventListener(); // Eventos
     fechaActual();
-    //consultarPersonas('entrada1_persona', 'persona', 'id'); // consultas.js
+    consultarPersonas('entrada1_persona', 'persona', 'id'); // consultas.js
 }
 
 function eventListener() {

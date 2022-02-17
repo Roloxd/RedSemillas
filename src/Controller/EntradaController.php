@@ -156,8 +156,6 @@ class EntradaController extends AbstractController
         ]);
         $form->handleRequest($request);
 
-        dump($entrada->getPersona()->getValues());
-
         if ($form->isSubmitted()) {
             
             $datos = $request->request->get('entrada1');

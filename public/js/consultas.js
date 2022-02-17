@@ -1,4 +1,4 @@
-function consultarPersonas(etiqueta, etiquetaHidden, atributo){
+function consultarPersonas(etiqueta, etiquetaHidden, atributo = false){
     $.ajax({
         url:'/admin/persona/findAll',
         data: null,
@@ -15,7 +15,7 @@ function consultarPersonas(etiqueta, etiquetaHidden, atributo){
     });
 }
 
-function crearOptionPersona(etiqueta, data, etiquetaHidden, atributo) {
+function crearOptionPersona(etiqueta, data, etiquetaHidden, atributo = false) {
     const selectVariedades = document.querySelector(`#${etiqueta}`);
     const length = selectVariedades.options.length;
 
@@ -36,13 +36,12 @@ function crearOptionPersona(etiqueta, data, etiquetaHidden, atributo) {
             ids = new Array;
             if(inputsHidden.length > 0) {
                 inputsHidden.forEach( input => {
-                    ids.push(input.value);
+                    ids.push( parseInt(input.value) );
                 });
             }
-        } else if(atributo === "id"){
-            const inputHidden = document.querySelector(`#${etiquetaHidden}`);
+        } else {
+            var inputsHidden = document.querySelector(`#${etiquetaHidden}`);
         }
-        
 
         for( persona of data.personas ) {
             const option = document.createElement('OPTION');
@@ -50,19 +49,17 @@ function crearOptionPersona(etiqueta, data, etiquetaHidden, atributo) {
             option.textContent = `[${persona.nif}] ${persona.nombre} ${persona.apellidos}`;
 
             if(atributo == "class") {
-                if(inputsHidden.length > 0 && ids.indexOf( id ) >= 0) {
+                if(ids.indexOf( persona.id ) >= 0) {
                     option.setAttribute('selected', 'selected');
+                    crearOption(persona.id, option.textContent);
                 }
             } else if(atributo === "id") {
-                if(inputHidden != null && inputHidden.value == persona.id) {
-                    option.setAttribute('selected', 'selected');
-
-                    try {
-                        obtenerTerrenos(null, persona.id);
-                    } catch (error) {
-                        console.log(error);
+                if(inputsHidden != null) {
+                    if(inputHidden.value == persona.id) {
+                        option.setAttribute('selected', 'selected');
                     }
-                    
+    
+                    obtenerTerrenos(null, persona.id);
                 }
             }
 

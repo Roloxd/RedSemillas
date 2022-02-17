@@ -124,15 +124,13 @@
                         <td>{{ persona.relacionAgricultura }}</td>
                         {# <td>{{ persona.terrenoCultivo ? 'Yes' : 'No' }}</td> #}
                         <td>
-                          {% if terrenos[persona.id] is empty %}
-                            No
-                          {% else %}
-                            <div class="d-flex flex-column">
-                              {% for key, terreno in terrenos[persona.id] %}
-                                <a href="{{ path('terreno_mostrar', {'id' : key}) }}">{{ terreno }}</a>
-                              {% endfor %}
-                            </div>
-                          {% endif %}
+                          {% set personaTerrenos = persona.personaTerrenos.getValues %}
+                          <div class="d-flex flex-column">
+                            {% for personaTerreno in personaTerrenos %}
+                              {% set terreno = personaTerreno.terreno %}
+                              <a href="{{ path('terreno_mostrar', {'id' : terreno.id}) }}">Nombre: {{ terreno.nombre }} | Dirección: {{ terreno.direccion }} | Localidad: {{ terreno.localidad }}</a>
+                            {% endfor %}
+                          </div>
                         </td>
                         <td>{{ persona.inscripcionRope ? 'Yes' : 'No' }}</td>
                         <td>{{ persona.codigoRope }}</td>
