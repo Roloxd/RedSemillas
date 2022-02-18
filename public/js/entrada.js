@@ -67,12 +67,12 @@ function fechaActual(){
     document.querySelector("#entrada1_fecha_entrada").value = year + "-" + stringMes + "-" + stringDia;
 }
 
-function obtenerTerrenos(e, personaId) {
-    
+function obtenerTerrenos(e, idPersona) {
+    let id = null;
     if(e != null) {
         id = e.params.data.id;
-    } else if(personaId != null) {
-        id = personaId;
+    } else if (idPersona != null){
+        id = idPersona;
     }
 
     $.ajax({
@@ -142,7 +142,7 @@ function crearOptionTerreno(etiqueta, data) {
 
                 }
                 
-                if(inputsHidden.length > 0 && ids.indexOf( id ) >= 0) {
+                if(inputsHidden.length >= 0 && ids.indexOf( id ) >= 0) {
                     option.setAttribute('selected', 'selected');
                 }
                 

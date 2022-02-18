@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Instituciones{% endblock %}
+
+{% block body %}
+    <h1>Instituciones</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>INSTCODE</th>
+                <td>{{ institucione.INSTCODE }}</td>
+            </tr>
+            <tr>
+                <th>ACRONYM</th>
+                <td>{{ institucione.ACRONYM }}</td>
+            </tr>
+            <tr>
+                <th>OBSERVACIONES</th>
+                <td>{{ institucione.OBSERVACIONES }}</td>
+            </tr>
+            <tr>
+                <th>FULL_NAME</th>
+                <td>{{ institucione.FULLNAME }}</td>
+            </tr>
+            <tr>
+                <th>TYPE</th>
+                <td>{{ institucione.TYPE }}</td>
+            </tr>
+            <tr>
+                <th>STREET_POB</th>
+                <td>{{ institucione.STREETPOB }}</td>
+            </tr>
+            <tr>
+                <th>CITY_STATE</th>
+                <td>{{ institucione.CITYSTATE }}</td>
+            </tr>
+            <tr>
+                <th>ZIP_CODE</th>
+                <td>{{ institucione.ZIPCODE }}</td>
+            </tr>
+            <tr>
+                <th>PHONE</th>
+                <td>{{ institucione.PHONE }}</td>
+            </tr>
+            <tr>
+                <th>FAX</th>
+                <td>{{ institucione.FAX }}</td>
+            </tr>
+            <tr>
+                <th>EMAIL</th>
+                <td>{{ institucione.EMAIL }}</td>
+            </tr>
+            <tr>
+                <th>URL</th>
+                <td>{{ institucione.URL }}</td>
+            </tr>
+            <tr>
+                <th>LATITUDE</th>
+                <td>{{ institucione.LATITUDE }}</td>
+            </tr>
+            <tr>
+                <th>LONGITUDE</th>
+                <td>{{ institucione.LONGITUDE }}</td>
+            </tr>
+            <tr>
+                <th>UPDATED_ON</th>
+                <td>{{ institucione.UPDATEDON }}</td>
+            </tr>
+            <tr>
+                <th>V_INSTCODE</th>
+                <td>{{ institucione.VINSTCODE }}</td>
+            </tr>
+            <tr>
+                <th>ISO3</th>
+                <td>{{ institucione.ISO3 }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('instituciones_index') }}">back to list</a>
+
+    <a href="{{ path('instituciones_edit', {'INSTCODE': institucione.INSTCODE}) }}">edit</a>
+
+    {{ include('instituciones/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Instituciones index{% endblock %}
+
+{% block body %}
+    <h1>Instituciones index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>INSTCODE</th>
+                <th>ACRONYM</th>
+                <th>OBSERVACIONES</th>
+                <th>FULL_NAME</th>
+                <th>TYPE</th>
+                <th>STREET_POB</th>
+                <th>CITY_STATE</th>
+                <th>ZIP_CODE</th>
+                <th>PHONE</th>
+                <th>FAX</th>
+                <th>EMAIL</th>
+                <th>URL</th>
+                <th>LATITUDE</th>
+                <th>LONGITUDE</th>
+                <th>UPDATED_ON</th>
+                <th>V_INSTCODE</th>
+                <th>ISO3</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for institucione in instituciones %}
+            <tr>
+                <td>{{ institucione.INSTCODE }}</td>
+                <td>{{ institucione.ACRONYM }}</td>
+                <td>{{ institucione.OBSERVACIONES }}</td>
+                <td>{{ institucione.FULLNAME }}</td>
+                <td>{{ institucione.TYPE }}</td>
+                <td>{{ institucione.STREETPOB }}</td>
+                <td>{{ institucione.CITYSTATE }}</td>
+                <td>{{ institucione.ZIPCODE }}</td>
+                <td>{{ institucione.PHONE }}</td>
+                <td>{{ institucione.FAX }}</td>
+                <td>{{ institucione.EMAIL }}</td>
+                <td>{{ institucione.URL }}</td>
+                <td>{{ institucione.LATITUDE }}</td>
+                <td>{{ institucione.LONGITUDE }}</td>
+                <td>{{ institucione.UPDATEDON }}</td>
+                <td>{{ institucione.VINSTCODE }}</td>
+                <td>{{ institucione.ISO3 }}</td>
+                <td>
+                    <a href="{{ path('instituciones_show', {'INSTCODE': institucione.INSTCODE}) }}">show</a>
+                    <a href="{{ path('instituciones_edit', {'INSTCODE': institucione.INSTCODE}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="18">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('instituciones_new') }}">Create new</a>
+{% endblock %}

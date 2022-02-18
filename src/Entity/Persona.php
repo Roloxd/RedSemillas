@@ -537,7 +537,7 @@ class Persona
 
     public function __toString()
     {
-        return $this->getNombre();
+        return $this->getNombre() . " " . $this->getApellidos();
     }
 
     public function getDonante(): ?Donante

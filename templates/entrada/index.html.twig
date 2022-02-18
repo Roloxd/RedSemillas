@@ -84,7 +84,11 @@
                 <td>{{ entrada.cantidad }}</td>
                 <td>{{ entrada.fechaEntrada ? entrada.fechaEntrada|date('Y-m-d') : '' }}</td>
                 <td>{{ entrada.tipoEntrada }}</td>
-                <td>{#{{ dump( entrada.persona.getValues )}}#}</td> {# Falta añadir Persona a la vista #}
+                <td>
+                  {% if entrada.persona is not empty %}
+                    <a href="{{ path('persona_mostrar', {'id' : entrada.persona.id}) }}">{{ entrada.persona }}</a>
+                  {% endif %}
+                </td>
                 <td>{{ entrada.observaciones }}</td>
                 <td>
                   <div class="btn-group-vertical w-100">

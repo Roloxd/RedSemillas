@@ -112,20 +112,20 @@ class TerrenoController extends AbstractController
                 ->getRepository(Persona::class)
                 ->find( intval($personaId) );
         
-        dump($persona);
-        //$terrenos = $persona->getTerrenos()->getValues();
-        
-        // Arreglar, no se obtienen los terrenos vinculados a la persona
-
+        $personaTerrenos = $persona->getPersonaTerrenos()->getValues();
 
         $args = [];
-        if(!empty($terrenos)) {
-            foreach($terrenos as $terreno) {
+        if(!empty($personaTerrenos)) {
+            foreach($personaTerrenos as $personaTerreno) {
+
+                $terreno = $personaTerreno->getTerreno();
+
                 $terrenoId = $terreno->getId();
                 $nombre = $terreno->getNombre();
                 $municipio = $terreno->getMunicipio();
                 $direccion = $terreno->getDireccion();
 
+                
                 $args[$terrenoId] = [
                     'nombre' => $nombre,
                     'municipio' => $municipio,
@@ -133,30 +133,6 @@ class TerrenoController extends AbstractController
                 ];
             }
         }
-
-        // if(!empty($idPersona)){
-        //     $terrenos = $this->getDoctrine()
-        //         ->getRepository(Terreno::class)
-        //         ->findTerrenosPersona($idPersona[0]['id']);
-
-        //     if(empty($terrenos)){
-        //         $terrenos = "";
-        //     }
-        // } else {
-        //     $terrenos = "";
-        // }
-
-        // if(!empty($idEntrada)){
-        //     $entrada = $this->getDoctrine()
-        //         ->getRepository(Entrada::class)
-        //         ->find($idEntrada);
-
-        //     foreach($entrada->getIdTerreno()->getValues() as $terreno){
-        //         $arrayIdTerrenos[] = $terreno->getId();
-        //     }
-        // } else {
-        //     $arrayIdTerrenos = "";
-        // }
 
         $response = new Response();
         $response->setContent(json_encode([

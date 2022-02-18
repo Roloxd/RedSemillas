@@ -96,21 +96,21 @@
                         <option></option>
                     </select>
 
-                    {# {% set personas = entrada.persona.getValues %}
-                    {% if personas is not empty %}
-                      <input id="persona" type="hidden" value="{{ personas[0].id }}"></input>
-                    {% endif %} #}
+                    {% set persona = entrada.persona %}
+                    {% if persona is not empty %}
+                      <input id="persona" type="hidden" value="{{ persona.id }}"></input>
+                    {% endif %}
                   </div>
                   <div id="terreno" class="form-group">
                     <label for="entrada1_id_terreno">Terrenos donde provienen las semillas: </label>
                     <select id="entrada1_id_terreno" class="form-control select-terrenos" name="entrada1[terrenos][]" multiple></select>
 
-                    {# {% set terrenos = entrada.terrenos.getValues %}
+                    {% set terrenos = entrada.terrenos.getValues %}
                     {% if terrenos is not empty %}
                       {% for terreno in terrenos %}
                         <input class="terrenos" type="hidden" value="{{ terreno.id }}"></input>
                       {% endfor %}
-                    {% endif %} #}
+                    {% endif %}
                   </div>
                 </div>
                 

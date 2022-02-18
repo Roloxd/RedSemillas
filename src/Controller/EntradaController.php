@@ -50,7 +50,7 @@ class EntradaController extends AbstractController
                     ->getRepository(Persona::class)
                     ->find( intval($datos['persona']) );
 
-                $entrada->addPersona($persona);
+                $entrada->setPersona($persona);
             }
 
             // Añade los terrenos
@@ -159,57 +159,60 @@ class EntradaController extends AbstractController
         if ($form->isSubmitted()) {
             
             $datos = $request->request->get('entrada1');
+            $terrenos = $entrada->getTerrenos()->getValues();
 
-            // Añade la persona
-            if(!empty($datos['persona'])) {
+            if(isset($datos['persona']) && !empty($datos['persona'])) {
+                $persona = intval($datos['persona']);
+                $entradaPersona = $entrada->getPersona();
+                
+                // Comproba si es una Persona asignada es distinta a la Persona relacionada
+                if($persona != $entradaPersona->getId()) {
+                    // Añade la persona
+                    $persona = $this->getDoctrine()
+                        ->getRepository(Persona::class)
+                        ->find( intval($datos['persona']) );
 
-                // Eliminamos la persona anterior
-                $personas = $entrada->getPersona()->getValues();
-                $entrada->removePersona($personas[0]);
+                    $entrada->setPersona($persona);
 
-                $persona = $this->getDoctrine()
-                    ->getRepository(Persona::class)
-                    ->find( intval($datos['persona']) );
-
-                $entrada->addPersona($persona);
+                    // Eliminamos los terrenos asociados
+                    foreach($terrenos as $terreno) {
+                        $entrada->removeIdTerreno($terreno);
+                    }
+                }
             }
 
-            // Añade el terreno
-            if(!empty($datos['terrenos'])){
-                
-                foreach($entrada->getIdTerreno()->getValues() as $terreno){
-                    $arrayIdTerrenos[] = $terreno->getId();
+            // Obtener Terrenos relacionados con la Entrada
+            $idTerreno = [];
+
+            if(isset($datos['terrenos']) && !empty($datos['terrenos'])) {
+                $fromTerrenos = $datos['terrenos'];
+
+                foreach($terrenos as $terreno) {
+                    $idTerrenos[] = strval( $terreno->getId() );
+
+                    // Elimina el terreno desmarcado
+                    if( !in_array( strval( $terreno->getId() ), $fromTerrenos) ){
+                        $entrada->removeIdTerreno($terreno);
+                    }
                 }
 
-                $existe = false;
-                foreach ($datos['terrenos'] as $numTerreno){
-                    $terrenosSeleccionados[] = $numTerreno;
+                foreach($fromTerrenos as $fromTerreno) {
 
-                    foreach($arrayIdTerrenos as $idTerreno){
-                        if($numTerreno == $idTerreno){
-                            $existe = true;
-                        }
-                    }
+                    // Comprueba que no exista relacion
+                    if( empty($idTerrenos) || !in_array($fromTerreno, $idTerrenos) ) {
 
-                    if(!$existe){
+                        // Añade el terreno
                         $terreno = $this->getDoctrine()
                             ->getRepository(Terreno::class)
-                            ->find($numTerreno);
+                            ->find( intval($fromTerreno) );
 
                         $entrada->addIdTerreno($terreno);
                     }
                 }
-
-                foreach($arrayIdTerrenos as $terrenoID){
-                    $terrenoDeseleccionado = array_search($terrenoID, $terrenosSeleccionados);
-                    
-                    if($terrenoDeseleccionado === false){
-                        $terreno = $this->getDoctrine()
-                            ->getRepository(Terreno::class)
-                            ->find($terrenoID);
-
-                        $entrada->removeIdTerreno($terreno);
-                    }
+            } else {
+                // Eliminamos los terrenos asociados
+                foreach($terrenos as $terreno) {
+                    $entrada->removeIdTerreno($terreno);
                 }
             }
 

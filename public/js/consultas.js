@@ -55,11 +55,10 @@ function crearOptionPersona(etiqueta, data, etiquetaHidden, atributo = false) {
                 }
             } else if(atributo === "id") {
                 if(inputsHidden != null) {
-                    if(inputHidden.value == persona.id) {
+                    if(inputsHidden.value == persona.id) {
                         option.setAttribute('selected', 'selected');
+                        obtenerTerrenos(null, persona.id);
                     }
-    
-                    obtenerTerrenos(null, persona.id);
                 }
             }
 
