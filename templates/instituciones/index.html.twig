@@ -1,65 +1,199 @@
-{% extends 'base.html.twig' %}
+{% extends 'backend-base.html.twig' %}
 
-{% block title %}Instituciones index{% endblock %}
+{% block title %}Instituciones{% endblock %}
+
+{% block stylesheets %}
+      {{ include('be-layout/stylesheet-tabla.html', sandboxed = true) }}
+{% endblock %}
 
 {% block body %}
-    <h1>Instituciones index</h1>
+<div class="wrapper">
+ {{ include('be-layout/preloader.html', sandboxed = true) }}
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>INSTCODE</th>
-                <th>ACRONYM</th>
-                <th>OBSERVACIONES</th>
-                <th>FULL_NAME</th>
-                <th>TYPE</th>
-                <th>STREET_POB</th>
-                <th>CITY_STATE</th>
-                <th>ZIP_CODE</th>
-                <th>PHONE</th>
-                <th>FAX</th>
-                <th>EMAIL</th>
-                <th>URL</th>
-                <th>LATITUDE</th>
-                <th>LONGITUDE</th>
-                <th>UPDATED_ON</th>
-                <th>V_INSTCODE</th>
-                <th>ISO3</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for institucione in instituciones %}
-            <tr>
-                <td>{{ institucione.INSTCODE }}</td>
-                <td>{{ institucione.ACRONYM }}</td>
-                <td>{{ institucione.OBSERVACIONES }}</td>
-                <td>{{ institucione.FULLNAME }}</td>
-                <td>{{ institucione.TYPE }}</td>
-                <td>{{ institucione.STREETPOB }}</td>
-                <td>{{ institucione.CITYSTATE }}</td>
-                <td>{{ institucione.ZIPCODE }}</td>
-                <td>{{ institucione.PHONE }}</td>
-                <td>{{ institucione.FAX }}</td>
-                <td>{{ institucione.EMAIL }}</td>
-                <td>{{ institucione.URL }}</td>
-                <td>{{ institucione.LATITUDE }}</td>
-                <td>{{ institucione.LONGITUDE }}</td>
-                <td>{{ institucione.UPDATEDON }}</td>
-                <td>{{ institucione.VINSTCODE }}</td>
-                <td>{{ institucione.ISO3 }}</td>
-                <td>
-                    <a href="{{ path('instituciones_show', {'INSTCODE': institucione.INSTCODE}) }}">show</a>
-                    <a href="{{ path('instituciones_edit', {'INSTCODE': institucione.INSTCODE}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="18">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+  {{ include('be-layout/navbar.html', sandboxed = true) }}
+  
+  {{ include('be-layout/sidebar.html', sandboxed = true) }}
 
-    <a href="{{ path('instituciones_new') }}">Create new</a>
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Instituciones</h1>
+        </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Instituciones</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        {# <div class="card-header">
+                            <h3 class="card-title">Tabla</h3>
+                        </div> #}
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Acciones</th>
+                                        <th>INSTCODE</th>
+                                        <th>ACRONYM</th>
+                                        <th>OBSERVACIONES</th>
+                                        <th>FULL_NAME</th>
+                                        <th>TYPE</th>
+                                        <th>STREET_POB</th>
+                                        <th>CITY_STATE</th>
+                                        <th>ZIP_CODE</th>
+                                        <th>PHONE</th>
+                                        <th>FAX</th>
+                                        <th>EMAIL</th>
+                                        <th>URL</th>
+                                        <th>LATITUDE</th>
+                                        <th>LONGITUDE</th>
+                                        <th>UPDATED_ON</th>
+                                        <th>V_INSTCODE</th>
+                                        <th>ISO3</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for institucione in instituciones %}
+                                    <tr>
+                                        <td>
+                                            <div class="btn-group-vertical w-100">
+                                                <a href="{{ path('instituciones_edit', {'INSTCODE': institucione.INSTCODE}) }}">Editar</a>
+                                            </div>
+                                        </td>
+                                        <td>{{ institucione.INSTCODE }}</td>
+                                        <td>{{ institucione.ACRONYM }}</td>
+                                        <td>{{ institucione.OBSERVACIONES }}</td>
+                                        <td>{{ institucione.FULLNAME }}</td>
+                                        <td>{{ institucione.TYPE }}</td>
+                                        <td>{{ institucione.STREETPOB }}</td>
+                                        <td>{{ institucione.CITYSTATE }}</td>
+                                        <td>{{ institucione.ZIPCODE }}</td>
+                                        <td>{{ institucione.PHONE }}</td>
+                                        <td>{{ institucione.FAX }}</td>
+                                        <td>{{ institucione.EMAIL }}</td>
+                                        <td>{{ institucione.URL }}</td>
+                                        <td>{{ institucione.LATITUDE }}</td>
+                                        <td>{{ institucione.LONGITUDE }}</td>
+                                        <td>{{ institucione.UPDATEDON }}</td>
+                                        <td>{{ institucione.VINSTCODE }}</td>
+                                        <td>{{ institucione.ISO3 }}</td>
+                                        <td>
+                                            <div class="btn-group-vertical w-100">
+                                                <a href="{{ path('instituciones_edit', {'INSTCODE': institucione.INSTCODE}) }}">Editar</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% else %}
+                                    <tr>
+                                        <td colspan="18">Sin datos</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Acciones</th>
+                                        <th>INSTCODE</th>
+                                        <th>ACRONYM</th>
+                                        <th>OBSERVACIONES</th>
+                                        <th>FULL_NAME</th>
+                                        <th>TYPE</th>
+                                        <th>STREET_POB</th>
+                                        <th>CITY_STATE</th>
+                                        <th>ZIP_CODE</th>
+                                        <th>PHONE</th>
+                                        <th>FAX</th>
+                                        <th>EMAIL</th>
+                                        <th>URL</th>
+                                        <th>LATITUDE</th>
+                                        <th>LONGITUDE</th>
+                                        <th>UPDATED_ON</th>
+                                        <th>V_INSTCODE</th>
+                                        <th>ISO3</th>
+                                        <th>Acciones</th>
+                                    </tr>  
+                                </tfoot>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+{{ include('be-layout/footer.html', sandboxed = true) }}
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+<!-- Control sidebar content goes here -->
+</aside>
+
+<!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<!-- DataTables  & Plugins -->
+<script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('plugins/jszip/jszip.min.js') }}"></script>
+<script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script>
+<script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+<!-- AdminLTE App -->
+<script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{{ asset('dist/js/demo.js') }}"></script>
+<!-- Page specific script -->
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+      "order": [[ 1, "asc" ]]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+
 {% endblock %}
