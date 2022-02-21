@@ -42,9 +42,12 @@ class DonanteController extends AbstractController
             return $this->redirectToRoute('donante_index', [], Response::HTTP_SEE_OTHER);
         }
 
+        $text_form = "Nuevo Donante/Recolector";
+
         return $this->renderForm('donante/new.html.twig', [
             'donante' => $donante,
             'form' => $form,
+            'text_form' => $text_form,
         ]);
     }
 
@@ -100,14 +103,17 @@ class DonanteController extends AbstractController
             return $this->redirectToRoute('donante_index', [], Response::HTTP_SEE_OTHER);
         }
 
+        $text_form = 'Editar Donante/Recolector';
+
         return $this->renderForm('donante/edit.html.twig', [
             'donante' => $donante,
             'form' => $form,
+            'text_form' => $text_form,
         ]);
     }
 
     /**
-     * @Route("/{id}", name="entrada_delete", methods={"POST"})
+     * @Route("/{id}", name="donante_delete", methods={"POST"})
      */
     public function delete(Request $request, Donante $donante): Response
     {

@@ -69,33 +69,33 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for institucione in instituciones %}
+                                    {% for institucion in instituciones %}
                                     <tr>
                                         <td>
                                             <div class="btn-group-vertical w-100">
-                                                <a href="{{ path('instituciones_edit', {'INSTCODE': institucione.INSTCODE}) }}">Editar</a>
+                                                <a href="{{ path('instituciones_edit', {'id': institucion.id}) }}">Editar</a>
                                             </div>
                                         </td>
-                                        <td>{{ institucione.INSTCODE }}</td>
-                                        <td>{{ institucione.ACRONYM }}</td>
-                                        <td>{{ institucione.OBSERVACIONES }}</td>
-                                        <td>{{ institucione.FULLNAME }}</td>
-                                        <td>{{ institucione.TYPE }}</td>
-                                        <td>{{ institucione.STREETPOB }}</td>
-                                        <td>{{ institucione.CITYSTATE }}</td>
-                                        <td>{{ institucione.ZIPCODE }}</td>
-                                        <td>{{ institucione.PHONE }}</td>
-                                        <td>{{ institucione.FAX }}</td>
-                                        <td>{{ institucione.EMAIL }}</td>
-                                        <td>{{ institucione.URL }}</td>
-                                        <td>{{ institucione.LATITUDE }}</td>
-                                        <td>{{ institucione.LONGITUDE }}</td>
-                                        <td>{{ institucione.UPDATEDON }}</td>
-                                        <td>{{ institucione.VINSTCODE }}</td>
-                                        <td>{{ institucione.ISO3 }}</td>
+                                        <td>{{ institucion.id }}</td>
+                                        <td>{{ institucion.ACRONYM }}</td>
+                                        <td>{{ institucion.OBSERVACIONES }}</td>
+                                        <td>{{ institucion.FULLNAME }}</td>
+                                        <td>{{ institucion.TYPE }}</td>
+                                        <td>{{ institucion.STREETPOB }}</td>
+                                        <td>{{ institucion.CITYSTATE }}</td>
+                                        <td>{{ institucion.ZIPCODE }}</td>
+                                        <td>{{ institucion.PHONE }}</td>
+                                        <td>{{ institucion.FAX }}</td>
+                                        <td>{{ institucion.EMAIL }}</td>
+                                        <td>{{ institucion.URL }}</td>
+                                        <td>{{ institucion.LATITUDE }}</td>
+                                        <td>{{ institucion.LONGITUDE }}</td>
+                                        <td>{{ institucion.UPDATEDON }}</td>
+                                        <td>{{ institucion.VINSTCODE }}</td>
+                                        <td>{{ institucion.ISO3 }}</td>
                                         <td>
                                             <div class="btn-group-vertical w-100">
-                                                <a href="{{ path('instituciones_edit', {'INSTCODE': institucione.INSTCODE}) }}">Editar</a>
+                                                <a href="{{ path('instituciones_edit', {'id': institucion.id}) }}">Editar</a>
                                             </div>
                                         </td>
                                     </tr>

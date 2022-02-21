@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\InstitucionesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -21,7 +23,7 @@ class Instituciones
      * @ORM\Id
      * @ORM\Column(type="string", length=255)
      */
-    private $INSTCODE;
+    private $id;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -103,14 +105,25 @@ class Instituciones
      */
     private $ISO3;
 
-    // public function getId(): ?int
-    // {
-    //     return $this->id;
-    // }
+    /**
+     * @ORM\OneToMany(targetEntity=Donante::class, mappedBy="codigoInstitutoRecolector")
+     */
+    private $donantes;
 
-    public function getINSTCODE(): ?string
+    /**
+     * @ORM\OneToMany(targetEntity=Donante::class, mappedBy="codigoInstitutoMejoramiento")
+     */
+    private $donantesMejoramiento;
+
+    public function __construct()
     {
-        return $this->INSTCODE;
+        $this->donantes = new ArrayCollection();
+        $this->donantesMejoramiento = new ArrayCollection();
+    }
+
+    public function getId(): ?string
+    {
+        return $this->id;
     }
 
     // public function setINSTCODE(string $INSTCODE): self
@@ -308,6 +321,66 @@ class Instituciones
     public function setISO3(?string $ISO3): self
     {
         $this->ISO3 = $ISO3;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Donante[]
+     */
+    public function getDonantes(): Collection
+    {
+        return $this->donantes;
+    }
+
+    public function addDonante(Donante $donante): self
+    {
+        if (!$this->donantes->contains($donante)) {
+            $this->donantes[] = $donante;
+            $donante->setCodigoInstitutoRecolector($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDonante(Donante $donante): self
+    {
+        if ($this->donantes->removeElement($donante)) {
+            // set the owning side to null (unless already changed)
+            if ($donante->getCodigoInstitutoRecolector() === $this) {
+                $donante->setCodigoInstitutoRecolector(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Donante[]
+     */
+    public function getDonantesMejoramiento(): Collection
+    {
+        return $this->donantesMejoramiento;
+    }
+
+    public function addDonantesMejoramiento(Donante $donantesMejoramiento): self
+    {
+        if (!$this->donantesMejoramiento->contains($donantesMejoramiento)) {
+            $this->donantesMejoramiento[] = $donantesMejoramiento;
+            $donantesMejoramiento->setCodigoInstitutoMejoramiento($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDonantesMejoramiento(Donante $donantesMejoramiento): self
+    {
+        if ($this->donantesMejoramiento->removeElement($donantesMejoramiento)) {
+            // set the owning side to null (unless already changed)
+            if ($donantesMejoramiento->getCodigoInstitutoMejoramiento() === $this) {
+                $donantesMejoramiento->setCodigoInstitutoMejoramiento(null);
+            }
+        }
 
         return $this;
     }

@@ -80,6 +80,14 @@
                         <th>Otras cuestiones</th>
                         <th>Documento</th>
                         <th>Observaciones</th>
+                        <th>Tipo de donante</th>
+                        <th>Proyecto</th>
+                        <th>Num accesion donante</th>
+                        <th>Observaciones de donante</th>
+                        <th>Codigo instituto</th>
+                        <th>Instituto Recolector</th>
+                        <th>Instituto Mejoramiento</th>
+                        <th>Número de Recolector</th>
                         <th>Acciones</th>
                     </tr>   
                   </thead>
@@ -137,6 +145,48 @@
                         <td>{{ persona.otrasCuestiones }}</td>
                         <td>{{ persona.documento }}</td>
                         <td>{{ persona.observaciones }}</td>
+
+                        {% set donante = persona.donante %}
+                        <td>
+                          {% if donante is not empty %}
+                            {{ donante.tipoDonante }}
+                          {% endif %}
+                        </td>
+                        <td>
+                          {% if donante is not empty %}
+                            {{ donante.proyecto }}
+                          {% endif %}
+                        </td>
+                        <td>
+                          {% if donante is not empty %}
+                            {{ donante.numAccesionDonante }}
+                          {% endif %}
+                        </td>
+                        <td>
+                          {% if donante is not empty %}
+                            {{ donante.observaciones }}
+                          {% endif %}
+                        </td>
+                        <td>
+                          {% if donante is not empty %}
+                            {{ donante.instcode }}
+                          {% endif %}
+                        </td>
+                        <td>
+                          {% if donante is not empty %}
+                            {{ donante.codigoInstitutoRecolector }}
+                          {% endif %}
+                        </td>
+                        <td>
+                          {% if donante is not empty %}
+                            {{ donante.codigoInstitutoMejoramiento }}
+                          {% endif %}
+                        </td>
+                        <td>
+                          {% if donante is not empty %}
+                            {{ donante.numeroRecolector }}
+                          {% endif %}
+                        </td>
                         <td>
                           <div class="btn-group-vertical w-100">
                             {# <a class="btn btn-default" href="{{ path('persona_show', {'id': persona.id}) }}">Ver</a> #}
@@ -189,6 +239,14 @@
                               <th>Otras cuestiones</th>
                               <th>Documento</th>
                               <th>Observaciones</th>
+                              <th>Tipo de donante</th>
+                              <th>Proyecto</th>
+                              <th>Num accesion donante</th>
+                              <th>Observaciones de donante</th>
+                              <th>Codigo instituto</th>
+                              <th>Instituto Recolector</th>
+                              <th>Instituto Mejoramiento</th>
+                              <th>Número de Recolector</th>
                               <th>Acciones</th>
                             </tr>   
                         </tfoot>

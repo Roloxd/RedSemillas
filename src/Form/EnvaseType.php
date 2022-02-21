@@ -40,6 +40,9 @@ class EnvaseType extends AbstractType
             ->add('fecha_recoleccion', DateType::class, [
                 'widget' => 'single_text',
             ])
+            ->add('fechaObtencion', DateType::class, [
+                'widget' => 'single_text',
+            ])
         ;
     }
 

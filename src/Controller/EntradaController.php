@@ -166,7 +166,7 @@ class EntradaController extends AbstractController
                 $entradaPersona = $entrada->getPersona();
                 
                 // Comproba si es una Persona asignada es distinta a la Persona relacionada
-                if($persona != $entradaPersona->getId()) {
+                if( empty($entradaPersona) || $persona != $entradaPersona->getId()) {
                     // Añade la persona
                     $persona = $this->getDoctrine()
                         ->getRepository(Persona::class)
@@ -175,8 +175,10 @@ class EntradaController extends AbstractController
                     $entrada->setPersona($persona);
 
                     // Eliminamos los terrenos asociados
-                    foreach($terrenos as $terreno) {
-                        $entrada->removeIdTerreno($terreno);
+                    if(!empty($terrenos)) {
+                        foreach($terrenos as $terreno) {
+                            $entrada->removeIdTerreno($terreno);
+                        }
                     }
                 }
             }

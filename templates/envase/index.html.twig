@@ -55,7 +55,9 @@
                             <th>Acciones</th>
                             <th>Código</th>
                             <th>Tipo de almacenamiento</th>
-                            <th>Fecha envasado</th>
+                            <th>Fecha de envasado</th>
+                            <th>Fecha de recolección</th>
+                            <th>Fecha de obtención</th>
                             <th>Ubicación envase</th>
                             <th>Cantidad gramos</th>
                             <th>Cantidad unidades</th>
@@ -98,6 +100,8 @@
                 <td>{{ envase.codigo }}</td>
                 <td>{{ envase.tipoAlmacenamiento }}</td>
                 <td>{{ envase.fechaEnvasado ? envase.fechaEnvasado|date('Y-m-d') : '' }}</td>
+                <td>{{ envase.fechaRecoleccion ? envase.fechaRecoleccion|date('Y-m-d') : '' }}</td>
+                <td>{{ envase.fechaObtencion ? envase.fechaObtencion|date('Y-m-d') : '' }}</td>
                 <td>{{ envase.ubicacionEnvase }}</td>
                 <td>{{ envase.cantidadGramos }}</td>
                 <td>{{ envase.cantidadUnidades }}</td>
@@ -143,7 +147,9 @@
                         <th>Acciones</th>
                         <th>Código</th>
                         <th>Tipo de almacenamiento</th>
-                        <th>Fecha envasado</th>
+                        <th>Fecha de envasado</th>
+                        <th>Fecha de recolección</th>
+                        <th>Fecha de obtención</th>
                         <th>Ubicación envase</th>
                         <th>Cantidad gramos</th>
                         <th>Cantidad unidaddes</th>

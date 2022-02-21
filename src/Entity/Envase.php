@@ -149,6 +149,11 @@ class Envase
      */
     private $fecha_recoleccion;
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $fechaObtencion;
+
     public function __construct()
     {
         $this->variedads = new ArrayCollection();
@@ -506,6 +511,18 @@ class Envase
     public function setFechaRecoleccion(?\DateTimeInterface $fecha_recoleccion): self
     {
         $this->fecha_recoleccion = $fecha_recoleccion;
+
+        return $this;
+    }
+
+    public function getFechaObtencion(): ?\DateTimeInterface
+    {
+        return $this->fechaObtencion;
+    }
+
+    public function setFechaObtencion(?\DateTimeInterface $fechaObtencion): self
+    {
+        $this->fechaObtencion = $fechaObtencion;
 
         return $this;
     }

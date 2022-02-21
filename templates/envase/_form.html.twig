@@ -89,6 +89,11 @@
                     {{ form_widget(form.fecha_recoleccion, {'attr': {'class': 'form-control'}}) }}
                   </div>
                   <div class="form-group">
+                    <label for="envase_fechaObtencion">Fecha de obtención</label>
+                    <a href="#" data-toggle="tooltip" title="Fecha de obtención.">?</a>
+                    {{ form_widget(form.fechaObtencion, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
                     <label for="envase_fecha_envasado">Fecha de envasado</label>
                     <a href="#" data-toggle="tooltip" title="Fecha de inventaria de la muestra y envalada adecuadamente.">?</a>
                     {{ form_widget(form.fecha_envasado, {'attr': {'class': 'form-control'}}) }}

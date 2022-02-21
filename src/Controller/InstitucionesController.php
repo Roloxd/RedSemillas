@@ -49,7 +49,7 @@ class InstitucionesController extends AbstractController
     }
 
     /**
-     * @Route("/{INSTCODE}", name="instituciones_show", methods={"GET"})
+     * @Route("/{id}", name="instituciones_show", methods={"GET"})
      */
     public function show(Instituciones $institucione): Response
     {
@@ -59,7 +59,7 @@ class InstitucionesController extends AbstractController
     }
 
     /**
-     * @Route("/{INSTCODE}/edit", name="instituciones_edit", methods={"GET", "POST"})
+     * @Route("/{id}/edit", name="instituciones_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Instituciones $institucione): Response
     {
@@ -79,7 +79,7 @@ class InstitucionesController extends AbstractController
     }
 
     /**
-     * @Route("/{INSTCODE}", name="instituciones_delete", methods={"POST"})
+     * @Route("/{id}", name="instituciones_delete", methods={"POST"})
      */
     public function delete(Request $request, Instituciones $institucione): Response
     {

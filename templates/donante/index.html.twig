@@ -1,6 +1,6 @@
 {% extends 'backend-base.html.twig' %}
 
-{% block title %}Donante{% endblock %}
+{% block title %}Donante | Recolector{% endblock %}
 
 {% block stylesheets %}
       {{ include('be-layout/stylesheet-tabla.html', sandboxed = true) }}
@@ -22,12 +22,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Donante</h1>
+            <h1>Donante | Recolector</h1>
         </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Imagen</li>
+              <li class="breadcrumb-item active">Donante | Recolector</li>
             </ol>
           </div>
         </div>
@@ -54,7 +54,10 @@
                             <th>Proyecto</th>
                             <th>Num accesion donante</th>
                             <th>Observaciones</th>
-                            <th>actions</th>
+                            <th>Instituto Recolector</th>
+                            <th>Instituto Mejoramiento</th>
+                            <th>Número de Recolector</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -66,9 +69,11 @@
                             <td>{{ donante.proyecto }}</td>
                             <td>{{ donante.numAccesionDonante }}</td>
                             <td>{{ donante.observaciones }}</td>
+                            <td>{{ donante.codigoInstitutoRecolector }}</td>
+                            <td>{{ donante.codigoInstitutoMejoramiento }}</td>
+                            <td>{{ donante.numeroRecolector }}</td>
                             <td>
-                                <a href="{{ path('donante_show', {'id': donante.id}) }}">show</a>
-                                <a href="{{ path('donante_edit', {'id': donante.id}) }}">edit</a>
+                                <a href="{{ path('donante_edit', {'id': donante.id}) }}">Editar</a>
                             </td>
                         </tr>
                     {% else %}
@@ -85,7 +90,10 @@
                             <th>Proyecto</th>
                             <th>Num accesion donante</th>
                             <th>Observaciones</th>
-                            <th>actions</th>
+                            <th>Instituto Recolector</th>
+                            <th>Instituto Mejoramiento</th>
+                            <th>Número de Recolector</th>
+                            <th>Acciones</th>
                         </tr>
                     </tfoot>
                 </table>
@@ -99,7 +107,6 @@
 <!-- /.row -->
 </div>
 
-    <a href="{{ path('donante_new') }}">Create new</a>
 </section>
 <!-- /.content -->
 </div>

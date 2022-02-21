@@ -1,13 +1,28 @@
-{% extends 'base.html.twig' %}
+{% extends 'backend-base.html.twig' %}
 
-{% block title %}Edit Donante{% endblock %}
+{% block title %}Editar Donante/Recolector{% endblock %}
+
+{% block stylesheets %}
+      {{ include('be-layout/stylesheet.html', sandboxed = true) }}
+{% endblock %}
 
 {% block body %}
-    <h1>Edit Donante</h1>
+<div class="wrapper">
+    {{ include('be-layout/preloader.html', sandboxed = true) }}
+    {{ include('be-layout/navbar.html', sandboxed = true) }}
+    {{ include('be-layout/sidebar.html', sandboxed = true) }}
 
-    {{ include('donante/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('donante/_form.html.twig', {'button_label': 'Actualizar'}) }}
 
-    <a href="{{ path('donante_index') }}">back to list</a>
+    {{ include('be-layout/footer.html', sandboxed = true) }}
 
-    {{ include('donante/_delete_form.html.twig') }}
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+{{ include('be-layout/js.html', sandboxed = true) }}
 {% endblock %}

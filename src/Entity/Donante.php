@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=DonanteRepository::class)
+ * @ORM\Table(name="donante_recolector")
  */
 class Donante
 {
@@ -46,6 +47,21 @@ class Donante
      * @ORM\OneToOne(targetEntity=Persona::class, mappedBy="donante")
      */
     private $persona;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $numeroRecolector;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Instituciones::class, inversedBy="donantes")
+     */
+    private $codigoInstitutoRecolector;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Instituciones::class, inversedBy="donantesMejoramiento")
+     */
+    private $codigoInstitutoMejoramiento;
 
     public function getId(): ?int
     {
@@ -137,5 +153,41 @@ class Donante
     public function __toString(): string
     {
         return $this->getId();
+    }
+
+    public function getNumeroRecolector(): ?int
+    {
+        return $this->numeroRecolector;
+    }
+
+    public function setNumeroRecolector(?int $numeroRecolector): self
+    {
+        $this->numeroRecolector = $numeroRecolector;
+
+        return $this;
+    }
+
+    public function getCodigoInstitutoRecolector(): ?Instituciones
+    {
+        return $this->codigoInstitutoRecolector;
+    }
+
+    public function setCodigoInstitutoRecolector(?Instituciones $codigoInstitutoRecolector): self
+    {
+        $this->codigoInstitutoRecolector = $codigoInstitutoRecolector;
+
+        return $this;
+    }
+
+    public function getCodigoInstitutoMejoramiento(): ?Instituciones
+    {
+        return $this->codigoInstitutoMejoramiento;
+    }
+
+    public function setCodigoInstitutoMejoramiento(?Instituciones $codigoInstitutoMejoramiento): self
+    {
+        $this->codigoInstitutoMejoramiento = $codigoInstitutoMejoramiento;
+
+        return $this;
     }
 }
