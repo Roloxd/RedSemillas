@@ -27,6 +27,19 @@
 <!-- ./wrapper -->
 
 {{ include('be-layout/js.html', sandboxed = true) }}
+<script>
+  $(document).ready(function() {
+    // Select Personas
+    $('.select-institutos').select2({
+      theme: 'bootstrap4',
+      language: 'es',
+      width: '100%',
+      placeholder: "Seleccione la institución",
+      allowClear: true,
+      tags: true,
+    });
+  });
+</script>
 <script type = "text/javascript" src ="{{ asset('/js/persona.js') }}"></script>
 {% endblock %}
 

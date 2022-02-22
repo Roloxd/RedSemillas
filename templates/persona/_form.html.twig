@@ -16,10 +16,10 @@
         </div>
         <div class="d-flex justify-content-between">
           <div>
-            <!-- Button modal -->
+            {# <!-- Button modal -->
             <button id="btn-donante" type="button" class="btn bg-gradient-warning" data-toggle="modal" data-target="#exampleModal">
               Añadir como donante
-            </button>
+            </button> #}
             <a class="btn btn-primary" href="#ancla-persona">Persona</a>
             <a class="btn bg-gradient-purple bg-purple" href="#ancla-direccion">Dirección</a>
             <a class="btn btn-success" href="#ancla-info">Información y condiciones</a>
@@ -30,7 +30,7 @@
           {% endif %}
         </div>
         
-        <!-- Modal -->
+        {# <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -87,7 +87,7 @@ Separa estos con punto y coma (;) sin espacios.">?</a>
                 </form>
             </div>
           </div>
-        </div><!-- /Modal -->
+        </div><!-- /Modal --> #}
       </div><!-- /.container-fluid -->
     </section>
 
@@ -373,44 +373,52 @@ Separa estos con punto y coma (;) sin espacios.">?</a>
               <!-- /.card-header -->
               <div class="card-body" style="display: none;">
                 <div class="form-group">
-                  <label for="variedad1_nombreComun">Tipo de donante</label>
+                  <label for="donante_tipoDonante">Tipo de donante</label>
+                  <a href="#" data-toggle="tooltip" title="¿Quién realizó la donación de la muestra?">?</a>
+                  <select id ="donante_tipoDonante" class="form-control" type="text" name="donante[tipoDonante]"></select>
+                </div>
+                <div id="campo-codigo-instituto" class="form-group" style="display: none;">
+                  <label for="donante_codigoInstituto">Código Instituto</label>
                   <a href="#" data-toggle="tooltip" title="">?</a>
+                  <select id ="donante_codigoInstituto" class="form-control select-institutos" type="text" name="donante[codigoInstituto]">
+                    <option selected="selected" disabled="disabled"></option>
+                  </select>
                   
                 </div>
                 <div class="form-group">
-                  <label for="variedad1_nombreComun">Código Instituto</label>
-                  <a href="#" data-toggle="tooltip" title="">?</a>
-                  
+                  <label for="donante_proyecto">Proyecto</label>
+                  <a href="#" data-toggle="tooltip" title="Nombre del proyecto o ensayo que da origen a la muestra. (sólo en el caso de que exista)">?</a>
+                  <textarea id="donante_proyecto" class="form-control" name="donante[proyecto]"></textarea>
                 </div>
                 <div class="form-group">
-                  <label for="variedad1_nombreComun">Proyecto</label>
-                  <a href="#" data-toggle="tooltip" title="">?</a>
-                  
+                  <label for="donante_num_accesion">Número de accesión donante</label>
+                  <a href="#" data-toggle="tooltip" title="Identificador asignado por el donante a una accesión. Es esencial para donaciones de otros bancos, ya que es el código que en su banco o red tiene esa muestra.">?</a>
+                  <input type="text" id="donante_num_accesion" name="donante[numAccesion]" maxlength="255" class="form-control">
                 </div>
                 <div class="form-group">
-                  <label for="variedad1_nombreComun">Número de accesión donante</label>
-                  <a href="#" data-toggle="tooltip" title="">?</a>
-                  
+                  <label for="donante_observaciones">Observaciones</label>
+                  <a href="#" data-toggle="tooltip" title="Para añadir notas o para completar datos.">?</a>
+                  <textarea id="donante_observaciones" class="form-control" name="donante[observaciones]"></textarea>
                 </div>
                 <div class="form-group">
-                  <label for="variedad1_nombreComun">Observaciones</label>
+                  <label for="donante_institutoRecolector">Instituto recolector</label>
                   <a href="#" data-toggle="tooltip" title="">?</a>
-                  
-                </div>
-                <div class="form-group">
-                  <label for="variedad1_nombreComun">Instituto recolector</label>
-                  <a href="#" data-toggle="tooltip" title="">?</a>
-                  
+                  <select id ="donante_institutoRecolector" class="form-control select-institutos" type="text" name="donante[institutoRecolector]">
+                    <option selected="selected" disabled="disabled"></option>
+                  </select>
                 </div>
                 <div class="form-group">
                   <label for="variedad1_nombreComun">Instituto mejoramiento</label>
                   <a href="#" data-toggle="tooltip" title="">?</a>
+                  <select id ="donante_institutoMejoramiento" class="form-control select-institutos" type="text" name="donante[institutoMejoramiento]">
+                    <option selected="selected" disabled="disabled"></option>
+                  </select>
                   
                 </div>
                 <div class="form-group">
-                  <label for="variedad1_nombreComun">Código recolector</label>
-                  <a href="#" data-toggle="tooltip" title="">?</a>
-                  
+                  <label for="donante_codigoRecolector">Código recolector</label>
+                  <a href="#" data-toggle="tooltip" title="Identificador originalmente asignado por el(los) recolector(es) de la muestra.">?</a>
+                  <input type="text" id="donante_codigoRecolector" name="donante[codigoRecolector]" maxlength="40" class="form-control">
                 </div>
               </div>
               <!-- /.card-header -->

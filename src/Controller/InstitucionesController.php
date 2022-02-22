@@ -49,6 +49,31 @@ class InstitucionesController extends AbstractController
     }
 
     /**
+     * @Route("/findAll", name="instituciones_findAll", methods={"POST"})
+     */
+    public function findAll(Request $request, InstitucionesRepository $institucionesRepository): Response
+    {
+        $boolean = $request->request->get('boolean');
+        $args = [];
+
+        if($boolean === "true") {
+            $instituciones = $institucionesRepository->findAll();
+
+            foreach($instituciones as $institucion) {
+                $id = $institucion->getId();
+                $nombre = $institucion->getFULLNAME();
+
+                $args[$id] = $nombre;
+            }
+        }
+
+        $response = new Response();
+        $response->setContent(json_encode($args));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response; 
+    }
+
+    /**
      * @Route("/{id}", name="instituciones_show", methods={"GET"})
      */
     public function show(Instituciones $institucione): Response

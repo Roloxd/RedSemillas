@@ -11,9 +11,9 @@
         {% endif %}
     
         {% if app.user %}
-            <div class="mb-3">
+            <div class="mb-3 alerta-error">
                 
-                Ya has iniciado sesión con: {{ app.user.email }}, <a href="{{ path('logout') }}">{{ 'cerrar sesión' | trans }}</a>
+                Ya has iniciado sesión con: {{ app.user.email }}, <a href="{{ path('app_logout') }}">{{ 'cerrar sesión' | trans }}</a>
             </div>
         {% endif %}
     

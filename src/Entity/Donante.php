@@ -49,7 +49,7 @@ class Donante
     private $persona;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", length=40, nullable=true)
      */
     private $numeroRecolector;
 
@@ -155,12 +155,12 @@ class Donante
         return $this->getId();
     }
 
-    public function getNumeroRecolector(): ?int
+    public function getNumeroRecolector(): ?string
     {
         return $this->numeroRecolector;
     }
 
-    public function setNumeroRecolector(?int $numeroRecolector): self
+    public function setNumeroRecolector(?string $numeroRecolector): self
     {
         $this->numeroRecolector = $numeroRecolector;
 

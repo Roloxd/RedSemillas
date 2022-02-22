@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Donante;
+use App\Entity\Instituciones;
 use App\Entity\Pago;
 use App\Entity\Persona;
 use App\Form\Persona2Type;
@@ -42,19 +43,44 @@ class PersonaController extends AbstractController
         $form->handleRequest($request);
         
         if ($form->isSubmitted()) {
-            $datos = $request->request->get('persona2');
+            // $entityManager = $this->getDoctrine()->getManager();
+            // $entityManager->persist($persona);
+            // $entityManager->flush();
 
-            if(!empty($datos['donante'])){
-                $donante = $this->getDoctrine()
-                    ->getRepository(Donante::class)
-                    ->find($datos['donante']);
+            // Crear Donante o Recolector
+            $dataDonante = $request->request->get('donante');
 
-                $persona->setDonante($donante);
+            dump($dataDonante);
+
+            $donante = new Donante;
+
+            if(isset($dataDonante['proyecto']) && !empty($dataDonante['proyecto'])) {
+                $donante->setProyecto($dataDonante['proyecto']);
             }
+            if(isset($dataDonante['tipoDonante']) && !empty($dataDonante['tipoDonante'])) {
+                $donante->setTipoDonante($dataDonante['tipoDonante']);
+            }
+            if(isset($dataDonante['numAccesion']) && !empty($dataDonante['numAccesion'])) {
+                $donante->setNumAccesionDonante($dataDonante['numAccesion']);
+            }
+            if(isset($dataDonante['observaciones']) && !empty($dataDonante['observaciones'])) {
+                $donante->setObservaciones($dataDonante['observaciones']);
+            }
+            // Terminar parte de Donante /new y /edit
+            
+            // $donante->setNumeroRecolector($dataDonante['codigoRecolector']);
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($persona);
-            $entityManager->flush();
+
+
+            // $institucion = $this->getDoctrine()
+            //     ->getRepository(Instituciones::class)
+            //     ->find($dataDonante['institutoRecolector']);
+            // $donante->setCodigoInstitutoRecolector($institucion);
+
+            // $institucion = $this->getDoctrine()
+            //     ->getRepository(Instituciones::class)
+            //     ->find($dataDonante['institutoMejoramiento']);
+            // $donante->setCodigoInstitutoMejoramiento($institucion);
 
             if($form->get('saveAndAdd')->isClicked()) {
                 return $this->redirectToRoute('pago_new', ['persona' => $persona->getId()], Response::HTTP_SEE_OTHER);
