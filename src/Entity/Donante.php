@@ -24,11 +24,6 @@ class Donante
     private $tipo_donante;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $instcode;
-
-    /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $proyecto;
@@ -63,6 +58,11 @@ class Donante
      */
     private $codigoInstitutoMejoramiento;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Instituciones::class, inversedBy="donantesInstitucion")
+     */
+    private $instcode;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -76,18 +76,6 @@ class Donante
     public function setTipoDonante(string $tipo_donante): self
     {
         $this->tipo_donante = $tipo_donante;
-
-        return $this;
-    }
-
-    public function getInstcode(): ?string
-    {
-        return $this->instcode;
-    }
-
-    public function setInstcode(?string $instcode): self
-    {
-        $this->instcode = $instcode;
 
         return $this;
     }
@@ -187,6 +175,18 @@ class Donante
     public function setCodigoInstitutoMejoramiento(?Instituciones $codigoInstitutoMejoramiento): self
     {
         $this->codigoInstitutoMejoramiento = $codigoInstitutoMejoramiento;
+
+        return $this;
+    }
+
+    public function getInstcode(): ?Instituciones
+    {
+        return $this->instcode;
+    }
+
+    public function setInstcode(?Instituciones $instcode): self
+    {
+        $this->instcode = $instcode;
 
         return $this;
     }

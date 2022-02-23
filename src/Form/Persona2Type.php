@@ -58,9 +58,6 @@ class Persona2Type extends AbstractType
                 'required' => false,
             ])
             ->add('domiciliario')
-            ->add('donante', HiddenType::class, [
-                'required' => false,
-            ])
             ->add('codigoBic')
         ;
     }

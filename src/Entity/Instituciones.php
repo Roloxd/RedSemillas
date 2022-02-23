@@ -115,10 +115,16 @@ class Instituciones
      */
     private $donantesMejoramiento;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Donante::class, mappedBy="instcode")
+     */
+    private $donantesInstitucion;
+
     public function __construct()
     {
         $this->donantes = new ArrayCollection();
         $this->donantesMejoramiento = new ArrayCollection();
+        $this->donantesInstitucion = new ArrayCollection();
     }
 
     public function getId(): ?string
@@ -383,5 +389,40 @@ class Instituciones
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Donante[]
+     */
+    public function getDonantesInstitucion(): Collection
+    {
+        return $this->donantesInstitucion;
+    }
+
+    public function addDonantesInstitucion(Donante $donantesInstitucion): self
+    {
+        if (!$this->donantesInstitucion->contains($donantesInstitucion)) {
+            $this->donantesInstitucion[] = $donantesInstitucion;
+            $donantesInstitucion->setInstcode($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDonantesInstitucion(Donante $donantesInstitucion): self
+    {
+        if ($this->donantesInstitucion->removeElement($donantesInstitucion)) {
+            // set the owning side to null (unless already changed)
+            if ($donantesInstitucion->getInstcode() === $this) {
+                $donantesInstitucion->setInstcode(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return "[" . $this->id . "] " . $this->FULL_NAME;
     }
 }

@@ -12,7 +12,7 @@ class InstitucionesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('INSTCODE')
+            ->add('id')
             ->add('ACRONYM')
             ->add('OBSERVACIONES')
             ->add('FULL_NAME')

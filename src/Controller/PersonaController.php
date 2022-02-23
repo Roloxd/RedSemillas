@@ -4,17 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Donante;
 use App\Entity\Instituciones;
-use App\Entity\Pago;
 use App\Entity\Persona;
 use App\Form\Persona2Type;
 use App\Repository\PersonaRepository;
-use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\VarDumper\Cloner\Data;
 
 /**
  * @Route("/admin/persona")
@@ -43,44 +40,59 @@ class PersonaController extends AbstractController
         $form->handleRequest($request);
         
         if ($form->isSubmitted()) {
-            // $entityManager = $this->getDoctrine()->getManager();
-            // $entityManager->persist($persona);
-            // $entityManager->flush();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($persona);
+            $entityManager->flush();
 
             // Crear Donante o Recolector
             $dataDonante = $request->request->get('donante');
 
-            dump($dataDonante);
+            if( !empty($dataDonante['tipoDonante']) || !empty($dataDonante['proyecto']) || !empty($dataDonante['numAccesion']) ||
+                !empty($dataDonante['observaciones']) || !empty($dataDonante['codigoRecolector']) || isset($dataDonante['institutoRecolector']) ||
+                isset($dataDonante['institutoMejoramiento'])) 
+            {
+                $donante = new Donante;
+                $persona->setDonante($donante);
 
-            $donante = new Donante;
+                if(!empty($dataDonante['proyecto'])) {
+                    $donante->setProyecto($dataDonante['proyecto']);
+                }
+                if(!empty($dataDonante['tipoDonante'])) {
+                    $donante->setTipoDonante($dataDonante['tipoDonante']);
+                }
+                if(!empty($dataDonante['numAccesion'])) {
+                    $donante->setNumAccesionDonante($dataDonante['numAccesion']);
+                }
+                if(!empty($dataDonante['observaciones'])) {
+                    $donante->setObservaciones($dataDonante['observaciones']);
+                }
+                if(!empty($dataDonante['codigoRecolector'])) {
+                    $donante->setNumeroRecolector($dataDonante['codigoRecolector']);
+                }
 
-            if(isset($dataDonante['proyecto']) && !empty($dataDonante['proyecto'])) {
-                $donante->setProyecto($dataDonante['proyecto']);
+                if(isset($dataDonante['codigoInstituto']) && !empty($dataDonante['codigoInstituto'])) {
+                    $institucion = $this->getDoctrine()
+                        ->getRepository(Instituciones::class)
+                        ->find($dataDonante['codigoInstituto']);
+                    $donante->setInstcode($institucion);
+                }
+                if(isset($dataDonante['institutoRecolector']) && !empty($dataDonante['institutoRecolector'])) {
+                    $institucion = $this->getDoctrine()
+                        ->getRepository(Instituciones::class)
+                        ->find($dataDonante['institutoRecolector']);
+                    $donante->setCodigoInstitutoRecolector($institucion);
+                }
+                if(isset($dataDonante['institutoMejoramiento']) && !empty($dataDonante['institutoMejoramiento'])) {
+                    $institucion = $this->getDoctrine()
+                        ->getRepository(Instituciones::class)
+                        ->find($dataDonante['institutoMejoramiento']);
+                    $donante->setCodigoInstitutoMejoramiento($institucion);
+                }
+    
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($donante);
+                $entityManager->flush();
             }
-            if(isset($dataDonante['tipoDonante']) && !empty($dataDonante['tipoDonante'])) {
-                $donante->setTipoDonante($dataDonante['tipoDonante']);
-            }
-            if(isset($dataDonante['numAccesion']) && !empty($dataDonante['numAccesion'])) {
-                $donante->setNumAccesionDonante($dataDonante['numAccesion']);
-            }
-            if(isset($dataDonante['observaciones']) && !empty($dataDonante['observaciones'])) {
-                $donante->setObservaciones($dataDonante['observaciones']);
-            }
-            // Terminar parte de Donante /new y /edit
-            
-            // $donante->setNumeroRecolector($dataDonante['codigoRecolector']);
-
-
-
-            // $institucion = $this->getDoctrine()
-            //     ->getRepository(Instituciones::class)
-            //     ->find($dataDonante['institutoRecolector']);
-            // $donante->setCodigoInstitutoRecolector($institucion);
-
-            // $institucion = $this->getDoctrine()
-            //     ->getRepository(Instituciones::class)
-            //     ->find($dataDonante['institutoMejoramiento']);
-            // $donante->setCodigoInstitutoMejoramiento($institucion);
 
             if($form->get('saveAndAdd')->isClicked()) {
                 return $this->redirectToRoute('pago_new', ['persona' => $persona->getId()], Response::HTTP_SEE_OTHER);
@@ -189,17 +201,79 @@ class PersonaController extends AbstractController
         }
         
         if ($form->isSubmitted()) {
-            $datos = $request->request->get('persona2');
+            $this->getDoctrine()->getManager()->flush();
 
-            if(!empty($datos['donante'])){
-                $donante = $this->getDoctrine()
-                    ->getRepository(Donante::class)
-                    ->find($datos['donante']);
+            $dataDonante = $request->request->get('donante');
+            $donante = $persona->getDonante();
 
-                $persona->setDonante($donante);
+            if(empty($donante)) {
+                $donante = new Donante;
+                $donante->setPersona($persona);
             }
 
-            $this->getDoctrine()->getManager()->flush();
+            if(isset($dataDonante['codigoInstituto']) && !empty($dataDonante['codigoInstituto'])) {
+                $institucion = $this->getDoctrine()
+                    ->getRepository(Instituciones::class)
+                    ->find($dataDonante['codigoInstituto']);
+                $donante->setInstcode($institucion);
+            }
+
+            if(isset($dataDonante['tipoDonante']) && !empty($dataDonante['tipoDonante'])) {
+                $donante->setTipoDonante($dataDonante['tipoDonante']);
+
+                // Si es usuario y existe un instituto relacionado, borra dicha relacion (Codigo Instituto)
+                if($dataDonante['tipoDonante'] === "Usuario") {
+                    $institucion = $donante->getInstcode();
+                    if( !empty($institucion) ) {
+                        $institucion->removeDonantesInstitucion($donante);
+                    }
+                }
+            } else {
+                $donante->setTipoDonante("");
+            }
+            if(isset($dataDonante['proyecto']) && !empty($dataDonante['proyecto'])) {
+                $donante->setProyecto($dataDonante['proyecto']);
+            }
+            if(isset($dataDonante['numAccesion']) && !empty($dataDonante['numAccesion'])) {
+                $donante->setNumAccesionDonante($dataDonante['numAccesion']);
+            }
+            if(isset($dataDonante['observaciones']) && !empty($dataDonante['observaciones'])) {
+                $donante->setObservaciones($dataDonante['observaciones']);
+            }
+            if(isset($dataDonante['codigoRecolector']) && !empty($dataDonante['codigoRecolector'])) {
+                $donante->setNumeroRecolector($dataDonante['codigoRecolector']);
+            }
+
+            if(isset($dataDonante['institutoRecolector']) && !empty($dataDonante['institutoRecolector'])) {
+
+                $institucion = $this->getDoctrine()
+                    ->getRepository(Instituciones::class)
+                    ->find($dataDonante['institutoRecolector']);
+                $donante->setCodigoInstitutoRecolector($institucion);
+
+            } else { // Eliminar
+                $institucion = $donante->getCodigoInstitutoRecolector();
+                if( !empty($institucion) ) {
+                    $institucion->removeDonante($donante);
+                }
+            }
+
+            if(isset($dataDonante['institutoMejoramiento']) && !empty($dataDonante['institutoMejoramiento'])) {
+                $institucion = $this->getDoctrine()
+                    ->getRepository(Instituciones::class)
+                    ->find($dataDonante['institutoMejoramiento']);
+                $donante->setCodigoInstitutoMejoramiento($institucion);
+            } else { // Eliminar
+                $institucion = $donante->getCodigoInstitutoMejoramiento();
+                if( !empty($institucion) ) {
+                    $institucion->removeDonantesMejoramiento($donante);
+                }
+            }
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($donante);
+            $entityManager->flush();
+
 
             if($form->get('saveAndAdd')->isClicked()) {
                 return $this->redirectToRoute('pago_new', ['persona' => $persona->getId()], Response::HTTP_SEE_OTHER);

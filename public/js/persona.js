@@ -3,7 +3,6 @@ const formPersona = document.querySelector(".formPersona");
 const formEditPersona = document.querySelector(".formEditPersona");
 
 document.addEventListener('DOMContentLoaded', function() {
-    // mostrarCodigoInstituto();
     inicioForm();
 });
 
@@ -13,62 +12,11 @@ function inicioForm() {
     consultarInstitutos(); // Obtiene los institutos
 }
 
-// if(formPersona != null && formDonante != null) {
-//     formDonante.addEventListener('submit', evento => {
-//         evento.preventDefault();
-//         newDonante();
-//     });
-// }
-
 function alertDomiciliar(etiqueta) {
     if( $(etiqueta).prop('checked') ) {
         alert('Informamos que la devolución del recibo tendrá un coste adicional de 1€');
     }
 }
-
-// function newDonante(){
-//     $.ajax({
-//         url:"/admin/donante/add",
-//         data: new FormData(formDonante),
-//         type:"post",
-//         contentType:false,
-//         processData:false,
-//         cache:false,
-//         error:function(err){
-//                 console.error(err);
-//         },
-//         success:function(data){
-//             const inputHidden = document.querySelector('#persona_donante');
-//             inputHidden.value = data['idDonante'];
-
-//             $('#exampleModal').modal('hide');
-
-//             const btnDonante = document.querySelector('#btn-donante');
-//             btnDonante.innerText = "Ahora registre la Persona"
-//             btnDonante.disabled = true;
-//         },
-//         complete:function(){
-//             //console.log("Solicitud finalizada.");
-//         }
-//     });
-// }
-
-// function mostrarCodigoInstituto() {
-//     if(formPersona && formDonante){
-//         const inputInstCode = document.querySelector('#donante_tipo_donante');
-//         inputInstCode.addEventListener('change', function(evento){
-//             if(evento.target.value == 'Instituto de germoplasma'){
-//                 $('#instcode').show();
-//             } else {
-//                 $('#instcode').hide();
-//             }
-//         });
-//     } else if (formEditPersona) {
-//         const btnDonante = document.querySelector('#btn-donante');
-//         btnDonante.innerText = "Añadir como donante (En construcción)"
-//         btnDonante.disabled = true;
-//     }
-// }
 
 function eventList() {
     const checkboxInscriptoROPE = document.querySelector('#persona2_inscripcion_rope');
@@ -106,6 +54,7 @@ function mostrarInput(checked, campo) {
 // Create options de Tipo de Donante
 function createOptionsTipoDonante(idElement) {
     const element = document.querySelector(`#${idElement}`);
+    const tipoDonante = document.querySelector('#tipoDonante');
 
     const option1 = document.createElement('OPTION');
     option1.textContent = 'Selecciona tipo de donante';
@@ -125,6 +74,16 @@ function createOptionsTipoDonante(idElement) {
     option3.textContent = 'Usuario';
 
     element.appendChild(option3);
+
+    // Seleccionar option
+    if(tipoDonante !== null) {
+        if(tipoDonante.value === option2.value) {
+            option2.setAttribute('selected', 'selected');
+            document.querySelector('#campo-codigo-instituto').removeAttribute('style');
+        } else if(tipoDonante.value === option3.value) {
+            option3.setAttribute('selected', 'selected');
+        }
+    }
 }
 
 // Muestra el campo Código Instituto
@@ -147,32 +106,47 @@ function consultarInstitutos() {
         },
         success:function(data){
 
+            const selectInstituto = document.querySelector('#donante_codigoInstituto');
+            const selectInstitutoRecolector = document.querySelector('#donante_institutoRecolector');
+            const selectInstitutoMejoramiento = document.querySelector('#donante_institutoMejoramiento');
+
             for( const [key, value] of Object.entries(data) ) {
-                const selectInstituto = document.querySelector('#donante_codigoInstituto');
-                const selectInstitutoRecolector = document.querySelector('#donante_institutoRecolector');
-                const selectInstitutoMejoramiento = document.querySelector('#donante_institutoMejoramiento');
-                
                 const option = document.createElement('OPTION');
                 option.value = key;
                 option.textContent = `[${key}] ${value}`;
-
                 selectInstituto.appendChild(option);
+
+                //Selecciona option
+                selectedOption('codigoInstituto', option);
 
                 const optionRecolector = document.createElement('OPTION');
                 optionRecolector.value = key;
                 optionRecolector.textContent = `[${key}] ${value}`;
-
                 selectInstitutoRecolector.appendChild(optionRecolector);
+
+                selectedOption('institutoRecolector', optionRecolector);
 
                 const optionMejoramiento = document.createElement('OPTION');
                 optionMejoramiento.value = key;
                 optionMejoramiento.textContent = `[${key}] ${value}`;
-
                 selectInstitutoMejoramiento.appendChild(optionMejoramiento);
+
+                selectedOption('institutoMejoramiento', optionMejoramiento);
+
             }
         },
         complete:function(){
             //console.log("Solicitud finalizada.");
         }
     });
+}
+
+// Seleciona el option
+function selectedOption(id, option) {
+    const elemento = document.querySelector(`#${id}`);
+    if(elemento !== null) {
+        if(elemento.value === option.value) {
+            option.setAttribute('selected', 'selected');
+        }
+    }
 }

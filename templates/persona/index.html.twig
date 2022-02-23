@@ -148,42 +148,54 @@
 
                         {% set donante = persona.donante %}
                         <td>
-                          {% if donante is not empty %}
+                          {% if donante is not null %}
                             {{ donante.tipoDonante }}
                           {% endif %}
                         </td>
                         <td>
-                          {% if donante is not empty %}
+                          {% if donante is not null %}
                             {{ donante.proyecto }}
                           {% endif %}
                         </td>
                         <td>
-                          {% if donante is not empty %}
+                          {% if donante is not null %}
                             {{ donante.numAccesionDonante }}
                           {% endif %}
                         </td>
                         <td>
-                          {% if donante is not empty %}
+                          {% if donante is not null %}
                             {{ donante.observaciones }}
                           {% endif %}
                         </td>
                         <td>
-                          {% if donante is not empty %}
-                            {{ donante.instcode }}
+                          {% if donante is not null %}
+                            {% if donante.instcode is not null %}
+                              <div class="d-flex flex-column">
+                                <a href="{{ path('instituciones_mostrar', {'id' : donante.instcode.id}) }}">{{ donante.instcode }}</a>
+                              </div>
+                            {% endif %}
                           {% endif %}
                         </td>
                         <td>
-                          {% if donante is not empty %}
-                            {{ donante.codigoInstitutoRecolector }}
+                          {% if donante is not null %}
+                            {% if donante.codigoInstitutoRecolector is not null %}
+                              <div class="d-flex flex-column">
+                                <a href="{{ path('instituciones_mostrar', {'id' : donante.codigoInstitutoRecolector.id}) }}">{{ donante.codigoInstitutoRecolector }}</a>
+                              </div>
+                            {% endif %}
                           {% endif %}
                         </td>
                         <td>
-                          {% if donante is not empty %}
-                            {{ donante.codigoInstitutoMejoramiento }}
+                          {% if donante is not null %}
+                            {% if donante.codigoInstitutoMejoramiento is not null %}
+                              <div class="d-flex flex-column">
+                                <a href="{{ path('instituciones_mostrar', {'id' : donante.codigoInstitutoMejoramiento.id}) }}">{{ donante.codigoInstitutoMejoramiento }}</a>
+                              </div>
+                            {% endif %}
                           {% endif %}
                         </td>
                         <td>
-                          {% if donante is not empty %}
+                          {% if donante is not null %}
                             {{ donante.numeroRecolector }}
                           {% endif %}
                         </td>

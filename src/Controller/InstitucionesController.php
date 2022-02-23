@@ -116,4 +116,20 @@ class InstitucionesController extends AbstractController
 
         return $this->redirectToRoute('instituciones_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    /**
+     * @Route("/{id}/mostrar", name="instituciones_mostrar", methods={"GET"})
+     */
+    public function mostrar(Request $request): Response
+    {
+        $id = $request->attributes->get('id');
+
+        $instituciones[] = $this->getDoctrine()
+            ->getRepository(Instituciones::class)
+            ->find($id);
+
+        return $this->render('instituciones/index.html.twig', [
+            'instituciones' => $instituciones,
+        ]);
+    }
 }
