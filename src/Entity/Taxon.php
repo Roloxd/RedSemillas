@@ -57,11 +57,6 @@ class Taxon
     private $descripcion;
 
     /**
-     * @ORM\OneToOne(targetEntity=Variedad::class, mappedBy="especie", cascade={"persist", "remove"})
-     */
-    private $variedad;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Taxon::class, inversedBy="id")
      */
     private $padre;
@@ -70,6 +65,16 @@ class Taxon
      * @ORM\Column(type="boolean")
      */
     private $no_wfo;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Variedad::class, mappedBy="especie")
+     */
+    private $variedades;
+
+    public function __construct()
+    {
+        $this->variedades = new ArrayCollection();
+    }
 
     // public function __construct()
     // {
@@ -165,28 +170,6 @@ class Taxon
         return $this;
     }
 
-    public function getVariedad(): ?Variedad
-    {
-        return $this->variedad;
-    }
-
-    public function setVariedad(?Variedad $variedad): self
-    {
-        // unset the owning side of the relation if necessary
-        if ($variedad === null && $this->variedad !== null) {
-            $this->variedad->setEspecie(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($variedad !== null && $variedad->getEspecie() !== $this) {
-            $variedad->setEspecie($this);
-        }
-
-        $this->variedad = $variedad;
-
-        return $this;
-    }
-
     public function __toString(): string
     {
         return $this->getNombre();
@@ -220,6 +203,36 @@ class Taxon
     public function setNoWfo(bool $no_wfo): self
     {
         $this->no_wfo = $no_wfo;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Variedad[]
+     */
+    public function getVariedades(): Collection
+    {
+        return $this->variedades;
+    }
+
+    public function addVariedade(Variedad $variedade): self
+    {
+        if (!$this->variedades->contains($variedade)) {
+            $this->variedades[] = $variedade;
+            $variedade->setEspecie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVariedade(Variedad $variedade): self
+    {
+        if ($this->variedades->removeElement($variedade)) {
+            // set the owning side to null (unless already changed)
+            if ($variedade->getEspecie() === $this) {
+                $variedade->setEspecie(null);
+            }
+        }
 
         return $this;
     }

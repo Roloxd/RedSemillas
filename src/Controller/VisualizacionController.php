@@ -2,20 +2,24 @@
 
 namespace App\Controller;
 
+use App\Entity\Entrada;
+use App\Entity\Envase;
+use App\Repository\EntradaRepository;
 use App\Repository\EnvaseRepository;
+use App\Repository\VariedadRepository;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/admin/visualizacion")
+ * @Route("/admin/vista")
  */
 class VisualizacionController extends AbstractController {
     /**
-     * @Route("/", name="visualizacion_index", methods={"GET"})
+     * @Route("/alarmas", name="vista_alarmas", methods={"GET"})
      */
-    public function index(EnvaseRepository $envase): Response
+    public function alarmas(EnvaseRepository $envase): Response
     {
         $envasesDB = $envase->findAll();
         $yearActual = new DateTime(date('Y-m-d'));
@@ -91,10 +95,21 @@ class VisualizacionController extends AbstractController {
             }
         }
 
-        return $this->render('visualizacion/index.html.twig', [
+        return $this->render('visualizacion/alarmas.html.twig', [
             'envases' => $envasesDB,
             'antiguedad' => $antiguedad,
             'arrayCantidades' => $arrayCantidades,
+        ]);
+    }
+
+    /**
+     * @Route("/megatabla", name="vista_megatabla", methods={"GET"})
+     */
+    public function megatabla(VariedadRepository $variedadRepository): Response
+    {
+        dump($variedadRepository->findAllMegaTabla());
+        return $this->render('visualizacion/megaTabla.html.twig', [
+            'variedades' => $variedadRepository->findAll(),
         ]);
     }
 }

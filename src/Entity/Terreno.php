@@ -104,6 +104,36 @@ class Terreno
      */
     private $personaTerrenos;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $elevacion;
+
+    /**
+     * @ORM\Column(type="decimal", precision=5, scale=2, nullable=true)
+     */
+    private $latitud;
+
+    /**
+     * @ORM\Column(type="decimal", precision=5, scale=2, nullable=true)
+     */
+    private $longitud;
+
+    /**
+     * @ORM\Column(type="string", length=40, nullable=true)
+     */
+    private $referenciaCoordenadas;
+
+    /**
+     * @ORM\Column(type="string", length=40, nullable=true)
+     */
+    private $metodoGeoReferencia;
+
+    /**
+     * @ORM\Column(type="decimal", precision=6, scale=2, nullable=true)
+     */
+    private $incertidumbreCoordenadas;
+
     public function __construct()
     {
         $this->entradas = new ArrayCollection();
@@ -353,6 +383,78 @@ class Terreno
                 $personaTerreno->setTerreno(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getElevacion(): ?int
+    {
+        return $this->elevacion;
+    }
+
+    public function setElevacion(?int $elevacion): self
+    {
+        $this->elevacion = $elevacion;
+
+        return $this;
+    }
+
+    public function getLatitud(): ?string
+    {
+        return $this->latitud;
+    }
+
+    public function setLatitud(?string $latitud): self
+    {
+        $this->latitud = $latitud;
+
+        return $this;
+    }
+
+    public function getLongitud(): ?string
+    {
+        return $this->longitud;
+    }
+
+    public function setLongitud(?string $longitud): self
+    {
+        $this->longitud = $longitud;
+
+        return $this;
+    }
+
+    public function getReferenciaCoordenadas(): ?string
+    {
+        return $this->referenciaCoordenadas;
+    }
+
+    public function setReferenciaCoordenadas(?string $referenciaCoordenadas): self
+    {
+        $this->referenciaCoordenadas = $referenciaCoordenadas;
+
+        return $this;
+    }
+
+    public function getMetodoGeoReferencia(): ?string
+    {
+        return $this->metodoGeoReferencia;
+    }
+
+    public function setMetodoGeoReferencia(?string $metodoGeoReferencia): self
+    {
+        $this->metodoGeoReferencia = $metodoGeoReferencia;
+
+        return $this;
+    }
+
+    public function getIncertidumbreCoordenadas(): ?string
+    {
+        return $this->incertidumbreCoordenadas;
+    }
+
+    public function setIncertidumbreCoordenadas(?string $incertidumbreCoordenadas): self
+    {
+        $this->incertidumbreCoordenadas = $incertidumbreCoordenadas;
 
         return $this;
     }

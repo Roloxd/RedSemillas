@@ -54,8 +54,10 @@
                   <thead>
                         <tr>
                             <th>Acciones</th>
-                            <th>ID</th>
+                            <th>Código de entrada</th>
+                            <th>Pasaporte</th>
                             <th>Cantidad en gramos</th>
+                            <th>Cantidad en unidades</th>
                             <th>Fecha entrada</th>
                             <th>Tipo entrada</th>
                             <th>Persona</th>
@@ -80,8 +82,10 @@
                     </div>
                   </div>
                 </td>
-                <td>{{ entrada.id }}</td>
+                <td>{{ entrada.codigoEntrada }}</td>
+                <td>{{ entrada.numPasaporte }}</td>
                 <td>{{ entrada.cantidad }}</td>
+                <td>{{ entrada.cantidadUnidades }}</td>
                 <td>{{ entrada.fechaEntrada ? entrada.fechaEntrada|date('Y-m-d') : '' }}</td>
                 <td>{{ entrada.tipoEntrada }}</td>
                 <td>
@@ -114,8 +118,10 @@
                   <tfoot>
                       <tr>
                           <th>Acciones</th>
-                          <th>ID</th>
+                          <th>Código de entrada</th>
+                          <th>Pasaporte</th>
                           <th>Cantidad en gramos</th>
+                          <th>Cantidad en unidades</th>
                           <th>Fecha entrada</th>
                           <th>Tipo entrada</th>
                           <th>Persona</th>

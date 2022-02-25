@@ -26,7 +26,9 @@ class Entrada1Type extends AbstractType
             ],
         ])
         ->add('observaciones')
-        // ->add('persona')
+        ->add('codigoEntrada')
+        ->add('numPasaporte')
+        ->add('cantidadUnidades')
         ;
     }
 

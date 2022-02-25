@@ -48,6 +48,7 @@
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                         <tr>
+                            <th>Acciones</th>
                             <th>ID</th>
                             <th>Tipo de donante</th>
                             <th>Codigo instituto</th>
@@ -63,6 +64,24 @@
                     <tbody>
                     {% for donante in donantes %}
                         <tr>
+                            <td>
+                                {% set persona = donante.persona %}
+                                {% if persona is not null %}
+                                  <div class="btn-group-vertical w-100">
+                                    <a class="btn btn-default" href="{{ path('persona_edit', {'id': persona.id}) }}">Editar</a>
+
+                                    <div class="btn-group">
+                                      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                      </button>
+                                      <ul class="dropdown-menu">
+                                        <li>
+                                          <a class="dropdown-item" href="{{ path('persona_entradas', {'id': persona.id}) }}">Ver Entradas</a>
+                                        </li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                {% endif %}
+                            </td>
                             <td>{{ donante.id }}</td>
                             <td>{{ donante.tipoDonante }}</td>
                             <td>{{ donante.instcode }}</td>
@@ -73,7 +92,22 @@
                             <td>{{ donante.codigoInstitutoMejoramiento }}</td>
                             <td>{{ donante.numeroRecolector }}</td>
                             <td>
-                                <a href="{{ path('donante_edit', {'id': donante.id}) }}">Editar</a>
+                                {% set persona = donante.persona %}
+                                {% if persona is not null %}
+                                  <div class="btn-group-vertical w-100">
+                                    <a class="btn btn-default" href="{{ path('persona_edit', {'id': persona.id}) }}">Editar</a>
+
+                                    <div class="btn-group">
+                                      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                      </button>
+                                      <ul class="dropdown-menu">
+                                        <li>
+                                          <a class="dropdown-item" href="{{ path('persona_entradas', {'id': persona.id}) }}">Ver Entradas</a>
+                                        </li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                {% endif %}
                             </td>
                         </tr>
                     {% else %}
@@ -84,6 +118,7 @@
                     </tbody>
                     <tfoot>
                         <tr>
+                            <th>Acciones</th>
                             <th>ID</th>
                             <th>Tipo de donante</th>
                             <th>Codigo instituto</th>
@@ -148,7 +183,8 @@
   $(function () {
     $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+      "order": [[ 1, "asc" ]]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({
       "paging": true,

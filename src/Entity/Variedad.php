@@ -188,11 +188,6 @@ class Variedad
     private $cicloYSiembras;
 
     /**
-     * @ORM\OneToOne(targetEntity=Taxon::class, inversedBy="variedad")
-     */
-    private $especie;
-
-    /**
      * @ORM\OneToMany(targetEntity=UsoVariedad::class, mappedBy="variedad")
      */
     private $usoVariedads;
@@ -256,6 +251,11 @@ class Variedad
      * @ORM\OneToMany(targetEntity=Germinacion::class, mappedBy="variedad")
      */
     private $germinaciones;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Taxon::class, inversedBy="variedades")
+     */
+    private $especie;
 
     public function __construct()
     {
@@ -606,18 +606,6 @@ class Variedad
         return $this;
     }
 
-    public function getEspecie(): ?Taxon
-    {
-        return $this->especie;
-    }
-
-    public function setEspecie(?Taxon $especie): self
-    {
-        $this->especie = $especie;
-
-        return $this;
-    }
-
     public function setDescripcion(?string $descripcion): self
     {
         $this->descripcion = $descripcion;
@@ -825,6 +813,18 @@ class Variedad
                 $germinacione->setVariedad(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEspecie(): ?Taxon
+    {
+        return $this->especie;
+    }
+
+    public function setEspecie(?Taxon $especie): self
+    {
+        $this->especie = $especie;
 
         return $this;
     }

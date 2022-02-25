@@ -70,7 +70,7 @@ class Persona
     private $nombre;
 
     /**
-     * @ORM\Column(type="string", length=40)
+     * @ORM\Column(type="string", length=40, nullable=true)
      */
     private $apellidos;
 
@@ -199,11 +199,17 @@ class Persona
      */
     private $entradas;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Mejoras::class, mappedBy="personas")
+     */
+    private $mejoras;
+
     public function __construct()
     {
         $this->pagos = new ArrayCollection();
         $this->personaTerrenos = new ArrayCollection();
         $this->entradas = new ArrayCollection();
+        $this->mejoras = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -697,6 +703,33 @@ class Persona
             if ($entrada->getPersona() === $this) {
                 $entrada->setPersona(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Mejoras[]
+     */
+    public function getMejoras(): Collection
+    {
+        return $this->mejoras;
+    }
+
+    public function addMejora(Mejoras $mejora): self
+    {
+        if (!$this->mejoras->contains($mejora)) {
+            $this->mejoras[] = $mejora;
+            $mejora->addPersona($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMejora(Mejoras $mejora): self
+    {
+        if ($this->mejoras->removeElement($mejora)) {
+            $mejora->removePersona($this);
         }
 
         return $this;

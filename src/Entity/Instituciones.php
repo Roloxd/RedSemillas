@@ -120,11 +120,17 @@ class Instituciones
      */
     private $donantesInstitucion;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Mejoras::class, mappedBy="instituciones")
+     */
+    private $mejoras;
+
     public function __construct()
     {
         $this->donantes = new ArrayCollection();
         $this->donantesMejoramiento = new ArrayCollection();
         $this->donantesInstitucion = new ArrayCollection();
+        $this->mejoras = new ArrayCollection();
     }
 
     public function getId(): ?string
@@ -424,5 +430,32 @@ class Instituciones
     public function __toString(): string
     {
         return "[" . $this->id . "] " . $this->FULL_NAME;
+    }
+
+    /**
+     * @return Collection|Mejoras[]
+     */
+    public function getMejoras(): Collection
+    {
+        return $this->mejoras;
+    }
+
+    public function addMejora(Mejoras $mejora): self
+    {
+        if (!$this->mejoras->contains($mejora)) {
+            $this->mejoras[] = $mejora;
+            $mejora->addInstitucione($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMejora(Mejoras $mejora): self
+    {
+        if ($this->mejoras->removeElement($mejora)) {
+            $mejora->removeInstitucione($this);
+        }
+
+        return $this;
     }
 }

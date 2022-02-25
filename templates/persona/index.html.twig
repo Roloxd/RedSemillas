@@ -103,7 +103,12 @@
                               <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                               </button>
                               <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{{ path('pago_ver', {'id': persona.id}) }}">Ver Pagos</a></li>
+                                <li>
+                                  <a class="dropdown-item" href="{{ path('pago_ver', {'id': persona.id}) }}">Ver Pagos</a>
+                                </li>
+                                <li>
+                                  <a class="dropdown-item" href="{{ path('persona_entradas', {'id': persona.id}) }}">Ver Entradas</a>
+                                </li>
                               </ul>
                             </div>
                           </div>

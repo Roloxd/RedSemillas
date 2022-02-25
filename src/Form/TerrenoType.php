@@ -27,7 +27,12 @@ class TerrenoType extends AbstractType
             ->add('provincia')
             ->add('region')
             ->add('pais_origen')
-            // ->add('persona_propietaria')
+            ->add('elevacion')
+            ->add('latitud')
+            ->add('longitud')
+            ->add('referenciaCoordenadas')
+            ->add('metodoGeoReferencia')
+            ->add('incertidumbreCoordenadas')
         ;
     }
 

@@ -309,6 +309,24 @@ class PersonaController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/entradas", name="persona_entradas", methods={"GET"})
+     */
+    public function entradas(Request $request): Response
+    {
+        $id = $request->attributes->get('id');
+
+        $persona = $this->getDoctrine()
+            ->getRepository(Persona::class)
+            ->find( intval($id) );
+
+        $entradas = $persona->getEntradas()->getValues();
+
+        return $this->render('entrada/index.html.twig', [
+            'entradas' => $entradas,
+        ]);
+    }
+
+    /**
      * @Route("/{id}", name="persona_delete", methods={"POST"})
      */
     public function delete(Request $request, Persona $persona): Response

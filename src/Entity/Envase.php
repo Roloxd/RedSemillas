@@ -135,7 +135,7 @@ class Envase
     private $variedads;
 
     /**
-     * @ORM\Column(type="integer", length=11, nullable=true)
+     * @ORM\Column(type="integer", length=11)
      */
     private $codigo;
 

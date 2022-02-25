@@ -20,27 +20,22 @@ class Entrada
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=10, nullable=true)
      */
     private $codigo_entrada;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", length=10, nullable=true)
      */
     private $num_pasaporte;
 
     /**
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="decimal", precision=7, scale=2, nullable=true)
      */
     private $cantidad;
 
     /**
-     * @ORM\Column(type="float", nullable=true)
-     */
-    private $superficie_cultivo;
-
-    /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $fecha_entrada;
 
@@ -69,6 +64,16 @@ class Entrada
      */
     private $persona;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Mejoras::class, mappedBy="entrada", cascade={"persist", "remove"})
+     */
+    private $mejoras;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $cantidadUnidades;
+
     public function __construct()
     {
         $this->id_terreno = new ArrayCollection();
@@ -80,24 +85,24 @@ class Entrada
         return $this->id;
     }
 
-    public function getCodigoEntrada(): ?int
+    public function getCodigoEntrada(): ?string
     {
         return $this->codigo_entrada;
     }
 
-    public function setCodigoEntrada(int $codigo_entrada): self
+    public function setCodigoEntrada(string $codigo_entrada): self
     {
         $this->codigo_entrada = $codigo_entrada;
 
         return $this;
     }
 
-    public function getNumPasaporte(): ?int
+    public function getNumPasaporte(): ?string
     {
         return $this->num_pasaporte;
     }
 
-    public function setNumPasaporte(?int $num_pasaporte): self
+    public function setNumPasaporte(?string $num_pasaporte): self
     {
         $this->num_pasaporte = $num_pasaporte;
 
@@ -112,18 +117,6 @@ class Entrada
     public function setCantidad(?float $cantidad): self
     {
         $this->cantidad = $cantidad;
-
-        return $this;
-    }
-
-    public function getSuperficieCultivo(): ?float
-    {
-        return $this->superficie_cultivo;
-    }
-
-    public function setSuperficieCultivo(?float $superficie_cultivo): self
-    {
-        $this->superficie_cultivo = $superficie_cultivo;
 
         return $this;
     }
@@ -231,6 +224,40 @@ class Entrada
     public function setPersona(?Persona $persona): self
     {
         $this->persona = $persona;
+
+        return $this;
+    }
+
+    public function getMejoras(): ?Mejoras
+    {
+        return $this->mejoras;
+    }
+
+    public function setMejoras(?Mejoras $mejoras): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($mejoras === null && $this->mejoras !== null) {
+            $this->mejoras->setEntrada(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($mejoras !== null && $mejoras->getEntrada() !== $this) {
+            $mejoras->setEntrada($this);
+        }
+
+        $this->mejoras = $mejoras;
+
+        return $this;
+    }
+
+    public function getCantidadUnidades(): ?int
+    {
+        return $this->cantidadUnidades;
+    }
+
+    public function setCantidadUnidades(?int $cantidadUnidades): self
+    {
+        $this->cantidadUnidades = $cantidadUnidades;
 
         return $this;
     }

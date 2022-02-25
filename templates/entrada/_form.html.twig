@@ -52,26 +52,26 @@
               <!-- form start -->
               {{ form_start(form) }}
                 <div class="card-body">
-                  {# <div class="form-group">
+                  <div class="form-group">
                     <label for="codigo_entrada">Codigo de entrada</label>
                     <a href="#" data-toggle="tooltip" title="Código o número de entrada. Formato: ENT-00000">?</a>
-                    {{ form_widget(form.codigo_entrada, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_widget(form.codigoEntrada, {'attr': {'class': 'form-control'}}) }}
                   </div>
                   <div class="form-group">
                     <label for="num_pasaporte">Número de Pasaporte</label>
                     <a href="#" data-toggle="tooltip" title="Número de pasaporte que tiene o que se le asignará.">?</a>
-                    {{ form_widget(form.num_pasaporte, {'attr': {'class': 'form-control'}}) }}
-                  </div> #}
+                    {{ form_widget(form.numPasaporte, {'attr': {'class': 'form-control'}}) }}
+                  </div>
                   <div class="form-group">
                     <label for="cantidad">Cantidad en gramos</label>
                     <a href="#" data-toggle="tooltip" title="Cantidad de material que se entrega expresado en gramos.">?</a>
                     {{ form_widget(form.cantidad, {'attr': {'class': 'form-control'}}) }}
                   </div>
-                  {# <div class="form-group">
-                    <label for="superficie_cultivo">Superficie de cultivo</label>
-                    <a href="#" data-toggle="tooltip" title="Superficie de cultivo para esa cantidad de gramos en combinación con el % de germinación que tiene, ya que si germina el 50% la superficie cultivable será la mitad.">?</a>
-                    {{ form_widget(form.superficie_cultivo, {'attr': {'class': 'form-control'}}) }}
-                  </div> #}
+                  <div class="form-group">
+                    <label for="superficie_cultivo">Cantidad en unidades</label>
+                    <a href="#" data-toggle="tooltip" title="Cantidad de material que se entrega expresado en unidades.">?</a>
+                    {{ form_widget(form.cantidadUnidades, {'attr': {'class': 'form-control'}}) }}
+                  </div>
                   <div class="form-group">
                     <label for="fecha_entrada">Fecha de entrada</label>
                     <a href="#" data-toggle="tooltip" title="Fecha de entrega o de la entrada.">?</a>

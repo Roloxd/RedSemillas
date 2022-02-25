@@ -2,32 +2,30 @@
 
 namespace App\Form;
 
-use App\Entity\Entrada;
+use App\Entity\Mejoras;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class EntradaType extends AbstractType
+class MejorasType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('codigo_entrada')
-            ->add('num_pasaporte')
-            ->add('num_envase')
-            ->add('cantidad')
-            ->add('superficie_cultivo')
-            ->add('fecha_entrada')
-            ->add('tipo_entrada')
+            ->add('metodoMejora')
+            ->add('descripcionProcedimiento')
+            ->add('imagenesProceso')
             ->add('observaciones')
-            //->add('id_terreno')
+            ->add('instituciones')
+            ->add('personas')
+            ->add('entrada')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Entrada::class,
+            'data_class' => Mejoras::class,
         ]);
     }
 }
