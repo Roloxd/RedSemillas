@@ -84,30 +84,4 @@ class VariedadRepository extends ServiceEntityRepository
 
         return $arrayIdsVariedades;
     }
-
-    /**
-     * @return Variedad[]
-     */
-    public function findAllMegaTabla() : array
-    {
-        // $qb = $this->createQueryBuilder('v')
-        //     ->join('v.envases', 'e')
-        //     ->where('e.id LIKE :data')
-        //     ->setParameter('data', 10);
-
-        // return $qb->getQuery()->execute();
-
-        $entityManager = $this->getEntityManager();
-        
-        $query = $entityManager->createQuery(
-            'SELECT v, env, ent
-            FROM App\Entity\Variedad v
-            INNER JOIN v.envases env
-            INNER JOIN env.entrada ent
-            INNER JOIN ent.id_terreno t
-            WHERE t.id = :id'
-        )->setParameter('id', 1); // Query - Falta por hacer
-
-        return $query->getResult();
-    }
 }

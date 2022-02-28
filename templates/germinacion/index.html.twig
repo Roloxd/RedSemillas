@@ -161,19 +161,26 @@
                                             </td>
                                             <td> {% if germinacion.envase is not empty %}{{ germinacion.envase.ubicacionEnvase }}{% endif %}</td>
                                             <td>
-                                                {% set terrenos = germinacion.envase.entrada.terrenos.getValues() %}
-                                                {% if terrenos is not empty %}
-                                                    <div class="d-flex flex-column">
-                                                        {% for terreno in terrenos %} 
-                                                            <a href="{{ path('terreno_mostrar', {'id' : terreno.id}) }}">{{terreno.municipio}}</a>
-                                                        {% endfor %}
-                                                    </div>
+                                                {% set envase = germinacion.envase %}
+                                                {% if envase is not null %}
+                                                    {% set entrada = envase.entrada %}
+
+                                                    {% if entrada is not null %}
+                                                        {% set terrenos = entrada.terrenos.getValues %}
+
+                                                        {% if terrenos is not null %}
+                                                            <div class="d-flex flex-column">
+                                                                {% for terreno in terrenos %} 
+                                                                    <a href="{{ path('terreno_mostrar', {'id' : terreno.id}) }}">{{terreno.municipio}}</a>
+                                                                {% endfor %}
+                                                            </div>
+                                                        {% endif %}
+                                                    {% endif %}
                                                 {% endif %}
                                             </td>
                                             <td>{{ germinacion.observaciones }}</td>
                                             <td>
                                                 <div class="btn-group-vertical w-100">
-                                                    {# <a class="btn btn-default" href="{{ path('germinacion_show', {'id': germinacion.id}) }}">Ver</a> #}
                                                     <a class="btn btn-default" href="{{ path('germinacion_edit', {'id': germinacion.id}) }}">Editar</a>
                                                 </div>
                                             </td>

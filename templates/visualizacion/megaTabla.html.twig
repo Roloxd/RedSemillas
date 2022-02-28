@@ -45,34 +45,401 @@
                                         <tr>
                                             <th>Número pasaporte</th>
                                             <th>País origen</th>
+                                            <th>Provincia</th>
+                                            <th>Municipio</th>
+                                            <th>Localidad</th>
+                                            <th>Condición Biologica</th>
+                                            <th>Fuente de recolección o adquisición</th>
+                                            <th>Mejorador</th>
+                                            <th>Método de mejora</th>
+                                            <th>Descripción del procedimiento</th>
+                                            <th>Nombre Recolector</th>
+                                            <th>Nombre Donante</th>
+                                            <th>Longitud del terreno</th>
+                                            <th>Latitud del terreno</th>
+                                            <th>Elevación del terreno</th>
+                                            <th>Fecha de recolección</th>
+                                            <th>Observaciones donante/recolector</th>
+                                            <th>Variedad</th>
+                                            <th>Especie</th>
+                                            <th>Genero</th>
+                                            <th>Familia</th>
+                                            <th>Nombre común del cultivo</th>
+                                            <th>Nombre local de la accesión</th>
+                                            <th>Conocimientos trádicionales asociados a la variedad</th>
+                                            <th>Fotos planta</th>
+                                            <th>Fotos flor</th>
+                                            <th>Fotos fruto</th>
+                                            <th>Usos medicinales</th>
+                                            <th>Envase</th>
+                                            <th>Fecha de envasado</th>
+                                            <th>Cantidad de material envasada en gramos</th>
+                                            <th>Cantidad mínima de seguridad en unidades</th>
+                                            <th>Disponibilidad RED</th>
+                                            <th>Porcentaje de germinación de la muestra</th>
+                                            <th>Número de días en germinar</th>
                                          </tr>   
                                     </thead>
                                     <tbody>
-                                        {% for variedad in variedades %}
-                                            {% set envases = variedad.envases.getValues %}
+                                        {% for entrada in entradas %}
+                                            {% set terrenos = entrada.terrenos.getValues %}
+                                            {% set envases = entrada.numEnvase.getValues %}
+                                            {% set mejorador = entrada.mejoras %}
+                                            {% set persona = entrada.persona %}
+                                            {% set donanteRecolector = persona.donante %}
                                             <tr>
+                                                <td>
+                                                    {{ entrada.numPasaporte }}
+                                                </td>
+                                                <td>
+                                                    {% if terrenos is not null %}
+                                                        {% for terreno in terrenos %}
+                                                            <p>{{ terreno.paisOrigen }}</p>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if terrenos is not null %}
+                                                        {% for terreno in terrenos %}
+                                                            <p>{{ terreno.provincia }}</p>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if terrenos is not null %}
+                                                        {% for terreno in terrenos %}
+                                                            <p>{{ terreno.municipio }}</p>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if terrenos is not null %}
+                                                        {% for terreno in terrenos %}
+                                                            <p>{{ terreno.localidad }}</p>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </td>
                                                 <td>
                                                     {% if envases is not null %}
                                                         {% for envase in envases %}
-                                                            {% set entrada = envase.entrada %}
-                                                            {% if entrada is not null %}
-                                                                {{ entrada.numpasaporte }}
+                                                            <p>{{ envase.condicionBiologica }}</p>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if envases is not null %}
+                                                        {% for envase in envases %}
+                                                            <p>{{ envase.fuenteRecoleccion }}</p>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if mejorador is not null %}
+                                                        {% set personas = mejorador.personas.getValues %}
+                                                        {% if personas is not null %}
+                                                            <div class="d-flex flex-column">
+                                                            {% for persona in personas %}
+                                                                <a href="{{ path('mejoras_mostrar', {'id' : persona.id}) }}">{{ persona }}</a>
+                                                            {% endfor %}
+                                                            </div>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if mejorador is not null %}
+                                                        {{ mejorador.metodoMejora }}
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if mejorador is not null %}
+                                                        {{ mejorador.descripcionProcedimiento }}
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if donanteRecolector is not null and donanteRecolector.numeroRecolector is not null %}
+                                                        <a href="{{ path('persona_mostrar', {'id' : persona.id}) }}">{{ persona }}</a>
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if donanteRecolector is not null and donanteRecolector.numeroRecolector is null %}
+                                                        <a href="{{ path('persona_mostrar', {'id' : persona.id}) }}">{{ persona }}</a>
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if terrenos is not null %}
+                                                        {% for terreno in terrenos %}
+                                                            <p>{{ terreno.longitud }}</p>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if terrenos is not null %}
+                                                        {% for terreno in terrenos %}
+                                                            <p>{{ terreno.latitud }}</p>
+                                                        {% endfor %}
+                                                    {% endif %} 
+                                                </td>
+                                                <td>
+                                                    {% if terrenos is not null %}
+                                                        {% for terreno in terrenos %}
+                                                            <p>{{ terreno.elevacion }}</p>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if envases is not null %}
+                                                        {% for envase in envases %}
+                                                            <p>{{ envase.fechaRecoleccion ? envase.fechaRecoleccion|date('Y-m-d') : '' }}</p>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if donanteRecolector is not null %}
+                                                        {{ donanteRecolector.observaciones }}
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if envases is not null %}
+                                                        {% for envase in envases %}
+                                                            {% set variedades = envase.variedads.getValues %}
+                                                            {% if variedades is not null %}
+                                                                <div class="d-flex flex-column">
+                                                                {% for variedad in variedades %}
+                                                                    <a href="{{ path('variedad_mostrar', {'id' : variedad.id}) }}">{{ variedad }}</a>
+                                                                {% endfor %}
+                                                                </div>
                                                             {% endif %}
                                                         {% endfor %}
                                                     {% endif %}
                                                 </td>
                                                 <td>
-                                                    {# {% if envases is not null %}
+                                                    {% if envases is not null %}
                                                         {% for envase in envases %}
-                                                            {% set entrada = envase.entrada %}
-                                                            {% if entrada is not null %}
-                                                                {% set terrenos = entrada.id_terreno %}
-                                                                    {% if terrenos is not null %}
-                                                                {{ dump(entrada) }}
-                                                                    {}
+                                                            {% set variedades = envase.variedads.getValues %}
+                                                            {% if variedades is not null %}
+                                                                {% for variedad in variedades %}
+                                                                    {% set especie = variedad.especie %}
+                                                                    {% if especie is not null %}
+                                                                        <p>{{ variedad.especie }}</p>
+                                                                    {% endif %}
+                                                                {% endfor %}
                                                             {% endif %}
                                                         {% endfor %}
-                                                    {% endif %} #}
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if envases is not null %}
+                                                        {% for envase in envases %}
+                                                            {% set variedades = envase.variedads.getValues %}
+                                                            {% if variedades is not null %}
+                                                                {% for variedad in variedades %}
+                                                                    {% set especie = variedad.especie %}
+                                                                    {% set genero = especie.padre %}
+                                                                    {% if especie is not null and genero is not null %}
+                                                                        <p>{{ genero.nombre }}</p>
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if envases is not null %}
+                                                        {% for envase in envases %}
+                                                            {% set variedades = envase.variedads.getValues %}
+                                                            {% if variedades is not null %}
+                                                                {% for variedad in variedades %}
+                                                                    {% set especie = variedad.especie %}
+                                                                    {% set genero = especie.padre %}
+                                                                    {% set familia = genero.padre %}
+                                                                    {% if  especie is not null and genero is not null and familia is not null %}
+                                                                        <p>{{ variedad.especie.padre.padre.nombre }}<p>
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if envases is not null %}
+                                                        {% for envase in envases %}
+                                                            {% set variedades = envase.variedads.getValues %}
+                                                            {% if variedades is not null %}
+                                                                {% for variedad in variedades %}
+                                                                    <p>{{ variedad.nombreComun }}</p>
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if envases is not null %}
+                                                        {% for envase in envases %}
+                                                            {% set variedades = envase.variedads.getValues %}
+                                                            {% if variedades is not null %}
+                                                                {% for variedad in variedades %}
+                                                                    <p>{{ variedad.nombreLocal }}</p>
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if envases is not null %}
+                                                        {% for envase in envases %}
+                                                            {% set variedades = envase.variedads.getValues %}
+                                                            {% if variedades is not null %}
+                                                                {% for variedad in variedades %}
+                                                                    <p>{{ variedad.conocimientosTradicionales }}</p>
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if envases is not null %}
+                                                        {% for envase in envases %}
+                                                            {% set variedades = envase.variedads.getValues %}
+                                                            {% if variedades is not null %}
+                                                                {% for variedad in variedades %}
+                                                                    {% set imagenSeleccionadas = variedad.imagenSeleccionadas.getValues %}
+                                                                    {% if imagenSeleccionadas is not null %}
+                                                                        {% for imagenSeleccionada in imagenSeleccionadas %}
+                                                                            {% if imagenSeleccionada.tipo == "Planta" %}
+                                                                                {% set imagen = imagenSeleccionada.imagen %}
+                                                                                {% if imagen is not null %}
+                                                                                    <img src="/uploads/img/{{ imagen.url }}" class="img-fluid rounded mh-150 d-block">
+                                                                                {% endif %}
+                                                                            {% endif %}
+                                                                        {% endfor %}
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if envases is not null %}
+                                                        {% for envase in envases %}
+                                                            {% set variedades = envase.variedads.getValues %}
+                                                            {% if variedades is not null %}
+                                                                {% for variedad in variedades %}
+                                                                    {% set imagenSeleccionadas = variedad.imagenSeleccionadas.getValues %}
+                                                                    {% if imagenSeleccionadas is not null %}
+                                                                        {% for imagenSeleccionada in imagenSeleccionadas %}
+                                                                            {% if imagenSeleccionada.tipo == "Flor" %}
+                                                                                {% set imagen = imagenSeleccionada.imagen %}
+                                                                                {% if imagen is not null %}
+                                                                                    <img src="/uploads/img/{{ imagen.url }}" class="img-fluid rounded mh-150 d-block">
+                                                                                {% endif %}
+                                                                            {% endif %}
+                                                                        {% endfor %}
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if envases is not null %}
+                                                        {% for envase in envases %}
+                                                            {% set variedades = envase.variedads.getValues %}
+                                                            {% if variedades is not null %}
+                                                                {% for variedad in variedades %}
+                                                                    {% set imagenSeleccionadas = variedad.imagenSeleccionadas.getValues %}
+                                                                    {% if imagenSeleccionadas is not null %}
+                                                                        {% for imagenSeleccionada in imagenSeleccionadas %}
+                                                                            {% if imagenSeleccionada.tipo == "Fruto" %}
+                                                                                {% set imagen = imagenSeleccionada.imagen %}
+                                                                                {% if imagen is not null %}
+                                                                                    <img src="/uploads/img/{{ imagen.url }}" class="img-fluid rounded mh-150 d-block">
+                                                                                {% endif %}
+                                                                            {% endif %}
+                                                                        {% endfor %}
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if envases is not null %}
+                                                        {% for envase in envases %}
+                                                            {% set variedades = envase.variedads.getValues %}
+                                                            {% if variedades is not null %}
+                                                                {% for variedad in variedades %}
+                                                                    {% set usosVariedad = variedad.usoVariedads.getValues %}
+                                                                    {% for usos in usosVariedad %}
+                                                                        {% set uso = usos.uso %}
+                                                                        {% if uso.uso == "Medicinales" %}
+                                                                            <p>{{ uso }}</p>
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if envases is not null %}
+                                                        <div class="d-flex flex-column">
+                                                        {% for envase in envases %}
+                                                            <a href="{{ path('envase_mostrar', {'id' : envase.id}) }}">{{ envase }}</a>
+                                                        {% endfor %}
+                                                        </div>
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if envases is not null %}
+                                                        {% for envase in envases %}
+                                                            <p>{{ envase.fechaEnvasado ? envase.fechaEnvasado|date('Y-m-d') : '' }}</p>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if envases is not null %}
+                                                        {% for envase in envases %}
+                                                           <p>{{ envase.cantidadGramos }}</p>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if envases is not null %}
+                                                        {% for envase in envases %}
+                                                           <p>{{ envase.cantidadMinUnidades }}</p>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if envases is not null %}
+                                                        {% for envase in envases %}
+                                                           <p>{{ envase.disponibilidadRed }}</p>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if envases is not null %}
+                                                        {% for envase in envases %}
+                                                            {% set germinaciones = envase.germinaciones.getValues %}
+                                                            {% if germinaciones is not null %}
+                                                                {% for germinacion in germinaciones %}
+                                                                    <p>{{ germinacion.porcentajeGerminacionMuestra }}</p>
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if envases is not null %}
+                                                        {% for envase in envases %}
+                                                            {% set germinaciones = envase.germinaciones.getValues %}
+                                                            {% if germinaciones is not null %}
+                                                                {% for germinacion in germinaciones %}
+                                                                    <p>{{ germinacion.numDiasEnGerminar }}</p>
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% endif %}
                                                 </td>
                                             </tr>
                                         {% endfor %}
@@ -80,6 +447,40 @@
                                     <tfoot>
                                         <tr>
                                             <th>Número pasaporte</th>
+                                            <th>País origen</th>
+                                            <th>Provincia</th>
+                                            <th>Municipio</th>
+                                            <th>Localidad</th>
+                                            <th>Condición Biologica</th>
+                                            <th>Fuente de recolección o adquisición</th>
+                                            <th>Mejorador</th>
+                                            <th>Método de mejora</th>
+                                            <th>Descripción del procedimiento</th>
+                                            <th>Nombre Recolector</th>
+                                            <th>Nombre Donante</th>
+                                            <th>Longitud del terreno</th>
+                                            <th>Latitud del terreno</th>
+                                            <th>Elevación del terreno</th>
+                                            <th>Fecha de recolección</th>
+                                            <th>Observaciones donante/recolector</th>
+                                            <th>Variedad</th>
+                                            <th>Especie</th>
+                                            <th>Genero</th>
+                                            <th>Familia</th>
+                                            <th>Nombre común del cultivo</th>
+                                            <th>Nombre local de la accesión</th>
+                                            <th>Conocimientos trádicionales asociados a la variedad</th>
+                                            <th>Fotos planta</th>
+                                            <th>Fotos flor</th>
+                                            <th>Fotos fruto</th>
+                                            <th>Usos medicinales</th>
+                                            <th>Envase</th>
+                                            <th>Fecha de envasado</th>
+                                            <th>Cantidad de material envasada en gramos</th>
+                                            <th>Cantidad mínima de seguridad en unidades</th>
+                                            <th>Disponibilidad RED</th>
+                                            <th>Porcentaje de germinación de la muestra</th>
+                                            <th>Número de días en germinar</th>
                                     </tfoot>
                                 </table>
                             </div>

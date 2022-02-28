@@ -172,4 +172,9 @@ class Mejoras
 
         return $this;
     }
+
+    public function __toString() : string
+    {
+        return "MJ-" . $this->getId();
+    }
 }

@@ -95,4 +95,20 @@ class MejorasController extends AbstractController
 
         return $this->redirectToRoute('mejoras_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    /**
+     * @Route("/{id}/mostrar", name="mejoras_mostrar", methods={"GET"})
+     */
+    public function mostrar(Request $request): Response
+    {
+        $id = $request->attributes->get('id');
+
+        $mejoras[] = $this->getDoctrine()
+            ->getRepository(Mejoras::class)
+            ->find($id);
+
+        return $this->render('mejoras/index.html.twig', [
+            'mejoras' => $mejoras,
+        ]);
+    }
 }

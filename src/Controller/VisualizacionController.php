@@ -105,11 +105,11 @@ class VisualizacionController extends AbstractController {
     /**
      * @Route("/megatabla", name="vista_megatabla", methods={"GET"})
      */
-    public function megatabla(VariedadRepository $variedadRepository): Response
+    public function megatabla(EntradaRepository $entradaRepository): Response
     {
-        dump($variedadRepository->findAllMegaTabla());
+        dump($entradaRepository->findAllMegaTabla());
         return $this->render('visualizacion/megaTabla.html.twig', [
-            'variedades' => $variedadRepository->findAll(),
+            'entradas' => $entradaRepository->findAllMegaTabla(),
         ]);
     }
 }
