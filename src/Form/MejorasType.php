@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Mejoras;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,7 +16,12 @@ class MejorasType extends AbstractType
             ->add('metodoMejora')
             ->add('descripcionProcedimiento')
             ->add('imagenesProceso')
-            ->add('observaciones')
+            ->add('observaciones', TextareaType::class, [
+                'attr' => [
+                    'maxlength' => 50
+                ],
+                'required' => false,
+            ])
             ->add('instituciones')
             ->add('personas')
             ->add('entrada')

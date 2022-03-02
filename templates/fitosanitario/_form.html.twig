@@ -1,0 +1,99 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>{{ text_form }}</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Administración</a></li>
+                    <li class="breadcrumb-item active">Fitosanitario</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between">
+                    <div></div>
+                    {% if text_form == 'Editar Fitosanitario' %}
+                        {{ include('fitosanitario/_delete_form.html.twig') }}
+                    {% endif %}
+                </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+        
+            <!-- form start -->
+            {{ form_start(form) }}
+                <div class="row">
+                    <!-- left column -->
+                    <div class="col-md-6">
+                        <!-- general form elements -->
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">Formulario</h3>
+                            </div>
+                            <!-- /.card-header -->
+
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="fitosanitario_fecdetpat">Fecha de detección de la patología</label>
+                                    <a href="#" data-toggle="tooltip" title="Fecha de detección de la patología.">?</a>
+                                    {{ form_widget(form.fecdetpat, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="fitosanitario_fordet">Forma de detección de la patología</label>
+                                    <a href="#" data-toggle="tooltip" title="Si se ha detectado la existencia de una patología en la muestra.">?</a>
+                                    <select id="fitosanitario_fordet" name="fitosanitario[fordet][]" class="form-control select-fordet" multiple></select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="fitosanitario_metdet">Método de detección</label>
+                                    <a href="#" data-toggle="tooltip" title="Método empleado para determindar la existencia de una patología en la muestra, visual, laboratorio, etc.">?</a>
+                                    {{ form_widget(form.metdet, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="fitosanitario_fitpat">Fitopatología</label>
+                                    <a href="#" data-toggle="tooltip" title="Tipo de fitopatología detectada.">?</a>
+                                    {{ form_widget(form.fitpat, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="fitosanitario_patdet">Pátogeno detectado</label>
+                                    <a href="#" data-toggle="tooltip" title="Tipo de patógeno encontrado">?</a>
+                                    {{ form_widget(form.patdet, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="fitosanitario_obs">Observaciones</label>
+                                    <a href="#" data-toggle="tooltip" title="Para añadir notas o para completar datos.">?</a>
+                                    {{ form_widget(form.obs, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="fitosanitario_envase">Envase</label>
+                                    <a href="#" data-toggle="tooltip" title="">?</a>
+                                    {{ form_widget(form.envase, {'attr': {'class': 'form-control select-envase'}}) }}
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!--/.col (left) -->
+                </div>
+                <!-- /.row -->
+
+                <div class="d-flex justify-content-between">
+                    <a class="btn btn-secondary" href="{{ path('fitosanitario_index') }}">Volver a la lista</a>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            {{ form_end(form) }}
+
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+
+    
+
+</div>
+<!-- /.content-wrapper -->

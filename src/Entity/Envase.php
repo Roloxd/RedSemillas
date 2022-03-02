@@ -154,10 +154,16 @@ class Envase
      */
     private $fechaObtencion;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Fitosanitario::class, mappedBy="envase")
+     */
+    private $fitosanitarios;
+
     public function __construct()
     {
         $this->variedads = new ArrayCollection();
         $this->germinaciones = new ArrayCollection();
+        $this->fitosanitarios = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -523,6 +529,36 @@ class Envase
     public function setFechaObtencion(?\DateTimeInterface $fechaObtencion): self
     {
         $this->fechaObtencion = $fechaObtencion;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Fitosanitario[]
+     */
+    public function getFitosanitarios(): Collection
+    {
+        return $this->fitosanitarios;
+    }
+
+    public function addFitosanitario(Fitosanitario $fitosanitario): self
+    {
+        if (!$this->fitosanitarios->contains($fitosanitario)) {
+            $this->fitosanitarios[] = $fitosanitario;
+            $fitosanitario->setEnvase($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFitosanitario(Fitosanitario $fitosanitario): self
+    {
+        if ($this->fitosanitarios->removeElement($fitosanitario)) {
+            // set the owning side to null (unless already changed)
+            if ($fitosanitario->getEnvase() === $this) {
+                $fitosanitario->setEnvase(null);
+            }
+        }
 
         return $this;
     }

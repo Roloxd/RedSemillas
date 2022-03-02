@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fitosanitario{% endblock %}
+
+{% block body %}
+    <h1>Fitosanitario</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ fitosanitario.id }}</td>
+            </tr>
+            <tr>
+                <th>Fecdetpat</th>
+                <td>{{ fitosanitario.fecdetpat ? fitosanitario.fecdetpat|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Fordet</th>
+                <td>{{ fitosanitario.fordet }}</td>
+            </tr>
+            <tr>
+                <th>Metdet</th>
+                <td>{{ fitosanitario.metdet }}</td>
+            </tr>
+            <tr>
+                <th>Fitpat</th>
+                <td>{{ fitosanitario.fitpat }}</td>
+            </tr>
+            <tr>
+                <th>Patdet</th>
+                <td>{{ fitosanitario.patdet }}</td>
+            </tr>
+            <tr>
+                <th>Obs</th>
+                <td>{{ fitosanitario.obs }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('fitosanitario_index') }}">back to list</a>
+
+    <a href="{{ path('fitosanitario_edit', {'id': fitosanitario.id}) }}">edit</a>
+
+    {{ include('fitosanitario/_delete_form.html.twig') }}
+{% endblock %}

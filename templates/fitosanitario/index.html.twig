@@ -1,6 +1,6 @@
 {% extends 'backend-base.html.twig' %}
 
-{% block title %}Mejoras{% endblock %}
+{% block title %}Fitosanitario{% endblock %}
 
 {% block stylesheets %}
       {{ include('be-layout/stylesheet-tabla.html', sandboxed = true) }}
@@ -8,11 +8,11 @@
 
 {% block body %}
 <div class="wrapper">
- {{ include('be-layout/preloader.html', sandboxed = true) }}
+    {{ include('be-layout/preloader.html', sandboxed = true) }}
 
-  {{ include('be-layout/navbar.html', sandboxed = true) }}
+    {{ include('be-layout/navbar.html', sandboxed = true) }}
   
-  {{ include('be-layout/sidebar.html', sandboxed = true) }}
+    {{ include('be-layout/sidebar.html', sandboxed = true) }}
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -21,12 +21,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Tabla Mejorador</h1>
+                        <h1>Tabla Fitosanitario</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Mejorador</li>
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Fitosanitario</li>
                         </ol>
                     </div>
                 </div>
@@ -40,87 +40,77 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <a class="btn btn-app" href="{{ path('mejoras_new') }}" style="margin: 0px;">
+                                <a class="btn btn-app" href="{{ path('fitosanitario_new') }}" style="margin: 0px;">
                                     <i class="fas fa-edit"></i>
-                                    Crear Mejorador
+                                    Crear Fitosanitario
                                 </a>
                             </div>
-                            <!-- /.card-header -->
                             <div class="card-body">
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Método de mejora</th>
-                                            <th>Descripción procedimiento</th>
-                                            <th>Imágenes del proceso</th>
+                                            <th>Fecha de detección de la patología</th>
+                                            <th>Forma de detección</th>
+                                            <th>Método de detección</th>
+                                            <th>Fitopatología</th>
+                                            <th>Pátogeno detectado</th>
                                             <th>Observaciones</th>
-                                            <th>Instituciones</th>
-                                            <th>Personas</th>
-                                            <th>Entrada</th>
+                                            <th>Envase</th>
+                                            <th>Variedad</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    {% for mejora in mejoras %}
-                                        {% set instituciones = mejora.instituciones.getValues %}
-                                        {% set personas = mejora.personas.getValues %}
-                                        {% set entrada = mejora.entrada %}
+                                    {% for fitosanitario in fitosanitarios %}
+                                        {% set envase = fitosanitario.envase %}
+                                        {% set variedad = fitosanitario.variedad %}
                                         <tr>
-                                            <td>{{ mejora.id }}</td>
-                                            <td>{{ mejora.metodoMejora }}</td>
-                                            <td>{{ mejora.descripcionProcedimiento }}</td>
-                                            <td>{{ mejora.imagenesProceso }}</td>
-                                            <td>{{ mejora.observaciones }}</td>
-                                            </td>
+                                            <td>{{ fitosanitario.id }}</td>
+                                            <td>{{ fitosanitario.fecdetpat ? fitosanitario.fecdetpat|date('Y-m-d') : '' }}</td>
+                                            <td>{{ fitosanitario.fordet }}</td>
+                                            <td>{{ fitosanitario.metdet }}</td>
+                                            <td>{{ fitosanitario.fitpat }}</td>
+                                            <td>{{ fitosanitario.patdet }}</td>
+                                            <td>{{ fitosanitario.obs }}</td>
                                             <td>
-                                                {% if instituciones is not null %}
+                                                {% if envase is not null %}
                                                     <div class="d-flex flex-column">
-                                                    {% for institucion in instituciones %}
-                                                        <a href="{{ path('instituciones_mostrar', {'id' : institucion.id}) }}">{{ institucion }}</a>
-                                                    {% endfor %}
+                                                    <a href="{{ path('envase_mostrar', {'id' : envase.id}) }}">{{ envase }}</a>
                                                     </div>
                                                 {% endif %}
                                             </td>
                                             <td>
-                                                {% if personas is not null %}
+                                                {% if variedad is not null %}
                                                     <div class="d-flex flex-column">
-                                                    {% for persona in personas %}
-                                                        <a href="{{ path('persona_mostrar', {'id' : persona.id}) }}">{{ persona }}</a>
-                                                    {% endfor %}
+                                                        <a href="{{ path('variedad_mostrar', {'id' : variedad.id}) }}">{{ variedad }}</a>
                                                     </div>
                                                 {% endif %}
                                             </td>
                                             <td>
-                                                {% if entrada is not null %}
-                                                    <div class="d-flex flex-column">
-                                                        <a href="{{ path('entrada_mostrar', {'id' : entrada.id}) }}">{{ entrada }}</a>
-                                                    </div>
-                                                {% endif %}
+                                                <a href="{{ path('fitosanitario_show', {'id': fitosanitario.id}) }}">show</a>
+                                                <a href="{{ path('fitosanitario_edit', {'id': fitosanitario.id}) }}">edit</a>
                                             </td>
-                                            <td>
-                                                <div class="btn-group-vertical w-100">
-                                                    <a class="btn btn-default" href="{{ path('mejoras_edit', {'id': mejora.id}) }}">Editar</a>
-                                                </div>
                                         </tr>
                                     {% else %}
                                         <tr>
-                                            <td colspan="6">no records found</td>
+                                            <td colspan="8">no records found</td>
                                         </tr>
                                     {% endfor %}
                                     </tbody>
                                     <tfoot>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Método de mejora</th>
-                                            <th>Descripción procedimiento</th>
-                                            <th>Imágenes del proceso</th>
+                                            <th>Fecha de detección de la patología</th>
+                                            <th>Forma de detección</th>
+                                            <th>Método de detección</th>
+                                            <th>Fitopatología</th>
+                                            <th>Pátogeno detectado</th>
                                             <th>Observaciones</th>
-                                            <th>Instituciones</th>
-                                            <th>Personas</th>
-                                            <th>Entrada</th>
+                                            <th>Envase</th>
+                                            <th>Variedad</th>
                                             <th>Acciones</th>
-                                        </tr>   
+                                        </tr>
                                     </tfoot>
                                 </table>
                             </div>
@@ -138,13 +128,13 @@
     </div>
     <!-- /.content-wrapper -->
 
-{{ include('be-layout/footer.html', sandboxed = true) }}
+    {{ include('be-layout/footer.html', sandboxed = true) }}
 
-<!-- Control Sidebar -->
-<aside class="control-sidebar control-sidebar-dark">
-<!-- Control sidebar content goes here -->
-</aside>
-<!-- /.control-sidebar -->
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+      <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
 
@@ -169,13 +159,14 @@
 <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('dist/js/demo.js') }}"></script>
+
 <!-- Page specific script -->
 <script>
   $(function () {
     $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-      "order": [[ 1, "asc" ]]
+      "order": [[ 0, "asc" ]]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({
       "paging": true,
@@ -188,4 +179,5 @@
     });
   });
 </script>
+
 {% endblock %}

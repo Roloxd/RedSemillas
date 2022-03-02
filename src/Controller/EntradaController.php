@@ -267,4 +267,20 @@ class EntradaController extends AbstractController
 
         return $this->redirectToRoute('entrada_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    /**
+     * @Route("/{id}/mostrar", name="entrada_mostrar", methods={"GET"})
+     */
+    public function mostrar(Request $request): Response
+    {
+        $id = $request->attributes->get('id');
+
+        $entradas[] = $this->getDoctrine()
+            ->getRepository(Entrada::class)
+            ->find($id);
+
+        return $this->render('entrada/index.html.twig', [
+            'entradas' => $entradas,
+        ]);
+    }
 }

@@ -257,6 +257,11 @@ class Variedad
      */
     private $especie;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Fitosanitario::class, mappedBy="variedad")
+     */
+    private $fitosanitarios;
+
     public function __construct()
     {
         $this->cicloYSiembras = new ArrayCollection();
@@ -264,6 +269,7 @@ class Variedad
         $this->imagenSeleccionadas = new ArrayCollection();
         $this->envases = new ArrayCollection();
         $this->germinaciones = new ArrayCollection();
+        $this->fitosanitarios = new ArrayCollection();
     
     }
 
@@ -825,6 +831,36 @@ class Variedad
     public function setEspecie(?Taxon $especie): self
     {
         $this->especie = $especie;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Fitosanitario[]
+     */
+    public function getFitosanitarios(): Collection
+    {
+        return $this->fitosanitarios;
+    }
+
+    public function addFitosanitario(Fitosanitario $fitosanitario): self
+    {
+        if (!$this->fitosanitarios->contains($fitosanitario)) {
+            $this->fitosanitarios[] = $fitosanitario;
+            $fitosanitario->setVariedad($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFitosanitario(Fitosanitario $fitosanitario): self
+    {
+        if ($this->fitosanitarios->removeElement($fitosanitario)) {
+            // set the owning side to null (unless already changed)
+            if ($fitosanitario->getVariedad() === $this) {
+                $fitosanitario->setVariedad(null);
+            }
+        }
 
         return $this;
     }

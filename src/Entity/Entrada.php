@@ -213,7 +213,7 @@ class Entrada
 
     public function __toString(): string
     {
-        return "ENT-" . $this->getCodigoEntrada();
+        return $this->getCodigoEntrada();
     }
 
     public function getPersona(): ?Persona

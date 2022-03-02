@@ -1,0 +1,55 @@
+{% extends 'backend-base.html.twig' %}
+
+{% block title %}Nuevo Fitosanitario{% endblock %}
+
+{% block stylesheets %}
+      {{ include('be-layout/stylesheet.html', sandboxed = true) }}
+{% endblock %}
+
+{% block body %}
+<div class="wrapper">
+ {{ include('be-layout/preloader.html', sandboxed = true) }}
+
+  {{ include('be-layout/navbar.html', sandboxed = true) }}
+  
+  {{ include('be-layout/sidebar.html', sandboxed = true) }}
+  
+  {{ include('fitosanitario/_form.html.twig') }}
+  
+  {{ include('be-layout/footer.html', sandboxed = true) }}
+
+    <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+{{ include('be-layout/js.html', sandboxed = true) }}
+<script>
+  $(document).ready(function() {
+    // Select Personas
+    $('.select-envase').select2({
+      language: 'es',
+      width: '100%',
+      placeholder: "Seleccione envase",
+      allowClear: true,
+      tags: true,
+    });
+
+    // Select Formas de detección de la patología
+    $('.select-fordet').select2({
+      theme: 'bootstrap4',
+      language: 'es',
+      width: '100%',
+      placeholder: "Selecciona o escribe las formas empleadas",
+      allowClear: true,
+      tags: true,
+    });
+  });
+</script>
+
+<script type = "text/javascript" src ="{{ asset('/js/metodos.js') }}"></script>
+<script type = "text/javascript" src ="{{ asset('/js/fitosanitario.js') }}"></script>
+{% endblock %}
