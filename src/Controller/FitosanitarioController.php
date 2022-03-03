@@ -37,13 +37,29 @@ class FitosanitarioController extends AbstractController
 
         if ($form->isSubmitted()) {
 
+            $text = '';
             $datos = $request->request->get('fitosanitario');
             dump($datos);
-            // $entityManager = $this->getDoctrine()->getManager();
-            // $entityManager->persist($fitosanitario);
-            // $entityManager->flush();
 
-            //return $this->redirectToRoute('fitosanitario_index', [], Response::HTTP_SEE_OTHER);
+            // Campos: Forma de detección de la patología
+            if( isset($datos['fordet'])  && !empty($datos['fordet']) ) {
+                $values = $datos['fordet'];
+
+                foreach( $values as $key => $value ) {
+                    $text .= $value;
+
+                    if( isset($values[$key+1]) ) {
+                        $text .= ", ";
+                    }
+                }
+                $fitosanitario->setFordet($text);
+            }
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($fitosanitario);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('fitosanitario_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('fitosanitario/new.html.twig', [

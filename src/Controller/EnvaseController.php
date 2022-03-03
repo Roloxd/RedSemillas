@@ -32,25 +32,26 @@ class EnvaseController extends AbstractController
      */
     public function new(Request $request): Response
     {
-        $idEntrada = $request->query->get('entrada');
         $error = null;
 
         $envase = new Envase();
         $form = $this->createForm(EnvaseType::class, $envase, [
             'attr' => ['class' => 'formEnvase' ]
         ]);
-        $form->handleRequest($request);
 
-        if(empty($idEntrada)){
-            $idEntrada = null;
-        } else {
+        $idEntrada = $request->query->get('entrada');
+        if(!empty($idEntrada)){
             $entrada = $this->getDoctrine()
                 ->getRepository(Entrada::class)
                 ->find( intval($idEntrada) );
 
             $form->get('entrada')->setData($entrada);
+        } else {
+            $idEntrada = null;
         }
-        
+
+        $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $datos = $request->request->get('envase');
 
@@ -87,7 +88,9 @@ class EnvaseController extends AbstractController
 
             try {
                 $entityManager->flush();
-                return $this->redirectToRoute('envase_new', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('envase_new', [
+                    'entrada' => $idEntrada,
+                ], Response::HTTP_SEE_OTHER);
             } catch (\Exception $e) {
                 if(strpos($e->getMessage(), 'codigo_envase')) {
                     $error['codigo'] = "Existe un envase con este código, prueba con otro código";
@@ -98,7 +101,7 @@ class EnvaseController extends AbstractController
             
             // return $this->redirectToRoute('envase_new', [
             //     'entrada' => $idEntrada,
-            // ], Response::HTTP_SEE_OTHER);
+            // ]);
         }
 
         $text = 'Nuevo Envase';

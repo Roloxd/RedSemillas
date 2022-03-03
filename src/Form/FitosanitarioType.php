@@ -19,17 +19,7 @@ class FitosanitarioType extends AbstractType
                 'widget' => 'single_text',
                 'required' => false,
             ])
-            // ->add('fordet', ChoiceType::class, [
-            //     'choices' => [
-            //         'En campo' => 'En campo',
-            //         'Manipulación de envases' => 'Manipulación de envases',
-            //         'Prueba de germinación' => 'Prueba de germinación',
-            //         'Laboratorio' => 'Laboratorio',
-            //     ],
-            //     'multiple' => true,
-            //     'required' => false,
-            // ])
-            ->add('metdet')
+            // ->add('metdet')
             ->add('fitpat')
             ->add('patdet')
             ->add('obs', TextareaType::class, [
@@ -38,7 +28,7 @@ class FitosanitarioType extends AbstractType
                 ],
                 'required' => false,
             ])
-            ->add('variedad')
+            // ->add('variedad')
             ->add('envase')
         ;
     }

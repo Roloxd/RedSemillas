@@ -53,7 +53,8 @@
                                 <div class="form-group">
                                     <label for="fitosanitario_metdet">Método de detección</label>
                                     <a href="#" data-toggle="tooltip" title="Método empleado para determindar la existencia de una patología en la muestra, visual, laboratorio, etc.">?</a>
-                                    {{ form_widget(form.metdet, {'attr': {'class': 'form-control'}}) }}
+                                    <select id="fitosanitario_metdet" name="fitosanitario[metdet][]" class="form-control select-metdet" multiple></select>
+                                    {# {{ form_widget(form.metdet, {'attr': {'class': 'form-control'}}) }} #}
                                 </div>
                                 <div class="form-group">
                                     <label for="fitosanitario_fitpat">Fitopatología</label>

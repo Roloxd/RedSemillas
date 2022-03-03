@@ -69,13 +69,16 @@
                                 {% if persona is not null %}
                                   <div class="btn-group-vertical w-100">
                                     <a class="btn btn-default" href="{{ path('persona_edit', {'id': persona.id}) }}">Editar</a>
-
+                                    
                                     <div class="btn-group">
                                       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                       </button>
                                       <ul class="dropdown-menu">
                                         <li>
                                           <a class="dropdown-item" href="{{ path('persona_entradas', {'id': persona.id}) }}">Ver Entradas</a>
+                                        </li>
+                                        <li>
+                                          {{ include('donante/_delete_form.html.twig') }}
                                         </li>
                                       </ul>
                                     </div>

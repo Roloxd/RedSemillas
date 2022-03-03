@@ -95,11 +95,6 @@ class Terreno
     private $pais_origen;
 
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $persona_propietaria;
-
-    /**
      * @ORM\OneToMany(targetEntity=PersonaTerreno::class, mappedBy="terreno")
      */
     private $personaTerrenos;
@@ -341,18 +336,6 @@ class Terreno
     public function setPaisOrigen(?string $pais_origen): self
     {
         $this->pais_origen = $pais_origen;
-
-        return $this;
-    }
-
-    public function getPersonaPropietaria(): ?bool
-    {
-        return $this->persona_propietaria;
-    }
-
-    public function setPersonaPropietaria(bool $persona_propietaria): self
-    {
-        $this->persona_propietaria = $persona_propietaria;
 
         return $this;
     }

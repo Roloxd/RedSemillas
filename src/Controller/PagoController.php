@@ -24,23 +24,26 @@ class PagoController extends AbstractController
         $pagos = $pagoRepository->findAll();
         $color = [];
 
-        foreach($pagos as $pago) {
-            $fechaPago = $pago->getFechaPago()->format('Y-m-d');
-
-            if($fechaPago === "0000-12-30") {
-                $color[$pago->getId()] = "red";
-            } else {
-                $color[$pago->getId()] = "green"; //green
-
-                // Obtener los años de renovacion de cada persona
-                $yearRenovacion[$pago->getPersona()->getId()][$pago->getid()] = intval( $pago->getFechaRenovacion()->format('Y') );
+        if(isset($pagos) && !empty($pagos)) {
+            foreach($pagos as $pago) {
+                $fechaPago = $pago->getFechaPago()->format('Y-m-d');
+    
+                if($fechaPago === "0000-12-30") {
+                    $color[$pago->getId()] = "red";
+                } else {
+                    $color[$pago->getId()] = "green"; //green
+    
+                    // Obtener los años de renovacion de cada persona
+                    $yearRenovacion[$pago->getPersona()->getId()][$pago->getid()] = intval( $pago->getFechaRenovacion()->format('Y') );
+                }
             }
-        }
-        foreach($yearRenovacion as $years) {
-            if( isset($years) ) {
-                $yearMax = max($years);
-                $key = array_search($yearMax, $years);
-                $color[$key] = "white";
+
+            foreach($yearRenovacion as $years) {
+                if( isset($years) ) {
+                    $yearMax = max($years);
+                    $key = array_search($yearMax, $years);
+                    $color[$key] = "white";
+                }
             }
         }
 
