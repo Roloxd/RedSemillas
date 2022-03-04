@@ -74,10 +74,22 @@ class Entrada
      */
     private $cantidadUnidades;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Fitosanitario::class, mappedBy="entrada")
+     */
+    private $fitosanitarios;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Germinacion::class, mappedBy="entrada")
+     */
+    private $germinaciones;
+
     public function __construct()
     {
         $this->id_terreno = new ArrayCollection();
         $this->num_envase = new ArrayCollection();
+        $this->fitosanitarios = new ArrayCollection();
+        $this->germinaciones = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -258,6 +270,66 @@ class Entrada
     public function setCantidadUnidades(?int $cantidadUnidades): self
     {
         $this->cantidadUnidades = $cantidadUnidades;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Fitosanitario[]
+     */
+    public function getFitosanitarios(): Collection
+    {
+        return $this->fitosanitarios;
+    }
+
+    public function addFitosanitario(Fitosanitario $fitosanitario): self
+    {
+        if (!$this->fitosanitarios->contains($fitosanitario)) {
+            $this->fitosanitarios[] = $fitosanitario;
+            $fitosanitario->setEntrada($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFitosanitario(Fitosanitario $fitosanitario): self
+    {
+        if ($this->fitosanitarios->removeElement($fitosanitario)) {
+            // set the owning side to null (unless already changed)
+            if ($fitosanitario->getEntrada() === $this) {
+                $fitosanitario->setEntrada(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Germinacion[]
+     */
+    public function getGerminaciones(): Collection
+    {
+        return $this->germinaciones;
+    }
+
+    public function addGerminacione(Germinacion $germinacione): self
+    {
+        if (!$this->germinaciones->contains($germinacione)) {
+            $this->germinaciones[] = $germinacione;
+            $germinacione->setEntrada($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGerminacione(Germinacion $germinacione): self
+    {
+        if ($this->germinaciones->removeElement($germinacione)) {
+            // set the owning side to null (unless already changed)
+            if ($germinacione->getEntrada() === $this) {
+                $germinacione->setEntrada(null);
+            }
+        }
 
         return $this;
     }

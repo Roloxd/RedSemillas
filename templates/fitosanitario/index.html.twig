@@ -49,6 +49,7 @@
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
+                                            <th>Acciones</th>
                                             <th>ID</th>
                                             <th>Fecha de detección de la patología</th>
                                             <th>Forma de detección</th>
@@ -66,6 +67,11 @@
                                         {% set envase = fitosanitario.envase %}
                                         {% set variedad = fitosanitario.variedad %}
                                         <tr>
+                                            <td>
+                                                <div class="btn-group-vertical w-100">
+                                                    <a class="btn btn-default" href="{{ path('fitosanitario_edit', {'id': fitosanitario.id}) }}">Editar</a>
+                                                </div>
+                                            </td>
                                             <td>{{ fitosanitario.id }}</td>
                                             <td>{{ fitosanitario.fecdetpat ? fitosanitario.fecdetpat|date('Y-m-d') : '' }}</td>
                                             <td>{{ fitosanitario.fordet }}</td>
@@ -88,8 +94,9 @@
                                                 {% endif %}
                                             </td>
                                             <td>
-                                                <a href="{{ path('fitosanitario_show', {'id': fitosanitario.id}) }}">show</a>
-                                                <a href="{{ path('fitosanitario_edit', {'id': fitosanitario.id}) }}">edit</a>
+                                                <div class="btn-group-vertical w-100">
+                                                    <a class="btn btn-default" href="{{ path('fitosanitario_edit', {'id': fitosanitario.id}) }}">Editar</a>
+                                                </div>
                                             </td>
                                         </tr>
                                     {% else %}
@@ -100,6 +107,7 @@
                                     </tbody>
                                     <tfoot>
                                         <tr>
+                                            <th>Acciones</th>
                                             <th>ID</th>
                                             <th>Fecha de detección de la patología</th>
                                             <th>Forma de detección</th>

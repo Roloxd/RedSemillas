@@ -19,9 +19,6 @@ class FitosanitarioType extends AbstractType
                 'widget' => 'single_text',
                 'required' => false,
             ])
-            // ->add('metdet')
-            ->add('fitpat')
-            ->add('patdet')
             ->add('obs', TextareaType::class, [
                 'attr' => [
                     'maxlength' => 50

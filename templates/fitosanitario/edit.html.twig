@@ -37,6 +37,48 @@
       allowClear: true,
       tags: true,
     });
+
+    // Select Formas de detección de la patología
+    $('.select-fordet').select2({
+      theme: 'bootstrap4',
+      language: 'es',
+      width: '100%',
+      placeholder: "Selecciona o escribe las formas empleadas",
+      allowClear: true,
+      tags: true,
+    });
+
+    // Select Método de detección
+    $('.select-metdet').select2({
+      theme: 'bootstrap4',
+      language: 'es',
+      width: '100%',
+      placeholder: "Selecciona o escribe los metodos de detección",
+      allowClear: true,
+      tags: true,
+    });
+
+    // Select Fitopatología
+    $('.select-fitpat').select2({
+      theme: 'bootstrap4',
+      language: 'es',
+      width: '100%',
+      placeholder: "Selecciona o escribe las fitopatologías",
+      allowClear: true,
+      tags: true,
+    });
+
+    // Select Pátogeno detectado
+    $('.select-patdet').select2({
+      theme: 'bootstrap4',
+      language: 'es',
+      width: '100%',
+      placeholder: "Selecciona o escribe los pátogenos detectados",
+      allowClear: true,
+      tags: true,
+    });
   });
 </script>
+<script type = "text/javascript" src ="{{ asset('/js/metodos.js') }}"></script>
+<script type = "text/javascript" src ="{{ asset('/js/fitosanitario.js') }}"></script>
 {% endblock %}

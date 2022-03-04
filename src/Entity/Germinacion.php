@@ -115,6 +115,11 @@ class Germinacion
      */
     private $revisiones;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Entrada::class, inversedBy="germinaciones")
+     */
+    private $entrada;
+
     public function __construct()
     {
         $this->revisiones = new ArrayCollection();
@@ -372,6 +377,18 @@ class Germinacion
                 $revision->setGerminacion(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEntrada(): ?Entrada
+    {
+        return $this->entrada;
+    }
+
+    public function setEntrada(?Entrada $entrada): self
+    {
+        $this->entrada = $entrada;
 
         return $this;
     }

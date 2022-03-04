@@ -59,6 +59,11 @@ class Fitosanitario
      */
     private $envase;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Entrada::class, inversedBy="fitosanitarios")
+     */
+    private $entrada;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -156,6 +161,18 @@ class Fitosanitario
     public function setEnvase(?Envase $envase): self
     {
         $this->envase = $envase;
+
+        return $this;
+    }
+
+    public function getEntrada(): ?Entrada
+    {
+        return $this->entrada;
+    }
+
+    public function setEntrada(?Entrada $entrada): self
+    {
+        $this->entrada = $entrada;
 
         return $this;
     }

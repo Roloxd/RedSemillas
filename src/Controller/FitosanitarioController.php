@@ -36,23 +36,36 @@ class FitosanitarioController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-
             $text = '';
             $datos = $request->request->get('fitosanitario');
-            dump($datos);
 
             // Campos: Forma de detección de la patología
             if( isset($datos['fordet'])  && !empty($datos['fordet']) ) {
                 $values = $datos['fordet'];
-
-                foreach( $values as $key => $value ) {
-                    $text .= $value;
-
-                    if( isset($values[$key+1]) ) {
-                        $text .= ", ";
-                    }
-                }
+                $text = $this->convertArrayinText($values, $text);
                 $fitosanitario->setFordet($text);
+                $text = '';
+            }
+            // Campo: Método de detección
+            if( isset($datos['metdet']) && !empty($datos['metdet']) ) {
+                $values = $datos['metdet'];
+                $text = $this->convertArrayinText($values, $text);
+                $fitosanitario->setMetdet($text);
+                $text = '';
+            }
+            // Campo: Fitopatología
+            if( isset($datos['fitpat']) && !empty($datos['fitpat']) ) {
+                $values = $datos['fitpat'];
+                $text = $this->convertArrayinText($values, $text);
+                $fitosanitario->setFitpat($text);
+                $text = '';
+            }
+            // Campo: Pátogeno detectado
+            if( isset($datos['patdet']) && !empty($datos['patdet']) ) {
+                $values = $datos['patdet'];
+                $text = $this->convertArrayinText($values, $text);
+                $fitosanitario->setPatdet($text);
+                $text = '';
             }
 
             $entityManager = $this->getDoctrine()->getManager();
@@ -88,7 +101,47 @@ class FitosanitarioController extends AbstractController
         $form = $this->createForm(FitosanitarioType::class, $fitosanitario);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
+            $text = '';
+            $datos = $request->request->get('fitosanitario');
+            
+            // Campos: Forma de detección de la patología
+            if( isset($datos['fordet'])  && !empty($datos['fordet']) ) {
+                $values = $datos['fordet'];
+                $text = $this->convertArrayinText($values, $text);
+                $fitosanitario->setFordet($text);
+                $text = '';
+            } else {
+                $fitosanitario->setFordet(null); 
+            }
+            // Campo: Método de detección
+            if( isset($datos['metdet']) && !empty($datos['metdet']) ) {
+                $values = $datos['metdet'];
+                $text = $this->convertArrayinText($values, $text);
+                $fitosanitario->setMetdet($text);
+                $text = '';
+            } else {
+                $fitosanitario->setMetdet(null);
+            }
+            // Campo: Fitopatología
+            if( isset($datos['fitpat']) && !empty($datos['fitpat']) ) {
+                $values = $datos['fitpat'];
+                $text = $this->convertArrayinText($values, $text);
+                $fitosanitario->setFitpat($text);
+                $text = '';
+            } else {
+                $fitosanitario->setFitpat(null);
+            }
+            // Campo: Pátogeno detectado
+            if( isset($datos['patdet']) && !empty($datos['patdet']) ) {
+                $values = $datos['patdet'];
+                $text = $this->convertArrayinText($values, $text);
+                $fitosanitario->setPatdet($text);
+                $text = '';
+            } else {
+                $fitosanitario->setPatdet(null);
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('fitosanitario_index', [], Response::HTTP_SEE_OTHER);
@@ -113,5 +166,17 @@ class FitosanitarioController extends AbstractController
         }
 
         return $this->redirectToRoute('fitosanitario_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    public function convertArrayinText($values = [], $text = '') : string
+    {
+        foreach( $values as $key => $value ) {
+            $text .= $value;
+
+            if( isset($values[$key+1]) ) {
+                $text .= ", ";
+            }
+        }
+        return $text;
     }
 }
