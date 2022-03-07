@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function iniciarForm() {
     eventListener(); // Eventos
     obtenerMetodosEmpleados(); // Obtener Metodos Empleados de la DB
+    optionSelect('hidden-entrada', 'germinacion_entrada') // Selecciona la entrada relacionada
 }
 
 function eventListener() {

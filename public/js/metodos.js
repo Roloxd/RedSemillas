@@ -24,3 +24,33 @@ function buscarOptionEnObjeto(value, object) {
         }
     }
 }
+
+// Si boolean es true: Selecciona varias opciones, si es false, solo una
+function optionSelect(elementoHidden, elemento, boolean = false) {
+    const hidden = obtenerElemento(elementoHidden, true);
+
+    if(hidden && hidden.value !== "") {
+        const select = obtenerElemento(elemento, true);
+        const options = select.options;
+
+        if(boolean) {
+            const values = hidden.value.split(',');
+
+            values.forEach(value => {
+                let option = buscarOptionEnObjeto(value, options);
+    
+                if(typeof option !== 'undefined') {
+                    option.setAttribute('selected', 'selected');
+                } else {
+                    option = newOption(value, value);
+                    select.appendChild(option);
+                    option.setAttribute('selected', 'selected');
+                }
+            });
+        } else {
+            const value = hidden.value;
+            let option = buscarOptionEnObjeto(value, options);
+            option.setAttribute('selected', 'selected');
+        }
+    }
+}

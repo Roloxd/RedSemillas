@@ -18,7 +18,6 @@ class GerminacionType extends AbstractType
             ])
             ->add('num_semillas_para_prueba')
             ->add('observaciones')
-            // ->add('metodo_empleado_para_germinar')
             ->add('envase')
         ;
     }

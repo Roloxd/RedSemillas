@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Entrada;
 use App\Entity\Germinacion;
 use App\Entity\Revision;
 use App\Entity\Variedad;
 use App\Form\GerminacionType;
+use App\Repository\EntradaRepository;
 use App\Repository\GerminacionRepository;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -32,7 +34,7 @@ class GerminacionController extends AbstractController
     /**
      * @Route("/new", name="germinacion_new", methods={"GET", "POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, EntradaRepository $entradaRepository): Response
     {
         $germinacion = new Germinacion();
         $form = $this->createForm(GerminacionType::class, $germinacion);
@@ -59,12 +61,20 @@ class GerminacionController extends AbstractController
             }
 
             // Variedades
-            if( isset($datos['variedad']) && !empty($datos['variedad'])) {
+            if( isset($datos['variedad']) && !empty($datos['variedad']) ) {
                 $variedad = $this->getDoctrine()
                     ->getRepository(Variedad::class)
                     ->find( intval($datos['variedad']) );
 
                 $germinacion->setVariedad($variedad);
+            }
+
+            // Campo: Entrada
+            if( isset($datos['entrada']) && !empty($datos['entrada']) ) {
+                if( $datos['entrada'] !== "" ) {
+                    $entrada = $this->getEntrada( intval($datos['entrada']) ); 
+                    $germinacion->setEntrada($entrada);
+                }
             }
 
             $entityManager = $this->getDoctrine()->getManager();
@@ -84,6 +94,7 @@ class GerminacionController extends AbstractController
             'germinacion' => $germinacion,
             'form' => $form,
             'text_form' => $text_form,
+            'entradas' => $entradaRepository->findAll(),
         ]);
     }
 
@@ -248,7 +259,7 @@ class GerminacionController extends AbstractController
     /**
      * @Route("/{id}/edit", name="germinacion_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Germinacion $germinacion): Response
+    public function edit(Request $request, Germinacion $germinacion, EntradaRepository $entradaRepository): Response
     {
         $form = $this->createForm(GerminacionType::class, $germinacion);
         $form->handleRequest($request);
@@ -293,6 +304,14 @@ class GerminacionController extends AbstractController
                 $germinacion->setVariedad($variedad);
             }
 
+            // Campo: Entrada
+            if( isset($datos['entrada']) && !empty($datos['entrada']) ) {
+                if( $datos['entrada'] !== "" ) {
+                    $entrada = $this->getEntrada( intval($datos['entrada']) ); 
+                    $germinacion->setEntrada($entrada);
+                }
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
             if(!empty($revisionesDatos)) {
@@ -309,6 +328,7 @@ class GerminacionController extends AbstractController
             'checkboxMarcado' => $checkboxMarcado,
             'form' => $form,
             'text_form' => $text_form,
+            'entradas' => $entradaRepository->findAll()
         ]);
     }
 
@@ -324,5 +344,14 @@ class GerminacionController extends AbstractController
         }
 
         return $this->redirectToRoute('germinacion_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    public function getEntrada(int $idEntrada): object
+    {
+        $entrada = $this->getDoctrine()
+            ->getRepository(Entrada::class)
+            ->find($idEntrada);
+
+        return $entrada;
     }
 }

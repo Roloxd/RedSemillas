@@ -1,6 +1,6 @@
 {% extends 'backend-base.html.twig' %}
 
-{% block title %}Germinación{% endblock %}
+{% block title %}Editar Germinación{% endblock %}
 
 {% block stylesheets %}
       {{ include('be-layout/stylesheet.html', sandboxed = true) }}
@@ -30,14 +30,35 @@
 
 <script>
   $(document).ready(function() {
+    // Select Variedades
     $('.select-variedades').select2({
       language: 'es',
       width: '100%',
-      placeholder: "Seleccione Variedades",
+      placeholder: "Selecciona Variedades",
+      allowClear: true,
+      tags: false,
+    });
+
+    // Select Entrada
+    $('.select-entrada').select2({
+      theme: 'bootstrap4',
+      language: 'es',
+      width: '100%',
+      placeholder: "Selecciona entrada",
+      allowClear: true,
+      tags: false,
+    });
+
+    // Select Metodo Empleado
+    $('.select-metodoEmpleado').select2({
+      language: 'es',
+      width: '100%',
+      placeholder: "Selecciona Metodo",
       allowClear: true,
       tags: true,
     });
   });
 </script>
+<script type = "text/javascript" src ="{{ asset('/js/metodos.js') }}"></script>
 <script type = "text/javascript" src ="{{ asset('/js/germinacion.js') }}"></script>
 {% endblock %}

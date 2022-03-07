@@ -29,7 +29,7 @@
 {{ include('be-layout/js.html', sandboxed = true) }}
 <script>
   $(document).ready(function() {
-    // Select Personas
+    // Select Envase
     $('.select-envase').select2({
       language: 'es',
       width: '100%',
@@ -76,6 +76,16 @@
       placeholder: "Selecciona o escribe los pátogenos detectados",
       allowClear: true,
       tags: true,
+    });
+
+    // Select Entrada
+    $('.select-entrada').select2({
+      theme: 'bootstrap4',
+      language: 'es',
+      width: '100%',
+      placeholder: "Seleccione entrada",
+      allowClear: true,
+      tags: false,
     });
   });
 </script>

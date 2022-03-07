@@ -57,6 +57,7 @@
                                             <th>Fitopatología</th>
                                             <th>Pátogeno detectado</th>
                                             <th>Observaciones</th>
+                                            <th>Entrada</th>
                                             <th>Envase</th>
                                             <th>Variedad</th>
                                             <th>Acciones</th>
@@ -79,6 +80,14 @@
                                             <td>{{ fitosanitario.fitpat }}</td>
                                             <td>{{ fitosanitario.patdet }}</td>
                                             <td>{{ fitosanitario.obs }}</td>
+                                            <td>
+                                                {% set entrada = fitosanitario.entrada %}
+                                                {% if entrada is not null %}
+                                                    <div class="d-flex flex-column">
+                                                        <a href="{{ path('entrada_mostrar', {'id' : entrada.id}) }}">{{entrada}}</a>
+                                                    </div>
+                                                {% endif %}
+                                            </td>
                                             <td>
                                                 {% if envase is not null %}
                                                     <div class="d-flex flex-column">
@@ -115,6 +124,7 @@
                                             <th>Fitopatología</th>
                                             <th>Pátogeno detectado</th>
                                             <th>Observaciones</th>
+                                            <th>Entrada</th>
                                             <th>Envase</th>
                                             <th>Variedad</th>
                                             <th>Acciones</th>

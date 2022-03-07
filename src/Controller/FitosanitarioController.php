@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Entrada;
 use App\Entity\Fitosanitario;
 use App\Form\FitosanitarioType;
+use App\Repository\EntradaRepository;
 use App\Repository\FitosanitarioRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,7 +30,7 @@ class FitosanitarioController extends AbstractController
     /**
      * @Route("/new", name="fitosanitario_new", methods={"GET", "POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, EntradaRepository $entradaRepository): Response
     {
         $text_form = "Nuevo Fitosanitario";
         $fitosanitario = new Fitosanitario();
@@ -68,6 +70,14 @@ class FitosanitarioController extends AbstractController
                 $text = '';
             }
 
+            // Campo: Entrada
+            if( isset($datos['entrada']) && !empty($datos['entrada']) ) {
+                if( $datos['entrada'] !== "" ) {
+                    $entrada = $this->getEntrada( intval($datos['entrada']) ); 
+                    $fitosanitario->setEntrada($entrada);
+                }
+            }
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($fitosanitario);
             $entityManager->flush();
@@ -79,6 +89,7 @@ class FitosanitarioController extends AbstractController
             'text_form' => $text_form,
             'fitosanitario' => $fitosanitario,
             'form' => $form,
+            'entradas' => $entradaRepository->findAll(),
         ]);
     }
 
@@ -95,7 +106,7 @@ class FitosanitarioController extends AbstractController
     /**
      * @Route("/{id}/edit", name="fitosanitario_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Fitosanitario $fitosanitario): Response
+    public function edit(Request $request, Fitosanitario $fitosanitario, EntradaRepository $entradaRepository): Response
     {
         $text_form = "Editar Fitosanitario";
         $form = $this->createForm(FitosanitarioType::class, $fitosanitario);
@@ -142,8 +153,15 @@ class FitosanitarioController extends AbstractController
                 $fitosanitario->setPatdet(null);
             }
 
-            $this->getDoctrine()->getManager()->flush();
+            // Campo: Entrada
+            if( isset($datos['entrada']) && !empty($datos['entrada']) ) {
+                if( $datos['entrada'] !== "" ) { // Añadir entrada
+                    $entrada = $this->getEntrada( intval($datos['entrada']) );
+                    $fitosanitario->setEntrada($entrada);
+                }
+            }
 
+            $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('fitosanitario_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -151,6 +169,7 @@ class FitosanitarioController extends AbstractController
             'text_form' => $text_form,
             'fitosanitario' => $fitosanitario,
             'form' => $form,
+            'entradas' => $entradaRepository->findAll(),
         ]);
     }
 
@@ -178,5 +197,14 @@ class FitosanitarioController extends AbstractController
             }
         }
         return $text;
+    }
+
+    public function getEntrada(int $idEntrada): object
+    {
+        $entrada = $this->getDoctrine()
+            ->getRepository(Entrada::class)
+            ->find($idEntrada);
+
+        return $entrada;
     }
 }

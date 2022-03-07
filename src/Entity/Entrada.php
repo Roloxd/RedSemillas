@@ -228,6 +228,11 @@ class Entrada
         return $this->getCodigoEntrada();
     }
 
+    public function getCodigoEntradaAndPasaporte(): string 
+    {
+        return $this->getCodigoEntrada() . " - " . $this->getNumPasaporte(); 
+    }
+
     public function getPersona(): ?Persona
     {
         return $this->persona;

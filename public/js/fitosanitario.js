@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function iniciarForm() {
     optionsDefault(); // Genera los options por defecto de cada SELECT
     obtenerValores(); // Obtiene los valores y los muestra en los SELECTS
+    optionSelect('hidden-entrada', 'fitosanitario_entrada') // Selecciona la entrada relacionada
 }
 
 // Options por defecto
@@ -17,10 +18,10 @@ function optionsDefault() {
 
 // Obtiene los valores de los inputs hidden
 function obtenerValores() {
-    optionSelect('hidden-fordet', 'fitosanitario_fordet'); // Forma deteccion de la patología
-    optionSelect('hidden-metdet', 'fitosanitario_metdet'); // Método de detección
-    optionSelect('hidden-fitpat', 'fitosanitario_fitpat'); // Fitopatología
-    optionSelect('hidden-patdet', 'fitosanitario_patdet'); // Pátogeno detectado
+    optionSelect('hidden-fordet', 'fitosanitario_fordet', true); // Forma deteccion de la patología
+    optionSelect('hidden-metdet', 'fitosanitario_metdet', true); // Método de detección
+    optionSelect('hidden-fitpat', 'fitosanitario_fitpat', true); // Fitopatología
+    optionSelect('hidden-patdet', 'fitosanitario_patdet', true); // Pátogeno detectado
 }
 
 function optionsForDet(elemento) {
@@ -93,27 +94,4 @@ function optionsPatDet(elemento) {
 
     option = newOption('Gorgojos', 'Gorgojos');
     select.appendChild(option);
-}
-
-function optionSelect(elementoHidden, elemento) {
-    const hidden = obtenerElemento(elementoHidden, true);
-
-    if(hidden.value !== "") {
-        const values = hidden.value.split(',');
-
-        const select = obtenerElemento(elemento, true);
-        const options = select.options;
-
-        values.forEach(value => {
-            let option = buscarOptionEnObjeto(value, options);
-
-            if(typeof option !== 'undefined') {
-                option.setAttribute('selected', 'selected');
-            } else {
-                option = newOption(value, value);
-                select.appendChild(option);
-                option.setAttribute('selected', 'selected');
-            }
-        });
-    }
 }

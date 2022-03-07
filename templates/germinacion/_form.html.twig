@@ -129,6 +129,21 @@
                                             <a href="#" data-toggle="tooltip" title="Este campo se utiliza para añadir notas o para completar datos.">?</a>
                                             {{ form_widget(form.observaciones, {'attr': {'class': 'form-control'}}) }}
                                         </div>
+                                        <div class="form-group">
+                                            <label for="germinacion_entrada">Entrada</label>
+                                            <a href="#" data-toggle="tooltip" title="">?</a>
+                                            {# {{ form_widget(form.entrada, {'attr': {'class': 'form-control select-entrada'}}) }} #}
+                                            <select id="germinacion_entrada" name="germinacion[entrada]" class="form-control select-entrada">
+                                                <option></option>
+                                                {% for entrada in entradas %}
+                                                    <option value="{{ entrada.id }}">{{ entrada.codigoEntrada }} - {{ entrada.numPasaporte }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            {% if germinacion.entrada is not null %}
+                                                {% set entrada = germinacion.entrada %}
+                                                <input type="hidden" id="hidden-entrada" value="{{ entrada.id }}">
+                                            {% endif %}
+                                        </div>
                                     </div>
                                     <!-- /.card-body -->
 

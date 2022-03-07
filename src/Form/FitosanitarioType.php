@@ -2,8 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Entrada;
 use App\Entity\Fitosanitario;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\ChoiceList\ChoiceList;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -14,6 +16,7 @@ class FitosanitarioType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        
         $builder
             ->add('fecdetpat', DateType::class, [
                 'widget' => 'single_text',
@@ -25,7 +28,6 @@ class FitosanitarioType extends AbstractType
                 ],
                 'required' => false,
             ])
-            // ->add('variedad')
             ->add('envase')
         ;
     }

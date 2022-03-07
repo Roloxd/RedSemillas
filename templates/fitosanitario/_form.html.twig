@@ -79,6 +79,21 @@
                                     <a href="#" data-toggle="tooltip" title="">?</a>
                                     {{ form_widget(form.envase, {'attr': {'class': 'form-control select-envase'}}) }}
                                 </div>
+                                <div class="form-group">
+                                    <label for="fitosanitario_entrada">Entrada</label>
+                                    <a href="#" data-toggle="tooltip" title="">?</a>
+                                    {# {{ form_widget(form.entrada, {'attr': {'class': 'form-control select-entrada'}}) }} #}
+                                    <select id="fitosanitario_entrada" name="fitosanitario[entrada]" class="form-control select-entrada">
+                                        <option></option>
+                                        {% for entrada in entradas %}
+                                            <option value="{{ entrada.id }}">{{ entrada.codigoEntrada }} - {{ entrada.numPasaporte }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    {% if fitosanitario.entrada is not null %}
+                                        {% set entrada = fitosanitario.entrada %}
+                                        <input type="hidden" id="hidden-entrada" value="{{ entrada.id }}">
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
                         <!-- /.card -->

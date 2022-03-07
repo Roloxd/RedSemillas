@@ -70,6 +70,7 @@
                                             <th>Humedad relativa de la prueba de germinación (min)</th>
                                             <th>Humedad relativa de la prueba de germinación (media)</th>
                                             <th>Método empleado para germinar</th>
+                                            <th>Entrada</th>
                                             <th>Envase</th>
                                             <th>Variedad</th>
                                             <th>Especie de la variedad</th>
@@ -110,7 +111,15 @@
                                             <td>{{ germinacion.humedadRelativaPruebaGerminacionMedia }}</td>
                                             <td>{{ germinacion.metodoEmpleadoParaGerminar }}</td>
                                             <td>
-                                                {% if germinacion.envase is not empty %}
+                                                {% set entrada = germinacion.entrada %}
+                                                {% if entrada is not null %}
+                                                    <div class="d-flex flex-column">
+                                                        <a href="{{ path('entrada_mostrar', {'id' : entrada.id}) }}">{{entrada}}</a>
+                                                    </div>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if germinacion.envase is not null %}
                                                     <div class="d-flex flex-column">
                                                         <a href="{{ path('envase_mostrar', {'id' : germinacion.envase.id}) }}">{{germinacion.envase}}</a>
                                                     </div>
@@ -119,7 +128,7 @@
                                                 {% endif %}
                                             </td>
                                             <td>
-                                                {% if germinacion.variedad is not empty %}
+                                                {% if germinacion.variedad is not null %}
                                                     <div class="d-flex flex-column">
                                                         <a href="{{ path('variedad_mostrar', {'id' : germinacion.variedad.id}) }}">{{germinacion.variedad}}</a>
                                                     </div>
@@ -128,14 +137,14 @@
                                                 {% endif %}
                                             </td>
                                             <td>
-                                                {% if germinacion.variedad is not empty and germinacion.variedad.especie is not empty %}
+                                                {% if germinacion.variedad is not null and germinacion.variedad.especie is not null %}
                                                     {{germinacion.variedad.especie}}
                                                 {% else %}
                                                     Sin especie
                                                 {% endif %}
                                             </td>
                                             <td>
-                                                {% if germinacion.variedad is not empty and germinacion.variedad.especie is not empty and germinacion.variedad.especie.padre is not empty %}
+                                                {% if germinacion.variedad is not null and germinacion.variedad.especie is not null and germinacion.variedad.especie.padre is not null %}
                                                     {{germinacion.variedad.especie.padre}}
                                                 {% else %}
                                                     Sin Genero
@@ -210,6 +219,7 @@
                                             <th>Humedad relativa de la prueba de germinación (min)</th>
                                             <th>Humedad relativa de la prueba de germinación (media)</th>
                                             <th>Método empleado para germinar</th>
+                                            <th>Entrada</th>
                                             <th>Envase</th>
                                             <th>Variedad</th>
                                             <th>Especie de la variedad</th>
