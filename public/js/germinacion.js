@@ -117,6 +117,7 @@ function obtenerMetodosEmpleados() {
 
 function crearOption(etiqueta, data, value = false) {
     const select = document.querySelector(`#${etiqueta}`);
+    console.log(select);
     const length = select.options.length;
 
     // Elimina option anteriores

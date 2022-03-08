@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/mapa")
  */
-class MejorasController extends AbstractController
+class MapaController extends AbstractController
 {
     /**
      * @Route("/", name="mapa_index", methods={"GET"})
@@ -20,3 +20,4 @@ class MejorasController extends AbstractController
         return $this->render('mapa/index.html.twig');
     }
 }
+?>
