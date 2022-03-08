@@ -5,6 +5,8 @@ namespace App\Form;
 use App\Entity\Envase;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -31,7 +33,9 @@ class EnvaseType extends AbstractType
             ->add('observaciones')
             ->add('variedads')
             ->add('datos_ancestrales')
-            ->add('codigo')
+            ->add('codigo', IntegerType::class, [
+                'required' => false,
+            ])
             ->add('tipo_almacenamiento')
             ->add('entrada')
             ->add('condicion_biologica')

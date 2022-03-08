@@ -43,6 +43,9 @@ class EntradaController extends AbstractController
         if ($form->isSubmitted()) {
 
             $datos = $request->request->get('entrada1');
+            
+            // Codigo Entrada
+            $this->codigoEntrada($entrada, $datos);
 
             // Añade la persona
             if(!empty($datos['persona'])) {
@@ -161,6 +164,9 @@ class EntradaController extends AbstractController
             $datos = $request->request->get('entrada1');
             $terrenos = $entrada->getTerrenos()->getValues();
 
+            // Codigo Entrada
+            $this->codigoEntrada($entrada, $datos);
+
             if(isset($datos['persona']) && !empty($datos['persona'])) {
                 $persona = intval($datos['persona']);
                 $entradaPersona = $entrada->getPersona();
@@ -230,6 +236,21 @@ class EntradaController extends AbstractController
             'form' => $form,
             'text_form' => $text,
         ]);
+    }
+
+    public function codigoEntrada(?Entrada $entrada, ?Array $datos): void
+    {
+        if( isset($datos['codigoEntrada']) && !empty($datos['codigoEntrada']) ) {
+            $length = strlen( (string) $datos['codigoEntrada'] );
+            $ceros = "";
+            if($length < 5) {
+                for ($i = 0; $i < (5-$length); $i++) {
+                    $ceros .= "0";
+                }
+            }
+            $arg = "ENT-" . $ceros . $datos['codigoEntrada'];
+            $entrada->setCodigoEntrada($arg);
+        }
     }
 
     /**

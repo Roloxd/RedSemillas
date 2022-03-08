@@ -85,7 +85,6 @@ function obtenerVariedades(e = false, elemento) {
             console.error(err);
         },
         success:function(data) {
-
             crearOption('germinacion_variedades' ,data);
         },
         complete:function(){
@@ -115,9 +114,8 @@ function obtenerMetodosEmpleados() {
     });
 }
 
-function crearOption(etiqueta, data, value = false) {
+function crearOption(etiqueta, data) {
     const select = document.querySelector(`#${etiqueta}`);
-    console.log(select);
     const length = select.options.length;
 
     // Elimina option anteriores
@@ -138,15 +136,23 @@ function crearOption(etiqueta, data, value = false) {
         }
     }
     
-    // comprobarOptions(); // FALTA selecionar options
+    if(select.id === "germinacion_variedades") {
+        selectOptionVariedad(select, 'hidden-variedad');
+    }
+
     mostrarElemento(select);
 }
 
-// Comprobar cuantos options existen, si solo hay 1, seleccionaarlo
-function comprobarOptions() {
-    const selectVariedades = document.querySelector('#germinacion_variedades');
-    if(selectVariedades.options.length === 2){
-        selectVariedades.options[1].setAttribute('selected', 'selected');
+// Selecciona option de Variedad
+function selectOptionVariedad(elemento, hiddenElemento) {
+    if(elemento.options.length === 2) {
+        elemento.options[1].setAttribute('selected', 'selected');
+    } else {
+        const hidden = obtenerElemento(hiddenElemento, true);
+        if(hidden) {
+            const option = buscarOptionEnObjeto(hidden.value, elemento.options);
+            option.setAttribute('selected', 'selected');
+        }
     }
 }
 

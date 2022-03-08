@@ -20,7 +20,7 @@ class Entrada
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=10, nullable=true)
+     * @ORM\Column(type="string", length=10)
      */
     private $codigo_entrada;
 
@@ -97,9 +97,14 @@ class Entrada
         return $this->id;
     }
 
-    public function getCodigoEntrada(): ?string
+    public function getCodigoEntrada(?bool $bool = false): ?string
     {
-        return $this->codigo_entrada;
+        if($bool) {
+            return $this->codigo_entrada;
+        }
+
+        $args = explode("-", $this->codigo_entrada);
+        return $args[1] ?? null;
     }
 
     public function setCodigoEntrada(string $codigo_entrada): self
@@ -121,12 +126,17 @@ class Entrada
         return $this;
     }
 
-    public function getCantidad(): ?float
+    public function getCantidad(?bool $bool = false): ?string
     {
+        if($bool) {
+            $arg = str_replace('.', ',', $this->cantidad);
+            return $arg;
+        }
+
         return $this->cantidad;
     }
 
-    public function setCantidad(?float $cantidad): self
+    public function setCantidad(?string $cantidad): self
     {
         $this->cantidad = $cantidad;
 
@@ -225,7 +235,7 @@ class Entrada
 
     public function __toString(): string
     {
-        return $this->getCodigoEntrada();
+        return $this->getCodigoEntrada(true) ?? '';
     }
 
     public function getCodigoEntradaAndPasaporte(): string 

@@ -6,6 +6,9 @@ use App\Entity\Entrada;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -26,7 +29,12 @@ class Entrada1Type extends AbstractType
             ],
         ])
         ->add('observaciones')
-        ->add('codigoEntrada')
+        ->add('codigoEntrada', IntegerType::class, [
+            'required' => true,
+            'attr' => [
+                'placeholder' => '00000'
+            ]
+        ])
         ->add('numPasaporte')
         ->add('cantidadUnidades')
         ;

@@ -47,7 +47,7 @@
               <!-- form start -->
                 <div class="card-body">
                   <div class="form-group">
-                    <p><b>NUMENV</b></p>
+                    <label>NUMENV</label>
                     <div class="flex">
                       <label for="codigo" class="lavel-centrado">E-</label>
                       {{ form_widget(form.codigo, {'attr': {'class': 'form-control', 'placeholder': '00000'}}) }}
@@ -64,7 +64,7 @@
                     <label for="envase_entrada">Entrada</label>
                     <a href="#" data-toggle="tooltip" title="Escribe 'E' o el numero de entrada. Seleccione la entrada.">?</a>
                     {# <input id ="envase_entrada" class="form-control" type="text" name="envase[entrada]" list="entradas_list" value="{{ idEntrada }}" /> #}
-                    {{ form_widget(form.entrada, {'attr': {'class': 'form-control' }}) }}
+                    {{ form_widget(form.entrada, {'attr': {'class': 'form-control select-entrada' }}) }}
                     {# <datalist id="entradas_list"></datalist> #}
                   </div>
                   <div class="form-group">

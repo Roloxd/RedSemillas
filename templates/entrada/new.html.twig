@@ -35,7 +35,7 @@
       width: '100%',
       placeholder: "Seleccione la persona",
       allowClear: true,
-      tags: true,
+      tags: false,
     });
 
     // Select Terreno
@@ -45,11 +45,11 @@
       width: '100%',
       placeholder: "Seleccione los Terrenos",
       allowClear: true,
-      tags: true,
+      tags: false,
     });
   });
 </script>
-
+<script type = "text/javascript" src ="{{ asset('/js/metodos.js') }}"></script>
 <script type = "text/javascript" src ="{{ asset('/js/entrada.js') }}"></script>
 <script type = "text/javascript" src ="{{ asset('/js/consultas.js') }}"></script>
 {% endblock %}

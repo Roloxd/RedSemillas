@@ -27,5 +27,17 @@
 <!-- ./wrapper -->
 
 {{ include('be-layout/js.html', sandboxed = true) }}
+<script>
+  $(document).ready(function() {
+    // Select Entrada
+    $('.select-entrada').select2({
+      language: 'es',
+      width: '100%',
+      placeholder: "Seleccione la persona",
+      allowClear: true,
+      tags: false,
+    });
+  });
+</script>
 <script type = "text/javascript" src ="{{ asset('/js/envase.js') }}"></script>
 {% endblock %}

@@ -82,9 +82,9 @@
                     </div>
                   </div>
                 </td>
-                <td>{{ entrada.codigoEntrada }}</td>
+                <td>{{ entrada.codigoEntrada(true) }}</td>
                 <td>{{ entrada.numPasaporte }}</td>
-                <td>{{ entrada.cantidad }}</td>
+                <td>{{ entrada.cantidad(true) }}</td>
                 <td>{{ entrada.cantidadUnidades }}</td>
                 <td>{{ entrada.fechaEntrada ? entrada.fechaEntrada|date('Y-m-d') : '' }}</td>
                 <td>{{ entrada.tipoEntrada }}</td>

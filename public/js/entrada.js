@@ -5,7 +5,6 @@ const formEditEntrada = document.querySelector(".formEditEntrada");
 document.addEventListener('DOMContentLoaded', function() {
 
     var myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
-
     document.onreadystatechange = function () {
         myModal.show();
     };
@@ -17,12 +16,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function iniciarForm() {
     eventListener(); // Eventos
+    comaCantidad('entrada1_cantidad', true); // Cambia el punto del valor por una coma
     fechaActual();
     consultarPersonas('entrada1_persona', 'persona', 'id'); // consultas.js
 }
 
 function eventListener() {
     $('.select-personas').on('select2:select', obtenerTerrenos);
+}
+
+function comaCantidad(elemento, bool) {
+    const input = obtenerElemento(elemento, bool);
+    const valor = comaPorPunto(input.value);
+    if(valor) {
+        input.value = valor;
+    }
 }
 
 function leerValor(evento) {
@@ -151,77 +159,6 @@ function crearOptionTerreno(etiqueta, data) {
         }
     }
 }
-
-// function consultarTerrenos(dni) {
-//     var xhttp = new XMLHttpRequest();
-//     xhttp.onreadystatechange = function () {
-//         if(this.readyState == 4 && this.status == 200){
-//             var respuesta = JSON.parse(this.response);
-
-//             if(formEntrada){
-//                 const divTerreno = document.querySelector('#terreno');
-//                 const selectTerreno = document.querySelector('#entrada1_id_terreno');
-                
-//                 Object.values(respuesta).forEach(element => {
-//                     if(element != ""){
-//                         element.forEach(terrenos => {
-//                             // MOSTRAR TERRENOS FORMULARIO ENTRADA
-//                             array = Object.values(terrenos);
-
-//                             const option = document.createElement('OPTION');
-//                             option.value = array[0];
-//                             option.innerText = array[1];
-
-//                             selectTerreno.appendChild(option);
-
-//                             $(divTerreno).show();
-//                         });
-//                     }
-//                 });
-//             } else if(formEditEntrada) {
-//                 const divTerreno = document.querySelector('#terreno');
-//                 const selectTerreno = document.querySelector('#entrada1_id_terreno');
-                
-//                 arrayTerrenosDeLaPersona = Object.values(respuesta["arrayIdTerrenos"]);
-            
-//                 contador = 0;
-//                 Object.values(respuesta["terrenos"]).forEach(element => {
-//                     if(element != ""){
-//                         array = Object.values(element);
-
-//                         const option = document.createElement('OPTION');
-//                         option.value = array[0];
-//                         option.innerText = array[1];
-
-                        
-//                         if(array[0] == arrayTerrenosDeLaPersona[contador]){
-//                             option.selected = 1;
-//                             contador++;
-//                         }
-
-//                         selectTerreno.appendChild(option);
-
-//                         $(divTerreno).show();
-//                     }
-//                 });
-//             }
-//         }
-//     };
-
-//     if(formEntrada) {
-//         var params = 'dni=' + dni;
-//     } else if(formEditEntrada) {
-//         const patron = /(\d+)/g;
-//         const idEntrada = window.location.pathname.match(patron);
-//         var params = 'dni=' + dni + '&idEntrada=' + idEntrada;
-//     }
-    
-
-//     xhttp.open("POST", "/admin/terreno/getTerrenosPersona", true);
-//     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-//     xhttp.send(params);
-//     return false;
-// }
 
 function selectPersona(){
 

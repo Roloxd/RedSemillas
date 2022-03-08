@@ -20,4 +20,3 @@ class MapaController extends AbstractController
         return $this->render('mapa/index.html.twig');
     }
 }
-?>

@@ -78,3 +78,12 @@ function contieneOptions(elemento, inicio) {
         return false;
     }
 }
+
+// Cambia un punto por coma
+function comaPorPunto(value) {
+    if (value.indexOf('.') !== -1) {;
+        const arg = value.replace('.', ',');
+        return arg;
+    }
+    return false;
+}
