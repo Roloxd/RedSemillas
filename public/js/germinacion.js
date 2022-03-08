@@ -1,4 +1,3 @@
-const formGerminacion = document.querySelector('form[name="germinacion"]');
 const tituloPagina = document.querySelector('#titulo-pagina');
 
 const datos = {
@@ -6,20 +5,22 @@ const datos = {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    if(formGerminacion) {
-        iniciarForm(); // Inicia las funciones del formulario
-    }
+    iniciarForm(); // Inicia las funciones del formulario
 });
 
 function iniciarForm() {
     eventListener(); // Eventos
     obtenerMetodosEmpleados(); // Obtener Metodos Empleados de la DB
     optionSelect('hidden-entrada', 'germinacion_entrada') // Selecciona la entrada relacionada
+
+    if(tituloPagina.textContent === "Editar Germinación") {
+        obtenerVariedad(); // Obtiene y muestra la variedad en el Formulario
+    }
 }
 
 function eventListener() {
     const selectEnvase = document.querySelector('#germinacion_envase');
-    selectEnvase.addEventListener('change', obtenerEnvase);
+    selectEnvase.addEventListener('change', obtenerVariedades);
 
     const btnAddRevision = document.querySelector('#btn-add-revision');
     btnAddRevision.addEventListener('click', generarModuloRevision);
@@ -34,6 +35,30 @@ function eventListener() {
     
 }
 
+function obtenerVariedad() {
+    const elemento = obtenerElemento('germinacion_envase', true);
+    if(elemento.selectedOptions.length > 0) {
+        const contenedor = obtenerElemento('contenedor-variedades', true);
+        mostrarElemento(contenedor);
+        obtenerVariedades(false, elemento);
+    }
+}
+
+function mostrarElemento(elemento) {
+    if (elemento.id === "germinacion_variedades") {
+        bool = contieneOptions(elemento, 2);
+
+        const contenedor = obtenerElemento('contenedor-variedades', true);
+        if(bool) {
+            dBlock(contenedor);
+        } else {
+            dNone(contenedor);
+        }
+    } else {
+        dBlock(elemento);
+    }
+}
+
 function redireccion(pathname, url, direccion) {
     const patron = /(\d+)/g;
     const id = pathname.match(patron);
@@ -43,10 +68,15 @@ function redireccion(pathname, url, direccion) {
     newWindow.focus();
 }
 
-// Obtener datos de Envase
-function obtenerEnvase(e) {
-    const idEnvase = e.target.value;
-
+// Obtener Variedades
+function obtenerVariedades(e = false, elemento) {
+    let idEnvase = "";
+    if(e) {
+        idEnvase = e.target.value;
+    } else {
+        idEnvase = elemento.value;
+    }
+    
     $.ajax({
         url:'/admin/envase/findEnvase',
         data: {'idEnvase': idEnvase, 'funcion': 'obtenerVariedades'},
@@ -55,6 +85,7 @@ function obtenerEnvase(e) {
             console.error(err);
         },
         success:function(data) {
+
             crearOption('germinacion_variedades' ,data);
         },
         complete:function(){
@@ -84,14 +115,14 @@ function obtenerMetodosEmpleados() {
     });
 }
 
-function crearOption(etiqueta, data) {
-    const selectVariedades = document.querySelector(`#${etiqueta}`);
-    const length = selectVariedades.options.length;
+function crearOption(etiqueta, data, value = false) {
+    const select = document.querySelector(`#${etiqueta}`);
+    const length = select.options.length;
 
     // Elimina option anteriores
     if(length > 1) {
         for(let i = length; i >= 1 ; i--) {
-            selectVariedades.remove(i);
+            select.remove(i);
         }
     }
     
@@ -102,12 +133,12 @@ function crearOption(etiqueta, data) {
             option.value = key;
             option.textContent = value;
 
-            selectVariedades.appendChild(option);
+            select.appendChild(option);
         }
     }
     
-    comprobarOptions();
-    mostrarVariedades(selectVariedades);
+    // comprobarOptions(); // FALTA selecionar options
+    mostrarElemento(select);
 }
 
 // Comprobar cuantos options existen, si solo hay 1, seleccionaarlo
@@ -116,18 +147,6 @@ function comprobarOptions() {
     if(selectVariedades.options.length === 2){
         selectVariedades.options[1].setAttribute('selected', 'selected');
     }
-}
-
-function mostrarVariedades(selectVariedades) {
-    const contenedorVariedades = document.querySelector('#contenedor-variedades');
-
-    if(selectVariedades.options.length > 1 && contenedorVariedades) {
-        contenedorVariedades.classList.remove('d-none');
-        contenedorVariedades.classList.add('d-block');
-    } else {
-        contenedorVariedades.classList.add('d-none');
-        contenedorVariedades.classList.remove('d-block');
-    } 
 }
 
 // Genera un modulo Revision

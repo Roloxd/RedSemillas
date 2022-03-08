@@ -62,9 +62,13 @@
                                                 <select id ="germinacion_variedades" class="form-control select-variedades" name="germinacion[variedad]">
                                                     <option></option>
                                                 </select>
-                                                <a class="btn btn-default">
+                                                {#<a class="btn btn-default">
                                                     <i class="fas fa-plus"></i>
-                                                </a> {# Añadir funcionalidad #}
+                                                </a>#}{# Añadir funcionalidad #}
+                                                {% set variedad = germinacion.variedad %}
+                                                {% if variedad is not null %}
+                                                    <input id="hidden-variedad" type="hidden" value="{{ variedad.id }}">
+                                                {% endif %}
                                             </div>
                                         </div>
                                         <div class="form-group">

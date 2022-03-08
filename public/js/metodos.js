@@ -54,3 +54,27 @@ function optionSelect(elementoHidden, elemento, boolean = false) {
         }
     }
 }
+
+function dBlock(elemento) {
+    if(elemento) {
+        elemento.classList.remove('d-none');
+        elemento.classList.add('d-block');
+    }
+}
+
+function dNone(elemento) {
+    if(elemento) {
+        elemento.classList.remove('d-block');
+        elemento.classList.add('d-none');
+    }
+}
+
+// Retorna boolean, si el elemento contiene OPTIONS, podemos decirle desde donde empiece a contar 
+function contieneOptions(elemento, inicio) {
+    const num = inicio - 1;
+    if(elemento && elemento.options.length > num) {
+        return true;
+    } else {
+        return false;
+    }
+}
