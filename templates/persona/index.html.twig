@@ -4,6 +4,8 @@
 
 {% block stylesheets %}
       {{ include('be-layout/stylesheet-tabla.html', sandboxed = true) }}
+       <link href="{{ asset('plugins/datatables-fixedcolumns/css/fixedColumns.bootstrap4.min.css') }}" rel="stylesheet">
+      <link href="{{ asset('plugins/datatables-fixedheader/css/fixedHeader.bootstrap4.min.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block body %}
@@ -312,28 +314,111 @@
 <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-fixedcolumns/js/dataTables.fixedColumns.min.js') }}"></script>
+{# <script src="{{ asset('plugins/datatables-fixedcolumns/js/dataTables.fixedColumns.js') }}"></script> #}
+<script src="{{ asset('plugins/datatables-fixedcolumns/js/fixedColumns.bootstrap4.min.js') }}"></script>
+{# <script src="{{ asset('plugins/datatables-fixedcolumns/js/fixedColumns.bootstrap4.js') }}"></script> #}
+
+<script src="{{ asset('plugins/datatables-fixedheader/js/dataTables.fixedHeader.min.js') }}"></script>
+{# <script src="{{ asset('plugins/datatables-fixedheader/js/dataTables.fixedHeader.js') }}"></script> #}
+<script src="{{ asset('plugins/datatables-fixedheader/js/fixedHeader.bootstrap4.min.js') }}"></script>
+{# <script src="{{ asset('plugins/datatables-fixedheader/js/fixedHeader.bootstrap4.js') }}"></script> #}
+<script src="{{ asset('plugins/datatables-select/js/dataTables.select.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('dist/js/demo.js') }}"></script>
 <!-- Page specific script -->
 <script>
+
+{# $(document).ready(function() {
+    var table = $('#example1').DataTable( {
+          scrollY:        "600px",
+          scrollX:        true,
+          fixedColumns: {
+              left: 1
+          },
+          fixedHeader: {
+            header:true
+          }
+    } );
+
+
+} ); #}
+
+    
+
   $(function () {
+    
+
+        $('#example1 thead th').each( function () {
+        var title = $(this).text();
+        if(title != "Acciones"){
+          $(this).html( '<input type="text" placeholder="'+title+'" />' );
+        }
+    } );
     $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
+
+      initComplete: function () {
+            // Apply the search
+            this.api().columns().every( function () {
+                var that = this;
+ 
+                $( 'input', this.header() ).on( 'keyup change clear', function () {
+                    if ( that.search() !== this.value ) {
+                        that
+                            .search( this.value )
+                            .draw();
+                    }
+                } );
+            } );
+        },
+
+
+      "responsive": false, "lengthChange": true, "autoWidth": false,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-      "order": [[ 1, "asc" ]]
+      "order": [[ 1, "asc" ]],
+        scrollY: "600px",
+        scrollX: "300px",
+        scrollCollapse: true,
+          fixedColumns: {
+            left: 1
+          },
+          fixedHeader: {
+            header:true
+          },
+          dom: 'Bfrtip',
+        buttons: [
+            'copy',
+            'csv',
+            'excel',
+               {
+                extend: 'pdfHtml5',
+                orientation: 'landscape',
+                pageSize: 'LEGAL'
+            },
+            {
+                extend: 'print',
+                text: 'Print todo',
+                exportOptions: {
+                    modifier: {
+                        selected: null
+                    }
+                }
+            },
+               {
+                extend: 'print',
+                text: 'Print selección'
+            }
+        ],
+       select: {
+            style: 'multi'
+        },
+        
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
+ 
   });
+
 </script>
 
 {% endblock %}

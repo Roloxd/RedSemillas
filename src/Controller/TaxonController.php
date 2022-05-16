@@ -1,15 +1,19 @@
 <?php
 
+
 namespace App\Controller;
+
 
 use App\Entity\Taxon;
 use App\Entity\Variedad;
 use App\Form\TaxonType;
+use stdClass;
 use App\Repository\TaxonRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
 
 /**
  * @Route("/admin/taxon")
@@ -22,7 +26,12 @@ class TaxonController extends AbstractController
     public function index(TaxonRepository $taxonRepository): Response
     {   
         return $this->render('taxon/index.html.twig', [
-            'taxa' => null,
+            'taxa' => $taxonRepository -> findBy(
+                array(),
+                array("nombre" => "DESC"),
+                10,
+                0
+            ),
         ]);
     }
 
@@ -53,71 +62,68 @@ class TaxonController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/familia", name="taxon_familia", methods={"POST"})
-     */
-    public function familia(): Response
+     /**
+     * @Route("/wfo/post", name="taxon_post", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
+    */
+    public function getPagina (Request $request,TaxonRepository $taxonRepository) : Response
     {
+        $data1 = $request->getContent();
+        $data2 = json_decode($data1);
+        // dump($data2);
 
-        $familia = $this->getDoctrine()
-            ->getRepository(Taxon::class)
-            ->findAllFamilia();
-
-        $response = new Response();
-        $response->setContent(json_encode([
-            'familia' => $familia,
-        ]));
-        $response->headers->set('Content-Type', 'application/json');
-
-        return $response;     
+        return $this->json(['pagina' => $data2 ]);
+   
     }
 
     /**
-     * @Route("/search", name="taxon_search", methods={"POST"})
+     * @Route("/wfo", name="all_taxon", methods={"GET" , "POST"})
      */
-    public function especie(Request $request): Response
-    {
-        $idVariedad = $request->request->get('idVariedad');
-        $array = [];
-        $especieDefault = null;
+    
+     public function getAllTaxon($page = 1, TaxonRepository $taxonRepository): Response
+     {
 
-        // $especies = $this->getDoctrine()
-        //     ->getRepository(Taxon::class)
-        //     ->findAllEspecie();
+        $tamañoDePagina = 10;
+        $datoInicial = ($page * $tamañoDePagina) - $tamañoDePagina;
+        $datoFinal = $page * $tamañoDePagina;
+        // $paginaActual = $this -> pagina;
+        $args = [];
+
+        $taxons = $taxonRepository -> findBy(
+            array(),
+            array("nombre" => "DESC"),
+            10,
+            0
+        );
         
-        $especies = $this->getDoctrine()
-				->getRepository(Taxon::class)
-				->findAllEspecie();
+        foreach($taxons as $taxon){
+            $object =  new stdClass();
+            // $object -> id = $taxon -> getId();
+            $object -> tipo = $taxon -> getTipo();
+            $object -> nombre = $taxon -> getNombre();
+            $object -> padre = $taxon -> getPadre();
+            $object -> autoridad = $taxon -> getAutoridad();
+            $object -> subtaxon  = $taxon -> getSubtaxon();
+            $object -> autoridadSubtaxon  = $taxon -> getAutoridadSubtaxon();
+            $object -> observaciones = $taxon -> getObservaciones();
+            $object -> descripcion = $taxon -> getDescripcion();
+            
 
-        dump($especies); exit;
 
-        // foreach($especies as $especie){
-        //     $especieName = $especie->getNombre();
-        //     $generoName = $especie->getPadre()->getNombre();
-        //     $familiaName = $especie->getPadre()->getPadre()->getNombre();
-
-        //     $array[$especieName] = $familiaName . " - " . $generoName . " - " . $especieName;
-        // }
-
-        // if($idVariedad){
-        //     $variedad = $this->getDoctrine()
-        //         ->getRepository(Variedad::class)
-        //         ->find($idVariedad);
-
-        //     if(!empty($variedad->getEspecie())){
-        //         $especieDefault = $variedad->getEspecie()->getNombre();
-        //     }
-        // }
-
+            array_push($args,$object);
+        }
+        
         $response = new Response();
         $response->setContent(json_encode([
-            'especies' => $array,
-            'especieDefault' => $especieDefault,
+            'wfo' => $args,
         ]));
+
         $response->headers->set('Content-Type', 'application/json');
 
-        return $response;     
-    }
+        return $response;
+
+     }
 
     /**
      * @Route("/{id}", name="taxon_show", methods={"GET"})

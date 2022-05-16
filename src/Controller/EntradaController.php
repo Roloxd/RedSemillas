@@ -13,6 +13,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Runtime\Runner\Symfony\ResponseRunner;
 
 /**
  * @Route("/admin/entrada")
@@ -32,7 +41,7 @@ class EntradaController extends AbstractController
     /**
      * @Route("/new", name="entrada_new", methods={"GET", "POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, string $imgDir): Response
     {
         $entrada = new Entrada();
         $form = $this->createForm(Entrada1Type::class, $entrada, [
@@ -40,7 +49,32 @@ class EntradaController extends AbstractController
         ]);
         $form->handleRequest($request);
 
+
+
         if ($form->isSubmitted()) {
+
+            if($file = $form['my_file']->getData()){
+                $filename = md5(uniqid()) . '.' . $file->guessExtension();
+                // try {
+                    $file->move($imgDir, $filename);
+                // } catch (FileException $e) {
+                    
+                // }
+
+                // $file->save($imgDir . $filename);
+                $entrada->setUrl($filename);
+            }
+            // $file = $form->get('image')->getData();
+
+            // $file = $request->files->get('post');
+            // $uploads_directory = $this -> getParameter('uploads_directory');
+
+            // $filename = md5(uniqid()) . '.' . $file->guessExtension();
+
+            // $file -> move(
+            //     $uploads_directory,
+            //     $filename
+            // );
 
             $datos = $request->request->get('entrada1');
             
@@ -152,7 +186,7 @@ class EntradaController extends AbstractController
     /**
      * @Route("/{id}/edit", name="entrada_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Entrada $entrada): Response
+    public function edit(Request $request, Entrada $entrada, string $imgDir): Response
     {
         $form = $this->createForm(Entrada1Type::class, $entrada, [
             'attr' => ['class' => 'formEditEntrada' ]
@@ -163,9 +197,24 @@ class EntradaController extends AbstractController
             
             $datos = $request->request->get('entrada1');
             $terrenos = $entrada->getTerrenos()->getValues();
-
             // Codigo Entrada
             $this->codigoEntrada($entrada, $datos);
+
+            if($file = $form['my_file']->getData()){
+                // $filename = md5(uniqid()) . '.' . $file->guessExtension();
+                    $filename = $entrada->getUrl();
+                    // $filesystem = new Filesystem();
+                    // $path="%kernel.project_dir%/public/uploads/img/9af730241d24289f7142f2710810fe81.pdf";
+                    // $filesystem->remove($path);
+                // try {
+                    $file->move($imgDir, $filename);
+                // } catch (FileException $e) {
+                    
+                // }
+
+                // $file->save($imgDir . $filename);
+                // $entrada->setUrl($filename);
+            }
 
             if(isset($datos['persona']) && !empty($datos['persona'])) {
                 $persona = intval($datos['persona']);
@@ -304,4 +353,40 @@ class EntradaController extends AbstractController
             'entradas' => $entradas,
         ]);
     }
+    /**
+    * @Route(name="entrada_descargar",methods={ "GET"})
+    */
+
+    public function download(Entrada $entrada)
+    {
+        // $filename = $entrada -> getUrl();
+
+        // return $this->file($this->kernel->getProjectDir()."/public/uploads/img/64490c66abf6aaa36b25860b3015feaf.pdf");
+        
+        // return $this->file('/public/uploads/img/27f01d553b59accac0347761f488d265.webp');
+
+        // $file = new File("public/uploads/img/64490c66abf6aaa36b25860b3015feaf.pdf");
+        // $response = new BinaryFileResponse($file);
+        
+        // return $this->file($file);
+
+        // Generate response
+        $response = new Response();
+        $filename = "public/uploads/img/64490c66abf6aaa36b25860b3015feaf.pdf";
+        // Set headers
+        $response->headers->set('Cache-Control', 'private');
+        $response->headers->set('Content-type', mime_content_type($filename));
+        $response->headers->set('Content-Disposition', 'attachment; filename="' . basename($filename) . '";');
+        $response->headers->set('Content-length', filesize($filename));
+
+        // Send headers before outputting anything
+        $response->sendHeaders();
+
+        $response->setContent(file_get_contents($filename));
+
+        return $response;
+        
+    }
+
+    
 }

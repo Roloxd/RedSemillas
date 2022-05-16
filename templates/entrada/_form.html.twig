@@ -14,8 +14,21 @@
             </ol>
           </div>
         </div>
+
+                <!-- Anclas -->
+        <div class="d-flex justify-content-between">
+          <div>
+            <a class="btn btn-primary" href="#ancla-terreno">Terreno</a>
+            <a class="btn btn-secondary" href="#ancla-cultivos">Cultivos</a>
+          </div>
+          {% if text_form == 'Editar Entrada' %}
+            {{ include('entrada/_delete_form.html.twig') }}
+          {% endif %}
+        </div> <!-- /Anclas -->
+
+
         <!-- Modal -->
-        <div class="modal" id="exampleModal">
+        {# <div class="modal" id="exampleModal">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -33,12 +46,18 @@
                     </div>
                 </div>
             </div>
-        </div><!-- /Modal -->
+        </div><!-- /Modal --> #}
       </div><!-- /.container-fluid -->
     </section>
 
     <!-- Main content -->
     <section class="content">
+    {{ form_start(form) }}
+     {% if text_form == "Editar Entrada" %}
+        <div class="mb-3">
+          <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
+        </div>
+      {% endif %}
       <div class="container-fluid">
         <div class="row">
           <!-- left column -->
@@ -50,7 +69,6 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              {{ form_start(form) }}
                 <div class="card-body">
                   <div class="form-group">
                     <label>Código Entrada</label>
@@ -119,24 +137,126 @@
                 
                 <!-- /.card-body -->
 
-                <div class="card-footer">
+                {# <div class="card-footer">
                   <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
                 </div>
-              {{ form_end(form) }}
+              {{ form_end(form) }} #}
             </div>
             <!-- /.card -->
           </div>
           <!--/.col (left) -->
+
+         <div id="columna-right" class="col-md-6">
+
+            <div class="card card-purple collapsed-card">
+              <div class="card-header">
+                <h3 id="ancla-agroOrga" class="card-title">Cuaderno de Campo</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body" style="display: none;">
+                <div class="form-group">
+                  <div class="form-group">
+                    <label for="my_file">Subir archivo</label>
+                    
+                    {{ form_widget(form.my_file, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                    <div>
+                    <label for="my_file">Descargar archivo</label> </br>
+                    <a class="btn btn-default" href="{{ path('entrada_descargar') }}">Descargar</a>         
+                    </div>
+
+                </div>
+              </div>
+
+            </div>
+
+               {% set envases = entrada.numenvase.getValues %}
+                {% if envases is not empty %}
+                      {% for envase in envases %}
+                        {% set variedades = envase.variedads.getValues %}
+                          {% if variedades is not empty %}
+                             {% for variedad in variedades %}
+                            
+              <!-- card -->
+            <div class="card card-red collapsed-card">
+              <div class="card-header">
+                <h3 id="ancla-agroOrga" class="card-title">Impresión de Etiqueta</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body" style="display: none;">
+                <div class="form-group">
+                    <label >Nombre completo asociación: {{envase.nombreinstituto}}</label>    
+                </div>
+                 <div class="form-group">
+                    <label >CIF de la asociación: {{envase.codigoinstituto}}</label>       
+                </div>
+                 <div class="form-group">
+                    <label >Nombre Común: {{variedad.nombreComun}}</label>       
+                </div>
+                 <div class="form-group">
+                    <label >Nombre Científico:</label>       
+                </div>
+                  <div class="form-group">
+                    <label >Número de Pasaporte: {{entrada.numpasaporte}}</label>       
+                </div>
+                 <div class="form-group">
+                    <label >Descripción Breve</label> </br> 
+                    <input type="text" size="80">
+                </div>
+                  <div class="form-group">
+                    <label >Peso: {{entrada.cantidad}} - aprox {{entrada.cantidadUnidades}} sem</label>       
+                </div>
+                  <div class="form-group">
+                    <label >Tipo de Siembra: {{variedad.tipoSiembra}}</label>       
+                </div>
+                <div class="form-group">
+                    <label >Germinación en %:</label>       
+                </div>
+                 <div class="form-group">
+                    <label >Fecha de Recolección: {{envase.fecharecoleccion | date('Y-m-d')}}</label>       
+                </div>
+                <div class="form-group">
+                    <label >Código: {{envase.codigo}}</label>       
+                </div>
+                  <div class="form-group">
+                    <label >Observaciones</label> </br> 
+                    <input type="text" size="80">
+                </div>
+                <div class="form-group">
+                  <a class="btn btn-default" >Imprimir Etiqueta</a>  
+                </div>
+              </div>
+            </div>
+
+          </div>
+
         </div>
         <!-- /.row -->
+
       </div><!-- /.container-fluid -->
+            {% endfor %}
+                          {% endif %}
+                      {% endfor %}
+                    {% endif %}
       </section>
 
-      <a class="btn btn-secondary" href="{{ path('entrada_index') }}">Volver a la lista</a>
+        
 
-      {% if text_form == 'Editar Entrada' %}
-        {{ include('entrada/_delete_form.html.twig') }}
-      {% endif %}
+      <div class="d-flex justify-content-between">
+        <a class="btn btn-secondary" href="{{ path('entrada_index') }}">Volver a la lista</a>
+        <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
+      </div>
+      {{ form_end(form) }}
     </section>
     <!-- /.content -->
   </div>

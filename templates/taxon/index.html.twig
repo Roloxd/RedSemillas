@@ -4,6 +4,8 @@
 
 {% block stylesheets %}
       {{ include('be-layout/stylesheet-tabla.html', sandboxed = true) }}
+    <link href="{{ asset('plugins/datatables-fixedheader/css/fixedHeader.bootstrap4.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('plugins/datatables-fixedcolumns/css/fixedColumns.bootstrap4.min.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block body %}
@@ -46,48 +48,48 @@
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
+                  <button class="add-taxon"> Add </button>
                     <tr>
-                        <th>Id</th>
-                        <th>Tipo</th>
-                        <th>Nombre</th>
-                        <th>Padre</th>
-                        <th>Autoridad</th>
-                        <th>Subtaxon</th>
-                        <th>Autoridad_subtaxon</th>
-                        <th>Observaciones</th>
-                        <th>Descripcion</th>
-                        <th>actions</th>
+                        {# <th data-toggle="tooltip" title="Id del taxon">Id</th> #}
+                        <th data-toggle="tooltip" title="Checkbox del taxon">Selección</th>
+                        <th data-toggle="tooltip" title="Tipo del taxon">Tipo</th>
+                        <th data-toggle="tooltip" title="Nombre del taxon">Nombre</th>
+                        {# <th data-toggle="tooltip" title="Padre del taxon">Padre</th> #}
+                        <th data-toggle="tooltip" title="Autoridad del taxon">Autoridad</th>
+                        <th data-toggle="tooltip" title="Subtaxon ">Subtaxon</th>
+                        <th data-toggle="tooltip" title="Autoridad del subtaxon">Autoridad_subtaxon</th>
+                        <th data-toggle="tooltip" title="Observaciones del taxon">Observaciones</th>
+                        <th data-toggle="tooltip" title="Descripcion del taxon">Descripcion</th>
+                        <th data-toggle="tooltip" title="Acciones de la tabla">Actions</th>
                     </tr>   
                   </thead>
                 <tbody>
                 {% for taxon in taxa %}
-                    <tr>
-                        <td>{{ taxon.id }}</td>
-                        <td>{{ taxon.tipo }}</td>
-                        <td>{{ taxon.nombre }}</td>
-                        <td>{{ taxon.padre }}</td>
-                        <td>{{ taxon.autoridad }}</td>
-                        <td>{{ taxon.subtaxon }}</td>
-                        <td>{{ taxon.autoridadSubtaxon }}</td>
-                        <td>{{ taxon.observaciones }}</td>
-                        <td>{{ taxon.descripcion }}</td>
+                    <tr class = "tr-pagination" >
+                        <td title="Taxon: {{taxon}} | Columna: Código"><input type="checkbox" class="selectCheckbox"></td>
+                        {# <td data-toggle="tooltip" title="Taxon: {{taxon}} | Columna: Código">{{ taxon.id }}</td> #}
+                        <td   title="Taxon: {{taxon}} | Columna: Código">{{ taxon.tipo }}</td>
+                        <td  title="Taxon: {{taxon}} | Columna: Código">{{ taxon.nombre }}</td>
+                        {# <td data-toggle="tooltip" title="Taxon: {{taxon}} | Columna: Código">{{ taxon.padre }}</td> #}
+                        <td  title="Taxon: {{taxon}} | Columna: Código">{{ taxon.autoridad }}</td>
+                        <td  title="Taxon: {{taxon}} | Columna: Código">{{ taxon.subtaxon }}</td>
+                        <td  title="Taxon: {{taxon}} | Columna: Código">{{ taxon.autoridadSubtaxon }}</td>
+                        <td  title="Taxon: {{taxon}} | Columna: Código">{{ taxon.observaciones }}</td>
+                        <td  title="Taxon: {{taxon}} | Columna: Código">{{ taxon.descripcion }}</td>
                         <td>
-                            <a href="{{ path('taxon_show', {'id': taxon.id}) }}">show</a>
-                            <a href="{{ path('taxon_edit', {'id': taxon.id}) }}">edit</a>
+                            {# <a href="{{ path('taxon_show', {'id': taxon.id}) }}">show</a>
+                            <a href="{{ path('taxon_edit', {'id': taxon.id}) }}">edit</a> #}
                         </td>
                     </tr>
-                {% else %}
-                <tr>
-                    <td colspan="4">No hay registros</td>
-                </tr>
                 {% endfor %}
                     </tbody>
                         <tfoot>
                             <tr>
-                                <th>Id</th>
+                                <th>Selección</th>
+                                {# <th>Id</th> #}
                                 <th>Tipo</th>
                                 <th>Nombre</th>
-                                <th>Padre</th>
+                                {# <th>Padre</th> #}
                                 <th>Autoridad</th>
                                 <th>Subtaxon</th>
                                 <th>Autoridad_subtaxon</th>
@@ -96,7 +98,16 @@
                                 <th>actions</th>
                             </tr>   
                         </tfoot>
+                      
+                    
                     </table>
+                          <div class="pagination-table">
+                            <ul class="pagination">
+                            <li class="pagination-number"><a class="pagination-link">Prev</a></li>
+                            <li class="pagination-number"><a class="pagination-link">1</a></li>
+                            <li class="pagination-number"><a class="pagination-link">Next</a></li>
+                            <ul>
+                        </div>
                 </div>
               <!-- /.card-body -->
             </div>
@@ -109,6 +120,19 @@
       <!-- /.container-fluid -->
       <a href="{{ path('taxon_new') }}">Crear nuevo</a>
     </section>
+
+    {# <div class="pagination">
+      <a onclick="selectedPage(1)">1</a>
+      <a onclick="selectedPage(2)">2</a>
+      <a onclick="selectedPage(3)">3</a>
+      <a onclick="selectedPage(4)">4</a>
+      <a>...</a>
+      <a onclick="selectedPage(10)">10</a> #}
+      {# {{ path('getAllTaxon', {'max': 2}) }} #}
+      {# {{ render(controller(
+        'App\\Controller\\TaxonController::getAllTaxon', {page: 2}
+    )) }} #}
+    </div>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
@@ -124,7 +148,6 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-
 <!-- jQuery -->
 <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
 <!-- Bootstrap 4 -->
@@ -142,27 +165,42 @@
 <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+
+<script src="{{ asset('plugins/datatables-fixedheader/js/dataTables.fixedHeader.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-fixedheader/js/dataTables.fixedHeader.js') }}"></script>
+<script src="{{ asset('plugins/datatables-fixedheader/js/fixedHeader.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-fixedheader/js/fixedHeader.bootstrap4.js') }}"></script>
+
+
+<script src="{{ asset('plugins/datatables-fixedcolumns/js/dataTables.fixedColumns.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-fixedcolumns/js/dataTables.fixedColumns.js') }}"></script>
+<script src="{{ asset('plugins/datatables-fixedcolumns/js/fixedColumns.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-fixedcolumns/js/fixedColumns.bootstrap4.js') }}"></script>
+
+
+
+<script src="{{ asset('plugins/datatables-select/js/dataTables.select.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('dist/js/demo.js') }}"></script>
 <!-- Page specific script -->
+<script src="{{ asset('js/taxon.js') }}"></script>
+
+
+
 <script>
-  $(function () {
-    $("#example1").DataTable({
+   {# $(function () {
+   var table = $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
   });
+  table.destroy(); #}
+
 </script>
+
+
+
 
 {% endblock %}

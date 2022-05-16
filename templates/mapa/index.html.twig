@@ -20,249 +20,36 @@
 	<!-- Latest compiled JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-	<script src="{{ asset('js/more.js') }}" defer></script>
+	<!-- Api Google Maps -->
+   <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClvVplVbPc6b97lDPhEsZm7BKqVLi5IS0&libraries=&v=weekly"
+    ></script>
+	<!-- Importamos mapa.js -->
+	<script src="{{ asset('js/mapa.js') }}" defer></script>
+
+
 
 {% endblock %}
 
 {% block body %}
 	<div class="tittle-who space-t">
 		<h1>
-			Quiénes somos
+			Mapa de Semillas
 		</h1>
 	</div>
 <div class="section-body">
-	<div id="tvesModal" class="modalContainer">
-		<div class="modal-content">
-			<span class="close" id="close">×</span>
-			<h2>Tierra fértil</h2>
-
-			<p>
-				La asociación se creó en el 93, sin embargo, no fue hasta 2012 que se creó como
-				        grupo de trabajo la Red Gran Canaria de Semillas dentro de ésta. Desde entonces, con
-				        pequeños pasitos, y multitud de aportaciones personales, hemos conseguido crear una Red
-				        con imagen y entidad propia, que actualmente es el centro de la actividad de la
-				        asociación. “Llegar juntos es el principio; mantenerse juntos es el progreso; trabajar
-				        juntos es el éxito.” Henry Ford
-
-			</p>
-		</div>
-	</div>
-
-	<div id="tvesModal-2" class="modalContainer">
-		<div class="modal-content">
-			<span class="close" id="close-2">×</span>
-			<h2>Proyecto</h2>
-
-			<p class="space-t">En el año 2017 se inició el proyecto MUBA (Multiplicando Biodiversidad Agrícola) gracias
-				        a la subvención concedida por parte del Cabildo de Gran Canaria. Desde entonces
-				        hasta ahora hemos podido desgranar la enorme envergadura de la labor de recuperación de
-				        variedades locales, siendo MUBA una conjunción de proyectos como Valorización,
-				        Multiplicación y descripción de variedades, Sensibilización y formación de los
-				        diferentes actores implicados, etc. “Si todos tirásemos en la misma dirección, el mundo
-				        volcaría”. (proverbio Judío)
-
-			</p>
-		</div>
-	</div>
-
-	<div id="tvesModal-3" class="modalContainer">
-		<div class="modal-content">
-			<span class="close" id="close-3">×</span>
-			<h2>Financiación</h2>
-
-			<p class="space-t">La principal fuente de financiación para que la Red Gran Canaria de Semillas mantenga su
-				        actividad proviene de subvenciones públicas, como la que mantiene el Proyecto MUBA
-				        desde hace varios años. Sin embargo, por la clara debilidad, fragilidad y carga
-				        administrativa que esto supone y, a pesar de los evidentes beneficios que nos supone,
-				        nos vemos en la necesidad de poner esfuerzos en desarrollar estrategias que nos permitan
-				        incrementar ingresos propios a través de cuotas, ejecución de actividades y donaciones
-				        particulares, con el objetivo de contar con una solvencia económica para la propia
-				        actividad de la asociación. ¡Cualquier aportación es necesaria y siempre bienvenida!
-			</p>
-		</div>
-	</div>
-
-	<div id="tvesModal-4" class="modalContainer">
-		<div class="modal-content">
-			<span class="close" id="close-4">×</span>
-			<h2>Agricultorxs</h2>
-
-			<p class="space-t">Creemos profundamente que la esencia de las variedades locales son nuestros
-				        agricultores y agricultoras, ya que han sido las responsables de la gran biodiversidad
-				        agrícola con la que aún hoy contamos, a pesar de que casi han desaparecido en la parte
-				        del mundo donde habitamos. Hablamos de agricultoras y agricultores campesinos, que
-				        habiendo o no comulgado con la era tecnificada, han creído en la importancia de guardar
-				        sus propias semillas. Gracias a ellas mantenemos un hilo de resiliencia frente a los
-				        grandes cambios y desafíos climatológicos que ya se hacen notar. "Una vez que una
-				        especie se extingue ninguna ley puede hacerla regresar: se ha marchado para siempre".
-				        Allen M. Solomon, ecólogo.
-			</p>
-		</div>
-	</div>
-
-	<div id="tvesModal-5" class="modalContainer">
-		<div class="modal-content">
-			<span class="close" id="close-5">×</span>
-			<h2>Voluntariados</h2>
-
-			<p class="space-t">Sin duda, la actividad voluntaria de Tierra Fértil ha sido la gran responsable de
-				        sacar adelante la mayor parte del trabajo de campo, tanto en las fincas que tenemos
-				        cedidas para esta labor, como en las fincas de nuestros y nuestras agricultoras
-				        colaboradoras. Por lo que no podemos perder la ocasión para agradecer a cada una de las
-				        personas que aportan su tiempo y presencia, esperando que sigan aprendiendo, enseñando y
-				        disfrutando con nosotras. ¡Les seguimos esperando cada semana para disfrutarlas/es!
-
-			</p>
-		</div>
-	</div>
-
-	<div id="tvesModal-6" class="modalContainer">
-		<div class="modal-content">
-			<span class="close" id="close-6">×</span>
-			<h2>Colaboraciones</h2>
-
-			<p class="space-t">Hay multitud de asociaciones que colaboran con Tierra Fértil, en diferente medida,
-				        en los proyectos que estamos desarrollando sobre planificación, multiplicación,
-				        formación, sensibilización o valorización, así como agricultorxs, empresas u otro tipo
-				        de entidades e instituciones, cuyas contribuciones son fundamentales para la estructura
-				        de la Red de Tierra Fértil. “Si quieres ir rápido ve solo, si quieres llegar lejos ve
-				        acompañado” (proverbio africano)
-			</p>
-		</div>
-	</div>
-
 	<div class="main__secc space-t bg-bubble" style="background-color: peachpuff;">
-
-
-		<div class="div-who-bubbles space-t space-b space-pt space-pb">
-
-
-			<div class="img-bubble-who space-t">
-                <img src="{{ asset('images/RGCS_Logo_RGB_8Col_Vert.png') }}" alt="Red Gran Canaria De Semillas">
-			</div>
-
-			<div class="bubbles-who">
-
-
-				<div class="text-bubble-who ">
-					<div class="bg-bubble-who" id="bg-bubble-1">
-						<p>
-							Tierra fertil
-						</p>
-					</div>
-					<p>
-						La asociación se creó en el 93, sin embargo...
-					</p>
-
-					<button id="btnModal" class="more_button space-t">
-						<a>
-							Ver más
-						</a>
-					</button>
-
-				</div>
-
-
-				<div class="text-bubble-who">
-					<div class="bg-bubble-who" id="bg-bubble-2">
-						<p>
-							Proyecto
-						</p>
-					</div>
-					<p>
-						En el año 2017 se inició el proyecto MUBA...
-					</p>
-
-					<button id="btnModal-2" class="more_button space-t">
-						<a>
-							Ver más
-						</a>
-					</button>
-
-				</div>
-
-
-				<div class="text-bubble-who">
-					<div class="bg-bubble-who" id="bg-bubble-3">
-						<p>
-							Financiación
-						</p>
-					</div>
-					<p id="financiacion">
-						La principal fuente de financiación para que...
-					</p>
-
-					<button id="btnModal-3" class="more_button space-t">
-						<a>
-							Ver más
-						</a>
-					</button>
-
-				</div>
-
-
-				<div class="text-bubble-who">
-					<div class="bg-bubble-who" id="bg-bubble-4">
-						<p>
-							Agricultorxs
-						</p>
-					</div>
-					<p>
-						Creemos profundamente que la esencia de...
-					</p>
-
-					<button id="btnModal-4" class="more_button space-t">
-						<a>
-							Ver más
-						</a>
-					</button>
-
-				</div>
-
-
-				<div class="text-bubble-who">
-					<div class="bg-bubble-who" id="bg-bubble-5">
-						<p>
-							Voluntariados
-						</p>
-					</div>
-					<p>
-						Sin duda, la actividad voluntaria de Tierra Fértil ha sido la gran responsable
-						            de...
-					</p>
-
-					<button id="btnModal-5" class="more_button space-t">
-						<a>
-							Ver más
-						</a>
-					</button>
-
-				</div>
-
-
-				<div class="text-bubble-who">
-					<div class="bg-bubble-who" id="bg-bubble-6">
-						<p>
-							Colaboraciones
-						</p>
-					</div>
-					<p>
-						Hay multitud de asociaciones que colaboran con Tierra Fértil, en diferente...
-					</p>
-
-					<button id="btnModal-6" class="more_button space-t">
-						<a>
-							Ver más
-						</a>
-					</button>
-
-				</div>
-
-
-			</div>
-		</div>
-
-
+	{# Select simple para seleccionar el año de las entrads y salidas que se quieren 
+	ver en el mapa #}
+		<select id="selectYear" onChange="selectedYear()">
+			<option value="selección"> Seleccion un año</option>
+			<option value="2020">2020 </option>
+			<option value="2021"> 2021</option>
+			<option value="2022"> 2022</option>
+		</select>
+		{# Div necesario para colocar el mapa de Google Maps. Si se quiere saber más revisar 
+		la doc de la Api #}
+		<div id="map"></div>		
 	</div>
 </div>
 

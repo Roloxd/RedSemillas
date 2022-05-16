@@ -14,7 +14,7 @@
   <!-- Sidebar -->
   <div class="sidebar">
     <!-- Sidebar user panel (optional) -->
-    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+    <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
         <img
           src="{{ asset('dist/img/user2-160x160.jpg')}}"
@@ -25,9 +25,9 @@
       <div class="info">
         <a href="/admin" class="d-block">Administrador</a>
       </div>
-    </div>
+    </div> -->
 
-    <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
         <img
           src="{{ asset('dist/img/user8-128x128.jpg')}}"
@@ -38,7 +38,8 @@
       <div class="info">
         <a href="/user" class="d-block">Usuario</a>
       </div>
-    </div> -->
+    </div>
+    a
 
     <!-- SidebarSearch Form -->
     <div class="form-inline">
@@ -66,25 +67,25 @@
         data-accordion="false"
       >
         <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
+                 with font-awesome or any other icon font library -->
         <li class="nav-header">Menú</li>
         <!-- <li class="nav-item">
-            <a href="{{ path('ciclo_y_siembra_index') }}" class="nav-link">
-              <i class="nav-icon far fa-calendar-alt"></i>
-              <p>
-                Ciclo y Siembra
-                <span class="badge badge-info right"></span>
-              </p>
-            </a>
-          </li> -->
+              <a href="{{ path('ciclo_y_siembra_index') }}" class="nav-link">
+                <i class="nav-icon far fa-calendar-alt"></i>
+                <p>
+                  Ciclo y Siembra
+                  <span class="badge badge-info right"></span>
+                </p>
+              </a>
+            </li> -->
         <!-- <li class="nav-item">
-            <a href="{{ path('taxon_index') }}" class="nav-link">
-              <i class="nav-icon far fa-image"></i>
-              <p>
-                Taxón
-              </p>
-            </a>
-          </li> -->
+              <a href="{{ path('taxon_index') }}" class="nav-link">
+                <i class="nav-icon far fa-image"></i>
+                <p>
+                  Taxón
+                </p>
+              </a>
+            </li> -->
         <li class="nav-item">
           <a href="{{ path('variedad_index') }}" class="nav-link">
             <i class="nav-icon fas fa-seedling"></i>
@@ -92,21 +93,21 @@
           </a>
         </li>
         <!-- <li class="nav-item">
-            <a href="{{ path('uso_index') }}" class="nav-link">
-              <i class="nav-icon fas fa-book-reader"></i>
-              <p>
-                Uso
-              </p>
-            </a>
-          </li> -->
+              <a href="{{ path('uso_index') }}" class="nav-link">
+                <i class="nav-icon fas fa-book-reader"></i>
+                <p>
+                  Uso
+                </p>
+              </a>
+            </li> -->
         <!-- <li class="nav-item">
-            <a href="{{ path('uso_variedad_index') }}" class="nav-link">
-              <i class="nav-icon fas fa-image"></i>
-              <p>
-                Uso Variedad
-              </p>
-            </a>
-          </li> -->
+              <a href="{{ path('uso_variedad_index') }}" class="nav-link">
+                <i class="nav-icon fas fa-image"></i>
+                <p>
+                  Uso Variedad
+                </p>
+              </a>
+            </li> -->
         <li class="nav-item">
           <a href="{{ path('imagen_index') }}" class="nav-link">
             <i class="nav-icon fas fa-camera"></i>
@@ -132,71 +133,9 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{ path('entrada_index') }}" class="nav-link">
-            <i class="nav-icon fas fa-sign-in-alt"></i>
-            <p>Entrada</p>
-          </a>
-        </li>
-        <li class="nav-item">
           <a href="{{ path('envase_index') }}" class="nav-link">
             <i class="nav-icon fas fa-flask"></i>
             <p>Envases</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ path('pago_index') }}" class="nav-link">
-            <i class="nav-icon fas fa-credit-card"></i>
-            <p>Pagos</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ path('germinacion_index') }}" class="nav-link">
-            <i class="nav-icon fas fa-leaf"></i>
-            <p>Germinación</p>
-          </a>
-        </li>
-        <!-- <li class="nav-item">
-            <a href="{{ path('instituciones_index') }}" class="nav-link">
-              <i class="nav-icon fas fa-building"></i>
-              <p>
-                Instituciones
-              </p>
-            </a>
-          </li> -->
-        <li class="nav-item">
-          <a href="{{ path('donante_index') }}" class="nav-link">
-            <i class="nav-icon fas fa-hand-holding"></i>
-            <p>Donante | Recolector</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ path('mejoras_index') }}" class="nav-link">
-            <i class="nav-icon fas fa-plus"></i>
-            <p>Mejorador/a</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ path('vista_alarmas') }}" class="nav-link">
-            <i class="nav-icon fas fa-bell"></i>
-            <p>Alarmas</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ path('vista_megatabla') }}" class="nav-link">
-            <i class="nav-icon fas fa-columns"></i>
-            <p>Mega-Tabla</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ path('fitosanitario_index') }}" class="nav-link">
-            <i class="nav-icon fas fa-columns"></i>
-            <p>Fitosanitario</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ path('taxon_index') }}" class="nav-link">
-            <i class="nav-icon fas fa-columns"></i>
-            <p>WFO</p>
           </a>
         </li>
       </ul>
